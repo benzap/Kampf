@@ -1,0 +1,9 @@
+#ifndef _STORAGE_CONTAINER_HPP
+#define _STORAGE_CONTAINER_HPP
+/* INCLUDES */
+
+
+
+
+
+#endif //_STORAGE_CONTAINER_HPP

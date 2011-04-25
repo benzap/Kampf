@@ -1,0 +1,282 @@
+* What is kampf
+  3d 3rd-person thriller / sandbox game
+  - Taking elements from good third person cased games while retaining
+    a lot of the things that make it unique
+  - Adding a completely new way to interact with your character
+  - Make it extremely hard to master with strategies changing based on
+    different menaces
+  - Procedurally generated worlds
+  - Interesting crafting system inspired by minecraft
+
+* More of what is to be expected in this game
+  - Your main goal is to survive. You're in a post-apocalypse world
+    where anything and everything wants to kill you. You can play out
+    the game however you want, with the main objective of staying alive,
+    along with your friends, which consists of any other player
+    (multiplayer)
+  - The game tries to retain some more realistic factors, like
+    physical ability, mental abilities, etc.
+  - for instance, you start off randomly with a certain physique and
+    mentality. Physical strength pays off in how well you can
+    kill. Mental strength pays off in how well you can take the
+    stresses of being attacked. For instance, you'll freeze if
+    something really frightening tries to attack you regardless of how
+    weak they might be.
+  - Different skills can be trained overtime either through experience
+    or more precise skill exercises.
+
+* What language is it written in?
+  - CPP with Lua seems like the best bet. Can write the core with C++
+    and then bind the objects within lua and continue the programming
+    from there.
+    
+* Todo
+** TODO Make a makefile suitable for a small project [100%]
+   - [X] <2011-04-09 Sat>
+** TODO Create Abstract Object [100%]
+   - [X] Successfully become inherited by other object <2011-04-10 Sun>
+** TODO Create StorageContainer [%]
+   - [ ] Create singleton StorageContainer class
+   - [ ] Create a database layout for graphics model storage
+** TODO Create ConfigurationContainer [%]
+** TODO Create GraphicsEngine [%]
+** TODO Create SoundEngine [%]
+** TODO Create NetworkEngine [%]
+** TODO Create StateMachine [33%]
+   - [X] Successfully run Empty Object in Statemachine <2011-04-16 Sat>
+   - [ ] Successfully run Audio Object in Statemachine
+   - [ ] Successfully run a Graphics-geometry object on the screen
+** TODO Create Audio Object [%]
+   - [ ] Successfully play a sound file
+   - [ ] Successfully play a sound file asynchronously
+   - [ ] Successfully pause a sound file
+   - [ ] Successfully stop and play a sound file from the start
+   - [ ] Successfully play two sound files at the same time
+** TODO Create Graphics Object [%]
+*** Geometry
+     - [ ] Successfully render and display an object on the screen
+     - [ ] Successfully modify an object to move on the screen
+     - [ ] Successfully modify an object to rotate on the screen
+*** Light
+*** Text
+*** Special Effects
+** TODO Create Data Object [%]
+   - [ ] Successfully use with network object asynchronously
+** TODO Create Network Object [%]
+   - [ ] Successfully send information to a server engine instance
+
+* Classes
+** StorageContainer(class object)
+   *Description* 
+   - Used to store permanent data which can be shared and would be
+     useful for when someone would want to add their own game content
+     and keep things organized.
+   - For a short term goal, sqlite3 will be used to store the
+     databases
+   - The primary databases will include: Models, Sounds,
+     Materials. The idea is to reduce the number of occurences of
+     redundancy. With the release of plugins, each plugin would have
+     to be placed within its own database.
+
+   *Attributes*
+
+   *Methods*
+
+** StateMachine(class object) [[./src/StateMachine.cpp]] [[./src/StateMachine.hpp]]
+   *Description*
+   - Used to control changing states within the game. Is the heart of
+   the game, since it takes all objects and starts the recursion
+   process
+   
+   *Attributes*
+   - objectList(Pointer Object Array) :: _private_
+
+   *Methods*
+   - void run() :: *public* runs the statemachine's main loop	      
+   - void appendObject(Object* theObject) :: *public* appends the
+        object to the object list to then be run
+	
+** Object(virtual class object) [[./src/Object.cpp]] [[./src/Object.hpp]]
+   *Description*
+   - Used to load into the state machine
+
+   *Attributes*
+   - children(Pointer Object Array) :: *public*
+   - Name(string) :: _private_
+   - bIsChild(boolean) :: _private_
+   - type(enumeration) :: _private_
+
+   *Methods*
+   - uint execute() :: *public* /virtual/ called by statemachine
+
+*** World(class object)
+    *Description*
+    - Used to keep everything together, the world is the primary
+      object and everything is contained in the world 
+    - The difference between the world and other objects, is it will
+      include functionality to generate it's own objects. I hope to
+      expand this to have the world procedurally generate it's own
+      stuff (far-fetched, but I hope to make this a reality)
+    - This statemachine links to the world object and runs the world
+      object and runs this in parallel with everything else. At least
+      this is what i'm hoping to accomplish.
+
+*** Empty(class object, inheritable) [[./src/Empty.cpp]] [[./src/Empty.hpp]]
+    *Description*
+    - class is used to hold all of the other classes together in a
+      hierarchy. This is particularly useful for characters etc.
+
+*** Network(class object)
+    *Description*
+    - object will be used for replication between the client and
+      server. It is preferred that this object is a child to whatever
+      is going to be replicated.
+    
+    *Attributes*
+    - network_Address(string) :: _private_
+    - network_port(unsigned integer) :: _private_
+    - bSendToServer(boolean) :: _private_
+    - bReceiveFromServer(boolean) :: _private_
+
+    *Methods*
+    - void sendData(Data data) :: _private_ used to send data to server
+
+*** Audio(class object)
+    *Description*
+    - Used to wrap a particular piece of audio. used for sound effects
+      or music in the background.
+
+    *Attributes*
+    - audio_Filename(string) :: _private_
+    - audio_Type(string) :: _private_
+      
+    *Methods*
+    - void play() :: *public* plays the sound
+    - void stop() :: *public* stops the sound
+    - void pause() :: *public* pauses the sound
+    - uint getCurrentTime() :: *public* returns the current time into the sound
+    - uint getLength() :: *public* returns length of the sound
+
+*** Data(class object) [[./src/Data.cpp]] [[./src/Data.hpp]]
+    *Description* 
+    - Used to package information to send to another Data class on
+      another system.
+    - The sending and receiving of information within these objects is
+      controlled by the network objects
+    - Will possibly setup as a template in order to accomodate all data
+      types desired
+
+    *Attributes*
+    - type(unsigned integer) :: _private_ enumeration of types
+         (RECEIVER, SENDER, BIDIRECTIONAL)
+    - bReadyForTransfer(boolean) :: _private_ becomes true when the
+         ready() method is called
+    - bufferData(pointer) :: _private_ depending on whether templating
+         is used, this will house the data for transfer
+    - bufferSize(unsigned integer) :: _private_ is the buffer size by
+         number of elements
+    
+    *Methods*
+    - ready() :: when called, the object is ready to be replicated if
+                 desired
+*** Graphics(virtual class object) [[./src/Graphics.cpp]] [[./src/Graphics.hpp]]
+    *Description*
+
+    *Attributes*
+    - direction(vector object) :: _private_
+    - position(vector object) :: _private_
+    - rotation(vector object) :: _private_
+
+    *Methods*
+    void render() :: *public* /virtual/ renders the current graphic
+
+**** Geometry(class object) [[./src/Geometry.hpp]] [[./src/Geometry.cpp]]
+     *Description*
+     - Geometry being used in the scene should be preloaded in the
+     graphics card texture_Filename(string) texture_Type(string)
+     - The texture for UV mapping should be preloaded within the
+       graphics card
+     - Consider implementing [[http://code.google.com/p/lib3ds/][lib3ds]] functions to import and export
+       .3ds files.
+     
+     *Attributes*
+     - geometry_Filename(string)
+     - geometry_Type(string)
+     - geometry_Preloaded(boolean)
+     - geometry_PivotPoint(vector object)
+
+     *Methods*
+     
+**** Light(class object)
+     *Description* 
+     - A light object will illuminate a certain area of the map
+       depending on it's properties
+
+     *Attributes*
+     - light_Type(ui)
+     - intensity(float)
+
+     *Methods*
+
+**** Text(class object)
+     *Description* 
+     - A text object that can either be used to send notifications, or
+       to place around the world on specific objects
+
+     *Attributes*
+     - light_Type(ui)
+     - intensity(float)
+
+     *Methods*
+
+**** SpecialEffect(class object)
+     *Description* 
+     - SpecialEffects are anything that would be different from other
+       graphical types
+
+     *Attributes*
+     - effect_Type(unsigned integer)
+
+     *Methods*
+     
+
+* Random snippets
+** What to use for the statemachine data traversal
+   - From what i've read, it's more efficient to use a vector for
+     reading over static information. The only problem is I might have
+     elemetns that will be appearing in masses, and the appearing of
+     these elements would be strainuous on the system as they're being
+     produced. However, it would like be a one time thing, so it might
+     not necessarily be an issue. Another thing to consider is
+     prefetching this information and having it sit idle for when it
+     needs to be processed at a later time. A usage example: I want to
+     load 100 zombie on the map, it i were to load these zombies on
+     the map and instantly have them attacking the village, the amount
+     of data gathered by each player might be overwhelming and lag
+     their system. A way to fix this may be to prefetch the
+     information for these 100 zombies, setup a miniature program to
+     prefetch this information and preallocate memory while setting a
+     flag to have the zombies dormant and hidden, and than BAM! this
+     would preferably have less desired effects on the world as well,
+     and would be less strainuous on the server.
+
+   - objects will be passed by reference, and the underlying members
+     are referenced. This will allow multiple objects to reference the
+     same member data if it is so desired.
+     
+** What to use for animation
+   - animation will be done by loading individual keyframes in a set
+     order with a prefix to describe what the animation is, an
+     underscore and a number to describe what keyframe it is
+     ex: firing_01.obj, firing_02.obj
+   - going to employ a compression method to better eliminate bloat
+     within the program, since if I use .obj, it will be easily be
+     compressed and decompressed.
+
+** Transferring information, serializing
+   - [[http://code.google.com/p/protobuf/downloads/list][google protocol buffers]]
+   - [[http://msgpack.org/][msgpack]]
+** Data Storage
+   - serialize the underlying world. When it's required, serialize and
+     deserialize the world when it's required, for example, loading or
+     saving.
