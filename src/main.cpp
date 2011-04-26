@@ -49,11 +49,6 @@ int main() {
 
   gObject1->setName("The Graphics Object");
 
-  const clockValue c = clock() + 1200;
-  gObject1->setTempTime(0,c);
-  clockValue* cPtr = gObject1->getTempTime(0);
-  std::cout << clock() << " : " << *cPtr << std::endl;
-
 
   //print the status of each
   theObject->printStatus();  

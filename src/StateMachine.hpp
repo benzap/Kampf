@@ -27,7 +27,7 @@ public:
   CALLBACK run();
 
   //This will be expanded to grab a world object and begin executing it
-  CALLBACK appendObject(Object*);
+  CALLBACK appendObject(ObjectPtr);
   CALLBACK removeObject(void*, bool);
 
 

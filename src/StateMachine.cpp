@@ -55,7 +55,7 @@ CALLBACK StateMachine::run() {
   return SUCCESS;
 }
 
-CALLBACK StateMachine::appendObject(Object* theObject) {
+CALLBACK StateMachine::appendObject(ObjectPtr theObject) {
   for (int i = 0; i < SM_LIST_SIZE; i++) {
     if (this->objectList[i] != NULL) continue;
     this->objectList[i] = theObject;

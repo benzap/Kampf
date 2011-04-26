@@ -117,7 +117,7 @@ const char* Object::getName() {
   return this->name;
 }
 
-CALLBACK Object::appendChild(Object* child) {
+CALLBACK Object::appendChild(ObjectPtr child) {
   if (this->numChildren < CHILDREN_SIZE) {
     for (int i = 0; i < CHILDREN_SIZE; i++) {
       if (this->children[i] == NULL) {

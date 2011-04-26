@@ -1,0 +1,23 @@
+Kampf is a game developed to take advantage of a flexible
+design. Speed isn't of necessity, but anything that can, should be
+optimized in time.
+
+kampf.org - includes a basic idea of what needs to be finished, and
+small jots on ideas behind how to implement certain elements of the
+engine, and what should be expected out of the engine.
+
+NOTE: The org extension comes from the popular org-mode extension in
+emacs
+
+kampf_UML_diagram.dia - is a small diagram, which shows the underlying
+structure. This is not concrete and will be changed if there are more
+design constraints or ends up becoming inflexible for later
+implementations. Runs in the program 'dia'
+[[http://projects.gnome.org/dia/]]
+
+kampf_UML_diagram.png - export of kampf_UML_diagram.dia
+
+*Compiling*
+venture to ./src and run the makefile with 'make'
+the executable is placed in the parent folder
+

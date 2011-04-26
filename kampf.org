@@ -1,14 +1,15 @@
 * What is kampf
-  3d 3rd-person thriller / sandbox game
+  - The word "kampf" is German for "struggle," because this will be a
+    struggle to make
+
+  *3d 3rd-person thriller / sandbox game*
   - Taking elements from good third person cased games while retaining
     a lot of the things that make it unique
-  - Adding a completely new way to interact with your character
   - Make it extremely hard to master with strategies changing based on
     different menaces
   - Procedurally generated worlds
-  - Interesting crafting system inspired by minecraft
-
 * More of what is to be expected in this game
+  *Not everything is concrete*
   - Your main goal is to survive. You're in a post-apocalypse world
     where anything and everything wants to kill you. You can play out
     the game however you want, with the main objective of staying alive,
@@ -24,14 +25,14 @@
     weak they might be.
   - Different skills can be trained overtime either through experience
     or more precise skill exercises.
-
 * What language is it written in?
-  - CPP with Lua seems like the best bet. Can write the core with C++
+  - C++ with Lua seems like the best bet. Can write the core with C++
     and then bind the objects within lua and continue the programming
     from there.
-    
 * Todo
-** TODO Make a makefile suitable for a small project [100%]
+** TODO Organization [33%]
+   - [ ] Organize directory tree into ./includes ./objs ./libs ./src
+   - [ ] Setup autoconf for project
    - [X] <2011-04-09 Sat>
 ** TODO Create Abstract Object [100%]
    - [X] Successfully become inherited by other object <2011-04-10 Sun>
@@ -66,49 +67,247 @@
    - [ ] Successfully send information to a server engine instance
 
 * Classes
-** StorageContainer(class object)
+** StorageContainer(class object singleton)
    *Description* 
-   - Used to store permanent data which can be shared and would be
+   - Used to store and fetch permanent data which can be shared and would be
      useful for when someone would want to add their own game content
      and keep things organized.
-   - For a short term goal, sqlite3 will be used to store the
-     databases
-   - The primary databases will include: Models, Sounds,
-     Materials. The idea is to reduce the number of occurences of
-     redundancy. With the release of plugins, each plugin would have
-     to be placed within its own database.
+   - Things to be fetched include: Model data, Material data,
+     Textures, and Sounds.
+   - The primary data will include: Models and Materials.
+   - Models and materials will be serialized and stored in binary blobs. These
+     binary blobs will made with 3rd party tools.
+   - Configuration will handle where to look for certain models with a
+     set of paths
+   - 3rd party tools will be made in either lua or python, preferrably
+     lua.
+   - Textures :: BMP, PNG, or JPEG. may need to set restrictions on colour
+                 modes, resolution etc.
+   - Models :: vectorPts, [[http://msgpack.org/][msgpack]]. textureCoords, [[http://msgpack.org/][msgpack]]. materialProperties, JSON.
+   - Sounds :: WAV or OGG. 
+   - May be able to get away with compressing certain data using gzip.
+   - World :: The world will also be saved in a textfile using JSON,
+              and a strong compression algorithm.
+
+   *Includes*
+   - None so far
+
+   *Definitions*
+   - None so far
+
+   *Enumerations*
+   - None so far
+
+   *Typedefs*
+   - None so far
 
    *Attributes*
+   - None so far
 
    *Methods*
+   - None so far
+*** TODO StorageContainer [0%]
+    - [ ] Create a 3rd party tool to export .obj files into the form
+      of a binary blob using [[http://msgpack.org/][msgpack]] serial object
+** ConfigurationContainer (class object singleton)
+   *Description*
+   - Will dissect the configuration file and provide these parameters
+     to any other class that requires them.
+   - Configuration files will be provided in either the JSON or XML
+     format, i'm leaning towards JSON.
 
+   *Includes*
+   - None so far
+
+   *Definitions*
+   - None so far
+
+   *Enumerations*
+   - None so far
+
+   *Typedefs*
+   - None so far
+
+   *Attributes*
+   - None so far
+
+   *Methods*
+   - None so far
+*** TODO ConfigurationContainer [%]
+** GraphicsEngine (class object singleton)
+   *Description*
+   - Anything thrown towards the graphics engine should take it and
+     render it
+   - Flexibility may have to be sacrificed in order to achieve the
+     desired results.
+
+   *Includes*
+   - None so far
+
+   *Definitions*
+   - None so far
+
+   *Enumerations*
+   - None so far
+
+   *Typedefs*
+   - None so far
+
+   *Attributes*
+   - None so far
+
+   *Methods*
+   - None so far
+*** TODO GraphicsEngine [%]
+    - [ ] Create a graphics environment that starts at statemachine
+      runtime and renders a geometry object.
+** SoundEngine (class object singleton)
+   *Description*
+   - Will be setup to take in mulitple sounds and run asynchronously
+     with everything else.
+   - I expect it to be nonintrusive
+
+   *Includes*
+   - None so far
+
+   *Definitions*
+   - None so far
+
+   *Enumerations*
+   - None so far
+
+   *Typedefs*
+   - None so far
+
+   *Attributes*
+   - None so far
+
+   *Methods*
+   - None so far
+*** TODO SoundEngine [%]
+    - [ ] Run a music instance asynchronously
+** NetworkEngine (class object singleton)
+   *Description*
+   - Links with Network objects
+   - The network engine keeps track of client and server connections
+     and ensures replication is done correctly.
+   - This will be refined later.
+
+   *Includes*
+   - None so far
+
+   *Definitions*
+   - None so far
+
+   *Enumerations*
+   - None so far
+
+   *Typedefs*
+   - None so far
+
+   *Attributes*
+   - None so far
+
+   *Methods*
+   - None so far
+*** TODO NetworkEngine [%]
 ** StateMachine(class object) [[./src/StateMachine.cpp]] [[./src/StateMachine.hpp]]
    *Description*
    - Used to control changing states within the game. Is the heart of
    the game, since it takes all objects and starts the recursion
    process
    
+   *Includes*
+   - <string>
+   - [[./src/Object.hpp]]
+
+   *Definitions*
+
+   *Typedefs*
+   - std::string :: PATH_TYPE
+   - unsigned int :: type_count
+
    *Attributes*
-   - objectList(Pointer Object Array) :: _private_
+   - objectList(ObjectPtrPtr) :: _private_
+   - objectCount(type_count) :: _private_
+   - bKeepRunning(boolean) :: _private_
 
    *Methods*
-   - void run() :: *public* runs the statemachine's main loop	      
-   - void appendObject(Object* theObject) :: *public* appends the
+   - StateMachine() :: *public*
+   - ~StateMachine :: *public*
+   - CALLBACK run() :: *public* runs the statemachine's main loop	      
+   - CALLBACK appendObject(ObjectPtr) :: *public* appends the
         object to the object list to then be run
-	
+   - CALLBACK removeObject(ObjectPtr, bool) :: *public* removes an
+        object, boolean decides if the object is deleted afterwards.
+*** TODO StateMachine [%]
+    - [ ] Change removeObject to not use a void*
+
 ** Object(virtual class object) [[./src/Object.cpp]] [[./src/Object.hpp]]
    *Description*
-   - Used to load into the state machine
+   - Abstract part of any entity within the world, and is called by
+     the StateMachine. *Abstract Class*
+
+   *Includes* 
+   - <string>
+   - [[./src/kampf_general.hpp]]
+
+   *Definitions*
+   - CHILDREN_SIZE :: number of memory locations available for
+     children array
+   - NAME_SIZE :: maximum size of name array
+
+   *Typedefs*
+   - long unsigned int :: ID_TYPE
+   - Object** :: ObjectPtrPtr
+   - Object* :: ObjectPtr
+
+   *Enumerations*
+   - enum_objectTypes
+     - NONE
+     - WORLD
+     - EMPTY
+     - AUDIO
+     - GRAPHICS
+     - GEOMETRY
+     - NETWORK
+     - DATA
 
    *Attributes*
-   - children(Pointer Object Array) :: *public*
-   - Name(string) :: _private_
+   - children(Pointer Object Array) :: /protected/
+   - name(string) :: _private_
    - bIsChild(boolean) :: _private_
    - type(enumeration) :: _private_
+   - parent(ObjectPtr) :: _private_
 
    *Methods*
-   - uint execute() :: *public* /virtual/ called by statemachine
+   - Object() :: *public* 
+   - ~Object() :: *public* /virtual/
+   - CALLBACK execute() :: *public* /virtual/ called by statemachine.
+   - void printStatus() :: *public* /virtual/ prints the status of the
+        object on screen. Repimplemented in each inherited class to
+        provide adequate information about them.
+   - void logStatus() :: *public* /virtual/ something I plan on
+        implementing once the project gets big enough.
+   - CALLBACK appendChild(ObjectPtr) :: *public* append child to the
+        children array of the object
+   - constant ObjectPtr getChildById(ID_TYPE) :: *public* 
+   - constant ObjectPtr getChildByName(char*) :: *public*
+   - constant ObjectPtr getChildByIndex(unsigned short int) :: *public*
+   - CALLBACK removeChildByReference(ID_TYPE) :: *public* remove an
+        object by it's address
+   - CALLBACK removeChildByIdentifier(ID_TYPE) :: *public*
+   - int readNumberOfChildren() :: *public*
+   - void setID(int) :: *public*
+   - ID_TYPE getID() :: *public*
+   - void setName(char*) :: *public*
+   - const char* getName() :: *public*
+   - void setParent(ObjectPtr) :: *public*
+   - const ObjectPtr getParent() :: *public*
 
+*** TODO Object [0%]
+   - [ ] Incorporate methods to produce a unique id
+   - [ ] Incorporate logStatus function with definitions
 *** World(class object)
     *Description*
     - Used to keep everything together, the world is the primary
@@ -118,20 +317,69 @@
       expand this to have the world procedurally generate it's own
       stuff (far-fetched, but I hope to make this a reality)
     - This statemachine links to the world object and runs the world
-      object and runs this in parallel with everything else. At least
-      this is what i'm hoping to accomplish.
+      object.
+
+    *Includes*
+    - None so far
+
+    *Definitions*
+    - None so far
+
+    *Enumerations*
+    - None so far
+
+    *Typedefs*
+    - None so far
+
+    *Attributes*
+    - None so far
+
+    *Methods*
+    - None so far
 
 *** Empty(class object, inheritable) [[./src/Empty.cpp]] [[./src/Empty.hpp]]
     *Description*
     - class is used to hold all of the other classes together in a
       hierarchy. This is particularly useful for characters etc.
+    - This will be inherited to produce new unique entities within the
+      game.
+
+    *Includes*
+    - None so far
+
+    *Definitions*
+    - None so far
+
+    *Enumerations*
+    - None so far
+
+    *Typedefs*
+    - None so far
+
+    *Attributes*
+    - None so far
+
+    *Methods*
+    - None so far
 
 *** Network(class object)
     *Description*
     - object will be used for replication between the client and
       server. It is preferred that this object is a child to whatever
       is going to be replicated.
-    
+
+    *Includes*
+    - None so far
+
+    *Definitions*
+    - None so far
+
+    *Enumerations*
+    - None so far
+
+    *Typedefs*
+    - None so far    
+
     *Attributes*
     - network_Address(string) :: _private_
     - network_port(unsigned integer) :: _private_
@@ -146,6 +394,18 @@
     - Used to wrap a particular piece of audio. used for sound effects
       or music in the background.
 
+    *Includes*
+    - None so far
+
+    *Definitions*
+    - None so far
+
+    *Enumerations*
+    - None so far
+
+    *Typedefs*
+    - None so far
+
     *Attributes*
     - audio_Filename(string) :: _private_
     - audio_Type(string) :: _private_
@@ -159,12 +419,22 @@
 
 *** Data(class object) [[./src/Data.cpp]] [[./src/Data.hpp]]
     *Description* 
-    - Used to package information to send to another Data class on
-      another system.
-    - The sending and receiving of information within these objects is
-      controlled by the network objects
-    - Will possibly setup as a template in order to accomodate all data
+    - Can be setup for sending and receiving of information controlled
+      by the network objects
+    - Setup as a template in order to accomodate all data
       types desired
+
+    *Includes*
+    - None so far
+
+    *Definitions*
+    - None so far
+
+    *Enumerations*
+    - None so far
+
+    *Typedefs*
+    - None so far
 
     *Attributes*
     - type(unsigned integer) :: _private_ enumeration of types
@@ -181,6 +451,21 @@
                  desired
 *** Graphics(virtual class object) [[./src/Graphics.cpp]] [[./src/Graphics.hpp]]
     *Description*
+    - Graphics objects take advantage of the GraphicsEngine in some
+      way or form. The way they do so, differs between each inherited
+      object.
+
+    *Includes*
+    - None so far
+
+    *Definitions*
+    - None so far
+
+    *Enumerations*
+    - None so far
+
+    *Typedefs*
+    - None so far
 
     *Attributes*
     - direction(vector object) :: _private_
@@ -193,11 +478,21 @@
 **** Geometry(class object) [[./src/Geometry.hpp]] [[./src/Geometry.cpp]]
      *Description*
      - Geometry being used in the scene should be preloaded in the
-     graphics card texture_Filename(string) texture_Type(string)
+     graphics card
      - The texture for UV mapping should be preloaded within the
        graphics card
-     - Consider implementing [[http://code.google.com/p/lib3ds/][lib3ds]] functions to import and export
-       .3ds files.
+
+    *Includes*
+    - None so far
+
+    *Definitions*
+    - None so far
+
+    *Enumerations*
+    - None so far
+
+    *Typedefs*
+    - None so far
      
      *Attributes*
      - geometry_Filename(string)
@@ -212,6 +507,18 @@
      - A light object will illuminate a certain area of the map
        depending on it's properties
 
+    *Includes*
+    - None so far
+
+    *Definitions*
+    - None so far
+
+    *Enumerations*
+    - None so far
+
+    *Typedefs*
+    - None so far
+
      *Attributes*
      - light_Type(ui)
      - intensity(float)
@@ -222,6 +529,18 @@
      *Description* 
      - A text object that can either be used to send notifications, or
        to place around the world on specific objects
+
+    *Includes*
+    - None so far
+
+    *Definitions*
+    - None so far
+
+    *Enumerations*
+    - None so far
+
+    *Typedefs*
+    - None so far
 
      *Attributes*
      - light_Type(ui)
@@ -234,11 +553,24 @@
      - SpecialEffects are anything that would be different from other
        graphical types
 
+    *Includes*
+    - None so far
+
+    *Definitions*
+    - None so far
+
+    *Enumerations*
+    - None so far
+
+    *Typedefs*
+    - None so far
+
      *Attributes*
      - effect_Type(unsigned integer)
 
      *Methods*
      
+
 
 * Random snippets
 ** What to use for the statemachine data traversal

@@ -59,7 +59,7 @@ public:
   virtual void logStatus();
 
   //used to append more children within the object
-  CALLBACK appendChild(Object*);
+  CALLBACK appendChild(ObjectPtr);
 
   const ObjectPtr getChildById(ID_TYPE);
   const ObjectPtr getChildByName(char*);
