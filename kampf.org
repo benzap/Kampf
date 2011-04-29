@@ -66,6 +66,11 @@
 ** TODO Create Network Object [%]
    - [ ] Successfully send information to a server engine instance
 
+** TODO Create Tool to export from OBJ Format into storage container [%]
+   - [ ] Successfully produce outputed files and place in the right
+     subdirectories
+   - [ ] Successfully import files into cpp code
+   - [ ] Successfully render files input
 * Classes
 ** StorageContainer(class object singleton)
    *Description* 
