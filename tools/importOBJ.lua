@@ -9,6 +9,7 @@ local outputExtension_vectors = ".kv"
 local outputExtension_faces = ".kf"
 local outputExtension_normals = ".kn"
 local outputExtension_textures = ".kt"
+local outputExtension_materials = ".km"
 
 --Output Directories
 local outputDirectory = "./"
@@ -91,7 +92,11 @@ if #arg < 1 then
 end
 
 local inputFile = unpack(arg)
-local inputFile_mat = nil
+local path
+do
+   i = string.find(inputFile,"/%w+.%w+$")
+   path = string.sub(inputFile,1,i)
+end
 
 --make sure input file exists and has the right extension .obj
 if fileExists(inputFile) then
@@ -122,6 +127,7 @@ local outputFileVectorHandle -- vectors
 local outputFileFacesHandle -- faces
 local outputFileNormalsHandle -- normals
 local outputFileTexturesHandle -- textures
+local outputFileMaterialHandle -- materials
 
 
 local materialName -- temp variable for material properties
@@ -138,7 +144,7 @@ for line in inputFileHandle:lines() do
       for i,v in ipairs(temp) do
 	 if string.find(v,"%w+%.mtl$") then
 	    materialName = string.match(v,"%w+%.mtl$")
-	    materialFileHandle = io.open(materialName,'r')
+	    materialFileHandle = io.open(path .. materialName,'r')
 	    if materialFileHandle ~= nil then
 	       for lineMat in materialFileHandle:lines() do
 		  if string.find(lineMat,"^newmtl%s") then
@@ -252,7 +258,21 @@ for line in inputFileHandle:lines() do
       end --END for i,v in ipairs(temp) do
       
    elseif string.find(line,"^g%s") then
-      --pass
+      --set group name
+      temp = string.split(line)
+      table.remove(temp,1)
+      for i in pairs(temp) do
+	 if i == 1 then
+	    groupName = groupName .. temp[i]
+	 elseif i > 1 then
+	    groupName = groupName .. "_" .. temp[i]
+	 end
+      end
+      
+      if groupName == '' then
+	 print("ERROR: no group name provided in '" .. inputFile .. "'\n")
+	 os.exit(1)
+      end
 
    elseif string.find(line,"^o%s") then
       --set object name
@@ -271,10 +291,22 @@ for line in inputFileHandle:lines() do
 	 os.exit(1)
       end
       
-      outputFileVectorHandle = io.open(objectName .. outputExtension_vectors, 'wb')
-      outputFileFacesHandle = io.open(objectName .. outputExtension_faces, 'wb')
-      outputFileNormalsHandle = io.open(objectName .. outputExtension_normals, 'wb')
-      outputFileTexturesHandle = io.open(objectName .. outputExtension_textures, 'wb')
+      local name
+      if groupName == '' then 
+	 name = objectName
+      else
+	 name = groupName .. "__" .. objectName
+      end
+      outputFileVectorHandle = io.open(path .. name .. outputExtension_vectors, 'wb')
+      print(path .. name .. outputExtension_vectors .. " created")
+      outputFileFacesHandle = io.open(path .. name .. outputExtension_faces, 'wb')
+      print(path .. name .. outputExtension_faces .. " created")
+      outputFileNormalsHandle = io.open(path .. name .. outputExtension_normals, 'wb')
+      print(path .. name .. outputExtension_normals .. " created")
+      outputFileTexturesHandle = io.open(path .. name .. outputExtension_textures, 'wb')
+      print(path .. name .. outputExtension_textures .. " created")
+      outputFileMaterialHandle = io.open(path .. name .. outputExtension_materials, 'w')
+      print(path .. name .. outputExtension_materials .. " created")
 
    elseif string.find(line,"^v%s") then
       temp = string.split(line)
@@ -292,7 +324,12 @@ for line in inputFileHandle:lines() do
    elseif string.find(line,"^vn%s") then
       --pass
    elseif string.find(line,"^usemtl") then
-      --pass
+      temp = string.split(line)
+      table.remove(temp,1)
+      local theMaterial = materialProperties[temp[1]]
+      if not theMaterial then error(temp[1] .. " doesn't exist") end
+      outputFileMaterialHandle:write(json.encode(theMaterial))
+      
    elseif string.find(line,"^s%s") then
       --pass
    elseif string.find(line,"^f%s") then
@@ -339,11 +376,6 @@ for line in inputFileHandle:lines() do
    end --END if string.find(line, ... OBJ
 end --END for line in inputFileHandle:lines() do
 
-for i,v in ipairs(materialProperties) do
-   print(i)
-end
-
-print(materialProperties.Material.ambientColor[1])
 
 
 os.exit(0)
