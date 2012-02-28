@@ -1,2 +1,0 @@
-#!./lua
-print "Hello World"
