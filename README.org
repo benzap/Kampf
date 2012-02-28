@@ -21,10 +21,10 @@ optimized in time.
   - kampf_UML_diagram.png :: export of kampf_UML_diagram.dia
        
 * Compiling
-venture to ./src and run the makefile with *make* the executable is
-placed in the parent folder
-
-In this future, I will developing autotools extension to the project.
+  venture to ./src and run the makefile with *make* the executable is
+  placed in the parent folder
+  
+  In this future, I will developing autotools extension to the project.
 * Depenencies
   - BOOST library headers :: [[http://www.boost.org/][homepage]]
   - MessagePack :: [[http://msgpack.org/][Homepage]]
