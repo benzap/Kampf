@@ -1,34 +1,15 @@
 * What is Kampf
-Kampf is a game developed to take advantage of a flexible
-design. Speed isn't of necessity, but anything that can, should be
-optimized in time.
+  A game engine developed for 2d Games employing the entity component
+  game design pattern.
 
-* Explanation of different directories
-  - kampf.org :: includes a basic idea of what needs to be finished,
-                 and small jots on ideas behind how to implement
-                 certain elements of the engine, and what should be
-                 expected out of the engine.
+* Compatible Operating Systems
+  - Windows (mingw)
+  - Linux (gcc)
 
-		 *NOTE* 
-		 /The org extension comes from the popular org-mode extension in emacs/
-
-  - kampf_UML_diagram.dia :: is a small diagram, which shows the
-       underlying structure. This is not concrete and will be changed
-       if there are more design constraints or ends up becoming
-       inflexible for later implementations. Runs in the program 'dia'
-       [[http://projects.gnome.org/dia/]]
-       
-  - kampf_UML_diagram.png :: export of kampf_UML_diagram.dia
-       
 * Compiling
-  venture to ./src and run the makefile with *make* the executable is
-  placed in the parent folder
-  
-  In this future, I will developing autotools extension to the project.
+  - Nil
+
 * Depenencies
-  - BOOST library headers :: [[http://www.boost.org/][homepage]]
-  - MessagePack :: [[http://msgpack.org/][Homepage]]
-  - MessagePack - lua :: [[https://github.com/nobu-k/mplua][mplua git repository homepage]]
-  - few others, i'll list them later
+  - Nil
 
 
