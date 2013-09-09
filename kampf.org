@@ -1,2 +1,81 @@
-* Requirements
+* Class Diagram
+  #+BEGIN_UML
+  @startuml
+  class Savage << (S,#FF7700) Singleton >> {
+  - AbstractRenderWindow windowContext
+  - std::vector<AbstractSystem> systemList
+  - std::vector<AbstractManager> managerList
+  - Messenger messenger
+  ==
+  .. constructor ..
+  + void Savage()
+  + void runMainLoop(bContinuous=true)
+  -- getters --
+  + AbstractSystem getSystem(enum SystemType enumSystem)
+  + AbstractManager getManager(enum ManagerType enumManger)
+  + Messenger getMessenger()
+  }
+  
+  abstract class AbstractRenderWindow {
+  - int windowWidth = 800
+  - int windowHeight = 600
+  ==
+  + draw(AbstractDrawable drawable)
+  } 
 
+  abstract class AbstractEntity {
+  - long id
+  - std::vector<AbstractComponent> components
+  - string name = ""
+  ==
+  .. constructor ..
+  + AbstractEntity(std::string name, long id)
+  -- getters/setters --
+  .. id ..
+  + long getID()
+  + void setID(long id)
+  .. components ..
+  + std::list<AbstractComponent> getComponentsByFamily(enum ComponentFamily family)
+  + std::list<AbstarctComponent> getComponentByName(std::string name)
+  + void addComponent(AbstractComponent theComponent)
+  + AbstractComponent::iterator traverseComponentTree()
+  .. name ..
+  + std::string getName()
+  + setName(std::string name)
+  } 	
+
+  note top of AbstractEntity
+  AbstractEntity is described by the AbstractComponents
+  end note
+
+
+  abstract class AbstractComponent {
+  - std::string name
+  - enum ComponentFamily family
+  - bool bIsParent = false
+  ==
+  .. constructor ..
+  + AbstractComponent(std::string name, enum ComponentFamily family, bool isParent)
+  .. name ..
+  + std::string getName()
+  + void setName(std::string name)
+  .. family ..
+  + enum ComponentFamily getFamily()
+  + void setFamily(enum ComponentFamily family)
+  }
+
+  abstract class AbstractSystem {
+  - Enum SystemType type
+  ==
+  + Enum SystemType getType()
+  }
+
+  class EntityManager << (S,#FF7700) Singleton >> {
+  - std::vector<AbstractEntity>
+  } 
+
+  AbstractEntity o-- AbstractComponent : many >
+
+
+  @enduml
+  #+END_UML
