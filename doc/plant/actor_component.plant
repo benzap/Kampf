@@ -1,0 +1,61 @@
+@startuml
+title Actor Entity
+
+note top of [Entity]
+     Entities are made up of components.
+     Components generally are made up of children 
+     in a tree hierarchy
+end note
+
+' The Position Component
+[Entity] -- [PositionComponent]
+[PositionComponent] ..> X
+[PositionComponent] ..> Y
+[PositionComponent] ..> Z
+
+' The Sprite Component
+[Entity] -- [SpriteComponent]
+[SpriteComponent] -- [ChildSprite 1]
+[SpriteComponent] -- [ChildSprite 2]
+note top of [SpriteComponent]
+     SpriteComponent Does not hold information on sprites,
+     Only the children hold information on sprite images
+     and their offsets
+end note
+
+' The Sprite's Children
+[ChildSprite 1] ..> SpriteImage1
+[ChildSprite 1] ..> OffsetX_1
+[ChildSprite 1] ..> OffsetY_1
+[ChildSprite 1] ..> OffsetZ_1
+[ChildSprite 2] ..> SpriteImage2
+[ChildSprite 2] ..> OffsetX_2
+[ChildSprite 2] ..> OffsetY_2
+[ChildSprite 2] ..> OffsetZ_2
+
+' The Collision Component
+[Entity] -- [CollisionComponent]
+note top of [CollisionComponent]
+     The Highest level in the hierarchy is checked first.
+     This can resemble a simple circle radius check between two objects
+end note
+
+' The Collision Children
+[CollisionComponent] -- ChildCollision1
+[CollisionComponent] -- ChildCollision2
+ChildCollision1 -- ChildCollisionRefined1
+ChildCollision2 -- ChildCollisionRefined2
+note bottom of ChildCollisionRefined1
+     It is possible for collisions to traverse down a tree
+     such that a simpler collision radius between two objects
+     is checked, and upon a successful collision, further
+     refinement is made to ensure a more accurate depiction
+     on whether there was a collision.
+
+     ChildrenComponents might relate to certain sprite pieces.
+     For example, a leg sprite might have its own child collision
+     component.
+end note
+
+
+@enduml
