@@ -1,7 +1,10 @@
 
 @startuml
+'The namespace should be Kf::
+set namespaceSeparator ::
 
-class Kampf << (S,#FF7700) Singleton >> {
+'Main Facade Class
+class Kampf << (S,#FF7700) Facade >> {
    - AbstractRenderWindow windowContext
    - std::vector<AbstractSystem> systemList
    - std::vector<AbstractManager> managerList
@@ -16,6 +19,7 @@ class Kampf << (S,#FF7700) Singleton >> {
    + Messenger getMessenger()
 }
 
+'The main render window, where all of the magic happens
 abstract class AbstractRenderWindow {
    - int windowWidth = 800
    - int windowHeight = 600
@@ -23,6 +27,10 @@ abstract class AbstractRenderWindow {
    + draw(AbstractDrawable drawable)
 } 
 
+''
+'' ENTITIES
+''
+package "Entities" #C3B1A3 {
 abstract class AbstractEntity {
    - static incrementType EntityID = 0
    - long id
@@ -48,41 +56,18 @@ abstract class AbstractEntity {
    + string getType()
 } 	
 
-abstract class AbstractComponent {
-   - static incrementType CustomValueID = 0
-   - static incrementType CustomPtrID = 0
-   - std::string name
-   - enum ComponentFamily family
-   - bool bIsParent = false
-   - std::map<incrementType, CustomAttributeValue> customValueMap
-   - std::map<incrementType, CustomAttributePtr> customPtrMap
-   - std::list<AbstractComponent> children = nullptr
-   ==
-   .. constructor ..
-   + AbstractComponent(std::string name, enum ComponentFamily family, bool isParent)
-   .. name ..
-   + std::string getName()
-   + void setName(std::string name)
-   .. family ..
-   + enum ComponentFamily getFamily()
-   + void setFamily(enum ComponentFamily family)
-   .. bIsParent ..
-   + bool isParent()
-   .. custom values ..
-   + incrementType setCustomAttributeValue(auto)
-   + incrementType setCustomAttributePtr(auto, enumAttributePointerType = VOID)
-   + CustomAttributeValue getCustomAttributeValue(incrementType)
-   + CustomAttributePtr getCustomAttributePtr(incrementType)
-   .. children ..
-   void addChild(AbstractComponent)
-}
+} 
+'END package "Entities"
 
-abstract class AbstractSystem {
-   - Enum SystemType type
-   ==
-   + Enum SystemType getType()
-}
+''Relation between Entities
+'' Nothing here
 
+
+''
+'' MANAGERS
+''
+
+package "Managers" #FE6F4D {
 abstract AbstractManager {
    - enum ManagerType enumManagerType
 }
@@ -92,7 +77,6 @@ enum ManagerType {
 	 VOID
 }
 
-AbstractManager -- ManagerType
 
 class EntityManager {
    - std::vector<AbstractEntity> entityList
@@ -103,7 +87,19 @@ class EntityManager {
    + 
 } 
 
+} 
+'END package "Managers"
+
+''Manager Relations
+AbstractManager -- ManagerType
 EntityManager -|> AbstractManager
+
+
+''
+'' CustomAttribute
+''
+
+package "CustomAttribute" {
 
 class CustomAttributeValue {
    - enum AttributeType enumAttributeType
@@ -152,35 +148,95 @@ class CustomAttributeUnion << (U, #FFFFFF) Union >> {
    + char c
 }
 
+} 
+'END package "CustomAttribute"
+
+'CustomAttribute Relations
+CustomAttributeValue o-- CustomAttributeUnion : one >
+CustomAttributeValue -- AttributeType
+CustomAttributePtr -- AttributePointerType
+
+''
+'' COMPONENTS
+''
+
+package "Components" #95ABD4 {
+
+abstract class AbstractComponent {
+   - static incrementType CustomValueID = 0
+   - static incrementType CustomPtrID = 0
+   - std::string name
+   - enum ComponentFamily family
+   - bool bIsParent = false
+   - std::map<incrementType, CustomAttributeValue> customValueMap
+   - std::map<incrementType, CustomAttributePtr> customPtrMap
+   - std::list<AbstractComponent> children = nullptr
+   ==
+   .. constructor ..
+   + AbstractComponent(std::string name, enum ComponentFamily family, bool isParent)
+   .. name ..
+   + std::string getName()
+   + void setName(std::string name)
+   .. family ..
+   + enum ComponentFamily getFamily()
+   + void setFamily(enum ComponentFamily family)
+   .. bIsParent ..
+   + bool isParent()
+   .. custom values ..
+   + incrementType setCustomAttributeValue(auto)
+   + incrementType setCustomAttributePtr(auto, enumAttributePointerType = VOID)
+   + CustomAttributeValue getCustomAttributeValue(incrementType)
+   + CustomAttributePtr getCustomAttributePtr(incrementType)
+   .. children ..
+   void addChild(AbstractComponent)
+}
+
 class PositionComponent {
 
 }
-
-PositionComponent -|> AbstractComponent
 
 class SpriteComponent {
 
 }
 
-SpriteComponent -|> AbstractComponent
-
 class CollisionComponent {
 
 }
-
-CollisionComponent -|> AbstractComponent
 
 class TextComponent {
 
 }
 
-TextComponent -|> AbstractComponent
-
 class PhysicsComponent {
 
 }
 
+'Aggregation between the component and the CustomAttributes
+AbstractComponent o-- CustomAttributeValue
+AbstractComponent o-- CustomAttributePtr
+
+
+
+} 
+'END package "Components"
+
+'Relations
+PositionComponent -|> AbstractComponent
+TextComponent -|> AbstractComponent
 PhysicsComponent -|> AbstractComponent
+CollisionComponent -|> AbstractComponent
+SpriteComponent -|> AbstractComponent
+''
+'' SYSTEMS
+''
+
+package "Systems" #6B7EA8 {
+
+abstract class AbstractSystem {
+   - Enum SystemType type
+   ==
+   + Enum SystemType getType()
+}
 
 class GraphicsSystem {
 
@@ -200,16 +256,14 @@ class CollisionSystem {
 
 CollisionSystem --|> AbstractSystem
 
+} 
+'END package "Systems"
 
 Kampf o-- AbstractRenderWindow
 Kampf o-- AbstractSystem
 Kampf o-- AbstractManager
 EntityManager *-- AbstractEntity
-AbstractComponent o-- CustomAttributeValue
-AbstractComponent o-- CustomAttributePtr
-CustomAttributeValue -- AttributeType
-CustomAttributeValue o-- CustomAttributeUnion : one >
-CustomAttributePtr -- AttributePointerType
+
 AbstractEntity o-- AbstractComponent : many >
 
 @enduml
