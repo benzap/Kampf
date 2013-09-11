@@ -1,0 +1,21 @@
+@startuml
+
+title Basic System Process
+
+database Messenger
+database Manager
+control System
+entity Entity
+
+System -> Manager : getEntityList()
+Manager -> Entity : grab list
+Entity --> Manager : list of entities
+System <-- Manager : list of entities
+loop list of entities
+   System -> Entity : process entity
+   alt entity action
+      Entity -> Messenger : create message
+   end
+end
+
+@enduml
