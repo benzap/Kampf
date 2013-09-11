@@ -1,8 +1,15 @@
-* Class Diagram
+* Class Diagrams
+  class_diagram.plant
   http://tinyurl.com/nkgmnwg
 
 * Actor Entity with components
+  actor_component.plant
   http://tinyurl.com/njeyxs3
 
 * Sequence Diagrams
+  sequence.plant
   http://tinyurl.com/o5ykxnf
+
+* State Diagrams
+  state.plant
+  http://tinyurl.com/nsqoxor

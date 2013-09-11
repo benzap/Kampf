@@ -1,0 +1,39 @@
+@startuml
+
+start
+
+:Read input events from underlying tech
+(e.g. SDL_KeyboardEvent);
+
+:Wrap raw event with engine-level event;
+
+note right
+Obscuring underlying technology (e.g. SDL)
+Adding value (e.g. duration?/double-press?/etc) here
+end note 
+
+:Push engine-level event to listeners/subscribers;
+
+note right
+Callbacks fire here (gotta be fast!)
+end note
+
+:Map engine-level event to application-level event;
+
+note right
+Key bindings here, at application level
+end note
+
+:Push application-level event to listeners/subscribers;
+
+note right
+(e.g. InputSystem::KeyboardEvent -> MyGame::JumpEvent)
+end note
+
+note right
+Callbacks here
+end note
+
+end
+
+@enduml
