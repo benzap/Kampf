@@ -154,7 +154,7 @@ class CustomAttributeUnion << (U, #FFFFFF) Union >> {
 'CustomAttribute Relations
 CustomAttributeValue o-- CustomAttributeUnion : one >
 CustomAttributeValue -- AttributeType
-CustomAttributePtr -- AttributePointerType
+CustomAttributePtr o- AttributePointerType : one >
 
 ''
 '' COMPONENTS
@@ -236,6 +236,9 @@ abstract class AbstractSystem {
    - Enum SystemType type
    ==
    + Enum SystemType getType()
+   + virtual createMessages()
+   + virtual generateJobs()
+   + virtual process()
 }
 
 class GraphicsSystem {
@@ -265,5 +268,42 @@ Kampf o-- AbstractManager
 EntityManager *-- AbstractEntity
 
 AbstractEntity o-- AbstractComponent : many >
+
+class Messenger {
+   - list<Message> MessageQueue
+==
+   + Messenger()
+   + appendMessage(Message message)
+   + list<Message> retrieveMessages(Message message)
+   + void insertMessage(int position, Message message)
+   + Message popMessage()
+   + Message deleteMessage(int messageID)
+   + Message hasMessage(int messageID)
+}
+
+class Message {
+   - int messageID
+   - 
+}
+
+Messenger o-- Message
+
+class JobScheduler {
+   - Queue<Job> JobQueue
+   - list<WorkerThread> workers
+==
+   + createWorker()
+   + pushJob(Job job)
+   + processQueue()
+   + syncWorkers()
+   + 
+}
+
+class Job {
+   - std::function func
+   - *void parameters
+}
+
+JobScheduler o-- Job
 
 @enduml

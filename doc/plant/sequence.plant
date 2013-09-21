@@ -1,21 +1,32 @@
 @startuml
 
 title Basic System Process
-
-database Messenger
+control Kampf
 database Manager
-control System
 entity Entity
+control System
+database Messenger
+control JobScheduler
 
+Kampf -> Kampf : runMainLoop()
+loop list of systems
 System -> Manager : getEntityList()
-Manager -> Entity : grab list
-Entity --> Manager : list of entities
+loop 
+Manager -> Entity : grab all entities
+Entity --> Manager : entity reference
 System <-- Manager : list of entities
+System -> System : createMessages()
 loop list of entities
-   System -> Entity : process entity
-   alt entity action
-      Entity -> Messenger : create message
-   end
+   System -> Messenger : appendMessage()
 end
 
+System -> System : generateJobs()	
+loop list of messages
+   System -> JobScheduler : pushJob()
+end
+end
+
+
+JobScheduler -> JobScheduler : processJobs()
+end
 @enduml

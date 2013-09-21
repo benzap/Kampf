@@ -8,7 +8,8 @@
 
 * Sequence Diagrams
   sequence.plant
-  http://tinyurl.com/o5ykxnf
+  http://tinyurl.com/k8yb4ft
+
 
 * State Diagrams
   state.plant
