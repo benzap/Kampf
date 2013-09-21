@@ -1,6 +1,6 @@
 * Class Diagrams
   class_diagram.plant
-  http://tinyurl.com/nkgmnwg
+   http://tinyurl.com/nkgmnwg
 
 * Actor Entity with components
   actor_component.plant

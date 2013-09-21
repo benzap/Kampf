@@ -17,6 +17,8 @@ class Kampf << (S,#FF7700) Facade >> {
    + AbstractSystem getSystem(enum SystemType enumSystem)
    + AbstractManager getManager(enum ManagerType enumManager)
    + Messenger getMessenger()
+   + JobScheduler getJobScheduler()
+   + AbstractRenderWindow getRenderWindow()
 }
 
 'The main render window, where all of the magic happens
@@ -24,8 +26,17 @@ abstract class AbstractRenderWindow {
    - int windowWidth = 800
    - int windowHeight = 600
    ==
-   + draw(AbstractDrawable drawable)
+   + virtual draw(AbstractDrawable drawable)
 } 
+
+class SFMLRenderWindow {
+   - int windowWidth = 800
+   - int windowHeight = 600
+   ==
+   + draw(AbstractDrawable drawable)
+}
+
+SFMLRenderWindow --> AbstractRenderWindow
 
 ''
 '' ENTITIES
@@ -286,7 +297,9 @@ class Message {
    - 
 }
 
+Kampf *-- Messenger
 Messenger o-- Message
+Messenger .. AbstractSystem : Kampf::getMessenger()
 
 class JobScheduler {
    - Queue<Job> JobQueue
@@ -296,7 +309,6 @@ class JobScheduler {
    + pushJob(Job job)
    + processQueue()
    + syncWorkers()
-   + 
 }
 
 class Job {
@@ -304,6 +316,9 @@ class Job {
    - *void parameters
 }
 
+Kampf *-- JobScheduler
 JobScheduler o-- Job
+JobScheduler .. AbstractSystem : Kampf::getJobScheduler()
+
 
 @enduml

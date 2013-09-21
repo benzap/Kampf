@@ -5,7 +5,6 @@ PLANTS_DIRECTORY =
 #directory where the output will be placed
 OUTPUT_DIRECTORY = ../
 
-
 PLANTUML_EXEC = plantuml.jar
 #java root, should be in your PATH anyways
 JAVA_ROOT = 
@@ -16,6 +15,9 @@ EXEC=$(JAVA_ROOT)$(JAVA_EXEC) -jar $(PLANTUML_ROOT)$(PLANTUML_EXEC)
 
 #get all of the .plant files
 PLANTS=$(wildcard $(PLANTS_DIRECTORY)*.plant)
+
+#replaces .plant with .svg --> foo.plant foo.svg
+#creates a list from it
 SVGS=$(PLANTS:.plant=.svg)
 PNGS=$(PLANTS:.plant=.png)
 
