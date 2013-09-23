@@ -41,6 +41,7 @@ all: clean svg png
 %.png : %.plant
 	$(EXEC) $<
 	cp $@ $(OUTPUT_DIRECTORY)
+	echo '## $@' >> $(OUTPUT_DIRECTORY)$(README_FILE)
 	echo '![$@]($@ "$@")' >> $(OUTPUT_DIRECTORY)$(README_FILE)
 
 clean :
