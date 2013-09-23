@@ -16,6 +16,9 @@ EXEC=$(JAVA_ROOT)$(JAVA_EXEC) -jar $(PLANTUML_ROOT)$(PLANTUML_EXEC)
 #get all of the .plant files
 PLANTS=$(wildcard $(PLANTS_DIRECTORY)*.plant)
 
+README_FILE=README.md
+
+
 #replaces .plant with .svg --> foo.plant foo.svg
 #creates a list from it
 SVGS=$(PLANTS:.plant=.svg)
@@ -26,24 +29,24 @@ PNGS=$(PLANTS:.plant=.png)
 .SUFFIXES: .plant .svg .png
 
 .PHONY: all clean
-
-all: svg png
-
-svg : $(SVGS)
 png : $(PNGS)
+svg : $(SVGS)
+
+all: clean svg png
 
 %.svg : %.plant
 	$(EXEC) -svg $<
-# TODO: causes stackdump in windows
-#	cp $@ $(OUTPUT_DIRECTORY)
+	cp $@ $(OUTPUT_DIRECTORY)
 
 %.png : %.plant
 	$(EXEC) $<
-# TODO: causes stackdump in windows
-#	cp $@ $(OUTPUT_DIRECTORY)
+	cp $@ $(OUTPUT_DIRECTORY)
+	echo '![$@]($@ "$@")' >> $(OUTPUT_DIRECTORY)$(README_FILE)
 
 clean :
-# TODO: causes stackdump in windows
-#	rm -f *.svg
-#	rm -f *.png
-	@echo "Warning: removing SVGs and PNGs causes stackdump in windows"
+	rm -f *.svg
+	rm -f $(OUTPUT_DIRECTORY)*.svg
+	rm -f *.png
+	rm -f $(OUTPUT_DIRECTORY)*.png
+	rm -f $(OUTPUT_DIRECTORY)$(README_FILE)
+
