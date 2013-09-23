@@ -16,6 +16,8 @@ INC_DIR= -I../
 LIB_DIR= -L../
 LIBS= -lkampf
 
+DELETE_SCRIPT = deletefiles.sh
+
 #redefine our suffixes
 .SUFFIXES:
 .SUFFIXES: .cpp .c .hpp .h
@@ -26,7 +28,13 @@ all: tests
 %.o: %.cpp $(GLOBAL_HPP)
 	$(CXX) -c $< -o $@ $(CXXFLAGS) $(INC_DIR) $(LIB_DIR) $(LIBS)
 	$(CXX) $@ -o $* $(CXXFLAGS) $(INC_DIR) $(LIB_DIR) $(LIBS)
+	echo rm -f $* >> $(DELETE_SCRIPT)
 
 tests: $(OBJ_FILES)
 
-runtests: 
+clean:
+	rm -f *.o
+	rm -f *.exe
+	@test -e $(DELETE_SCRIPT) && sh $(DELETE_SCRIPT) || \
+	echo $(DELETE_SCRIPT) does not exist
+	rm -f $(DELETE_SCRIPT)

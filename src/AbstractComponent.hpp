@@ -25,9 +25,7 @@ class AbstractComponent;
 //TYPEDEFS
 
 //type used by abstract component to store custom attributes
-typedef std::map<incrementType, CustomAttributeValue> customAttributeValueMap;
-//type used by abstract component to store custom ptr attributes
-typedef std::map<incrementType, CustomAttributePtr> customAttributePtrMap;
+typedef std::map<stringType, CustomAttribute> customAttributeMapType;
 
 //ENUMS The main component family enumeration. This describes what the
 //component is, for dynamic casting.
@@ -43,31 +41,22 @@ enum enumComponentFamily {
 //BEGIN
 class AbstractComponent {
 private:
-  //the increment used to describe new custom attributes
-  incrementType				CustomValueID;
-  
-  //the increment used to describe new custom referenced values
-  incrementType				CustomPtrID;
-  
   //the name of our component. does not need to be unique
   stringType name;
 
   //the family in which the component belongs
-  enumComponentFamily				family;
+  enumComponentFamily family;
 
   //a boolean which determines if the component is the parent, or is a
   //child
-  bool						bIsParent;
+  bool bIsParent;
 
   //holds custom attribute values
-  std::map<incrementType, CustomAttributeValue> customValueMap;
-
-  //holds custom attribute references to values. useful for arrays, and objects
-  std::map<incrementType, CustomAttributePtr>	customPtrMap;
+  customAttributeMapType customAttributeMap;
 
   //the children of the component. typically the children should be
   //the same type as its parent.
-  std::list<AbstractComponent>			children;
+  std::list<AbstractComponent> children;
 public:
   AbstractComponent(stringType name, 
 		    enumComponentFamily family = enumComponentFamily::ABSTRACT,
@@ -75,21 +64,36 @@ public:
   virtual ~AbstractComponent();
   
   const stringType& getName();
-  void setName(stringType&);
+  void setName(stringType);
   
   enumComponentFamily getFamily();
   
   bool isParent();
   
-  auto getCustomAttributeValue(incrementType);
-  incrementType setCustomAttributeValue(integerType);
-  incrementType setCustomAttributeValue(floatType);
-  incrementType setCustomAttributeValue(charType);
-  enumAttributeValue getCustomAttributeValueType(incrementType);
+  //value types
+  integerType getCustomAttribute_int(stringType);
+  stringType setCustomAttribute(stringType, integerType);
 
-  void* getCustomAttributePtr(incrementType);
-  incrementType setCustomAttributePtr(void*, enumAttributePtr);
-  enumAttributePtr getCustomAttributePtrType(incrementType);
+  floatType getCustomAttribute_float(stringType);
+  stringType setCustomAttribute(stringType, floatType);
+
+  charType getCustomAttribute_char(stringType);
+  stringType setCustomAttribute(stringType, charType);
+
+
+  //ptr types
+  intArrayType* getCustomAttribute_intArray(stringType);
+  stringType setCustomAttribute(stringType, intArrayType*);
+  floatArrayType* getCustomAttribute_floatArray(stringType);
+  stringType setCustomAttribute(stringType, floatArrayType*);
+  stringType& getCustomAttribute_string(stringType);
+  stringType setCustomAttribute(stringType, stringType);
+  void* getCustomAttribute_void(stringType);
+  stringType setCustomAttribute(stringType, void*);
+  
+  bool hasCustomAttribute(stringType);
+  enumAttribute getCustomAttributeType(stringType);
+  void deleteCustomAttribute(stringType);
 
 };
 

@@ -23,23 +23,26 @@ OBJ_FILES=$(CPP_FILES:.cpp=.o)
 .SUFFIXES: .cpp .c .hpp .h
 
 .PHONY: all clean kampf tests
-all: kampf tests
+kampf: libkampf.a libkampf.so
+
+all: clean kampf tests
 
 %.o: %.cpp %.hpp $(GLOBAL_HPP)
 	$(CXX) -c $< -o $@ $(CXXFLAGS)
 
 libkampf.a: $(OBJ_FILES)
 	ar rcs $@ $(OBJ_FILES)
+	cp $@ $(OUTPUT_DIRECTORY)/
 
 libkampf.so: $(OBJ_FILES)
 	$(CXX) -shared $(OBJ_FILES) -o $@ $(CXXFLAGS)
+	cp $@ $(OUTPUT_DIRECTORY)/
 
-kampf: libkampf.a libkampf.so
-
-tests: kampf
+tests: libkampf.a libkampf.so
 	make -C $(TESTS_DIRECTORY)
 
 clean:
 	rm -f *.o
 	rm -f libkampf.a
 	rm -f libkampf.so
+	make clean -C $(TESTS_DIRECTORY)

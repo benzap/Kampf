@@ -113,19 +113,13 @@ EntityManager -|> AbstractManager
 package "CustomAttribute" {
 
 class CustomAttributeValue {
-   - enum AttributeType enumAttributeType
+   - enum AttributeValueType enumAttributeValueType
    - CustomAttributeUnion value
    ==
-   + void setValue(long long ll)
-   + auto getValue(long long ll)
-   + void setValue(int i)
-   + auto getValue(int i)
-   + void setValue(double d)
-   + auto getValue(double d)
-   + void setValue(float f)
-   + auto getValue(float f)
-   + void setValue(char c)
-   + auto getValue(char c)
+   + auto getValue(intType i)
+   + void setValue(intType i)
+   + void setValue(floatType f)
+   + void setValue(charType c)
 }
 
 class CustomAttributePtr {
@@ -143,20 +137,16 @@ enum AttributePointerType {
 	 STRING
 }
 
-enum AttributeType {
-	 LONGLONG
+enum AttributeValueType {
 	 INTEGER
-	 DOUBLE
 	 FLOAT
 	 CHAR
 }
 
 class CustomAttributeUnion << (U, #FFFFFF) Union >> {
-   + long long ll
-   + int i
-   + double d
-   + float f
-   + char c
+   + integerType i
+   + floatType f
+   + charType c
 }
 
 } 
@@ -164,7 +154,7 @@ class CustomAttributeUnion << (U, #FFFFFF) Union >> {
 
 'CustomAttribute Relations
 CustomAttributeValue o-- CustomAttributeUnion : one >
-CustomAttributeValue -- AttributeType
+CustomAttributeValue -- AttributeValueType
 CustomAttributePtr o- AttributePointerType : one >
 
 ''

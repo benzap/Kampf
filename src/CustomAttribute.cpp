@@ -1,111 +1,116 @@
 #include "CustomAttribute.hpp"
 
-CustomAttributeValue::CustomAttributeValue(integerType iValue) :
-  valueType(enumAttributeValue::INTEGER) {
-  this->value.i = iValue;
+CustomAttribute::CustomAttribute(integerType iValue) :
+  valueType(enumAttribute::INTEGER) {
+  value.i = iValue;
 }
 
-CustomAttributeValue::CustomAttributeValue(floatType fValue) :
-  valueType(enumAttributeValue::FLOAT) {
-  this->value.f = fValue;
+CustomAttribute::CustomAttribute(floatType fValue) :
+  valueType(enumAttribute::FLOAT) {
+  value.f = fValue;
 }
 
-CustomAttributeValue::CustomAttributeValue(charType cValue) :
-  valueType(enumAttributeValue::CHAR) {
-  this->value.c = cValue;
+CustomAttribute::CustomAttribute(charType cValue) :
+  valueType(enumAttribute::CHAR) {
+  value.c = cValue;
 }
 
-CustomAttributeValue::~CustomAttributeValue() {
-
+CustomAttribute::CustomAttribute(intArrayType* iaValue) :
+  valueType(enumAttribute::INTEGER_VECTOR) {
+  value.v = static_cast<void*>(iaValue);
 }
 
-integerType CustomAttributeValue::getValue_int() {
-  //TODO: check if it is an int
-  return this->value.i;
-}
-floatType CustomAttributeValue::getValue_float() {
-  //TODO: check if it is a float
-  return this->value.f;
-}
-charType CustomAttributeValue::getValue_char() {
-  //TODO: check if it is a char
-  return this->value.c;
+CustomAttribute::CustomAttribute(floatArrayType* faValue) :
+  valueType(enumAttribute::FLOAT_VECTOR) {
+  value.v = static_cast<void*>(faValue);
 }
 
-void CustomAttributeValue::setValue(integerType iValue) {
-  this->valueType = enumAttributeValue::INTEGER;
-  this->value.i = iValue;
+CustomAttribute::CustomAttribute(stringType* sValue) :
+  valueType(enumAttribute::STRING) {
+  value.s = sValue;
 }
 
-void CustomAttributeValue::setValue(floatType fValue) {
-  this->valueType = enumAttributeValue::FLOAT;
-  this->value.f = fValue;
+CustomAttribute::CustomAttribute(void* vValue) :
+  valueType(enumAttribute::VOID) {
+  value.v = vValue;
 }
 
-void CustomAttributeValue::setValue(charType cValue) {
-  this->valueType = enumAttributeValue::CHAR;
-  this->value.c = cValue;
+CustomAttribute::~CustomAttribute() {
+  //TODO: dereference strings, int arrays, float arrays, voids
 }
 
-CustomAttributePtr::CustomAttributePtr(intArrayType* iArray) :
-  ptrType(enumAttributePtr::INTEGER_VECTOR) {
-  this->ptr = static_cast<void*>(iArray);
+
+integerType CustomAttribute::get_int() {
+  //TODO: check if it exists
+  return value.i;
 }
 
-CustomAttributePtr::CustomAttributePtr(floatArrayType* fArray) :
-  ptrType(enumAttributePtr::FLOAT_VECTOR) {
-  this->ptr = static_cast<void*>(fArray);
+void CustomAttribute::set(integerType iValue) {
+  valueType = enumAttribute::INTEGER;
+  value.i = iValue;
 }
 
-CustomAttributePtr::CustomAttributePtr(stringType* cArray) :
-  ptrType(enumAttributePtr::STRING) {
-  this->ptr = static_cast<void*>(cArray);
+
+floatType CustomAttribute::get_float() {
+  return value.f;
 }
 
-CustomAttributePtr::CustomAttributePtr(void* ptr) :
-  ptrType(enumAttributePtr::VOID) {
-  this->ptr = ptr;
+void CustomAttribute::set(floatType fValue) {
+  valueType = enumAttribute::FLOAT;
+  value.f = fValue;
 }
 
-CustomAttributePtr::~CustomAttributePtr() {
 
+charType CustomAttribute::get_char() {
+  return value.c;
 }
 
-intArrayType* CustomAttributePtr::getPtr_intArray() {
-  //TODO: check if it is an int array
-  return static_cast<intArrayType*>(this->ptr);
+void CustomAttribute::set(charType cValue) {
+  valueType = enumAttribute::CHAR;
+  value.c = cValue;
 }
 
-floatArrayType* CustomAttributePtr::getPtr_floatArray() {
-  //TODO: check if it is an float array
-  return static_cast<floatArrayType*>(this->ptr);
+
+intArrayType* CustomAttribute::get_intArray() {
+  return static_cast<intArrayType*>(value.v);
 }
 
-stringType* CustomAttributePtr::getPtr_string() {
-  //TODO: check if it is an string
-  return static_cast<stringType*>(this->ptr);
+void CustomAttribute::set(intArrayType* iaValue) {
+  valueType = enumAttribute::INTEGER_VECTOR;
+  value.v = static_cast<void*>(iaValue);
 }
 
-void* CustomAttributePtr:: getVoidPtr() {
-  return this->ptr;
+
+floatArrayType* CustomAttribute::get_floatArray() {
+  return static_cast<floatArrayType*>(value.v);
 }
 
-void CustomAttributePtr::setPtr(intArrayType* iArray) {
-  this->ptrType = enumAttributePtr::INTEGER_VECTOR;
-  this->ptr = static_cast<void*>(iArray);
+void CustomAttribute::set(floatArrayType* faValue) {
+  valueType = enumAttribute::FLOAT_VECTOR;
+  value.v = static_cast<void*>(faValue);
 }
 
-void CustomAttributePtr::setPtr(floatArrayType* fArray) {
-  this->ptrType = enumAttributePtr::FLOAT_VECTOR;
-  this->ptr = static_cast<void*>(fArray);
+
+stringType* CustomAttribute::get_string() {
+  return value.s;
 }
 
-void CustomAttributePtr::setPtr(stringType* cArray) {
-  this->ptrType = enumAttributePtr::STRING;
-  this->ptr = static_cast<void*>(cArray);
+void CustomAttribute::set(stringType* sValue) {
+  valueType = enumAttribute::STRING;
+  value.s = sValue;
 }
 
-void CustomAttributePtr::setPtr(void* ptr) {
-  this->ptrType = enumAttributePtr::VOID;
-  this->ptr = ptr;
+
+void* CustomAttribute::get_void() {
+  return value.v;
+}
+
+void CustomAttribute::set(void* vValue) {
+  valueType = enumAttribute::VOID;
+  value.v = vValue;
+}
+
+
+enumAttribute CustomAttribute::getType() {
+  return valueType;
 }
