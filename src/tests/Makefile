@@ -16,21 +16,29 @@ INC_DIR= -I../
 LIB_DIR= -L../
 LIBS= -lkampf
 
+RUN_SCRIPT = runtests.sh
 DELETE_SCRIPT = deletefiles.sh
+
+
 
 #redefine our suffixes
 .SUFFIXES:
 .SUFFIXES: .cpp .c .hpp .h
 
 .PHONY: all clean tests runtests
-all: tests
+tests: $(OBJ_FILES)
+
+all: clean tests runtests
 
 %.o: %.cpp $(GLOBAL_HPP)
 	$(CXX) -c $< -o $@ $(CXXFLAGS) $(INC_DIR) $(LIB_DIR) $(LIBS)
 	$(CXX) $@ -o $* $(CXXFLAGS) $(INC_DIR) $(LIB_DIR) $(LIBS)
 	echo rm -f $* >> $(DELETE_SCRIPT)
+	echo $(shell pwd)/$*.exe >> $(RUN_SCRIPT)
 
-tests: $(OBJ_FILES)
+runtests:
+	@test -e $(RUN_SCRIPT) && sh $(RUN_SCRIPT) || \
+	echo $(RUN_SCRIPT) does not exist
 
 clean:
 	rm -f *.o
@@ -38,3 +46,4 @@ clean:
 	@test -e $(DELETE_SCRIPT) && sh $(DELETE_SCRIPT) || \
 	echo $(DELETE_SCRIPT) does not exist
 	rm -f $(DELETE_SCRIPT)
+	rm -f $(RUN_SCRIPT)
