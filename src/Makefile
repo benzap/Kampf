@@ -1,8 +1,16 @@
 #makefile for Kampf game engine
+UNAME := $(shell uname)
+
 CXX = g++
 CXXFLAGS = --std=c++0x
 
 LDFLAGS = 
+
+LD_SHARED = -shared
+
+ifeq ($(UNAME), Linux)
+CXXFLAGS += -fPIC
+endif
 
 #directory where the output will be placed
 OUTPUT_DIRECTORY = ../lib
@@ -22,7 +30,7 @@ OBJ_FILES=$(CPP_FILES:.cpp=.o)
 .SUFFIXES:
 .SUFFIXES: .cpp .c .hpp .h
 
-.PHONY: all clean kampf tests
+.PHONY: all clean kampf tests runtests
 kampf: libkampf.a libkampf.so
 
 all: clean kampf tests
@@ -35,8 +43,11 @@ libkampf.a: $(OBJ_FILES)
 	cp $@ $(OUTPUT_DIRECTORY)/
 
 libkampf.so: $(OBJ_FILES)
-	$(CXX) -shared $(OBJ_FILES) -o $@ $(CXXFLAGS)
+	$(CXX) $(LD_SHARED) $(OBJ_FILES) -o $@ $(CXXFLAGS)
 	cp $@ $(OUTPUT_DIRECTORY)/
+	cp $@ $(TESTS_DIRECTORY)/
+runtests:
+	make runtests -C $(TESTS_DIRECTORY)
 
 tests: libkampf.a libkampf.so
 	make -C $(TESTS_DIRECTORY)

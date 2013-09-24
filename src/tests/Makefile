@@ -1,8 +1,16 @@
-#makefile for Kampf game engine
+#makefile for Kampf game engine tests
+UNAME := $(shell uname)
+
 CXX = g++
 CXXFLAGS = --std=c++0x
 
 LDFLAGS = 
+
+EXEC_EXTENSION = .exe
+ifeq ($(UNAME), Linux)
+EXEC_EXTENSION =
+LDFLAGS += -rdynamic
+endif
 
 #global hpp files
 GLOBAL_HPP= ../kampf.hpp
@@ -34,7 +42,7 @@ all: clean tests runtests
 	$(CXX) -c $< -o $@ $(CXXFLAGS) $(INC_DIR) $(LIB_DIR) $(LIBS)
 	$(CXX) $@ -o $* $(CXXFLAGS) $(INC_DIR) $(LIB_DIR) $(LIBS)
 	echo rm -f $* >> $(DELETE_SCRIPT)
-	echo $(shell pwd)/$*.exe >> $(RUN_SCRIPT)
+	echo $(shell pwd)/$*$(EXEC_EXTENSION) >> $(RUN_SCRIPT)
 
 runtests:
 	@test -e $(RUN_SCRIPT) && sh $(RUN_SCRIPT) || \
