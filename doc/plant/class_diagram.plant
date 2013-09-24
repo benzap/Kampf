@@ -14,8 +14,8 @@ class Kampf << (S,#FF7700) Facade >> {
    + void Kampf()
    + void runMainLoop(bContinuous=true)
    -- getters --
-   + AbstractSystem getSystem(enum SystemType enumSystem)
-   + AbstractManager getManager(enum ManagerType enumManager)
+   + AbstractSystem getSystem(enumSystemType system)
+   + AbstractManager getManager(enumManagerType manager)
    + Messenger getMessenger()
    + JobScheduler getJobScheduler()
    + AbstractRenderWindow getRenderWindow()
@@ -61,10 +61,10 @@ abstract class AbstractEntity {
    + void addComponent(AbstractComponent theComponent)
    + AbstractComponent::iterator traverseComponentTree()
    .. name ..
-   + std::string getName()
-   + setName(std::string name)
+   + stringType getName()
+   + setName(stringType name)
    .. type .. 
-   + string getType()
+   + stringType getType()
 } 	
 
 } 
@@ -80,7 +80,7 @@ abstract class AbstractEntity {
 
 package "Managers" #FE6F4D {
 abstract AbstractManager {
-   - enum ManagerType enumManagerType
+   - enumManagerType managerType
 }
 
 enum ManagerType {
@@ -95,7 +95,6 @@ class EntityManager {
    + void addEntity(AbstractEntity entity)
    + std::vector<AbstractEntity> getAllEntities()
    + AbstractEntity getEntityByID()
-   + 
 } 
 
 } 
@@ -105,57 +104,64 @@ class EntityManager {
 AbstractManager -- ManagerType
 EntityManager -|> AbstractManager
 
-
 ''
 '' CustomAttribute
 ''
 
 package "CustomAttribute" {
 
-class CustomAttributeValue {
-   - enum AttributeValueType enumAttributeValueType
+class CustomAttribute {
+   - enumAttribute valueType
    - CustomAttributeUnion value
    ==
-   + auto getValue(intType i)
-   + void setValue(intType i)
-   + void setValue(floatType f)
-   + void setValue(charType c)
+   + CustomAttribute(integerType iValue);
+   + CustomAttribute(floatType fValue);
+   + CustomAttribute(charType cValue);
+   + CustomAttribute(intArrayType*);
+   + CustomAttribute(floatArrayType*);
+   + CustomAttribute(stringType*);
+   + CustomAttribute(void*);
+   + integerType get_int();
+   + void set(integerType iValue);
+   + floatType get_float();
+   + void set(floatType fValue);
+   + charType get_char();
+   + void set(charType cValue);
+   + intArrayType* get_intArray();
+   + void set(intArrayType*);
+   + floatArrayType* get_floatArray();
+   + void set(floatArrayType*);
+   + stringType* get_string();
+   + void set(stringType*);
+   + void* get_void();
+   + void set(void*);
+   + enumAttribute getType();
 }
 
-class CustomAttributePtr {
-   - enum AttributePointerType enumAttributePointerType
-   - void* valuePtr
-   ==
-   + auto getPtr()
-   + void* getVoidPtr()
-}
-
-enum AttributePointerType {
+enum enumAttribute {
+	 INTEGER
+	 FLOAT
+	 CHAR
 	 VOID
 	 INTEGER_VECTOR
 	 DOUBLE_VECTOR
 	 STRING
 }
 
-enum AttributeValueType {
-	 INTEGER
-	 FLOAT
-	 CHAR
-}
-
 class CustomAttributeUnion << (U, #FFFFFF) Union >> {
    + integerType i
    + floatType f
    + charType c
+   + stringType* s
+   + void* v
 }
 
 } 
 'END package "CustomAttribute"
 
 'CustomAttribute Relations
-CustomAttributeValue o-- CustomAttributeUnion : one >
-CustomAttributeValue -- AttributeValueType
-CustomAttributePtr o- AttributePointerType : one >
+CustomAttribute o-- CustomAttributeUnion : one >
+CustomAttribute -- enumAttribute
 
 ''
 '' COMPONENTS
@@ -164,32 +170,45 @@ CustomAttributePtr o- AttributePointerType : one >
 package "Components" #95ABD4 {
 
 abstract class AbstractComponent {
-   - static incrementType CustomValueID = 0
-   - static incrementType CustomPtrID = 0
    - std::string name
-   - enum ComponentFamily family
+   - enumComponentFamily family
    - bool bIsParent = false
-   - std::map<incrementType, CustomAttributeValue> customValueMap
-   - std::map<incrementType, CustomAttributePtr> customPtrMap
-   - std::list<AbstractComponent> children = nullptr
+   - std::map<stringType, CustomAttribute> customAttributeMap
+
+   - std::list<AbstractComponent> children
    ==
    .. constructor ..
-   + AbstractComponent(std::string name, enum ComponentFamily family, bool isParent)
+   + AbstractComponent(stringType name, enumComponentFamily family, bool bIsParent)
    .. name ..
    + std::string getName()
-   + void setName(std::string name)
+   + void setName(stringType name)
    .. family ..
-   + enum ComponentFamily getFamily()
+   + enumComponentFamily getFamily()
    + void setFamily(enum ComponentFamily family)
    .. bIsParent ..
    + bool isParent()
    .. custom values ..
-   + incrementType setCustomAttributeValue(auto)
-   + incrementType setCustomAttributePtr(auto, enumAttributePointerType = VOID)
-   + CustomAttributeValue getCustomAttributeValue(incrementType)
-   + CustomAttributePtr getCustomAttributePtr(incrementType)
+   + integerType getCustomAttribute_int(stringType);
+   + stringType setCustomAttribute(stringType, integerType);
+   + floatType getCustomAttribute_float(stringType);
+   + stringType setCustomAttribute(stringType, floatType);
+   + charType getCustomAttribute_char(stringType);
+   + stringType setCustomAttribute(stringType, charType);
+   + intArrayType* getCustomAttribute_intArray(stringType);
+   + stringType setCustomAttribute(stringType, intArrayType*);
+   + floatArrayType* getCustomAttribute_floatArray(stringType);
+   + stringType setCustomAttribute(stringType, floatArrayType*);
+   + stringType& getCustomAttribute_string(stringType);
+   + stringType setCustomAttribute(stringType, stringType);
+   + void* getCustomAttribute_void(stringType);
+   + stringType setCustomAttribute(stringType, void*);
+   + bool hasCustomAttribute(stringType);
+   + enumAttribute getCustomAttributeType(stringType);
+   + void deleteCustomAttribute(stringType);
    .. children ..
-   void addChild(AbstractComponent)
+   + void addChild(AbstractComponent)
+   + bool hasChildren()
+   + std::list<AbstractComponent> getChildren()
 }
 
 class PositionComponent {
@@ -213,8 +232,8 @@ class PhysicsComponent {
 }
 
 'Aggregation between the component and the CustomAttributes
-AbstractComponent o-- CustomAttributeValue
-AbstractComponent o-- CustomAttributePtr
+AbstractComponent o-- CustomAttribute
+
 
 
 
@@ -234,9 +253,9 @@ SpriteComponent -|> AbstractComponent
 package "Systems" #6B7EA8 {
 
 abstract class AbstractSystem {
-   - Enum SystemType type
+   - enumSystemType type
    ==
-   + Enum SystemType getType()
+   + enumSystemType getType()
    + virtual createMessages()
    + virtual generateJobs()
    + virtual process()
@@ -303,7 +322,7 @@ class JobScheduler {
 
 class Job {
    - std::function func
-   - *void parameters
+   - void* parameters
 }
 
 Kampf *-- JobScheduler
