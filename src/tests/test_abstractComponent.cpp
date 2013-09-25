@@ -106,7 +106,7 @@ int main(int argc, char *argv[]) {
 
   auto childList = component.getChildContainer();
 
-  TEST_EQUAL(childList.front()->getName(),"childAbstract1",
+  TEST_EQUAL(childList->front()->getName(),"childAbstract1",
 	     "checking if valid child");
   
   auto component2 = std::shared_ptr<AbstractComponent> 
@@ -115,13 +115,13 @@ int main(int argc, char *argv[]) {
   
   component.addChild(component2);
   
-  TEST_EQUAL(component2->getName(), childList.back()->getName(),
+  TEST_EQUAL(component2->getName(), childList->back()->getName(),
 	     "Equal Components");
      
-     
-  std::cout << childList.back()->getName() << std::endl;
-
-
+  for (auto component : *childList) {
+    std::cout << "item: " << component->getName() << std::endl;
+  }
+  
   //deleting keys
   component.deleteCustomAttribute("iArray");
   

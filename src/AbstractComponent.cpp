@@ -179,8 +179,12 @@ void AbstractComponent::addChild(std::shared_ptr<AbstractComponent> component) {
   this->children.push_back(component);
 }
 
-std::shared_ptr<AbstractComponent> AbstractComponent::createChild(stringType name, enumComponentFamily family) {
-  auto component = std::shared_ptr<AbstractComponent>(new AbstractComponent(name, family, false));
+std::shared_ptr<AbstractComponent> 
+AbstractComponent::createChild(stringType name, 
+			       enumComponentFamily family) {
+  auto component = std::shared_ptr<AbstractComponent>
+    (new AbstractComponent(name, family, false));
+  
   this->children.push_back(component);
   return component;
 }
@@ -192,6 +196,6 @@ bool AbstractComponent::hasChildren() {
   return true;
 }
 
-componentContainerType& AbstractComponent::getChildContainer() {
+componentContainerType* AbstractComponent::getChildContainer() {
   return this->children;
 }
