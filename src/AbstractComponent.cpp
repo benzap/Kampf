@@ -168,6 +168,30 @@ enumAttribute AbstractComponent::getCustomAttributeType(stringType keyname) {
   return customAttributeMap[keyname].getType();
 }
 
-void AbstractComponent::deleteCustomAttribute(stringType) {
+void AbstractComponent::deleteCustomAttribute(stringType keyname) {
+  if(this->hasCustomAttribute(keyname)) {
+    auto iterAttribute = this->customAttributeMap.find(keyname);
+    this->customAttributeMap.erase(iterAttribute);
+  }
+}
 
+void AbstractComponent::addChild(std::shared_ptr<AbstractComponent> component) {
+  this->children.push_back(component);
+}
+
+std::shared_ptr<AbstractComponent> AbstractComponent::createChild(stringType name, enumComponentFamily family) {
+  auto component = std::shared_ptr<AbstractComponent>(new AbstractComponent(name, family, false));
+  this->children.push_back(component);
+  return component;
+}
+
+bool AbstractComponent::hasChildren() {
+  if (this->children.empty()) {
+    return false;
+  }
+  return true;
+}
+
+componentContainerType& AbstractComponent::getChildContainer() {
+  return this->children;
 }

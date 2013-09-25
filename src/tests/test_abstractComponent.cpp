@@ -98,6 +98,35 @@ int main(int argc, char *argv[]) {
   TEST_EQUAL(component.getCustomAttributeType("void"), enumAttribute::VOID,
 	     "test attribute types");
 
+  TEST_BOOL(!component.hasChildren(), "doesn't have children");
+
+  //add child components
+  component.createChild("childAbstract1", enumComponentFamily::ABSTRACT);
+  TEST_BOOL(component.hasChildren(), "has children");
+
+  auto childList = component.getChildContainer();
+
+  TEST_EQUAL(childList.front()->getName(),"childAbstract1",
+	     "checking if valid child");
+  
+  auto component2 = std::shared_ptr<AbstractComponent> 
+    (new AbstractComponent("anotherComponent",
+			   enumComponentFamily::ABSTRACT, false));
+  
+  component.addChild(component2);
+  
+  TEST_EQUAL(component2->getName(), childList.back()->getName(),
+	     "Equal Components");
+     
+     
+  std::cout << childList.back()->getName() << std::endl;
+
+
+  //deleting keys
+  component.deleteCustomAttribute("iArray");
+  
+  TEST_BOOL(!component.hasCustomAttribute("iArray"),
+	    "does not have deleted attribute");
 
   return 0;
 }

@@ -11,6 +11,7 @@
 #include<map>
 #include<string>
 #include<list>
+#include<memory>
 
 #include "KF_globals.hpp"
 #include "CustomAttribute.hpp"
@@ -26,6 +27,12 @@ class AbstractComponent;
 
 //type used by abstract component to store custom attributes
 typedef std::map<stringType, CustomAttribute> customAttributeMapType;
+
+//used for the components to store components as references without
+//requiring dereferencing on deletion
+
+//componentContainer type
+typedef std::list<std::shared_ptr<AbstractComponent> > componentContainerType;
 
 //ENUMS The main component family enumeration. This describes what the
 //component is, for dynamic casting.
@@ -56,7 +63,7 @@ private:
 
   //the children of the component. typically the children should be
   //the same type as its parent.
-  std::list<AbstractComponent> children;
+  componentContainerType children;
 public:
   AbstractComponent(stringType name, 
 		    enumComponentFamily family = enumComponentFamily::ABSTRACT,
@@ -94,6 +101,12 @@ public:
   bool hasCustomAttribute(stringType);
   enumAttribute getCustomAttributeType(stringType);
   void deleteCustomAttribute(stringType);
+ 
+  std::shared_ptr<AbstractComponent> createChild(stringType name, enumComponentFamily family);
+  //deleting children can be done through the list itself
+  void addChild(std::shared_ptr<AbstractComponent>);
+  bool hasChildren();
+  componentContainerType& getChildContainer();
 
 };
 
