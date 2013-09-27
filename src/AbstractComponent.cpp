@@ -196,6 +196,6 @@ bool AbstractComponent::hasChildren() {
   return true;
 }
 
-componentContainerType* AbstractComponent::getChildContainer() {
-  return this->children;
+const componentContainerType* AbstractComponent::getChildContainer() {
+  return &this->children;
 }

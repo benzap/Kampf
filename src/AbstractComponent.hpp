@@ -106,7 +106,7 @@ public:
   //deleting children can be done through the list itself
   void addChild(std::shared_ptr<AbstractComponent>);
   bool hasChildren();
-  componentContainerType* getChildContainer();
+  const componentContainerType* getChildContainer();
 
 };
 
