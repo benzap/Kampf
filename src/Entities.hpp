@@ -1,15 +1,17 @@
-#ifndef KAMPF__HPP
-#define KAMPF__HPP
+#ifndef ENTITIES__HPP
+#define ENTITIES__HPP
 //DESCRIPTION
 /*
-  This is the one include required to include the kampf game engine
+  Includes everything required to run entities
  */
 
 //INCLUDES
 #include "KF_globals.hpp"
 #include "KF_utilities.hpp"
 #include "Components.hpp"
-#include "Entities.hpp"
+
+#include "AbstractEntity.hpp"
+
 //CLASSES
 
 //DEFINITIONS
@@ -23,4 +25,4 @@
 //BEGIN
 
 
-#endif //END KAMPF__HPP
+#endif //END ENTITIES__HPP
