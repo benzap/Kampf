@@ -7,18 +7,19 @@ set namespaceSeparator ::
 class Kampf << (S,#FF7700) Facade >> {
    - AbstractRenderWindow windowContext
    - std::vector<AbstractSystem> systemList
-   - std::vector<AbstractManager> managerList
+   - std::map<stringType, AbstractManager> managerMap
    - Messenger messenger
+   - RuleMachine ruleMachine
    ==
    .. constructor ..
    + void Kampf()
    + void runMainLoop(bContinuous=true)
    -- getters --
-   + AbstractSystem getSystem(enumSystemType system)
-   + AbstractManager getManager(enumManagerType manager)
+   + AbstractSystem getSystem(stringType systemType)
    + Messenger getMessenger()
    + JobScheduler getJobScheduler()
    + AbstractRenderWindow getRenderWindow()
+   + Rulemachine getRuleMachine()
 }
 
 'The main render window, where all of the magic happens
@@ -29,14 +30,14 @@ abstract class AbstractRenderWindow {
    + virtual draw(AbstractDrawable drawable)
 } 
 
-class SFMLRenderWindow {
+class SDLRenderWindow {
    - int windowWidth = 800
    - int windowHeight = 600
    ==
    + draw(AbstractDrawable drawable)
 }
 
-SFMLRenderWindow --> AbstractRenderWindow
+SDLRenderWindow --> AbstractRenderWindow
 
 ''
 '' ENTITIES
@@ -79,15 +80,6 @@ abstract class AbstractEntity {
 ''
 
 package "Managers" #FE6F4D {
-abstract AbstractManager {
-   - enumManagerType managerType
-}
-
-enum ManagerType {
-	 ENTITY
-	 VOID
-}
-
 
 class EntityManager {
    - std::vector<AbstractEntity> entityList
@@ -97,12 +89,18 @@ class EntityManager {
    + AbstractEntity getEntityByID()
 } 
 
+class EventManager {
+   - std::vector<AbstractEvent> eventList
+   ==
+   + void pollEvents()
+}
+
+
 } 
 'END package "Managers"
 
-''Manager Relations
-AbstractManager -- ManagerType
-EntityManager -|> AbstractManager
+
+
 
 ''
 '' CustomAttribute
@@ -211,10 +209,6 @@ abstract class AbstractComponent {
    + std::list<AbstractComponent> getChildren()
 }
 
-class PositionComponent {
-
-}
-
 class SpriteComponent {
 
 }
@@ -241,7 +235,6 @@ AbstractComponent o-- CustomAttribute
 'END package "Components"
 
 'Relations
-PositionComponent -|> AbstractComponent
 TextComponent -|> AbstractComponent
 PhysicsComponent -|> AbstractComponent
 CollisionComponent -|> AbstractComponent
@@ -253,11 +246,10 @@ SpriteComponent -|> AbstractComponent
 package "Systems" #6B7EA8 {
 
 abstract class AbstractSystem {
-   - enumSystemType type
+   - stringType type
    ==
-   + enumSystemType getType()
+   + stringType getType()
    + virtual createMessages()
-   + virtual generateJobs()
    + virtual process()
 }
 
@@ -284,50 +276,59 @@ CollisionSystem --|> AbstractSystem
 
 Kampf o-- AbstractRenderWindow
 Kampf o-- AbstractSystem
-Kampf o-- AbstractManager
 EntityManager *-- AbstractEntity
 
 AbstractEntity o-- AbstractComponent : many >
 
 class Messenger {
-   - list<Message> MessageQueue
+   - vector<Message> messageList
 ==
    + Messenger()
    + appendMessage(Message message)
-   + list<Message> retrieveMessages(Message message)
+   + const vector<Message>& retrieveMessages()
    + void insertMessage(int position, Message message)
    + Message popMessage()
-   + Message deleteMessage(int messageID)
+   + void deleteMessage(int messageID)
+   + void deleteMessage(Message message)
    + Message hasMessage(int messageID)
+   + void clearMessages()
 }
 
 class Message {
    - int messageID
-   - 
+   - enumMessageType messageType
+   - AbstractEntity* entity = nullptr
+   - AbstractComponent* component = nullptr
+   - void* customData = nullptr
 }
+
+enum enumMessageType {
+     CUSTOM,
+     COLLIDE,
+     EVENT
+}
+
+class RuleMachine {
+   - std::vector<Rule> ruleList
+==
+   + addRule(std::function<Message> conditionFunction,
+     	     std::function<Message> ruleFunction)
+}
+
+class Rule {
+   + std::function<Message> conditionFunction
+   + std::function<Message> ruleFunction
+}
+
+RuleMachine *-- Rule
+Kampf *-- RuleMachine
+
+Message -- enumMessageType
 
 Kampf *-- Messenger
 Messenger o-- Message
 Messenger .. AbstractSystem : Kampf::getMessenger()
-
-class JobScheduler {
-   - Queue<Job> JobQueue
-   - list<WorkerThread> workers
-==
-   + createWorker()
-   + pushJob(Job job)
-   + processQueue()
-   + syncWorkers()
-}
-
-class Job {
-   - std::function func
-   - void* parameters
-}
-
-Kampf *-- JobScheduler
-JobScheduler o-- Job
-JobScheduler .. AbstractSystem : Kampf::getJobScheduler()
+EntityManager .. Kampf : EntityManager::getInstance()
 
 
 @enduml

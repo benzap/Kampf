@@ -20,7 +20,7 @@ int main(int argc, char *argv[]) {
 	     "setName()");
 
   auto entity2 = AbstractEntity("Second Entity", 3);
-  TEST_EQUAL(entity.getID(), 3,
+  TEST_EQUAL(entity2.getID(), 3,
 	     "getID()");
 
   auto component = std::shared_ptr<AbstractComponent>
