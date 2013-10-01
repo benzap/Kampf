@@ -10,6 +10,7 @@
 #include "KF_utilities.hpp"
 #include "Components.hpp"
 #include "Entities.hpp"
+#include "Managers.hpp"
 //CLASSES
 
 //DEFINITIONS

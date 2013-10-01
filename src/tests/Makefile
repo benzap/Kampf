@@ -20,8 +20,8 @@ HPP_FILES=$(wildcard *.hpp)
 CPP_FILES=$(wildcard *.cpp)
 OBJ_FILES=$(CPP_FILES:.cpp=.o)
 
-INC_DIR= -I../
-LIB_DIR= -L../
+INC_DIR= -I../ -I./
+LIB_DIR= -L../ -L./
 LIBS= -lkampf
 
 RUN_SCRIPT = runtests.sh

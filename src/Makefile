@@ -58,4 +58,5 @@ clean:
 	rm -f libkampf.so
 	rm -f $(OUTPUT_DIRECTORY)/libkampf.a
 	rm -f $(OUTPUT_DIRECTORY)/libkampf.so
+	rm -f $(TESTS_DIRECTORY)/libkampf.so
 	make clean -C $(TESTS_DIRECTORY)
