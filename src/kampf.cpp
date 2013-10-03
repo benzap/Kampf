@@ -1,17 +1,33 @@
 #include "kampf.hpp"
 
-Kampf::Kampf() : 
+Kampf::Kampf(enumInitType initType,
+	     enumWindowType windowType,
+	     enumRenderType renderType) : 
   windowContext(nullptr),
   messenger(nullptr),
   ruleMachine(nullptr) {
+  if (windowType == enumWindowType::SDL) {
+    this->windowContext = new SDLRenderWindow();
+    
+    auto sdlContext = static_cast<SDLRenderWindow*> (this->windowContext);
+    
+    if (renderType == enumRenderType::SDL) {
+      //continue
+    }
+  }
 }
 
 Kampf::~Kampf() {
-
+  delete windowContext;
+  delete messenger;
+  delete ruleMachine;
 }
 
 void Kampf::runMainLoop() {
-
+  this->bRunning = true;
+  while(this->bRunning) {
+    
+  }
 }
   
 const AbstractRenderWindow* Kampf::getRenderWindow() {

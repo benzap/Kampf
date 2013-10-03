@@ -4,7 +4,7 @@ UNAME := $(shell uname)
 CXX = g++
 CXXFLAGS = --std=c++0x
 
-LDFLAGS = -Wl,--verbose
+LDFLAGS = #-Wl,--verbose
 
 LD_STATIC = -static
 LD_SHARED = -shared

@@ -45,7 +45,7 @@ private:
 
 
 public:
-  SDLRenderWindow(int windowWidth, int windowHeight);
+  SDLRenderWindow(int windowWidth = 800, int windowHeight = 600);
   virtual ~SDLRenderWindow();
 
   bool reinitialize();

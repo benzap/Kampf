@@ -7,6 +7,7 @@
 
 //INCLUDES
 #include "AbstractRenderWindow.hpp"
+#include "SDLRenderWindow.hpp"
 
 //CLASSES
 

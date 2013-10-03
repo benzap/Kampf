@@ -24,6 +24,23 @@ class Kampf;
 
 //DEFINITIONS
 
+//ENUMS
+enum class enumInitType {
+  Basic,
+  Manual
+};
+
+enum class enumWindowType {
+  SDL,
+  SFML
+};
+
+enum class enumRenderType {
+  SDL,
+  OPENGL,
+  DIRECTX
+};
+
 //MACROS
 
 //TYPEDEFS
@@ -34,12 +51,15 @@ typedef std::vector<AbstractSystem*> systemContainerType;
 //BEGIN
 class Kampf {
  private:
+  bool bRunning = false;
   AbstractRenderWindow* windowContext;
   systemContainerType systemList;
   Messenger* messenger;
   RuleMachine* ruleMachine;
  public:
-  Kampf();
+  Kampf(enumInitType initType = enumInitType::Basic,
+	enumWindowType windowType = enumWindowType::SDL,
+	enumRenderType renderType = enumRenderType::SDL);
   virtual ~Kampf();
 
   void runMainLoop();
