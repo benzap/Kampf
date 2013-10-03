@@ -21,15 +21,19 @@ class AbstractRenderWindow;
 //BEGIN
 class AbstractRenderWindow{
 private:
+
+protected:
   int windowWidth;
   int windowHeight;
 public:
   AbstractRenderWindow(int windowWidth = 800, int windowHeight = 600);
   virtual ~AbstractRenderWindow();
 
+  virtual bool reinitialize() = 0;
+  virtual bool initialize() = 0;
   virtual void draw() = 0;
 
-
+  
 };
 
 #endif //END ABSTRACTRENDERWINDOW__HPP

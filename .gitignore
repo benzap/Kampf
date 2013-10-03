@@ -2,3 +2,12 @@
 *~
 *.obj
 *.autosave
+plantuml.jar
+/doc/plant/*.svg
+/doc/plant/*.png
+*.exe
+*.a
+*.so
+*.dll
+runtests.sh
+deletefiles.sh

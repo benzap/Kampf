@@ -4,8 +4,9 @@ UNAME := $(shell uname)
 CXX = g++
 CXXFLAGS = --std=c++0x
 
-LDFLAGS = 
+LDFLAGS = -Wl,--verbose
 
+LD_STATIC = -static
 LD_SHARED = -shared
 
 ifeq ($(UNAME), Linux)
@@ -25,6 +26,8 @@ HPP_FILES=$(wildcard *.hpp)
 CPP_FILES=$(wildcard *.cpp)
 OBJ_FILES=$(CPP_FILES:.cpp=.o)
 
+LIBS= -lSDL2main -lSDL2 -lSDL2main
+LIBS_DIR= -LC:\MinGW\lib
 
 #redefine our suffixes
 .SUFFIXES:
@@ -36,14 +39,14 @@ kampf: libkampf.a libkampf.so
 all: clean kampf tests
 
 %.o: %.cpp %.hpp $(GLOBAL_HPP)
-	$(CXX) -c $< -o $@ $(CXXFLAGS)
+	$(CXX) $(CXXFLAGS) -o $@ -c $<
 
 libkampf.a: $(OBJ_FILES)
 	ar rcs $@ $(OBJ_FILES)
 	cp $@ $(OUTPUT_DIRECTORY)/
 
 libkampf.so: $(OBJ_FILES)
-	$(CXX) $(LD_SHARED) $(OBJ_FILES) -o $@ $(CXXFLAGS)
+	$(CXX) $(CXXFLAGS) $(LDFLAGS) $(LD_SHARED) -o $@ $(OBJ_FILES) $(LIBS) $(LIBS_DIR)
 	cp $@ $(OUTPUT_DIRECTORY)/
 	cp $@ $(TESTS_DIRECTORY)/
 runtests:
