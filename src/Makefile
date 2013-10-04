@@ -2,7 +2,7 @@
 UNAME := $(shell uname)
 
 CXX = g++
-CXXFLAGS = --std=c++0x
+CXXFLAGS = --std=c++0x -m32
 
 LDFLAGS = #-Wl,--verbose
 
@@ -11,6 +11,8 @@ LD_SHARED = -shared
 
 ifeq ($(UNAME), Linux)
 CXXFLAGS += -fPIC
+else
+CXXFLAGS += -mwindows
 endif
 
 #directory where the output will be placed
@@ -26,8 +28,8 @@ HPP_FILES=$(wildcard *.hpp)
 CPP_FILES=$(wildcard *.cpp)
 OBJ_FILES=$(CPP_FILES:.cpp=.o)
 
-LIBS= -lSDL2main -lSDL2 -lSDL2main
-LIBS_DIR= -LC:\MinGW\lib
+LIBS= -lmingw32 -lSDL2main -lSDL2
+LIBS_DIR= -L. -L../lib -LC:\MinGW\lib
 
 #redefine our suffixes
 .SUFFIXES:
@@ -46,7 +48,7 @@ libkampf.a: $(OBJ_FILES)
 	cp $@ $(OUTPUT_DIRECTORY)/
 
 libkampf.so: $(OBJ_FILES)
-	$(CXX) $(CXXFLAGS) $(LDFLAGS) $(LD_SHARED) -o $@ $(OBJ_FILES) $(LIBS) $(LIBS_DIR)
+	$(CXX) $(CXXFLAGS) $(LDFLAGS) $(LD_SHARED) -o $@ $(OBJ_FILES) $(LIBS_DIR) $(LIBS) 
 	cp $@ $(OUTPUT_DIRECTORY)/
 	cp $@ $(TESTS_DIRECTORY)/
 runtests:

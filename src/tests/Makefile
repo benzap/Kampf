@@ -2,14 +2,16 @@
 UNAME := $(shell uname)
 
 CXX = g++
-CXXFLAGS = --std=c++0x
+CXXFLAGS = --std=c++0x -m32
 
-LDFLAGS = 
+LDFLAGS = #-Wl,--verbose
 
 EXEC_EXTENSION = .exe
 ifeq ($(UNAME), Linux)
 EXEC_EXTENSION =
 LDFLAGS += -rdynamic
+else
+CXXFLAGS += -mwindows
 endif
 
 #global hpp files
@@ -21,8 +23,8 @@ CPP_FILES=$(wildcard *.cpp)
 OBJ_FILES=$(CPP_FILES:.cpp=.o)
 
 INC_DIR= -I../ -I./
-LIB_DIR= -L../ -L./
-LIBS= -lkampf
+LIB_DIR= -L../lib -L../ -L./ -LC:\MinGW\lib
+LIBS= -lmingw32 -lSDL2main -lSDL2 -lkampf
 
 RUN_SCRIPT = runtests.sh
 DELETE_SCRIPT = deletefiles.sh
@@ -39,8 +41,8 @@ tests: $(OBJ_FILES)
 all: clean tests runtests
 
 %.o: %.cpp $(GLOBAL_HPP)
-	$(CXX) -c $< -o $@ $(CXXFLAGS) $(INC_DIR) $(LIB_DIR) $(LIBS)
-	$(CXX) $@ -o $* $(CXXFLAGS) $(INC_DIR) $(LIB_DIR) $(LIBS)
+	$(CXX) $(CXXFLAGS) $(INC_DIR) -o $@ -c $<
+	$(CXX) $(CXXFLAGS) $(LDFLAGS) $(LD_SHARED) -o $* $@ $(LIBS) $(LIB_DIR)
 	echo rm -f $* >> $(DELETE_SCRIPT)
 	echo $(shell pwd)/$*$(EXEC_EXTENSION) >> $(RUN_SCRIPT)
 
