@@ -6,15 +6,21 @@ Kampf::Kampf(enumInitType initType,
   windowContext(nullptr),
   messenger(nullptr),
   ruleMachine(nullptr) {
-  if (windowType == enumWindowType::SDL) {
-    this->windowContext = new SDLRenderWindow();
+  if (initType == enumInitType::Basic || initType == enumInitType::Manual) {
+    if (windowType == enumWindowType::SDL) {
+      this->windowContext = new SDLRenderWindow();
+      
+      auto sdlContext = static_cast<SDLRenderWindow*> (this->windowContext);
     
-    auto sdlContext = static_cast<SDLRenderWindow*> (this->windowContext);
-    
-    if (renderType == enumRenderType::SDL) {
-      //continue
+      if (renderType == enumRenderType::SDL) {
+	//continue
+      }
     }
   }
+  else if (initType == enumInitType::Server) {
+    //do nothing and ignore other values
+  }
+  
 }
 
 Kampf::~Kampf() {

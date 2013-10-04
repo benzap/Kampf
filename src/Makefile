@@ -41,7 +41,7 @@ kampf: libkampf.a libkampf.so
 all: clean kampf tests
 
 %.o: %.cpp %.hpp $(GLOBAL_HPP)
-	$(CXX) $(CXXFLAGS) -o $@ -c $<
+	$(CXX) $(CXXFLAGS) -o $@ -c $< $(LIBS_DIR) $(LIBS) 
 
 libkampf.a: $(OBJ_FILES)
 	ar rcs $@ $(OBJ_FILES)

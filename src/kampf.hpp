@@ -26,6 +26,7 @@ class Kampf;
 
 //ENUMS
 enum class enumInitType {
+  Server,
   Basic,
   Manual
 };

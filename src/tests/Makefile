@@ -24,7 +24,7 @@ OBJ_FILES=$(CPP_FILES:.cpp=.o)
 
 INC_DIR= -I../ -I./
 LIB_DIR= -L../lib -L../ -L./ -LC:\MinGW\lib
-LIBS= -lmingw32 -lSDL2main -lSDL2 -lkampf
+LIBS= -lkampf -lmingw32 -lSDL2main -lSDL2
 
 RUN_SCRIPT = runtests.sh
 DELETE_SCRIPT = deletefiles.sh
@@ -41,7 +41,7 @@ tests: $(OBJ_FILES)
 all: clean tests runtests
 
 %.o: %.cpp $(GLOBAL_HPP)
-	$(CXX) $(CXXFLAGS) $(INC_DIR) -o $@ -c $<
+	$(CXX) $(CXXFLAGS) $(INC_DIR) -o $@ -c $< $(LIBS) $(LIB_DIR)
 	$(CXX) $(CXXFLAGS) $(LDFLAGS) $(LD_SHARED) -o $* $@ $(LIBS) $(LIB_DIR)
 	echo rm -f $* >> $(DELETE_SCRIPT)
 	echo $(shell pwd)/$*$(EXEC_EXTENSION) >> $(RUN_SCRIPT)
