@@ -11,11 +11,21 @@ Kampf::Kampf(enumInitType initType,
       this->windowContext = new SDLRenderWindow();
       
       auto sdlContext = static_cast<SDLRenderWindow*> (this->windowContext);
-    
+      
+      //TODO: grab from configuration file
+      sdlContext->setWindowFlags(0);
+
       if (renderType == enumRenderType::SDL) {
-	//continue
+	sdlContext->setRendererFlags(SDL_RENDERER_ACCELERATED);
       }
     }
+  
+    if (windowType == enumWindowType::SFML) {
+      std::cerr << "Window Type SFML currently isn't supported" << std::endl;
+    }
+    
+    //initialize our render window
+    this->windowContext->initialize();
   }
   else if (initType == enumInitType::Server) {
     //do nothing and ignore other values

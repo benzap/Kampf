@@ -20,6 +20,9 @@ bool SDLRenderWindow::initialize() {
 				  this->windowWidth,
 				  this->windowHeight,
 				  this->windowFlags);
+  
+  this->renderer = SDL_CreateRenderer(this->window, -1,
+				      this->rendererFlags);
 }
 
 bool SDLRenderWindow::reinitialize() {
@@ -28,6 +31,10 @@ bool SDLRenderWindow::reinitialize() {
 
 void SDLRenderWindow::setWindowFlags(Uint32 windowFlags) {
   this->windowFlags = windowFlags;
+}
+
+void SDLRenderWindow::setRendererFlags(Uint32 rendererFlags) {
+  this->rendererFlags = rendererFlags;
 }
 
 void SDLRenderWindow::setPosition(int xPosition, int yPosition) {

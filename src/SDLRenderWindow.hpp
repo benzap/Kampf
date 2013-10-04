@@ -19,6 +19,8 @@ class SDLRenderWindow;
 
 //MACROS
 
+//ENUM
+
 //TYPEDEFS
 
 //FUNCTIONS
@@ -34,6 +36,7 @@ private:
 
   //SDL flags
   Uint32 windowFlags = 0;
+  Uint32 rendererFlags = 0;
 
   //the window where things are drawn
   SDL_Window* window;
@@ -54,12 +57,18 @@ public:
   void draw();
 
   void setWindowFlags(Uint32 windowFlags);
+  void setRendererFlags(Uint32 rendererFlags);
 
   //sets the position of the window, equal to x,y in
   // SDL_CreateWindow
   void setPosition(int xPosition, int yPosition);
 
   void setTitle(stringType title);
+
+  SDL_Window* getWindow();
+  SDL_Renderer* getRenderer();
+
+
 
 };
 

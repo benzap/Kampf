@@ -57,6 +57,7 @@ class Kampf {
   systemContainerType systemList;
   Messenger* messenger;
   RuleMachine* ruleMachine;
+
  public:
   Kampf(enumInitType initType = enumInitType::Basic,
 	enumWindowType windowType = enumWindowType::SDL,
