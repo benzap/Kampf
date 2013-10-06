@@ -2,7 +2,7 @@
 UNAME := $(shell uname)
 
 CXX = g++
-CXXFLAGS = --std=c++0x -m32
+CXXFLAGS = --std=c++0x
 
 LDFLAGS = #-Wl,--verbose
 
@@ -10,9 +10,9 @@ LD_STATIC = -static
 LD_SHARED = -shared
 
 ifeq ($(UNAME), Linux)
-CXXFLAGS += -fPIC
+CXXFLAGS += -fPIC -DKF_LINUX
 else
-CXXFLAGS += -mwindows
+CXXFLAGS += -mwindows -m32 -DKF_WIN
 endif
 
 #directory where the output will be placed
@@ -28,7 +28,12 @@ HPP_FILES=$(wildcard *.hpp)
 CPP_FILES=$(wildcard *.cpp)
 OBJ_FILES=$(CPP_FILES:.cpp=.o)
 
-LIBS= -lmingw32 -lSDL2main -lSDL2
+ifeq ($(UNAME), Linux)
+LIBS = -lSDL2main -lSDL2 
+else
+LIBS = -lmingw32 -lSDL2main -lSDL2 
+endif
+
 LIBS_DIR= -L. -L../lib -LC:\MinGW\lib
 
 #redefine our suffixes

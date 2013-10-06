@@ -2,16 +2,17 @@
 UNAME := $(shell uname)
 
 CXX = g++
-CXXFLAGS = --std=c++0x -m32
+CXXFLAGS = --std=c++0x
 
 LDFLAGS = #-Wl,--verbose
 
 EXEC_EXTENSION = .exe
+
 ifeq ($(UNAME), Linux)
 EXEC_EXTENSION =
-LDFLAGS += -rdynamic
+LDFLAGS += -rdynamic -DKF_LINUX
 else
-CXXFLAGS += -mwindows
+CXXFLAGS += -mwindows -m32 -DKF_WIN
 endif
 
 #global hpp files
@@ -24,7 +25,16 @@ OBJ_FILES=$(CPP_FILES:.cpp=.o)
 
 INC_DIR= -I../ -I./
 LIB_DIR= -L../lib -L../ -L./ -LC:\MinGW\lib
+
+ifeq ($(UNAME), Linux)
+LIBS= -lkampf -lSDL2main -lSDL2
+else
 LIBS= -lkampf -lmingw32 -lSDL2main -lSDL2
+endif
+
+
+
+
 
 RUN_SCRIPT = runtests.sh
 DELETE_SCRIPT = deletefiles.sh
