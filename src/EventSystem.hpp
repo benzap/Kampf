@@ -4,15 +4,20 @@
 /*
   The event system is used to grab any input that a person performs
   within the system. This is probably the most important system.
+  
+  For now, the event system is hard-coded to use SDL events.
  */
 
 //INCLUDES
 #include <SDL2/SDL.h>
+
+#include "KF_globals.hpp"
+#include "KF_utilities.hpp"
 #include "AbstractSystem.hpp"
+#include "Messenger.hpp"
 
 //CLASSES
 class EventSystem;
-class Event;
 
 //DEFINITIONS
 
@@ -23,7 +28,7 @@ class Event;
 //FUNCTIONS
 
 //BEGIN
-class EventSystem {
+class EventSystem : public AbstractSystem {
 private:
   
 public:

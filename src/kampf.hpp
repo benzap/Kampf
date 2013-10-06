@@ -17,6 +17,8 @@
 #include "Messenger.hpp"
 #include "RuleMachine.hpp"
 #include "RenderWindows.hpp"
+#include "Messenger.hpp"
+#include "Message.hpp"
 
 //CLASSES
 class Kampf;

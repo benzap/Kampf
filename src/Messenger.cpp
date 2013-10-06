@@ -1,17 +1,9 @@
 #include "Messenger.hpp"
 
-Messenger::Messenger() {
-
-}
-
-Messenger::~Messenger() {
-
-}
-
-Message& Messenger::appendMessage() {
+Message* Messenger::appendMessage() {
   auto msg = Message(this->messageIncrement++);
   this->messages.push_back(msg);
-  return this->messages.back();
+  return &(this->messages.back());
 }
 
 const messageContainer& Messenger::retrieveMessages() {

@@ -26,13 +26,19 @@ typedef std::vector<Message> messageContainer;
 //BEGIN
 class Messenger {
 private:
+  Messenger() {}
+  Messenger(Messenger const&);
+  void operator=(Messenger const&);
+
   incrementType messageIncrement = 0;
   messageContainer messages;
 public:
-  Messenger();
-  virtual ~Messenger();
+  static Messenger* getInstance() {
+    static Messenger _instance = Messenger();
+    return &_instance;
+  }
   
-  Message& appendMessage();
+  Message* appendMessage();
   const messageContainer& retrieveMessages();
   void clearMessages();
 };
