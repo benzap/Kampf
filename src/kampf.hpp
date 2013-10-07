@@ -65,7 +65,7 @@ class Kampf {
 	enumRenderType renderType = enumRenderType::SDL);
   virtual ~Kampf();
 
-  void runMainLoop();
+  void runMainLoop(Uint32 duration = -1);
   
   AbstractRenderWindow* getRenderWindow();
   AbstractSystem* getSystem(stringType systemType);

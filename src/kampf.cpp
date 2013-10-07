@@ -47,9 +47,11 @@ Kampf::~Kampf() {
   delete ruleMachine;
 }
 
-void Kampf::runMainLoop() {
+void Kampf::runMainLoop(Uint32 duration) {
   auto messenger = this->getMessenger();
   auto rulemachine = this->getRuleMachine();
+
+  
 
   this->bRunning = true;
   while(this->bRunning) {
@@ -65,6 +67,15 @@ void Kampf::runMainLoop() {
     rulemachine->process();
     
     messenger->clearMessages();
+
+    //only run the loop for the duration, ignore if it's -1
+    if (duration > 0) {
+      Uint32 numTicks = SDL_GetTicks();
+      if (duration <= numTicks) {
+	this->bRunning = false;
+	break;
+      }
+    }
   }
 }
   
