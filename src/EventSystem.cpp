@@ -14,8 +14,12 @@ EventSystem::~EventSystem() {
 void EventSystem::createMessages() {
   SDL_Event event;
   auto messenger = Messenger::getInstance();
+  Message* msg;
   while(SDL_PollEvent(&event)) {
-    std::cout << "event polled" << std::endl;
+    if (event.type == SDL_QUIT) {
+      msg = messenger->appendMessage();
+      msg->setType(enumMessageType::EVENT_QUIT);
+    }
   }
 }
 

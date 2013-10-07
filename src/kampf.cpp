@@ -24,6 +24,20 @@ Kampf::Kampf(enumInitType initType,
       std::cerr << "Window Type SFML currently isn't supported" << std::endl;
     }
     
+    //add a quit function
+    RuleCondition condQuit = [] (Message msg) {
+      if (msg.getType() == enumMessageType::EVENT_QUIT) {
+	return true;
+      }
+      return false;
+    };
+    
+    RuleFunction funcQuit = [this] (Message msg) {
+      this->bRunning = false;
+    };
+
+    this->ruleMachine->addRule(condQuit, funcQuit);
+
     //initialize our render window
     this->windowContext->initialize();
   }
