@@ -23,7 +23,6 @@
 //CLASSES
 class Kampf;
 
-
 //DEFINITIONS
 
 //ENUMS
@@ -70,8 +69,9 @@ class Kampf {
   
   const AbstractRenderWindow* getRenderWindow();
   const AbstractSystem* getSystem(stringType systemType);
-  const Messenger* getMessenger();
-  const RuleMachine* getRuleMachine();
+  void addSystem(AbstractSystem*);
+  Messenger* getMessenger();
+  RuleMachine* getRuleMachine();
 
 };
 

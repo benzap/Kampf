@@ -7,7 +7,10 @@
  */
 
 //INCLUDES
-
+#include <functional>
+#include <tuple>
+#include "Messenger.hpp"
+#include "Message.hpp"
 //CLASSES
 class RuleMachine;
 
@@ -16,16 +19,24 @@ class RuleMachine;
 //MACROS
 
 //TYPEDEFS
+typedef std::function<bool(Message)> RuleCondition;
+typedef std::function<void(Message)> RuleFunction;
+typedef std::pair<RuleCondition, RuleFunction> RuleTuple;
 
 //FUNCTIONS
 
 //BEGIN
 class RuleMachine {
 private:
-  
+  std::list<RuleTuple> ruleContainer;
 public:
   RuleMachine();
   virtual ~RuleMachine();
+
+  void process();
+  void addRule(RuleCondition,
+	       RuleFunction);
+  
 };
 
 #endif //END RULEMACHINE__HPP

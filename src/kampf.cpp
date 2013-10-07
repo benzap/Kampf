@@ -4,7 +4,7 @@ Kampf::Kampf(enumInitType initType,
 	     enumWindowType windowType,
 	     enumRenderType renderType) : 
   windowContext(nullptr),
-  messenger(nullptr),
+  messenger(Messenger::getInstance()),
   ruleMachine(nullptr) {
   if (initType == enumInitType::Basic || initType == enumInitType::Manual) {
     if (windowType == enumWindowType::SDL) {
@@ -31,6 +31,14 @@ Kampf::Kampf(enumInitType initType,
     //do nothing and ignore other values
   }
   
+  //add our systems
+  
+  //the SDL event system
+  auto eventSystem = new EventSystem();
+  this->addSystem(eventSystem);
+
+  
+
 }
 
 Kampf::~Kampf() {
@@ -40,9 +48,23 @@ Kampf::~Kampf() {
 }
 
 void Kampf::runMainLoop() {
+  auto messenger = this->getMessenger();
+  auto rulemachine = this->getRuleMachine();
+
   this->bRunning = true;
   while(this->bRunning) {
+    for (auto system : this->systemList) {
+      system->createMessages();
+    }
+
+    for (auto system : this->systemList) {
+      system->process();
+    }
+
+    //run the rule machine
+    rulemachine->process();
     
+    messenger->clearMessages();
   }
 }
   
@@ -54,10 +76,14 @@ const AbstractSystem* Kampf::getSystem(stringType systemType) {
   return nullptr;
 }
 
-const Messenger* Kampf::getMessenger() {
+void Kampf::addSystem(AbstractSystem* system) {
+  this->systemList.push_back(system);
+}
+
+Messenger* Kampf::getMessenger() {
   return this->messenger;
 }
 
-const RuleMachine* Kampf::getRuleMachine() {
+RuleMachine* Kampf::getRuleMachine() {
   return this->ruleMachine;
 }
