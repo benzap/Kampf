@@ -2,7 +2,7 @@
 UNAME := $(shell uname)
 
 CXX = g++
-CXXFLAGS = --std=c++0x
+CXXFLAGS = --std=c++0x -g
 
 LDFLAGS = #-Wl,--verbose
 

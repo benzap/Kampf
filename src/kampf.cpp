@@ -5,7 +5,7 @@ Kampf::Kampf(enumInitType initType,
 	     enumRenderType renderType) : 
   windowContext(nullptr),
   messenger(Messenger::getInstance()),
-  ruleMachine(nullptr) {
+  ruleMachine(new RuleMachine()) {
   if (initType == enumInitType::Basic || initType == enumInitType::Manual) {
     if (windowType == enumWindowType::SDL) {
       this->windowContext = new SDLRenderWindow();
@@ -43,7 +43,7 @@ Kampf::Kampf(enumInitType initType,
 
 Kampf::~Kampf() {
   delete windowContext;
-  delete messenger;
+  //delete messenger;
   delete ruleMachine;
 }
 
@@ -68,11 +68,11 @@ void Kampf::runMainLoop() {
   }
 }
   
-const AbstractRenderWindow* Kampf::getRenderWindow() {
+AbstractRenderWindow* Kampf::getRenderWindow() {
   return this->windowContext;
 }
 
-const AbstractSystem* Kampf::getSystem(stringType systemType) {
+AbstractSystem* Kampf::getSystem(stringType systemType) {
   return nullptr;
 }
 

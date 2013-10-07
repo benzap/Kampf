@@ -67,8 +67,8 @@ class Kampf {
 
   void runMainLoop();
   
-  const AbstractRenderWindow* getRenderWindow();
-  const AbstractSystem* getSystem(stringType systemType);
+  AbstractRenderWindow* getRenderWindow();
+  AbstractSystem* getSystem(stringType systemType);
   void addSystem(AbstractSystem*);
   Messenger* getMessenger();
   RuleMachine* getRuleMachine();
