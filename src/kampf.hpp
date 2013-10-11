@@ -10,6 +10,7 @@
 
 #include "KF_globals.hpp"
 #include "KF_utilities.hpp"
+#include "KF_math.hpp"
 #include "Components.hpp"
 #include "Entities.hpp"
 #include "Managers.hpp"

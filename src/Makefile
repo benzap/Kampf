@@ -21,7 +21,7 @@ OUTPUT_DIRECTORY = ../lib
 TESTS_DIRECTORY = ./tests
 
 #global hpp files
-GLOBAL_HPP= KF_globals.hpp KF_utilities.hpp
+GLOBAL_HPP= KF_globals.hpp KF_utilities.hpp KF_math.hpp
 
 #get all of the .cpp files and .hpp files
 HPP_FILES=$(wildcard *.hpp)
