@@ -40,6 +40,7 @@ enum enumComponentFamily {
   ABSTRACT,
   COLLISION,
   PHYSICS,
+  GRAPHICS,
   CUSTOM
 };
 
@@ -65,6 +66,9 @@ private:
   //the same type as its parent.
   componentContainerType children;
 public:
+  //set to true if the component is active
+  bool bEnabled = true;
+
   AbstractComponent(stringType name, 
 		    enumComponentFamily family = enumComponentFamily::ABSTRACT,
 		    bool bIsParent = true);
