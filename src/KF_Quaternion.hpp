@@ -34,10 +34,12 @@ public:
   Vector v;
   floatType w;
 
-  Quaternion(floatType i = 0,
+  Quaternion(floatType w = 0,
+	     floatType i = 0,
 	     floatType j = 0,
-	     floatType k = 0,
-	     floatType w = 0);
+	     floatType k = 0);
+
+  integerType length() { return 4; }
 
   Quaternion operator +(const Quaternion& o);
   void operator +=(const Quaternion& o);

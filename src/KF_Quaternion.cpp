@@ -1,9 +1,9 @@
 #include "KF_Quaternion.hpp"
 
-Quaternion::Quaternion(floatType i, 
+Quaternion::Quaternion(floatType w,
+		       floatType i, 
                        floatType j,
-                       floatType k,
-                       floatType w) : 
+                       floatType k) : 
                        v(Vector(i,j,k)),
                        w(w) {
 
@@ -131,8 +131,11 @@ std::ostream& operator << (std::ostream& os,
 
 Quaternion Quaternion::product(const Quaternion& o) {
   Quaternion q;
-  q.w = this->w * o.w - this->v * o.v;
-  q.v = o.v * (floatType) this->w;
+  q.w = (this->w * o.w) - (this->v * o.v);
+
+  q.v = o.v;
+  q.v *= this->w;
+
   q.v += this->v * o.w;
   q.v += this->v % o.v;
   return q;

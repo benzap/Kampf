@@ -20,4 +20,3 @@ void makeOrthonormalBasis(Vector *a, Vector *b, Vector *c) {
   //(less expensive than getting it's unit vector)
   (*b) = (*c) % (*a);
 };
-

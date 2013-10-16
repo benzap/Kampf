@@ -22,6 +22,7 @@ GLOBAL_HPP= ../kampf.hpp
 HPP_FILES=$(wildcard *.hpp)
 CPP_FILES=$(wildcard *.cpp)
 OBJ_FILES=$(CPP_FILES:.cpp=.o)
+SO_FILES = $(wildcard *.so)
 
 INC_DIR= -I../ -I./
 LIB_DIR= -L../lib -L../ -L./ -LC:\MinGW\lib
@@ -46,11 +47,11 @@ DELETE_SCRIPT = deletefiles.sh
 .SUFFIXES: .cpp .c .hpp .h
 
 .PHONY: all clean tests runtests
-tests: $(OBJ_FILES)
+tests: $(OBJ_FILES) $(SO_FILES)
 
 all: clean tests runtests
 
-%.o: %.cpp $(GLOBAL_HPP)
+%.o: %.cpp $(GLOBAL_HPP) $(SO_FILES)
 	$(CXX) $(CXXFLAGS) $(INC_DIR) -o $@ -c $< $(LIBS) $(LIB_DIR)
 	$(CXX) $(CXXFLAGS) $(LDFLAGS) $(LD_SHARED) -o $* $@ $(LIBS) $(LIB_DIR)
 	echo rm -f $* >> $(DELETE_SCRIPT)
