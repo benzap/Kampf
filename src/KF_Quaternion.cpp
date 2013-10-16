@@ -11,49 +11,65 @@ Quaternion::Quaternion(floatType i,
 
 Quaternion Quaternion::operator +(const Quaternion& o) {
   Quaternion q;
-  q.v += o.v;
-  q.w += o.w;
+  q.w = this->w + o.w;
+  q.v = this->v + o.v;
   return q;
 }
 
 void Quaternion::operator +=(const Quaternion& o) {
+  this->w += o.w;
+  this->v += o.v;
+}
+
+
+Quaternion Quaternion::operator +(const Vector& o) {
+  Quaternion q;
+  q.w = this->w;
+  q.v = this->v + o;
+  return q;
+}
+
+
+floatType Quaternion::operator *(const Quaternion& o) {
+  floatType result = this->w * o.w;
+  result += this->v * o.v;
+  return result;
+}
+
+floatType Quaternion::operator *(const Vector& o) {
+  Quaternion q = *this;
   
-}
-
-
-Quaternion Quaternion::operator+(const Vector& o) {
-  Quaternion q;
-
-  return q;
-}
-
-
-Quaternion Quaternion::operator *(const Quaternion& o) {
-  Quaternion q;
-
-  return q;
-}
-
-void Quaternion::operator *=(const Quaternion& o) {
-
-}
-
-
-Quaternion Quaternion::operator *(const Vector& o) {
-  Quaternion q;
-
-  return q;
+  return q.v * o;
 }
 
 Quaternion Quaternion::operator *(floatType f) {
   Quaternion q;
-
+  q.w = this->w * f;
+  q.v = this->v * f;
   return q;
+}
+
+void Quaternion::operator *=(floatType f) {
+  this->w = this->w * f;
+  this->v = this->v * f;
 }
 
 
 floatType& Quaternion::operator [] (integerType i) {
-
+  assert(i <= 3);
+  switch(i) {
+  case 0:
+    return this->w;
+    
+  case 1:
+    return this->v.x;
+    
+  case 2:
+    return this->v.y;
+    
+  case 3:
+    return this->v.z;
+  }
 }
 
 //conditionals
@@ -69,50 +85,65 @@ bool Quaternion::operator ==(const Quaternion& o) {
 //the conjugate
 Quaternion Quaternion::conj() {
   Quaternion q;
-
+  q.w = this->w;
+  q.v = -this->v;
   return q;
 }
 
+Quaternion Quaternion::inv() {
+  Quaternion q = *this;
+  return q.conj() * (1 / q.magnitude());
+}
 
 Quaternion Quaternion::operator - () {
   Quaternion q;
-
+  q.w = -this->w;
+  q.v = -this->v;
   return q;
 }
 
 
 floatType Quaternion::magnitude_real() {
-  return 0;
+  return sqrt(this->w * this->w + fabs(this->v * this->v));
 }
 
 floatType Quaternion::magnitude() {
-  return 0;
+  return this->w * this->w + fabs(this->v * this->v);
 }
 
-floatType Quaternion::unit() {
-  return 0;
+Quaternion Quaternion::unit() {
+  Quaternion q = *this;
+  q *= 1 / q.magnitude_real();
+  return q;
 }
 
 
 //printing out vectors
 std::ostream& operator << (std::ostream& os,
                            Quaternion const & _this) {
-
+  os << "quat(" << _this.w;
+  os << ", " << _this.v.x;
+  os << ", " << _this.v.y;
+  os << ", " << _this.v.z;
+  os << ")";
+  return os;
 }
 
 Quaternion Quaternion::product(const Quaternion& o) {
   Quaternion q;
-
+  q.w = this->w * o.w - this->v * o.v;
+  q.v = o.v * (floatType) this->w;
+  q.v += this->v * o.w;
+  q.v += this->v % o.v;
   return q;
 }
 
 
 Quaternion Quaternion::operator % (const Quaternion& o) {
-  Quaternion q;
-
-  return q;
+  Quaternion q = *this;
+  return q.product(o);
 }
 
 void Quaternion::operator %= (const Quaternion& o) {
-
+  *this = this->product(o);
 }

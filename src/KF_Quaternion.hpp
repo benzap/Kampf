@@ -3,7 +3,7 @@
 //DESCRIPTION
 /*
   Quaternions are used for determining the orientation of an object.
- */
+*/
 
 //INCLUDES
 #include <cmath>
@@ -31,49 +31,48 @@ class Quaternion {
 private:
 
 public:
-Vector v;
-floatType w;
+  Vector v;
+  floatType w;
 
-Quaternion(floatType i = 0,
-           floatType j = 0,
-           floatType k = 0,
-           floatType w = 0);
+  Quaternion(floatType i = 0,
+	     floatType j = 0,
+	     floatType k = 0,
+	     floatType w = 0);
 
-Quaternion operator +(const Quaternion& o);
-void operator +=(const Quaternion& o);
+  Quaternion operator +(const Quaternion& o);
+  void operator +=(const Quaternion& o);
 
-Quaternion operator+(const Vector& o);
+  Quaternion operator+(const Vector& o);
 
-Quaternion operator *(const Quaternion& o);
-void operator *=(const Quaternion& o);
+  floatType operator *(const Quaternion& o);
+  floatType operator *(const Vector& o);
+  Quaternion operator *(floatType f);
+  void operator *=(floatType f);
 
-Quaternion operator *(const Vector& o);
-Quaternion operator *(floatType f);
+  floatType& operator [] (integerType i);
 
-floatType& operator [] (integerType i);
-
-//conditionals
-//equality
-bool operator ==(const Quaternion& o);
+  //conditionals
+  //equality
+  bool operator ==(const Quaternion& o);
 
 
-//the conjugate
-Quaternion conj();
+  //the conjugate
+  Quaternion conj();
+  Quaternion inv();
 
-Quaternion operator - ();
+  Quaternion operator - ();
 
-floatType magnitude_real();
-floatType magnitude();
-floatType unit();
+  floatType magnitude_real();
+  floatType magnitude();
+  Quaternion unit();
 
-//printing out vectors
-friend std::ostream& operator << (std::ostream& os,
+  //printing out vectors
+  friend std::ostream& operator << (std::ostream& os,
 				    Quaternion const & _this);
 
-Quaternion product(const Quaternion& o);
+  Quaternion product(const Quaternion& o);
 
-Quaternion operator % (const Quaternion& o);
-void operator %= (const Quaternion& o);
-
+  Quaternion operator % (const Quaternion& o);
+  void operator %= (const Quaternion& o);
 };
 #endif //END KF_QUATERNION__HPP
