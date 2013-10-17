@@ -7,6 +7,10 @@
   collision components within a hierarchy, with deeper hierachies
   resembling more finely honed pieces to encompass the thing that we
   are checking against.
+  
+  It's important to note that a collision component's is primarily
+  affected by the positioning of the physics component. In the future, the position should refer
+
  */
 
 //INCLUDES
@@ -28,10 +32,18 @@ class CollisionComponent;
 //BEGIN
 class CollisionComponent : public AbstractComponent {
 private:
+  //its current position
   Vector position;
-  //rotation
+
+  //the offset from the position
+  Vector offset;
+
+  //it's center of rotation
   Vector origin;
   
+  //
+  Quaternion orientation;
+
 public:
   CollisionComponent(stringType name, 
 		     bool bIsParent = true);

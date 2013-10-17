@@ -5,20 +5,23 @@ set namespaceSeparator ::
 
 'Main Facade Class
 class Kampf << (S,#FF7700) Facade >> {
+   - bool bRunning = false
    - AbstractRenderWindow windowContext
-   - std::vector<AbstractSystem> systemList
-   - std::map<stringType, AbstractManager> managerMap
-   - Messenger messenger
-   - RuleMachine ruleMachine
+   - systemContainerType systemList
+   - Messenger* messenger
+   - RuleMachine* ruleMachine
    ==
    .. constructor ..
-   + void Kampf()
+   + void Kampf(
+   enumInitType initType = enumInitType::Basic,
+   enumWindowType windowType = enumWindowType::SDL,
+   enumRenderType renderType = enumRenderType::SDL
+   )
    + void runMainLoop(bContinuous=true)
    -- getters --
+   + AbstractRenderWindow getRenderWindow()
    + AbstractSystem getSystem(stringType systemType)
    + Messenger getMessenger()
-   + JobScheduler getJobScheduler()
-   + AbstractRenderWindow getRenderWindow()
    + Rulemachine getRuleMachine()
 }
 
@@ -27,6 +30,12 @@ abstract class AbstractRenderWindow {
    - int windowWidth = 800
    - int windowHeight = 600
    ==
+   + AbstractRenderWindow(
+     int windowWidth = 800,
+     int windowHeight = 600
+     )
+   + virtual bool reinitialize() = 0
+   + virtual bool intialize() = 0
    + virtual draw(AbstractDrawable drawable)
 } 
 
@@ -34,6 +43,8 @@ class SDLRenderWindow {
    - int windowWidth = 800
    - int windowHeight = 600
    ==
+   + bool reinitialize() = 0
+   + bool intialize() = 0
    + draw(AbstractDrawable drawable)
 }
 
@@ -44,28 +55,31 @@ SDLRenderWindow --> AbstractRenderWindow
 ''
 package "Entities" #C3B1A3 {
 abstract class AbstractEntity {
-   - static incrementType EntityID = 0
-   - long id
-   - std::vector<AbstractComponent> components
-   - string name = ""
-   - string type = "abstract"
+
+   - stringType name = ""
+   - stringType type = "abstract"
+   - incrementType id
+   - componentListType componentList
    ==
+   + static incrementType EntityID = 0
    .. constructor ..
-   + AbstractEntity(std::string name, long id)
+   + AbstractEntity(
+     stringType name,
+     incrementType id = GENERATE_ID,
+     stringType type = ENTITY_ABSTRACT_TYPE
+     )
    -- getters/setters --
-   .. id ..
-   + long getID()
-   + void setID(long id)
-   .. components ..
-   + std::list<AbstractComponent> getComponentsByFamily(enum ComponentFamily family)
-   + std::list<AbstarctComponent> getComponentByName(std::string name)
-   + void addComponent(AbstractComponent theComponent)
-   + AbstractComponent::iterator traverseComponentTree()
-   .. name ..
    + stringType getName()
    + setName(stringType name)
-   .. type .. 
    + stringType getType()
+   + incrementType getID()
+   
+   + componentListType getComponentContainer();
+   + componentListType getComponentsByFamily(enumComponentFamily family)
+   + componentListType getComponentByName(stringType name)
+   + AbstractComponent::iterator traverseComponentTree()
+
+   + void addComponent(AbstractComponent theComponent)
 } 	
 
 } 
@@ -81,7 +95,7 @@ abstract class AbstractEntity {
 
 package "Managers" #FE6F4D {
 
-class EntityManager {
+class EntityManager << (S,#FF7700) >> {
    - std::vector<AbstractEntity> entityList
    ==
    + void addEntity(AbstractEntity entity)
@@ -89,7 +103,7 @@ class EntityManager {
    + AbstractEntity getEntityByID()
 } 
 
-class EventManager {
+class EventManager << (S,#FF7700) >> {
    - std::vector<AbstractEvent> eventList
    ==
    + void pollEvents()
@@ -188,33 +202,51 @@ abstract class AbstractComponent {
    .. custom values ..
    + integerType getCustomAttribute_int(stringType);
    + stringType setCustomAttribute(stringType, integerType);
+
    + floatType getCustomAttribute_float(stringType);
    + stringType setCustomAttribute(stringType, floatType);
+
    + charType getCustomAttribute_char(stringType);
    + stringType setCustomAttribute(stringType, charType);
+
    + intArrayType* getCustomAttribute_intArray(stringType);
    + stringType setCustomAttribute(stringType, intArrayType*);
+
    + floatArrayType* getCustomAttribute_floatArray(stringType);
    + stringType setCustomAttribute(stringType, floatArrayType*);
+
    + stringType& getCustomAttribute_string(stringType);
    + stringType setCustomAttribute(stringType, stringType);
+
    + void* getCustomAttribute_void(stringType);
    + stringType setCustomAttribute(stringType, void*);
+
    + bool hasCustomAttribute(stringType);
    + enumAttribute getCustomAttributeType(stringType);
    + void deleteCustomAttribute(stringType);
+
    .. children ..
    + void addChild(AbstractComponent)
    + bool hasChildren()
    + std::list<AbstractComponent> getChildren()
 }
 
-class SpriteComponent {
-
+class GraphicsComponent {
+   - enumComponentFamily family = GRAPHICS
+   - Vector position
+   - Vector offset
+   - Vector origin
+   - AbstractDrawable reference;
 }
 
 class CollisionComponent {
-
+   - enumComponentFamily family = COLLISION
+   - Vector position
+   - Vector offset
+   - Vector origin
+   - Quaternion orientation
+   ==
+   CollisionComponent(stringType name, bool bIsParent = true)
 }
 
 class TextComponent {
@@ -222,7 +254,16 @@ class TextComponent {
 }
 
 class PhysicsComponent {
-
+   - enumComponentFamily family = PHYSICS
+   - Vector position
+   - Vector velocity
+   - Vector acceleration
+   - Quaternion orientation
+   
+   - floatType damping
+   - floatType inverseMass
+   ==
+   PhysicsComponent(stringType name, bool bIsParent = true)
 }
 
 'Aggregation between the component and the CustomAttributes
@@ -238,7 +279,7 @@ AbstractComponent o-- CustomAttribute
 TextComponent -|> AbstractComponent
 PhysicsComponent -|> AbstractComponent
 CollisionComponent -|> AbstractComponent
-SpriteComponent -|> AbstractComponent
+GraphicsComponent -|> AbstractComponent
 ''
 '' SYSTEMS
 ''

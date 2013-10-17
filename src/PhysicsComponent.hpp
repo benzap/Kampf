@@ -30,6 +30,8 @@ private:
   Vector velocity;
   Vector acceleration;
   
+  Quaternion orientation;
+
   floatType damping;
   floatType inverseMass;
 
