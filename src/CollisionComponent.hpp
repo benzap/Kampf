@@ -41,7 +41,9 @@ private:
   //it's center of rotation
   Vector origin;
   
-  //
+  //the scaling
+  Vector scale;
+
   Quaternion orientation;
 
 public:

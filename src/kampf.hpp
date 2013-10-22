@@ -20,6 +20,8 @@
 #include "RenderWindows.hpp"
 #include "Messenger.hpp"
 #include "Message.hpp"
+#include "LuaScript.hpp"
+
 
 //CLASSES
 class Kampf;

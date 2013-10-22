@@ -32,6 +32,9 @@ typedef double floatType;
 //character type to use
 typedef char charType;
 
+//boolean type to use
+typedef bool boolType;
+
 //int array type
 typedef std::vector<integerType> intArrayType;
 

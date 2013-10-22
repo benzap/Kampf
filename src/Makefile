@@ -28,10 +28,11 @@ HPP_FILES=$(wildcard *.hpp)
 CPP_FILES=$(wildcard *.cpp)
 OBJ_FILES=$(CPP_FILES:.cpp=.o)
 
+LIBS = -llua51
 ifeq ($(UNAME), Linux)
-LIBS = -lSDL2main -lSDL2 
+LIBS += -lSDL2main -lSDL2 
 else
-LIBS = -lmingw32 -lSDL2main -lSDL2 
+LIBS += -lmingw32 -lSDL2main -lSDL2 
 endif
 
 LIBS_DIR= -L. -L../lib -LC:\MinGW\lib
