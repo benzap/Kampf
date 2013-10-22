@@ -15,12 +15,13 @@
 //DEFINITIONS
 
 //MACROS
-#define KF_INIT_TEST(testnum, comment)			\
-  std::cout << "Test No. " << testnum;			\
+#define KF_INIT_TEST(testnum, comment)				\
+  std::cout << "Test No. " << testnum;				\
   std::cout << "\t - " << comment << "\t";			\
   testnum++;
 
 #define TEST_NAME(filename)						\
+  std::cout << std::endl;						\
   std::cout << "+++++++++++++++++ UNIT TEST +++++++++++" << std::endl;	\
   std::cout << "FILE:\t" << filename << std::endl;			\
   int __numtest = 1;

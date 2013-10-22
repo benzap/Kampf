@@ -40,15 +40,15 @@ public:
   lua_State* getState();
 
   void setGlobal(stringType, floatType);
-  floatType getGlobal(stringType);
+  floatType getGlobal_float(stringType);
   void setGlobal(stringType, integerType);
-  integerType getGlobal(stringType, integerType);
+  integerType getGlobal_int(stringType);
   void setGlobal(stringType, stringType);
-  stringType getGlobal(stringType, stringType);
+  stringType getGlobal_string(stringType);
   void setGlobal(stringType, floatArrayType);
-  floatArrayType getGlobal(stringType, floatArrayType);
+  floatArrayType getGlobal_floatArray(stringType);
   void setGlobal(stringType, intArrayType);
-  intArrayType getGlobal(stringType, intArrayType);
+  intArrayType getGlobal_intArray(stringType);
 
   //load script from the given file path
   boolType loadScript(stringType);
