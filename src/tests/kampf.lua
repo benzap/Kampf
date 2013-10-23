@@ -4,3 +4,7 @@ for i,v in pairs(_G) do
 		print(i, " - ", v)
 	end
 end
+
+for i,v in pairs(kf) do
+	print(i,v)
+end

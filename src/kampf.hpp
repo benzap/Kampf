@@ -5,6 +5,9 @@
   This is the one include required to include the kampf game engine
  */
 
+//CLASSES
+class Kampf;
+
 //INCLUDES
 #include <vector>
 
@@ -26,10 +29,6 @@
 #include "Messenger.hpp"
 #include "Message.hpp"
 #include "LuaScript.hpp"
-
-
-//CLASSES
-class Kampf;
 
 //DEFINITIONS
 #define KF_LOOP_FOREVER -1

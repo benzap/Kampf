@@ -1,6 +1,6 @@
 #include "LuaScript.hpp"
 
-LuaScript::LuaScript() {
+LuaScript::LuaScript(Kampf* kf) {
   this->L = lua_open();
 
   //load all of our libraries
@@ -9,12 +9,18 @@ LuaScript::LuaScript() {
   // luaopen_io(this->L);
   // luaopen_string(this->L);
   // luaopen_math(this->L);
+
+  //standard libs
   luaL_openlibs(L);
 
+  //custom libraries extending kampf
 
-  //custom libraries
+  //kf vectors
+  luaopen_vector(L);
   
-  //! none so far
+  if (kf != nullptr) {
+    
+  }
 }
 
 LuaScript::~LuaScript() {

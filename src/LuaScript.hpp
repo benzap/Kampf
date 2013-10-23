@@ -5,21 +5,19 @@
   Contains the lua scripting singleton, which will allow lua scripting
   within the engine at key points. This should speed up production.
  */
+//CLASSES
+class LuaScript;
 
 //INCLUDES
 #include <iostream>
 #include <fstream>
 #include <streambuf>
-
-#include "KF_globals.hpp"
-#include "KF_utilities.hpp"
-#include "KF_math.hpp"
-
 #include "lua.hpp"
 
+#include "kampf.hpp"
 
-//CLASSES
-class LuaScript;
+//the kampf extensible libraries
+#include "l_Vector.hpp"
 
 //DEFINITIONS
 
@@ -37,7 +35,7 @@ class LuaScript {
 private:
   lua_State *L;
 public:
-  LuaScript();
+  LuaScript(Kampf* kf = nullptr);
   virtual ~LuaScript();
 
   lua_State* getState();
