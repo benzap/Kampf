@@ -23,6 +23,9 @@ class LuaScript;
 
 //DEFINITIONS
 
+//the name of the library to store all of our lua bindings
+#define KF_LUA_LIBNAME "kf"
+
 //MACROS
 
 //TYPEDEFS
