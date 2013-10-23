@@ -21,7 +21,8 @@ class CustomAttribute;
 //ENUMS
 //types that can be stored within the customAttributeValueMap
 // they refer to integerType, floatType, and charType
-enum enumAttribute {
+
+enum class enumAttribute {
   INTEGER,
   FLOAT,
   CHAR,

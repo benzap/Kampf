@@ -32,7 +32,7 @@ LIBS = -llua51
 ifeq ($(UNAME), Linux)
 LIBS += -lSDL2main -lSDL2 
 else
-LIBS += -lmingw32 -lSDL2main -lSDL2 
+LIBS += -lmingw32 -lSDL2main -lSDL2 -lShlwapi
 endif
 
 LIBS_DIR= -L. -L../lib -LC:\MinGW\lib

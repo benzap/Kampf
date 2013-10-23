@@ -13,6 +13,14 @@
 //CLASSES
 
 //DEFINITIONS
+//to fix some issues concerning windows
+#if defined(KF_WIN)
+#undef VOID
+#undef INTEGER
+#undef FLOAT
+#undef VECTOR
+#endif
+
 
 //MACROS
 
@@ -31,6 +39,7 @@ typedef double floatType;
 
 //character type to use
 typedef char charType;
+
 
 //boolean type to use
 typedef bool boolType;

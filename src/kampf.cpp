@@ -5,7 +5,42 @@ Kampf::Kampf(enumInitType initType,
 	     enumRenderType renderType) : 
   windowContext(nullptr),
   messenger(Messenger::getInstance()),
-  ruleMachine(new RuleMachine()) {
+  ruleMachine(new RuleMachine()),
+  lua(new LuaScript()) {
+
+  //set the OS
+#if defined(KF_WIN)
+  lua->setGlobal("KF_OS", "WIN32");
+#elif defined(KF_LINUX)
+  lua->setGlobal("KF_OS", "LINUX");
+#else
+  lua->setGlobal("KF_OS", "UNKNOWN");
+#endif
+
+  //find out the filename of the current executable
+  stringType executablePath = "none";
+
+#if defined(KF_WIN)
+  TCHAR szPath[MAX_PATH];
+  if(!GetModuleFileName(NULL, szPath, MAX_PATH)) {
+    std::cerr << "Warning: Could not get filename, setting to none" << std::endl;
+  }
+  else {
+    executablePath = szPath;
+  }
+#elif defined(KF_LINUX)
+  //not implemented, yet
+  executablePath = "none";
+#else
+  //not implemented
+  executablePath = "none";
+#endif
+  lua->setGlobal("KF_EXEC_PATH", executablePath);
+
+  //execute our main script
+  lua->loadScript(KF_INIT_FILE);
+
+  //the intialization of the kampf configuration
   if (initType == enumInitType::Basic || initType == enumInitType::Manual) {
     if (windowType == enumWindowType::SDL) {
       this->windowContext = new SDLRenderWindow();
