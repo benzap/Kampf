@@ -147,3 +147,7 @@ Messenger* Kampf::getMessenger() {
 RuleMachine* Kampf::getRuleMachine() {
   return this->ruleMachine;
 }
+
+LuaScript* Kampf:: getLua() {
+  return this->lua;
+}

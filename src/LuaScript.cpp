@@ -189,3 +189,23 @@ boolType LuaScript::loadString(stringType theString, stringType name) {
   }
   return true;
 }
+
+void LuaScript::runInterpreter() {
+  std::cout << "Running Kampf Interpretor" << std::endl;
+  stringType buffer;
+  boolType bSuccess = true;
+
+  //set a value within lua to determine loop
+  this->setGlobal("_bLoop", 1);
+  
+  //functions to close the interpreter
+  this->loadString("function quit() _bLoop = 0 end");
+  this->loadString("function exit() _bLoop = 0 end");
+
+  while (this->getGlobal_int("_bLoop")) {
+    std::cout << "Kampf>> ";
+    getline(std::cin, buffer);
+    bSuccess = this->loadString(buffer);
+  }
+  std::cout << "Kampf Interpreter Exited" << std::endl;
+}

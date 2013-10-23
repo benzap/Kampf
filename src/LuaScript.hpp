@@ -57,7 +57,8 @@ public:
   //load string into the lua REPL
   boolType loadString(stringType, stringType name = "stdin");
   
-
+//run the interpreter
+void runInterpreter();
 
 };
 
