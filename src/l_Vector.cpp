@@ -32,6 +32,10 @@ static int l_Vector_index(lua_State *L) {
 
 }
 
+static int l_Vector_tostring(lua_State *L) {
+
+}
+
 static const struct luaL_Reg l_Vector_Registry [] = {
   {"Vector", l_Vector_Vector},
   {NULL, NULL}

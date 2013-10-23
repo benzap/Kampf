@@ -27,21 +27,15 @@ SO_FILES = $(wildcard *.so)
 INC_DIR= -I../ -I./
 LIB_DIR= -L../lib -L../ -L./ -LC:\MinGW\lib
 
-LIBS = -llua51
+LIBS = 
 ifeq ($(UNAME), Linux)
-LIBS += -lkampf -lSDL2main -lSDL2
+LIBS += -lkampf -lSDL2main -lSDL2 -lluajit-5.1
 else
-LIBS += -lkampf -lmingw32 -lSDL2main -lSDL2
+LIBS += -lkampf -lmingw32 -lSDL2main -lSDL2 -llua51
 endif
-
-
-
-
 
 RUN_SCRIPT = runtests.sh
 DELETE_SCRIPT = deletefiles.sh
-
-
 
 #redefine our suffixes
 .SUFFIXES:
