@@ -62,8 +62,6 @@ static int l_Vector_index(lua_State *L) {
   else if (lua_isstring(L, 2)) {
     stringType sIndex = lua_tostring(L, 2);
     
-    
-
     if (sIndex == "x") {
       lua_pushnumber(L, vector->x);
     }
@@ -88,6 +86,94 @@ static int l_Vector_index(lua_State *L) {
   return 0;
 }
 
+static int l_Vector_unm(lua_State *L) {
+  Vector* thisVector = *static_cast<Vector**>
+    (luaL_checkudata(L, 1, LUA_USERDATA_VECTOR));
+
+  Vector* resultVectorPtr = new Vector();
+  *resultVectorPtr = -(*thisVector);
+
+  Vector** vectorPtr = static_cast<Vector**>
+    (lua_newuserdata(L, sizeof(Vector)));
+  
+  *vectorPtr = resultVectorPtr;
+
+  luaL_getmetatable(L, LUA_USERDATA_VECTOR);
+  lua_setmetatable(L, -2);
+
+  return 1;
+}
+
+static int l_Vector_add(lua_State *L) {
+  Vector* vector = *static_cast<Vector**>
+    (luaL_checkudata(L, 1, LUA_USERDATA_VECTOR));
+
+  Vector result;
+
+  if (lua_isuserdata(L, 2)) {
+    Vector * otherVector = *static_cast<Vector**>
+      (luaL_checkudata(L, 2, LUA_USERDATA_VECTOR));
+
+    result = *vector + *otherVector;
+  }
+  else if (lua_isnumber(L, 2)) {
+    auto scalarValue = lua_tonumber(L, 2);
+
+    result = *vector + scalarValue;
+  }
+  else {
+    luaL_error(L, "LUA_ERROR: Incorrect type provided");
+  }
+
+  Vector* resultVectorPtr = new Vector();
+  *resultVectorPtr = result;
+
+  Vector** vectorPtr = static_cast<Vector**>
+    (lua_newuserdata(L, sizeof(Vector)));
+  
+  *vectorPtr = resultVectorPtr;
+
+  luaL_getmetatable(L, LUA_USERDATA_VECTOR);
+  lua_setmetatable(L, -2);
+
+  return 1;
+}
+
+static int l_Vector_sub(lua_State *L) {
+  Vector* vector = *static_cast<Vector**>
+    (luaL_checkudata(L, 1, LUA_USERDATA_VECTOR));
+
+  Vector result;
+
+  if (lua_isuserdata(L, 2)) {
+    Vector * otherVector = *static_cast<Vector**>
+      (luaL_checkudata(L, 2, LUA_USERDATA_VECTOR));
+
+    result = *vector + -(*otherVector);
+  }
+  else if (lua_isnumber(L, 2)) {
+    auto scalarValue = lua_tonumber(L, 2);
+
+    result = *vector + -scalarValue;
+  }
+  else {
+    luaL_error(L, "LUA_ERROR: Incorrect type provided");
+  }
+
+  Vector* resultVectorPtr = new Vector();
+  *resultVectorPtr = result;
+
+  Vector** vectorPtr = static_cast<Vector**>
+    (lua_newuserdata(L, sizeof(Vector)));
+  
+  *vectorPtr = resultVectorPtr;
+
+  luaL_getmetatable(L, LUA_USERDATA_VECTOR);
+  lua_setmetatable(L, -2);
+
+  return 1;
+}
+
 static int l_Vector_tostring(lua_State *L) {
   Vector* vector = *static_cast<Vector**>
     (luaL_checkudata(L, 1, LUA_USERDATA_VECTOR));
@@ -105,6 +191,14 @@ static int l_Vector_tostring(lua_State *L) {
   return 1;
 }
 
+static int l_Vector_gc(lua_State *L) {
+  Vector* vector = *static_cast<Vector**>
+    (luaL_checkudata(L, 1, LUA_USERDATA_VECTOR));
+  delete vector;
+  
+  return 0;
+}
+
 static const struct luaL_Reg l_Vector_Registry [] = {
   {"Vector", l_Vector_Vector},
   {NULL, NULL}
@@ -112,7 +206,11 @@ static const struct luaL_Reg l_Vector_Registry [] = {
 
 static const struct luaL_Reg l_Vector [] = {
   {"__index", l_Vector_index},
+  {"__gc", l_Vector_gc},
   {"__tostring", l_Vector_tostring},
+  {"__unm", l_Vector_unm},
+  {"__add", l_Vector_add},
+  {"__sub", l_Vector_sub},
   {NULL, NULL}
 };
 
