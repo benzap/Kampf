@@ -174,6 +174,73 @@ static int l_Vector_sub(lua_State *L) {
   return 1;
 }
 
+static int l_Vector_mul(lua_State *L) {
+  Vector* vector = *static_cast<Vector**>
+    (luaL_checkudata(L, 1, LUA_USERDATA_VECTOR));
+
+  Vector result;
+  float scalarResult;
+
+  if (lua_isuserdata(L, 2)) {
+    Vector * otherVector = *static_cast<Vector**>
+      (luaL_checkudata(L, 2, LUA_USERDATA_VECTOR));
+
+    scalarResult = (*vector) * (*otherVector);
+    lua_pushnumber(L, scalarResult);
+  }
+  else if (lua_isnumber(L, 2)) {
+    auto scalarValue = lua_tonumber(L, 2);
+
+    result = (*vector) * scalarValue;
+
+    Vector* resultVectorPtr = new Vector();
+    *resultVectorPtr = result;
+
+    Vector** vectorPtr = static_cast<Vector**>
+      (lua_newuserdata(L, sizeof(Vector)));
+  
+    *vectorPtr = resultVectorPtr;
+
+    luaL_getmetatable(L, LUA_USERDATA_VECTOR);
+    lua_setmetatable(L, -2);
+  }
+  else {
+    luaL_error(L, "LUA_ERROR: Incorrect type provided");
+  }
+
+  return 1;
+}
+
+static int l_Vector_mod(lua_State *L) {
+  Vector* vector = *static_cast<Vector**>
+    (luaL_checkudata(L, 1, LUA_USERDATA_VECTOR));
+
+  Vector result;
+
+  if (lua_isuserdata(L, 2)) {
+    Vector * otherVector = *static_cast<Vector**>
+      (luaL_checkudata(L, 2, LUA_USERDATA_VECTOR));
+
+    result = (*vector) % (*otherVector);
+  }
+  else {
+    luaL_error(L, "LUA_ERROR: Incorrect type provided");
+  }
+
+  Vector* resultVectorPtr = new Vector();
+  *resultVectorPtr = result;
+
+  Vector** vectorPtr = static_cast<Vector**>
+    (lua_newuserdata(L, sizeof(Vector)));
+  
+  *vectorPtr = resultVectorPtr;
+
+  luaL_getmetatable(L, LUA_USERDATA_VECTOR);
+  lua_setmetatable(L, -2);
+
+  return 1;
+}
+
 static int l_Vector_tostring(lua_State *L) {
   Vector* vector = *static_cast<Vector**>
     (luaL_checkudata(L, 1, LUA_USERDATA_VECTOR));
@@ -211,6 +278,8 @@ static const struct luaL_Reg l_Vector [] = {
   {"__unm", l_Vector_unm},
   {"__add", l_Vector_add},
   {"__sub", l_Vector_sub},
+  {"__mul", l_Vector_mul},
+  {"__mod", l_Vector_mod},
   {NULL, NULL}
 };
 
