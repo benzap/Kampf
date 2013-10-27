@@ -126,7 +126,6 @@ public:
 		  -this->z);
   };
 
-
   //The component product of two vectors
   Vector comp_prod(const Vector& o) {
     return Vector(
@@ -134,7 +133,6 @@ public:
 		  this->y * o.y,
 		  this->z * o.z);
   };
-
 
   void comp_prod_update(const Vector& o) {
     this->x *= o.x;
@@ -196,7 +194,6 @@ public:
 };
 
 void makeOrthonormalBasis(Vector *a, Vector *b, Vector *c);
-
 
 
 #endif //END KF_VECTOR__HPP

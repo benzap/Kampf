@@ -22,6 +22,10 @@
 
 //FUNCTIONS
 
+Vector* lua_pushvector(lua_State*, Vector*);
+
+Vector* lua_tovector(lua_State*, int);
+
 int luaopen_vector (lua_State *L);
 //BEGIN
 
