@@ -84,8 +84,9 @@ static int l_Vector_index(lua_State *L) {
       lua_pushnumber(L, vector->z);
     }
     else {
-      luaL_error(L, "LUA_ERROR: Index out of range --> %s",
-		 sIndex.c_str());
+      //get the metafields
+      luaL_getmetatable(L, LUA_USERDATA_VECTOR);
+      lua_getfield(L, -1, sIndex.c_str());
     }
 
     return 1;
@@ -95,6 +96,46 @@ static int l_Vector_index(lua_State *L) {
     return 0;
   }
   return 0;
+}
+
+static int l_Vector_newindex(lua_State *L) {
+  auto thisVector = lua_tovector(L, 1);
+  floatType value = luaL_checknumber(L, 3);
+  if (lua_isstring(L,2)) {
+    stringType sKey = lua_tostring(L, 2);
+    if (sKey == "x") {
+      (*thisVector).x = value;
+    }
+    else if (sKey == "y") {
+      (*thisVector).y = value;
+    }
+    else if (sKey == "z") {
+      (*thisVector).z = value;
+    }
+    else {
+      luaL_error(L, "LUA_ERROR: Index out of range --> %s",
+		 sKey.c_str());
+    }
+  }
+  else if (lua_isnumber(L, 2)) {
+    int iKey = lua_tointeger(L, 2);
+    if (iKey == 1) {
+      (*thisVector).x = value;
+    }
+    else if (iKey == 2) {
+      (*thisVector).y = value;
+    }
+    else if (iKey == 3) {
+      (*thisVector).z = value;
+    }
+    else {
+      luaL_error(L, "LUA_ERROR: Index out of range --> %d",
+		 iKey);
+    }
+  }
+  else {
+    luaL_error(L, "LUA_ERROR: Incorrect type for index");
+  }     
 }
 
 static int l_Vector_unm(lua_State *L) {
@@ -183,6 +224,20 @@ static int l_Vector_mod(lua_State *L) {
   return 1;
 }
 
+static int l_Vector_eq(lua_State *L) {
+  Vector* vector = lua_tovector(L, 1);
+  Vector* rVector = lua_tovector(L, 2);
+
+  if (*vector == *rVector) {
+    lua_pushboolean(L, true);
+  }
+  else {
+    lua_pushboolean(L, false);
+  }
+
+  return 1;
+}
+
 static int l_Vector_tostring(lua_State *L) {
   Vector* vector = lua_tovector(L, 1);
 
@@ -195,6 +250,33 @@ static int l_Vector_tostring(lua_State *L) {
   output += std::to_string(vector->z);
   output += ")";
   lua_pushstring(L, output.c_str());
+
+  return 1;
+}
+
+static int l_Vector_unit(lua_State *L) {
+  Vector* vector = lua_tovector(L, 1);
+  Vector* result = lua_pushvector(L);
+
+  *result = vector->unit();
+
+  return 1;
+}
+
+static int l_Vector_magnitude(lua_State *L) {
+  Vector* vector = lua_tovector(L, 1);
+  
+  floatType result = vector->magnitude();
+  lua_pushnumber(L, result);
+
+  return 1;
+}
+
+static int l_Vector_magnitude_real(lua_State *L) {
+  Vector* vector = lua_tovector(L, 1);
+  
+  floatType result = vector->magnitude_real();
+  lua_pushnumber(L, result);
 
   return 1;
 }
@@ -228,6 +310,7 @@ static const struct luaL_Reg l_Vector_Registry [] = {
 
 static const struct luaL_Reg l_Vector [] = {
   {"__index", l_Vector_index},
+  {"__newindex", l_Vector_newindex},
   {"__gc", l_Vector_gc},
   {"__tostring", l_Vector_tostring},
   {"__unm", l_Vector_unm},
@@ -236,7 +319,11 @@ static const struct luaL_Reg l_Vector [] = {
   {"__mul", l_Vector_mul},
   {"__mod", l_Vector_mod},
   {"__len", l_Vector_len},
+  {"__eq", l_Vector_eq},
   {"compProd", l_Vector_compProd},
+  {"unit", l_Vector_unit},
+  {"magnitude", l_Vector_magnitude},
+  {"magnitude_real", l_Vector_magnitude_real},
   {NULL, NULL}
 };
 
