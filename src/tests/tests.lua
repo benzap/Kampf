@@ -94,7 +94,11 @@ test_case(
 		
 		local mag = vec:magnitude_real()
 		test_assert("mag real", vec.magnitude_real ~= nil)
-		
+end)
 
-
+test_case(
+	"Quaternion",
+	function()
+		local quat = kf.Quaternion(1,2,3,4)
+		test_assert("Quaternion Init", (quat))
 end)

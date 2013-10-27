@@ -18,6 +18,7 @@ class LuaScript;
 
 //the kampf extensible libraries
 #include "l_Vector.hpp"
+#include "l_Quaternion.hpp"
 
 //DEFINITIONS
 

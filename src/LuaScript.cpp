@@ -18,6 +18,9 @@ LuaScript::LuaScript(Kampf* kf) {
   //kf vectors
   luaopen_vector(L);
   
+  //kf quaternions
+  luaopen_quaternion(L);
+
   if (kf != nullptr) {
     
   }
