@@ -1,4 +1,5 @@
 #include "l_Vector.hpp"
+#include <sstream>
 
 Vector* lua_pushvector(lua_State *L, Vector* vector = nullptr) {
   if (vector == nullptr) {
@@ -241,15 +242,18 @@ static int l_Vector_eq(lua_State *L) {
 static int l_Vector_tostring(lua_State *L) {
   Vector* vector = lua_tovector(L, 1);
 
-  std::string output = "";
-  output += "V(";
-  output += std::to_string(vector->x);
-  output += ", ";
-  output += std::to_string(vector->y);
-  output += ", ";
-  output += std::to_string(vector->z);
-  output += ")";
-  lua_pushstring(L, output.c_str());
+  std::stringstream output (std::stringstream::in | std::stringstream::out);
+
+  output << "V(";
+  output << vector->x;
+  output << ", ";
+  output << vector->y;
+  output << ", ";
+  output << vector->z;
+  output << ")";
+
+  stringType ss = output.str();
+  lua_pushstring(L, ss.c_str());
 
   return 1;
 }

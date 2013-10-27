@@ -8,6 +8,7 @@
 //INCLUDES
 #include <iostream>
 #include "KF_globals.hpp"
+#include "KF_utilities.hpp"
 
 //CLASSES
 class CustomAttribute;
@@ -21,7 +22,7 @@ class CustomAttribute;
 //ENUMS
 //types that can be stored within the customAttributeValueMap
 // they refer to integerType, floatType, and charType
-
+#undef VOID
 enum class enumAttribute {
   INTEGER,
   FLOAT,

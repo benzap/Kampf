@@ -16,9 +16,13 @@
 //to fix some issues concerning windows
 #if defined(KF_WIN)
 #undef VOID
+#undef void
 #undef INTEGER
+#undef int
 #undef FLOAT
+#undef float
 #undef VECTOR
+#undef vector
 #endif
 
 
