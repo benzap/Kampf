@@ -71,17 +71,17 @@ test_case(
 
 		vec.x = 1
 		test_assert("set x - 1", vec.x == 1)
-		vec.x = 2
+		vec[1] = 2
 		test_assert("set x - 2", vec[1] == 2)
 		
 		vec.y = 1
 		test_assert("set y - 1", vec.y == 1)
-		vec.y = 2
+		vec[2] = 2
 		test_assert("set y - 2", vec[2] == 2)
 
 		vec.z = 1
 		test_assert("set z - 1", vec.z == 1)
-		vec.z = 2
+		vec[3] = 2
 		test_assert("set z - 2", vec[3] == 2)
 
 		local vec = kf.Vector(1,2,3)
@@ -104,4 +104,26 @@ test_case(
 
 		quat = quat + kf.Quaternion(1,1,1,1)
 		test_assert("Add", quat == kf.Quaternion(2,3,4,5))
+
+		local quat = kf.Quaternion()
+		quat.w = 1
+		test_assert("grab w - 1", quat.w == 1)
+		quat.x = 2
+		test_assert("grab x - 1", quat.x == 2)
+		quat.y = 3
+		test_assert("grab y - 1", quat.y == 3)
+		quat.z = 4
+		test_assert("grab z - 1", quat.z == 4)
+
+		quat[1] = 2
+		test_assert("grab w - 2", quat[1] == 2)
+		quat[2] = 3
+		test_assert("grab x - 2", quat[2] == 3)
+		quat[3] = 4
+		test_assert("grab y - 2", quat[3] == 4)
+		quat[4] = 5
+		test_assert("grab z - 2", quat[4] == 5)
+
+		
+
 end)

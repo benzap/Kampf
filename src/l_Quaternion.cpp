@@ -78,6 +78,126 @@ static int l_Quaternion_add(lua_State *L) {
   return 1;
 }
 
+static int l_Quaternion_index(lua_State *L) {
+  Quaternion* quaternion = lua_toquaternion(L, 1);
+
+  auto numargs = lua_gettop(L);
+  if (numargs > 2) {
+    luaL_error(L, "LUA_ERROR: Wrong number of arguments, %d provided",
+	       numargs);
+  }
+  if (lua_isnumber(L, 2)) {
+    integerType index = lua_tointeger(L, 2);
+    lua_pop(L, 1);
+    
+    if (index < 1 || index > 4) {
+      luaL_error(L, "LUA_ERROR: Index out of range --> %d", index);
+    }
+
+    switch(index) {
+    case 1:
+      lua_pushnumber(L, quaternion->w);
+      break;
+    case 2:
+      lua_pushnumber(L, quaternion->v.x);
+      break;
+    case 3:
+      lua_pushnumber(L, quaternion->v.y);
+      break;
+    case 4:
+      lua_pushnumber(L, quaternion->v.z);
+      break;
+    }
+
+    return 1;
+  }
+  else if (lua_isstring(L, 2)) {
+    stringType sIndex = lua_tostring(L, 2);
+    if (sIndex == "w") {
+      lua_pushnumber(L, quaternion->w);
+    }
+    else if (sIndex == "x") {
+      lua_pushnumber(L, quaternion->v.x);
+    }
+    else if (sIndex == "y") {
+      lua_pushnumber(L, quaternion->v.y);
+    }
+    else if (sIndex == "z") {
+      lua_pushnumber(L, quaternion->v.z);
+    }
+    else {
+      //get the metafields
+      luaL_getmetatable(L, LUA_USERDATA_QUATERNION);
+      lua_getfield(L, -1, sIndex.c_str());
+    }
+
+    return 1;
+  }
+  else {
+    luaL_error(L, "LUA_ERROR: Incorrect type");
+    return 0;
+  }
+  return 0;
+}
+
+static int l_Quaternion_newindex(lua_State *L) {
+  auto thisQuaternion = lua_toquaternion(L, 1);
+  floatType value = luaL_checknumber(L, 3);
+  if (lua_isstring(L,2)) {
+    stringType sKey = lua_tostring(L, 2);
+    if (sKey == "w") {
+      thisQuaternion->w = value;
+    }
+    else if (sKey == "1") {
+      thisQuaternion->w = value;
+    }
+    else if (sKey == "x") {
+      thisQuaternion->v.x = value;
+    }
+    else if (sKey == "2") {
+      thisQuaternion->v.x = value;
+    }
+    else if (sKey == "y") {
+      thisQuaternion->v.y = value;
+    }
+    else if (sKey == "3") {
+      thisQuaternion->v.y = value;
+    }
+    else if (sKey == "z") {
+      thisQuaternion->v.z = value;
+    }
+    else if (sKey == "4") {
+      thisQuaternion->v.z = value;
+    }
+    else {
+      luaL_error(L, "LUA_ERROR: String Index out of range --> %s",
+		 sKey.c_str());
+    }
+  }
+  else if (lua_isnumber(L, 2)) {
+    int iKey = lua_tointeger(L, 2);
+    if (iKey == 1) {
+      thisQuaternion->w = value;
+    }
+    else if (iKey == 2) {
+      thisQuaternion->v.x = value;
+    }
+    else if (iKey == 3) {
+      thisQuaternion->v.y = value;
+    }
+    else if (iKey == 4) {
+      thisQuaternion->v.z = value;
+    }
+    else {
+      luaL_error(L, "LUA_ERROR: Integer Index out of range --> %d",
+		 iKey);
+    }
+  }
+  else {
+    luaL_error(L, "LUA_ERROR: Incorrect type for index");
+  }     
+}
+
 static int l_Quaternion_eq(lua_State *L) {
   auto quat = lua_toquaternion(L, 1);
   auto rValue = lua_toquaternion(L, 2);
@@ -95,6 +215,8 @@ static const struct luaL_Reg l_Quaternion_Registry [] = {
 };
 
 static const struct luaL_Reg l_Quaternion [] = {
+  {"__index", l_Quaternion_index},
+  {"__newindex", l_Quaternion_newindex},
   {"__tostring", l_Quaternion_tostring},
   {"__gc", l_Quaternion_gc},
   {"__add", l_Quaternion_add},

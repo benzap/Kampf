@@ -102,16 +102,25 @@ static int l_Vector_index(lua_State *L) {
 static int l_Vector_newindex(lua_State *L) {
   auto thisVector = lua_tovector(L, 1);
   floatType value = luaL_checknumber(L, 3);
-  if (lua_isstring(L,2)) {
+  if (lua_isstring(L, 2)) {
     stringType sKey = lua_tostring(L, 2);
     if (sKey == "x") {
-      (*thisVector).x = value;
+      thisVector->x = value;
+    }
+    else if (sKey == "1") {
+      thisVector->x = value;
     }
     else if (sKey == "y") {
-      (*thisVector).y = value;
+      thisVector->y = value;
+    }
+    else if (sKey == "2") {
+      thisVector->y = value;
     }
     else if (sKey == "z") {
-      (*thisVector).z = value;
+      thisVector->z = value;
+    }
+    else if (sKey == "3") {
+      thisVector->z = value;
     }
     else {
       luaL_error(L, "LUA_ERROR: Index out of range --> %s",
