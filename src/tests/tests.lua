@@ -101,4 +101,7 @@ test_case(
 	function()
 		local quat = kf.Quaternion(1,2,3,4)
 		test_assert("Quaternion Init", (quat))
+
+		quat = quat + kf.Quaternion(1,1,1,1)
+		test_assert("Add", quat == kf.Quaternion(2,3,4,5))
 end)

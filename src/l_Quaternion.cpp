@@ -41,12 +41,64 @@ static int l_Quaternion_Quaternion(lua_State *L) {
   return 1;
 }
 
+static int l_Quaternion_tostring(lua_State *L) {
+  Quaternion* quat = lua_toquaternion(L, 1);
+
+  std::stringstream output (std::stringstream::in | std::stringstream::out);
+
+  output << "Q(";
+  output << quat->w;
+  output << ", ";
+  output << quat->v.x;
+  output << ", ";
+  output << quat->v.y;
+  output << ", ";
+  output << quat->v.z;
+  output << ")";
+
+  stringType ss = output.str();
+  lua_pushstring(L, ss.c_str());
+
+  return 1;
+}
+
+static int l_Quaternion_gc(lua_State *L) {
+  auto quat = lua_toquaternion(L, 1);
+  delete quat;
+  return 0;
+}
+
+static int l_Quaternion_add(lua_State *L) {
+  Quaternion* quat = lua_toquaternion(L, 1);
+  Quaternion* rValue = lua_toquaternion(L, 2);
+
+  Quaternion* result = lua_pushquaternion(L);
+  *result = *quat + *rValue;
+  
+  return 1;
+}
+
+static int l_Quaternion_eq(lua_State *L) {
+  auto quat = lua_toquaternion(L, 1);
+  auto rValue = lua_toquaternion(L, 2);
+
+  boolType result = (*quat == *rValue);
+  lua_pushboolean(L, result);
+  
+  return 1;
+}
+
+
 static const struct luaL_Reg l_Quaternion_Registry [] = {
   {"Quaternion", l_Quaternion_Quaternion},
   {NULL, NULL}
 };
 
 static const struct luaL_Reg l_Quaternion [] = {
+  {"__tostring", l_Quaternion_tostring},
+  {"__gc", l_Quaternion_gc},
+  {"__add", l_Quaternion_add},
+  {"__eq", l_Quaternion_eq},
   {NULL, NULL}
 };
 
