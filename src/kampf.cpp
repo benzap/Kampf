@@ -1,5 +1,10 @@
 #include "kampf.hpp"
 
+#if defined(KF_WIN)
+#include <windows.h>
+#include <Shlwapi.h>
+#endif
+
 Kampf::Kampf(enumInitType initType,
 	     enumWindowType windowType,
 	     enumRenderType renderType) : 

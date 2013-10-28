@@ -12,7 +12,7 @@ LD_SHARED = -shared
 ifeq ($(UNAME), Linux)
 CXXFLAGS += -fPIC -DKF_LINUX
 else
-CXXFLAGS += -mwindows -m32 -DKF_WIN
+CXXFLAGS += -m32 -DKF_WIN
 endif
 
 #directory where the output will be placed

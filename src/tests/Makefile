@@ -12,7 +12,7 @@ ifeq ($(UNAME), Linux)
 EXEC_EXTENSION =
 LDFLAGS += -rdynamic -DKF_LINUX
 else
-CXXFLAGS += -mwindows -m32 -DKF_WIN
+CXXFLAGS += -mconsole -m32 -DKF_WIN
 endif
 
 #global hpp files
