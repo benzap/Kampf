@@ -219,7 +219,7 @@ static int l_Quaternion_unm(lua_State *L) {
 
 static int l_Quaternion_mod(lua_State *L) {
   auto quat = lua_toquaternion(L, 1);
-  auto rValue = lua_toquaternion(L, 1);
+  auto rValue = lua_toquaternion(L, 2);
   auto result = lua_pushquaternion(L);
   
   *result = *quat % *rValue;
@@ -229,12 +229,28 @@ static int l_Quaternion_mod(lua_State *L) {
 
 static int l_Quaternion_mul(lua_State *L) {
   auto quat = lua_toquaternion(L, 1);
-  auto rValue = lua_toquaternion(L, 1);
-  auto result = lua_pushquaternion(L);
-  
-  *result = (*quat) * (*rValue);
 
-  return 1;
+  if (lua_isuserdata(L, 2)) {
+    auto rValue = lua_toquaternion(L, 2);
+    auto fValue = (*quat) * (*rValue); 
+    
+    lua_pushnumber(L, fValue);
+    
+    return 1;
+  }
+  else if (lua_isnumber(L, 2)) {
+    auto fValue = lua_tonumber(L, 2);
+    auto result = lua_pushquaternion(L);
+
+
+    *result = (*quat) * fValue;
+    return 1;
+  }
+  else {
+    luaL_error(L, "Incorrect type provided, only scalar and Quaternions");
+    return 0;
+  }
+  return 0;
 }
 
 static int l_Quaternion_len(lua_State *L) {
@@ -247,6 +263,24 @@ static int l_Quaternion_unit(lua_State *L) {
   auto result = lua_pushquaternion(L);
 
   *result = quat->unit();
+
+  return 1;
+}
+
+static int l_Quaternion_conj(lua_State *L) {
+  auto quat = lua_toquaternion(L, 1);
+  auto result = lua_pushquaternion(L);
+
+  *result = quat->conj();
+
+  return 1;
+}
+  
+static int l_Quaternion_inv(lua_State *L) {
+  auto quat = lua_toquaternion(L, 1);
+  auto result = lua_pushquaternion(L);
+
+  *result = quat->inv();
 
   return 1;
 }
@@ -269,7 +303,7 @@ static int l_Quaternion_magnitude_real(lua_State *L) {
 
 static int l_Quaternion_sub(lua_State *L) {
   auto quat = lua_toquaternion(L, 1);
-  auto rValue = lua_toquaternion(L, 1);
+  auto rValue = lua_toquaternion(L, 2);
   auto result = lua_pushquaternion(L);
 
   *result = *quat + -(*rValue);
@@ -295,6 +329,8 @@ static const struct luaL_Reg l_Quaternion [] = {
   {"__mod", l_Quaternion_mod},
   {"__len", l_Quaternion_len},
   {"unit", l_Quaternion_unit},
+  {"conj", l_Quaternion_conj},
+  {"inv", l_Quaternion_inv},
   {"magnitude", l_Quaternion_magnitude},
   {"magnitude_real", l_Quaternion_magnitude_real},
   {NULL, NULL}

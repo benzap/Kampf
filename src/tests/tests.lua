@@ -130,5 +130,12 @@ test_case(
 		test_assert("length", #quat == 4)
 		local quat = kf.Quaternion(2,2,2,2)
 		test_assert("unit", quat:unit() == kf.Quaternion(0.5,0.5,0.5,0.5))
-		
+
+		local quat = kf.Quaternion(1,1,1,1)
+		test_assert("quat product", quat*kf.Quaternion(1,1,1,1) == 4)
+
+		local quat = kf.Quaternion(1,1,1,1)
+		test_assert("quat conj", quat:conj() == kf.Quaternion(1,-1,-1,-1))
+		test_assert("quat inv", quat:inv() == kf.Quaternion(0.25,-0.25,-0.25,-0.25))
+
 end)
