@@ -124,6 +124,11 @@ test_case(
 		quat[4] = 5
 		test_assert("grab z - 2", quat[4] == 5)
 
+		local quat = kf.Quaternion(1,2,3,4)
+		test_assert("negation", -quat == kf.Quaternion(-1,-2,-3,-4))
 		
-
+		test_assert("length", #quat == 4)
+		local quat = kf.Quaternion(2,2,2,2)
+		test_assert("unit", quat:unit() == kf.Quaternion(0.5,0.5,0.5,0.5))
+		
 end)

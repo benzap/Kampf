@@ -208,6 +208,74 @@ static int l_Quaternion_eq(lua_State *L) {
   return 1;
 }
 
+static int l_Quaternion_unm(lua_State *L) {
+  auto quat = lua_toquaternion(L, 1);
+  auto result = lua_pushquaternion(L);
+
+  *result = -(*quat);
+
+  return 1;
+}
+
+static int l_Quaternion_mod(lua_State *L) {
+  auto quat = lua_toquaternion(L, 1);
+  auto rValue = lua_toquaternion(L, 1);
+  auto result = lua_pushquaternion(L);
+  
+  *result = *quat % *rValue;
+
+  return 1;
+}
+
+static int l_Quaternion_mul(lua_State *L) {
+  auto quat = lua_toquaternion(L, 1);
+  auto rValue = lua_toquaternion(L, 1);
+  auto result = lua_pushquaternion(L);
+  
+  *result = (*quat) * (*rValue);
+
+  return 1;
+}
+
+static int l_Quaternion_len(lua_State *L) {
+  lua_pushnumber(L, 4);
+  return 1;
+}
+
+static int l_Quaternion_unit(lua_State *L) {
+  auto quat = lua_toquaternion(L, 1);
+  auto result = lua_pushquaternion(L);
+
+  *result = quat->unit();
+
+  return 1;
+}
+
+static int l_Quaternion_magnitude(lua_State *L) {
+  auto quat = lua_toquaternion(L, 1);
+  auto result = lua_pushquaternion(L);
+
+  *result = quat->magnitude();
+
+  return 1;
+}
+
+static int l_Quaternion_magnitude_real(lua_State *L) {
+  auto quat = lua_toquaternion(L, 1);
+  auto result = lua_pushquaternion(L);
+
+  *result = quat->magnitude_real();
+}
+
+static int l_Quaternion_sub(lua_State *L) {
+  auto quat = lua_toquaternion(L, 1);
+  auto rValue = lua_toquaternion(L, 1);
+  auto result = lua_pushquaternion(L);
+
+  *result = *quat + -(*rValue);
+
+  return 1;
+}
 
 static const struct luaL_Reg l_Quaternion_Registry [] = {
   {"Quaternion", l_Quaternion_Quaternion},
@@ -219,8 +287,16 @@ static const struct luaL_Reg l_Quaternion [] = {
   {"__newindex", l_Quaternion_newindex},
   {"__tostring", l_Quaternion_tostring},
   {"__gc", l_Quaternion_gc},
-  {"__add", l_Quaternion_add},
   {"__eq", l_Quaternion_eq},
+  {"__unm", l_Quaternion_unm},
+  {"__add", l_Quaternion_add},
+  {"__sub", l_Quaternion_sub},
+  {"__mul", l_Quaternion_mul},
+  {"__mod", l_Quaternion_mod},
+  {"__len", l_Quaternion_len},
+  {"unit", l_Quaternion_unit},
+  {"magnitude", l_Quaternion_magnitude},
+  {"magnitude_real", l_Quaternion_magnitude_real},
   {NULL, NULL}
 };
 
