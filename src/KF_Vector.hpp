@@ -5,6 +5,9 @@
   Vector class for physics and collision stuff
 */
 
+//CLASSES
+class Vector;
+
 //INCLUDES
 #include <cmath>
 #include <cassert>
@@ -13,9 +16,6 @@
 
 #include "KF_globals.hpp"
 #include "KF_utilities.hpp"
-
-//CLASSES
-class Vector;
 
 //DEFINITIONS
 #define V_zero Vector(0,0,0)

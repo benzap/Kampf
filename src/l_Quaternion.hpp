@@ -5,14 +5,14 @@
   lua binding of KF_Quaternion
  */
 
+//CLASSES
+class Quaternion;
+
 //INCLUDES
 #include "KF_globals.hpp"
 #include "KF_utilities.hpp"
 #include "KF_Quaternion.hpp"
 #include "LuaScript.hpp"
-
-
-//CLASSES
 
 //DEFINITIONS
 #define LUA_USERDATA_QUATERNION "l_kf.quaternion"
