@@ -12,6 +12,7 @@ class Matrix3;
 #include <cmath>
 #include <cassert>
 #include <iostream>
+#include <initializer_list>
 
 #include "KF_globals.hpp"
 #include "KF_utilities.hpp"
@@ -39,6 +40,7 @@ public:
   floatType data[9];
   const static int length = 9;
   const static int width = 3;
+  Matrix3(std::initializer_list<floatType> l);
   Matrix3();
   virtual ~Matrix3();
 
@@ -51,14 +53,25 @@ public:
   floatType& operator [](integerType i);
   boolType operator ==(const Matrix3& o);
   Matrix3 operator +(const Matrix3& o);
+  void operator += (const Matrix3& o);
   Matrix3 operator -(const Matrix3& o);
+  Matrix3 operator -();
+  void operator -=(const Matrix3& o);
+
   Matrix3 operator *(const Matrix3& o);
+  void operator *= (const Matrix3& o);
+
   Matrix3 operator *(const floatType f);
+  void operator *= (const floatType f);
 
   Matrix3 operator %(const Matrix3 o);
+  void operator %=(const Matrix3 o);
+
   Vector operator %(const Vector& o);
   
-
+  //printing matrices
+  friend std::ostream& operator << (std::ostream& os,
+				    Matrix3 const & _this);
 };
 
 #endif //END KF_MATRIX3__HPP
