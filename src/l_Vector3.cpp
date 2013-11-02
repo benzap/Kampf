@@ -20,7 +20,30 @@ Vector3* lua_pushvector(lua_State *L, Vector3* vector = nullptr) {
 Vector3* lua_tovector(lua_State *L, int index) {
   Vector3* vector = *static_cast<Vector3**>
     (luaL_checkudata(L, index, LUA_USERDATA_VECTOR));
+  if (vector == NULL) {
+    luaL_error(L, "Provided userdata is not of type 'Vector3'");
+  }
   return vector;
+}
+
+boolType lua_isvector(lua_State* L, int index) {
+  if (lua_isuserdata(L, 1)) {
+    Vector3* vector = *static_cast<Vector3**>
+      (luaL_checkudata(L, index, LUA_USERDATA_VECTOR)); 
+    if (vector != NULL) {
+      return true;
+    }
+    return false;
+  }
+  return false;
+}
+
+
+static int l_Vector3_isVector3(lua_State *L) {
+  boolType chk = lua_isvector(L, 1);
+  lua_pushboolean(L, chk);
+
+  return 1;
 }
 
 //initialization of our vector type
@@ -318,6 +341,7 @@ static int l_Vector3_compProd(lua_State *L) {
 
 static const struct luaL_Reg l_Vector3_Registry [] = {
   {"Vector3", l_Vector3_Vector3},
+  {"isVector3", l_Vector3_isVector3},
   {NULL, NULL}
 };
 

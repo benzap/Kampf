@@ -79,5 +79,17 @@ int main(int argc, char *argv[]) {
 
   m1 %= m2;
   TEST_EQUAL(m1, result, "Matrix Multiplication 2");
+
+  auto vec1 = Vector3(4,7,3);
+  m1 = {
+    1,2,3,
+    4,5,6,
+    7,8,9
+  };
+
+  auto vResult = m1 % vec1;
+  std::cout << "vResult: " << vResult << std::endl;
+  TEST_EQUAL(vResult, Vector3(27,69,111), "Vector Multiplication");
+
   return 0;
 }

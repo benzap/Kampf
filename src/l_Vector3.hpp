@@ -26,6 +26,8 @@ Vector3* lua_pushvector(lua_State*, Vector3*);
 
 Vector3* lua_tovector(lua_State*, int);
 
+boolType lua_isvector(lua_State*, int);
+
 int luaopen_vector (lua_State *L);
 //BEGIN
 

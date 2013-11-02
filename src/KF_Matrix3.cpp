@@ -191,7 +191,7 @@ void Matrix3::operator %=(Matrix3& o) {
 Vector3 Matrix3::operator %(Vector3& o) {
   auto result = Vector3();
   for (int i = 0; i < this->width; i++) {
-    result[i] = o * this->col(i);
+    result[i] = this->row(i) * o;
   }
   return result;
 }
