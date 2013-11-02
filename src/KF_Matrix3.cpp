@@ -36,7 +36,7 @@ Vector Matrix3::row(integerType rowIndex) {
   assert(rowIndex < this->width);
   auto result = Vector();
   for (int i = 0; i < this->width; i++) {
-    result[i] = this->get(i, rowIndex);
+    result[i] = this->get(rowIndex, i);
   }
   return result;
 }
@@ -45,7 +45,7 @@ Vector Matrix3::col(integerType colIndex) {
   assert(colIndex < this->width);
   auto result = Vector();
   for (int i = 0; i < this->width; i++) {
-    result[i] = this->get(colIndex, i);
+    result[i] = this->get(i, colIndex);
   }
   return result;
 }
@@ -77,7 +77,19 @@ floatType Matrix3::det() {
 }
 
 floatType Matrix3::get(int i, int j) {
-  return this->data[i + Matrix3::width * j];
+  return this->data[_I(i,j)];
+}
+
+void Matrix3::set(int i, int j, floatType val) {
+  assert(i < this->width && j < this->width);
+  this->data[_I(i,j)] = val;
+}
+
+void Matrix3::set(std::initializer_list<floatType> l) {
+  int index = 0;
+  for (auto value : l) {
+    this->data[index++] = value;
+  }
 }
 
 floatType& Matrix3::operator [](integerType i) {
@@ -86,7 +98,7 @@ floatType& Matrix3::operator [](integerType i) {
 }
 
 boolType Matrix3::operator ==(const Matrix3& o) {
-  for (integerType i; i < this->length; i++) {
+  for (integerType i = 0; i < this->length; i++) {
     if (this->data[i] != o.data[i]) {
       return false;
     }
@@ -97,7 +109,7 @@ boolType Matrix3::operator ==(const Matrix3& o) {
 Matrix3 Matrix3::operator +(const Matrix3& o) {
   auto result = Matrix3();
   for (int i = 0; i < this->length; i++) {
-    result.data[i] = this->data[i] + o.data[0];
+    result.data[i] = this->data[i] + o.data[i];
   }
   return result;
 }
@@ -160,18 +172,24 @@ Matrix3 Matrix3::operator %(Matrix3& o) {
   auto result = Matrix3();
   for (int i = 0; i < this->width; i++) {
     for (int j = 0; j < this->width; j++) {
-      result.data[i + j * this->width] = this->row(i) * o.col(j);
+      result.data[_I(i,j)] = this->row(i) * o.col(j);
     }
   }
   return result;
 }
 
 void Matrix3::operator %=(Matrix3& o) {
-
+  auto result = Matrix3();
+  for (int i = 0; i < this->width; i++) {
+    for (int j = 0; j < this->width; j++) {
+      result.data[_I(i,j)] = this->row(i) * o.col(j);
+    }
+  }
+  *this = result;
 }
 
 Vector Matrix3::operator %(Vector& o) {
-
+  
 }
 
 

@@ -22,8 +22,11 @@ class Matrix3;
 //DEFINITIONS
 #define M3_LENGTH 9
 #define M3_WIDTH 3
+#define M3_HEIGHT 3
 
 //MACROS
+#undef _I
+#define _I(row, col) (col) + (row) * (M3_HEIGHT)
 
 //TYPEDEFS
 
@@ -50,6 +53,8 @@ public:
   Vector col(integerType);
   floatType det();
   floatType get(int i, int j);
+  void set(int i, int j, floatType val);
+  void set(std::initializer_list<floatType> l);
   floatType& operator [](integerType i);
   boolType operator ==(const Matrix3& o);
   Matrix3 operator +(const Matrix3& o);

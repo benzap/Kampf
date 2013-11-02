@@ -51,7 +51,7 @@ int main(int argc, char *argv[]) {
     4,5,6,
     7,8,9
   };
-
+  
   m2 = {
     1,3,5,
     3,4,5,
@@ -71,11 +71,11 @@ int main(int argc, char *argv[]) {
     85, 116, 147
   };
 
-  TEST_EQUAL(m1 % m2, result, "Matrix Multiplication");
+  m3 = m1 % m2;
 
-  std::cout << "m1: " << m1 << std::endl;
-  std::cout << "m2: " << m2 << std::endl;
-  std::cout << "result m1 X m2: " << m1 % m2 << std::endl;
+  std::cout << "m3: " << m3 << std::endl;
+
+  TEST_EQUAL(m3, result, "Matrix Multiplication");
 
   m1 %= m2;
   TEST_EQUAL(m1, result, "Matrix Multiplication 2");
