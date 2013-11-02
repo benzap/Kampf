@@ -1,7 +1,7 @@
-#include "KF_Vector.hpp"
+#include "KF_Vector3.hpp"
 
 //Makes an orthonormal basis between the three provided vectors
-void makeOrthonormalBasis(Vector *a, Vector *b, Vector *c) {
+void makeOrthonormalBasis(Vector3 *a, Vector3 *b, Vector3 *c) {
   //normalize our first vector
   *a = a->unit();
 

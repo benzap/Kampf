@@ -2,13 +2,13 @@
 #define L_VECTOR__HPP
 //DESCRIPTION
 /*
-  lua binding of KF_Vector
+  lua binding of KF_Vector3
  */
 
 //INCLUDES
 #include "KF_globals.hpp"
 #include "KF_utilities.hpp"
-#include "KF_Vector.hpp"
+#include "KF_Vector3.hpp"
 #include "LuaScript.hpp"
 
 //CLASSES
@@ -22,9 +22,9 @@
 
 //FUNCTIONS
 
-Vector* lua_pushvector(lua_State*, Vector*);
+Vector3* lua_pushvector(lua_State*, Vector3*);
 
-Vector* lua_tovector(lua_State*, int);
+Vector3* lua_tovector(lua_State*, int);
 
 int luaopen_vector (lua_State *L);
 //BEGIN

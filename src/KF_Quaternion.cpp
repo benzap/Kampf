@@ -4,7 +4,7 @@ Quaternion::Quaternion(floatType w,
 		       floatType i, 
                        floatType j,
                        floatType k) : 
-                       v(Vector(i,j,k)),
+                       v(Vector3(i,j,k)),
                        w(w) {
 
 };
@@ -22,7 +22,7 @@ void Quaternion::operator +=(const Quaternion& o) {
 }
 
 
-Quaternion Quaternion::operator +(const Vector& o) {
+Quaternion Quaternion::operator +(const Vector3& o) {
   Quaternion q;
   q.w = this->w;
   q.v = this->v + o;
@@ -36,7 +36,7 @@ floatType Quaternion::operator *(const Quaternion& o) {
   return result;
 }
 
-floatType Quaternion::operator *(const Vector& o) {
+floatType Quaternion::operator *(const Vector3& o) {
   Quaternion q = *this;
   
   return q.v * o;

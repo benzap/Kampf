@@ -16,7 +16,7 @@ class Matrix3;
 
 #include "KF_globals.hpp"
 #include "KF_utilities.hpp"
-#include "KF_Vector.hpp"
+#include "KF_Vector3.hpp"
 #include "KF_Quaternion.hpp"
 
 //DEFINITIONS
@@ -49,8 +49,8 @@ public:
 
   void fill(floatType);
   void identity(floatType);
-  Vector row(integerType);
-  Vector col(integerType);
+  Vector3 row(integerType);
+  Vector3 col(integerType);
   floatType det();
   floatType get(int i, int j);
   void set(int i, int j, floatType val);
@@ -72,7 +72,7 @@ public:
   Matrix3 operator %(Matrix3& o);
   void operator %=(Matrix3& o);
 
-  Vector operator %(Vector& o);
+  Vector3 operator %(Vector3& o);
   
   //printing matrices
   friend std::ostream& operator << (std::ostream& os,

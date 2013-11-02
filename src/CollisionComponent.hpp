@@ -33,16 +33,16 @@ class CollisionComponent;
 class CollisionComponent : public AbstractComponent {
 private:
   //its current position
-  Vector position;
+  Vector3 position;
 
   //the offset from the position
-  Vector offset;
+  Vector3 offset;
 
   //it's center of rotation
-  Vector origin;
+  Vector3 origin;
   
   //the scaling
-  Vector scale;
+  Vector3 scale;
 
   Quaternion orientation;
 

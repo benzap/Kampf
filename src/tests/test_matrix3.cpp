@@ -60,10 +60,10 @@ int main(int argc, char *argv[]) {
 
 
   auto vectorRow = m1.row(0);
-  TEST_EQUAL(vectorRow, Vector(1,2,3), "row1");
+  TEST_EQUAL(vectorRow, Vector3(1,2,3), "row1");
 
   auto vectorCol = m1.col(0);
-  TEST_EQUAL(vectorCol, Vector(1,4,7), "col1");
+  TEST_EQUAL(vectorCol, Vector3(1,4,7), "col1");
 
   Matrix3 result = {
     25, 32, 39,

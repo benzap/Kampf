@@ -15,7 +15,7 @@
 
 #include "KF_globals.hpp"
 #include "KF_utilities.hpp"
-#include "KF_Vector.hpp"
+#include "KF_Vector3.hpp"
 #include "KF_Quaternion.hpp"
 #include "KF_Matrix3.hpp"
 
