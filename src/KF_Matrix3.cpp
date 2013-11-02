@@ -35,8 +35,8 @@ void Matrix3::identity(floatType f = 1) {
 Vector Matrix3::row(integerType rowIndex) {
   assert(rowIndex < this->width);
   auto result = Vector();
-  for (int i = rowIndex*this->width; i < rowIndex*this->width + this->width; i++) {
-    result[i] = this->data[i];
+  for (int i = 0; i < this->width; i++) {
+    result[i] = this->get(i, rowIndex);
   }
   return result;
 }
@@ -45,8 +45,9 @@ Vector Matrix3::col(integerType colIndex) {
   assert(colIndex < this->width);
   auto result = Vector();
   for (int i = 0; i < this->width; i++) {
-    result[i] = this->data[i*this->width+colIndex];
+    result[i] = this->get(colIndex, i);
   }
+  return result;
 }
 
 /*
@@ -155,15 +156,21 @@ void Matrix3::operator *= (const floatType f) {
   } //END for (int i = 0; i < this->length; i++) {
 }
 
-Matrix3 Matrix3::operator %(const Matrix3 o) {
-  
+Matrix3 Matrix3::operator %(Matrix3& o) {
+  auto result = Matrix3();
+  for (int i = 0; i < this->width; i++) {
+    for (int j = 0; j < this->width; j++) {
+      result.data[i + j * this->width] = this->row(i) * o.col(j);
+    }
+  }
+  return result;
 }
 
-void Matrix3::operator %=(const Matrix3 o) {
+void Matrix3::operator %=(Matrix3& o) {
 
 }
 
-Vector Matrix3::operator %(const Vector& o) {
+Vector Matrix3::operator %(Vector& o) {
 
 }
 

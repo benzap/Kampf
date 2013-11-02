@@ -46,8 +46,38 @@ int main(int argc, char *argv[]) {
   TEST_EQUAL(m5.det(), -9, "determinate");
   std::cout << "m4 det" << m5.det() << std::endl;
 
-  
+  m1 = {
+    1,2,3,
+    4,5,6,
+    7,8,9
+  };
+
+  m2 = {
+    1,3,5,
+    3,4,5,
+    6,7,8
+  };
 
 
+  auto vectorRow = m1.row(0);
+  TEST_EQUAL(vectorRow, Vector(1,2,3), "row1");
+
+  auto vectorCol = m1.col(0);
+  TEST_EQUAL(vectorCol, Vector(1,4,7), "col1");
+
+  Matrix3 result = {
+    25, 32, 39,
+    55, 74, 93,
+    85, 116, 147
+  };
+
+  TEST_EQUAL(m1 % m2, result, "Matrix Multiplication");
+
+  std::cout << "m1: " << m1 << std::endl;
+  std::cout << "m2: " << m2 << std::endl;
+  std::cout << "result m1 X m2: " << m1 % m2 << std::endl;
+
+  m1 %= m2;
+  TEST_EQUAL(m1, result, "Matrix Multiplication 2");
   return 0;
 }

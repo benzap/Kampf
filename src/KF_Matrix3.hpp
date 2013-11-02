@@ -64,10 +64,10 @@ public:
   Matrix3 operator *(const floatType f);
   void operator *= (const floatType f);
 
-  Matrix3 operator %(const Matrix3 o);
-  void operator %=(const Matrix3 o);
+  Matrix3 operator %(Matrix3& o);
+  void operator %=(Matrix3& o);
 
-  Vector operator %(const Vector& o);
+  Vector operator %(Vector& o);
   
   //printing matrices
   friend std::ostream& operator << (std::ostream& os,
