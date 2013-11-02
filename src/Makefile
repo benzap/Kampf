@@ -6,7 +6,7 @@ CXXFLAGS = --std=c++0x -g
 
 LDFLAGS = #-Wl,--verbose
 
-LD_STATIC = -static
+LD_STATIC = -static-libgcc -static-libstdc++ #-static
 LD_SHARED = -shared
 
 ifeq ($(UNAME), Linux)
@@ -32,7 +32,7 @@ LIBS =
 ifeq ($(UNAME), Linux)
 LIBS += -lSDL2main -lSDL2 -lluajit-5.1
 else
-LIBS += -lmingw32 -lSDL2main -lSDL2 -lShlwapi -llua51
+LIBS += -mconsole -lmingw32 -lSDL2main -lSDL2 -lShlwapi -llua51
 endif
 
 LIBS_DIR= -L. -L../lib -LC:\MinGW\lib

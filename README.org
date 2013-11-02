@@ -1,15 +1,37 @@
 * What is Kampf
-  A game engine developed for 2d Games employing the entity component
-  game design pattern.
+  A game engine developed for 2d/3d Games employing the entity component
+  game design pattern. Game scripting is done through the lua
+  programming language.
 
 * Compatible Operating Systems
   - Windows (mingw)
   - Linux (gcc)
 
 * Compiling
-  - Nil
+** Win32
+   - Make sure that SDL2.0 and Lua5.1 are on your path. The makefile
+     might need to be edited to accomodate luajit instead of just
+     plain lua. Typically I place all of my libs and includes within
+     the mingw include/ and lib/ directory. In the future i'll
+     probably be providing snapshots of the latest compiled libraries
+     and includes.
+   - cd to src/
+   - make
+   - that's it!
 
-* Depenencies
-  - Nil
+     If you want to look at the current test cases, run 'make tests'
+     and then run 'make runtests' to start running tests
+
+     NOTE: the kampf_interpreter runs at one point, which requires
+     you to type 'quit()' or 'exit()' in order to continue running
+     the other tests
+
+** Linux
+   - Install the dependencies, you know what to do
+
+* Dependencies
+  - Msys
+  - SDL2.0
+  - Lua5.1 or Luajit2.0
 
 
