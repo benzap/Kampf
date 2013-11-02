@@ -2,11 +2,11 @@
 #define KF_VECTOR__HPP
 //DESCRIPTION
 /*
-  Vector class for physics and collision stuff
+  Vector3 class for physics and collision stuff
 */
 
 //CLASSES
-class Vector;
+class Vector3;
 
 //INCLUDES
 #include <cmath>
@@ -18,10 +18,10 @@ class Vector;
 #include "KF_utilities.hpp"
 
 //DEFINITIONS
-#define V_zero Vector(0,0,0)
-#define V_i Vector(1,0,0)
-#define V_j Vector(0,1,0)
-#define V_k Vector(0,0,1)
+#define V_zero Vector3(0,0,0)
+#define V_i Vector3(1,0,0)
+#define V_j Vector3(0,1,0)
+#define V_k Vector3(0,0,1)
 
 //MACROS
 
@@ -30,7 +30,7 @@ class Vector;
 //FUNCTIONS
 
 //BEGIN
-class Vector {
+class Vector3 {
 private:
 
 public:
@@ -40,28 +40,28 @@ public:
   floatType y = 0;
   floatType z = 0;
 
-  Vector(floatType x = 0, floatType y = 0, floatType z = 0) :
+  Vector3(floatType x = 0, floatType y = 0, floatType z = 0) :
     x(x), y(y), z(z) {};
     
   integerType length() { return 3; }
 
   //vector addition
-  Vector operator +(const Vector& o) {
-    return Vector(this->x + o.x,
+  Vector3 operator +(const Vector3& o) {
+    return Vector3(this->x + o.x,
 		  this->y + o.y,
 		  this->z + o.z);
   };
 
 
-  void operator +=(const Vector& o) {
+  void operator +=(const Vector3& o) {
     this->x += o.x;
     this->y += o.y;
     this->z += o.z;
   };
   
   //scalar addition
-  Vector operator +(floatType f) {
-    return Vector(this->x + f,
+  Vector3 operator +(floatType f) {
+    return Vector3(this->x + f,
 		  this->y + f,
 		  this->z + f);
   };
@@ -73,7 +73,7 @@ public:
   };
   
   //scalar product (dot product)
-  floatType operator *(const Vector& o) {
+  floatType operator *(const Vector3& o) {
     auto result = 0;
     result += this->x * o.x;
     result += this->y * o.y;
@@ -83,8 +83,8 @@ public:
   };
 
   //scalar multiplication
-  Vector operator *(floatType f) {
-    return Vector(this->x * f,
+  Vector3 operator *(floatType f) {
+    return Vector3(this->x * f,
 		  this->y * f,
 		  this->z * f);
   };
@@ -110,7 +110,7 @@ public:
   };
 
   //equality
-  bool operator ==(const Vector& o) {
+  bool operator ==(const Vector3& o) {
     if (this->x == o.x &&
 	this->y == o.y &&
 	this->z == o.z) {
@@ -120,21 +120,21 @@ public:
   }
 
   //negation
-  Vector operator - () {
-    return Vector(-this->x, 
+  Vector3 operator - () {
+    return Vector3(-this->x, 
 		  -this->y, 
 		  -this->z);
   };
 
   //The component product of two vectors
-  Vector comp_prod(const Vector& o) {
-    return Vector(
+  Vector3 comp_prod(const Vector3& o) {
+    return Vector3(
 		  this->x * o.x,
 		  this->y * o.y,
 		  this->z * o.z);
   };
 
-  void comp_prod_update(const Vector& o) {
+  void comp_prod_update(const Vector3& o) {
     this->x *= o.x;
     this->y *= o.y;
     this->z *= o.z;
@@ -157,32 +157,32 @@ public:
   };
 
   //unit vector
-  Vector unit() {
-    auto unitVector = *this;
-    unitVector *= 1 / this->magnitude_real();
-    return unitVector;
+  Vector3 unit() {
+    auto unitVector3 = *this;
+    unitVector3 *= 1 / this->magnitude_real();
+    return unitVector3;
   };
 
   //printing to stream
-  friend std::ostream& operator<<(std::ostream& os, Vector const & _this) {
+  friend std::ostream& operator<<(std::ostream& os, Vector3 const & _this) {
     os << "vector(" << _this.x;
     os << ", " << _this.y;
     os << ", " << _this.z << ")";
     return os;
   };
 
-  Vector cross(const Vector& o) {
+  Vector3 cross(const Vector3& o) {
     floatType i = this->y * o.z - this->z * o.y;
     floatType j = this->z * o.x - this->x * o.z;
     floatType k = this->x * o.y - this->y * o.x;
-    return Vector(i, j, k);
+    return Vector3(i, j, k);
   };
 
-  Vector operator% (const Vector& o) {
+  Vector3 operator% (const Vector3& o) {
     return this->cross(o);
   };
 
-  void operator %=(const Vector& o) {
+  void operator %=(const Vector3& o) {
     floatType i = this->y * o.z - this->z * o.y;
     floatType j = this->z * o.x - this->x * o.z;
     floatType k = this->x * o.y - this->y * o.x;
@@ -193,7 +193,7 @@ public:
 
 };
 
-void makeOrthonormalBasis(Vector *a, Vector *b, Vector *c);
+void makeOrthonormalBasis(Vector3 *a, Vector3 *b, Vector3 *c);
 
 
 #endif //END KF_VECTOR__HPP

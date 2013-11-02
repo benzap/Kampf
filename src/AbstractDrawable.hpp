@@ -26,16 +26,16 @@ class AbstractDrawable;
 class AbstractDrawable {
 private:
   //its current position
-  Vector position;
+  Vector3 position;
   
   //the offset from the position
-  Vector offset;
+  Vector3 offset;
   
   //the center of rotation
-  Vector origin;
+  Vector3 origin;
 
   //the scaling
-  Vector scale;
+  Vector3 scale;
   
   Quaternion orientation;
 

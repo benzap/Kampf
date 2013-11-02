@@ -16,14 +16,17 @@ class Matrix3;
 
 #include "KF_globals.hpp"
 #include "KF_utilities.hpp"
-#include "KF_Vector.hpp"
+#include "KF_Vector3.hpp"
 #include "KF_Quaternion.hpp"
 
 //DEFINITIONS
 #define M3_LENGTH 9
 #define M3_WIDTH 3
+#define M3_HEIGHT 3
 
 //MACROS
+#undef _I
+#define _I(row, col) (col) + (row) * (M3_HEIGHT)
 
 //TYPEDEFS
 
@@ -46,10 +49,12 @@ public:
 
   void fill(floatType);
   void identity(floatType);
-  Vector row(integerType);
-  Vector col(integerType);
+  Vector3 row(integerType);
+  Vector3 col(integerType);
   floatType det();
   floatType get(int i, int j);
+  void set(int i, int j, floatType val);
+  void set(std::initializer_list<floatType> l);
   floatType& operator [](integerType i);
   boolType operator ==(const Matrix3& o);
   Matrix3 operator +(const Matrix3& o);
@@ -67,7 +72,7 @@ public:
   Matrix3 operator %(Matrix3& o);
   void operator %=(Matrix3& o);
 
-  Vector operator %(Vector& o);
+  Vector3 operator %(Vector3& o);
   
   //printing matrices
   friend std::ostream& operator << (std::ostream& os,

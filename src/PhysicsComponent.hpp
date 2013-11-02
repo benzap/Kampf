@@ -26,9 +26,9 @@ class PhysicsComponent;
 //BEGIN
 class PhysicsComponent : public AbstractComponent {
 private:
-  Vector position;
-  Vector velocity;
-  Vector acceleration;
+  Vector3 position;
+  Vector3 velocity;
+  Vector3 acceleration;
   
   Quaternion orientation;
 

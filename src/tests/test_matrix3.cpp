@@ -51,7 +51,7 @@ int main(int argc, char *argv[]) {
     4,5,6,
     7,8,9
   };
-
+  
   m2 = {
     1,3,5,
     3,4,5,
@@ -60,10 +60,10 @@ int main(int argc, char *argv[]) {
 
 
   auto vectorRow = m1.row(0);
-  TEST_EQUAL(vectorRow, Vector(1,2,3), "row1");
+  TEST_EQUAL(vectorRow, Vector3(1,2,3), "row1");
 
   auto vectorCol = m1.col(0);
-  TEST_EQUAL(vectorCol, Vector(1,4,7), "col1");
+  TEST_EQUAL(vectorCol, Vector3(1,4,7), "col1");
 
   Matrix3 result = {
     25, 32, 39,
@@ -71,13 +71,25 @@ int main(int argc, char *argv[]) {
     85, 116, 147
   };
 
-  TEST_EQUAL(m1 % m2, result, "Matrix Multiplication");
+  m3 = m1 % m2;
 
-  std::cout << "m1: " << m1 << std::endl;
-  std::cout << "m2: " << m2 << std::endl;
-  std::cout << "result m1 X m2: " << m1 % m2 << std::endl;
+  std::cout << "m3: " << m3 << std::endl;
+
+  TEST_EQUAL(m3, result, "Matrix Multiplication");
 
   m1 %= m2;
   TEST_EQUAL(m1, result, "Matrix Multiplication 2");
+
+  auto vec1 = Vector3(4,7,3);
+  m1 = {
+    1,2,3,
+    4,5,6,
+    7,8,9
+  };
+
+  auto vResult = m1 % vec1;
+  std::cout << "vResult: " << vResult << std::endl;
+  TEST_EQUAL(vResult, Vector3(27,69,111), "Vector Multiplication");
+
   return 0;
 }

@@ -13,7 +13,7 @@
 
 #include "KF_globals.hpp"
 #include "KF_utilities.hpp"
-#include "KF_Vector.hpp"
+#include "KF_Vector3.hpp"
 
 //CLASSES
 class Quaternion;
@@ -31,7 +31,7 @@ class Quaternion {
 private:
 
 public:
-  Vector v;
+  Vector3 v;
   floatType w;
 
   Quaternion(floatType w = 0,
@@ -44,10 +44,10 @@ public:
   Quaternion operator +(const Quaternion& o);
   void operator +=(const Quaternion& o);
 
-  Quaternion operator+(const Vector& o);
+  Quaternion operator+(const Vector3& o);
 
   floatType operator *(const Quaternion& o);
-  floatType operator *(const Vector& o);
+  floatType operator *(const Vector3& o);
   Quaternion operator *(floatType f);
   void operator *=(floatType f);
 

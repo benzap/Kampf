@@ -6,7 +6,7 @@
 int main(int argc, char *argv[]) {
   TEST_NAME("test_math.cpp");
 
-  auto v = Vector(0,0,0);
+  auto v = Vector3(0,0,0);
 
   v[0] = 1;
 
@@ -24,8 +24,8 @@ int main(int argc, char *argv[]) {
   TEST_EQUAL(v[2], v.z, "test equal assignment");
 
   
-  auto v2 = Vector(1,2,3);
-  auto v3 = Vector(1,1,1);
+  auto v2 = Vector3(1,2,3);
+  auto v3 = Vector3(1,1,1);
 
   //adding vectors
   auto added = v2 + v3;
@@ -62,14 +62,14 @@ int main(int argc, char *argv[]) {
   TEST_EQUAL(compV[2], -6, "compV-z update");
 
   //cross product
-  TEST_EQUAL(Vector(1,2,3), -Vector(-1,-2,-3), "testing boolean equality");
+  TEST_EQUAL(Vector3(1,2,3), -Vector3(-1,-2,-3), "testing boolean equality");
   
   //magnitude
   //apparently this works
-  TEST_EQUAL(Vector(1,1,1).magnitude_real(), sqrt(3), "testing magnitude");
+  TEST_EQUAL(Vector3(1,1,1).magnitude_real(), sqrt(3), "testing magnitude");
 
   //testing unit vector
-  auto v4 = Vector(1,2,1);
+  auto v4 = Vector3(1,2,1);
   std::cout << "orig: " << v4 << std::endl;
   std::cout << "unit: " << v4.unit() << std::endl;
 
@@ -84,7 +84,7 @@ int main(int argc, char *argv[]) {
 
   auto VI = V_i;
   auto VJ = V_j;
-  auto VK = Vector(0,0,0);
+  auto VK = Vector3(0,0,0);
 
   makeOrthonormalBasis(&VI, &VJ, &VK);
 
