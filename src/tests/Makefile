@@ -1,6 +1,8 @@
 #makefile for Kampf game engine tests
 UNAME := $(shell uname)
 
+TAGS_EXEC = etags
+
 CXX = g++
 CXXFLAGS = --std=c++0x -g
 
@@ -63,3 +65,6 @@ clean:
 	echo $(DELETE_SCRIPT) does not exist
 	rm -f $(DELETE_SCRIPT)
 	rm -f $(RUN_SCRIPT)
+
+tags:
+	$(TAGS_EXEC) $(CPP_FILES) $(HPP_FILES)

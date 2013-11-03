@@ -1,6 +1,8 @@
 #makefile for Kampf game engine
 UNAME := $(shell uname)
 
+TAGS_EXEC = etags
+
 CXX = g++
 CXXFLAGS = --std=c++0x -g
 
@@ -41,7 +43,7 @@ LIBS_DIR= -L. -L../lib -LC:\MinGW\lib
 .SUFFIXES:
 .SUFFIXES: .cpp .c .hpp .h
 
-.PHONY: all clean kampf tests runtests
+.PHONY: all clean kampf tests runtests tags
 kampf: libkampf.a libkampf.so
 
 all: clean kampf tests
@@ -71,3 +73,8 @@ clean:
 	rm -f $(OUTPUT_DIRECTORY)/libkampf.so
 	rm -f $(TESTS_DIRECTORY)/libkampf.so
 	make clean -C $(TESTS_DIRECTORY)
+
+#generate TAGS file
+tags:
+	make -C $(TESTS_DIRECTORY) tags TAGS_EXEC=$(TAGS_EXEC)
+	$(TAGS_EXEC) $(HPP_FILES) $(CPP_FILES) --include=$(TESTS_DIRECTORY)/TAGS

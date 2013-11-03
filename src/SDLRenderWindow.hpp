@@ -48,16 +48,17 @@ private:
   SDL_Renderer* renderer;
 
 public:
-  SDLRenderWindow(int windowWidth = 800, int windowHeight = 600);
+  SDLRenderWindow(int windowWidth = 800,
+		  int windowHeight = 600);
   virtual ~SDLRenderWindow();
-
+  
   bool reinitialize();
   bool initialize();
 
   void draw(AbstractDrawable* drawable, 
 	    Vector3 position = Vector3(),
 	    Quaternion orientation = Quaternion());
-
+  
   void setWindowFlags(Uint32 windowFlags);
   void setRendererFlags(Uint32 rendererFlags);
 
