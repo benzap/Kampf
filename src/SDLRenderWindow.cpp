@@ -5,10 +5,20 @@ SDLRenderWindow::SDLRenderWindow(int windowWidth, int windowHeight) :
   
 }
 
-SDLRenderWindow::~SDLRenderWindow() {}
+SDLRenderWindow::~SDLRenderWindow() {
+  SDL_DestroyRenderer(renderer);
+  SDL_DestroyWindow(window);
+}
 
-void SDLRenderWindow::draw() {
-
+void SDLRenderWindow::draw(AbstractDrawable* drawable, 
+			   Vector3 position,
+			   Quaternion orientation) {
+  if (drawable->getType() == "SDL") {
+    SDLDrawable* sdl_drawable = static_cast<SDLDrawable*> (drawable);
+    sdl_drawable->setRenderer(renderer);
+    sdl_drawable->draw(position,
+		       orientation);
+  }
 }
 
 bool SDLRenderWindow::initialize() {

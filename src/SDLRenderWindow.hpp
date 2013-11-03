@@ -6,14 +6,17 @@
   case, is the SDL render window
  */
 
+//CLASSES
+class SDLRenderWindow;
+
 //INCLUDES
 #include <SDL2/SDL.h>
 
 #include "KF_globals.hpp"
 #include "KF_utilities.hpp"
+#include "KF_math.hpp"
 #include "AbstractRenderWindow.hpp"
-//CLASSES
-class SDLRenderWindow;
+#include "SDLDrawable.hpp"
 
 //DEFINITIONS
 
@@ -41,11 +44,8 @@ private:
   //the window where things are drawn
   SDL_Window* window;
 
-  //the renderer
+  //the renderer used to draw onto the window
   SDL_Renderer* renderer;
-
-  //
-
 
 public:
   SDLRenderWindow(int windowWidth = 800, int windowHeight = 600);
@@ -54,7 +54,9 @@ public:
   bool reinitialize();
   bool initialize();
 
-  void draw();
+  void draw(AbstractDrawable* drawable, 
+	    Vector3 position = Vector3(),
+	    Quaternion orientation = Quaternion());
 
   void setWindowFlags(Uint32 windowFlags);
   void setRendererFlags(Uint32 rendererFlags);
