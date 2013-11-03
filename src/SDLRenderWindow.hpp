@@ -20,6 +20,11 @@ class SDLRenderWindow;
 
 //DEFINITIONS
 
+//the internal resolution to represent our texture objects rects with
+//respect to the current window
+#define SDL_INTERNAL_RESOLUTION_WIDTH 800
+#define SDL_INTERNAL_RESOLUTION_HEIGHT 600
+
 //MACROS
 
 //ENUM
@@ -48,8 +53,8 @@ private:
   SDL_Renderer* renderer;
 
 public:
-  SDLRenderWindow(int windowWidth = 800,
-		  int windowHeight = 600);
+  SDLRenderWindow(int windowWidth = SDL_INTERNAL_RESOLUTION_WIDTH,
+		  int windowHeight = SDL_INTERNAL_RESOLUTION_HEIGHT);
   virtual ~SDLRenderWindow();
   
   bool reinitialize();
@@ -58,6 +63,10 @@ public:
   void draw(AbstractDrawable* drawable, 
 	    Vector3 position = Vector3(),
 	    Quaternion orientation = Quaternion());
+
+
+  boolType update();
+  boolType clear();
   
   void setWindowFlags(Uint32 windowFlags);
   void setRendererFlags(Uint32 rendererFlags);

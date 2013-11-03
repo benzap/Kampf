@@ -16,6 +16,7 @@ class SDLDrawable;
 #include "KF_math.hpp"
 #include "AbstractDrawable.hpp"
 
+
 //DEFINITIONS
 #define SDL_DRAWABLE_TYPE "SDL"
 
@@ -35,7 +36,10 @@ private:
   SDL_Rect* sourceRectangle = nullptr;
 
   //the renderer reference used to draw to the window
-  SDL_Renderer* renderer;
+  SDL_Renderer* renderer = nullptr;
+
+  //the window reference
+  SDL_Window* window = nullptr;
 
 public:
   SDLDrawable(SDL_Texture* = nullptr);
@@ -44,8 +48,12 @@ public:
   int draw(Vector3 position = Vector3(), 
 	   Quaternion orientation = Quaternion());
 
-  void setRect(integerType x, integerType y, integerType w, integerType h);
+  void setRect(SDL_Rect*);
+
+  void setRect(integerType x, integerType y,
+	       integerType w, integerType h);
   void setRenderer(SDL_Renderer*);
+  void setWindow(SDL_Window*);
 };
 
 #endif //END SDLDRAWABLE__HPP

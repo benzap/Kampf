@@ -39,7 +39,10 @@ public:
 		    Vector3 position,
 		    Quaternion orientation) = 0;
 
-  
+  //after drawing, update the render target to show the results
+  virtual boolType update() = 0;
+  //clear the screen before we draw onto the screen againx
+  virtual boolType clear() = 0;
 };
 
 #endif //END ABSTRACTRENDERWINDOW__HPP

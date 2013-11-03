@@ -16,9 +16,19 @@ void SDLRenderWindow::draw(AbstractDrawable* drawable,
   if (drawable->getType() == "SDL") {
     SDLDrawable* sdl_drawable = static_cast<SDLDrawable*> (drawable);
     sdl_drawable->setRenderer(renderer);
+    sdl_drawable->setWindow(window);
     sdl_drawable->draw(position,
 		       orientation);
   }
+}
+
+boolType SDLRenderWindow::update() {
+  SDL_RenderPresent(renderer);
+}
+
+boolType SDLRenderWindow::clear() {
+  SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+  SDL_RenderClear(renderer);
 }
 
 bool SDLRenderWindow::initialize() {
