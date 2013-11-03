@@ -2,8 +2,8 @@
 #define LUASCRIPT__HPP
 //DESCRIPTION
 /*
-  Contains the lua scripting singleton, which will allow lua scripting
-  within the engine at key points. This should speed up production.
+  Contains the lua scripting state machine, which will allow lua scripting
+  within the engine at key points. This should speed up production...
  */
 //CLASSES
 class LuaScript;

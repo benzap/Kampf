@@ -11,3 +11,4 @@ plantuml.jar
 *.dll
 runtests.sh
 deletefiles.sh
+TAGS
