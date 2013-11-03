@@ -19,12 +19,12 @@ class AbstractEntity;
 
 //DEFINITIONS
 
-//MACROS
-
 //provided within the id field of an entity, will generate an ID
 #define GENERATE_ID 0
 
 #define ENTITY_ABSTRACT_TYPE "ABSTRACT"
+
+//MACROS
 
 //TYPEDEFS
 typedef std::vector<std::shared_ptr<AbstractComponent>> componentListType;

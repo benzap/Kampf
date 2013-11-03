@@ -11,6 +11,7 @@
 #include "Components.hpp"
 
 #include "AbstractEntity.hpp"
+#include "MainEntity.hpp"
 
 //CLASSES
 

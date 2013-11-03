@@ -7,11 +7,11 @@
   else.
  */
 
-//INCLUDES
-#include "AbstractSystem.hpp"
-
 //CLASSES
 class CollisionSystem;
+
+//INCLUDES
+#include "AbstractSystem.hpp"
 
 //DEFINITIONS
 
@@ -22,7 +22,7 @@ class CollisionSystem;
 //FUNCTIONS
 
 //BEGIN
-class CollisionSystem {
+class CollisionSystem : public AbstractSystem {
 private:
   
 public:

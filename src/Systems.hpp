@@ -8,6 +8,9 @@
 //INCLUDES
 #include "AbstractSystem.hpp"
 #include "EventSystem.hpp"
+#include "GraphicsSystem.hpp"
+#include "CollisionSystem.hpp"
+#include "PhysicsSystem.hpp"
 
 //CLASSES
 
