@@ -44,11 +44,13 @@ enum class enumInitType {
 };
 
 enum class enumWindowType {
+  SERVER,
   SDL,
   SFML
 };
 
 enum class enumRenderType {
+  SERVER,
   SDL,
   OPENGL,
   DIRECTX

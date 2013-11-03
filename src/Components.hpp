@@ -7,6 +7,9 @@
 
 //INCLUDES
 #include "AbstractComponent.hpp"
+#include "CollisionComponent.hpp"
+#include "GraphicsComponent.hpp"
+#include "PhysicsComponent.hpp"
 
 //CLASSES
 

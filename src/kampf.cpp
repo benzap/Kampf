@@ -58,41 +58,48 @@ Kampf::Kampf(enumInitType initType,
       if (renderType == enumRenderType::SDL) {
 	sdlContext->setRendererFlags(SDL_RENDERER_ACCELERATED);
       }
-    }
+    } //END if (windowType == enumWindowType::SDL) {
   
     if (windowType == enumWindowType::SFML) {
       std::cerr << "Window Type SFML currently isn't supported" << std::endl;
+    } //END if (windowType == enumWindowType::SFML) {
+    
+    //stuff to do that we wouldn't do Manually
+    if (initType != enumInitType::Manual) {
+
+      //add a quit function
+      RuleCondition condQuit = [] (Message msg) {
+	if (msg.getType() == enumMessageType::EVENT_QUIT) {
+	  return true;
+	}
+	return false;
+      };
+    
+      RuleFunction funcQuit = [this] (Message msg) {
+	this->bRunning = false;
+      };
+
+      this->ruleMachine->addRule(condQuit, funcQuit);
+
+      //initialize our render window
+      this->windowContext->initialize();
+
+      std::cout << "Initializing Window..." << std::endl;
+
+      //Adding the graphics system
+      auto graphicsSystem = new GraphicsSystem();
+      this->addSystem(graphicsSystem);
     }
-    
-    //add a quit function
-    RuleCondition condQuit = [] (Message msg) {
-      if (msg.getType() == enumMessageType::EVENT_QUIT) {
-	return true;
-      }
-      return false;
-    };
-    
-    RuleFunction funcQuit = [this] (Message msg) {
-      this->bRunning = false;
-    };
-
-    this->ruleMachine->addRule(condQuit, funcQuit);
-
-    //initialize our render window
-    this->windowContext->initialize();
-  }
+  } //END if (initType == enumInitType::Basic || ...
   else if (initType == enumInitType::Server) {
     //do nothing and ignore other values
   }
   
-  //add our systems
+  //add our systems relevant to all types
   
   //the SDL event system
   auto eventSystem = new EventSystem();
   this->addSystem(eventSystem);
-
-  
-
 }
 
 Kampf::~Kampf() {
@@ -105,22 +112,35 @@ void Kampf::runMainLoop(Uint32 duration) {
   auto messenger = this->getMessenger();
   auto rulemachine = this->getRuleMachine();
 
-  
-
   this->bRunning = true;
   while(this->bRunning) {
+    //if our render context is live, clear the screen
+    if (this->windowContext != nullptr) {
+      this->windowContext->clear();
+    }
+    
+    //create all of the messages to be passed to the Messenger
     for (auto system : this->systemList) {
       system->createMessages();
     }
 
+    //have all of the systems process the messages, or simply process
+    //relevant stuff
     for (auto system : this->systemList) {
       system->process();
     }
 
-    //run the rule machine
+    //have the rule machine check if any relevant messages are found
+    //as well
     rulemachine->process();
     
+    //clear out all of the messages for the next iteration
     messenger->clearMessages();
+
+    //finished drawing stuff to the screen, update the screen
+    if (this->windowContext != nullptr) {
+      this->windowContext->update();
+    }
 
     //only run the loop for the duration, ignore if it's -1
     if (duration > 0) {

@@ -30,6 +30,19 @@ bool AbstractComponent::isParent() {
   return this->bIsParent;
 }
  
+bool AbstractComponent::isActive() {
+  return this->bActive;
+}
+
+void AbstractComponent::setActive() {
+  this->bActive = true;
+}
+
+void AbstractComponent::setInactive() {
+  this->bActive = false;
+}
+
+
 //value types
 integerType AbstractComponent::getCustomAttribute_int(stringType keyname) {
   assert(this->hasCustomAttribute(keyname));

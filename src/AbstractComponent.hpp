@@ -59,6 +59,11 @@ private:
   //child
   bool bIsParent;
 
+  //a boolean which determines whether the given component is
+  //considered active or inactive
+  bool bActive = true;
+
+
   //holds custom attribute values
   customAttributeMapType customAttributeMap;
 
@@ -81,6 +86,10 @@ public:
   
   bool isParent();
   
+  bool isActive();
+  void setActive();
+  void setInactive();
+
   //value types
   integerType getCustomAttribute_int(stringType);
   stringType setCustomAttribute(stringType, integerType);
