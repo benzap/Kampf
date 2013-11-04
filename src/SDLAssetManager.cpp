@@ -18,6 +18,7 @@ SDLDrawable* SDLAssetManager::addBMP(
     SDL_Rect* rect) {
   SDL_Surface* sdlSurface = SDL_LoadBMP(filename.c_str());
   this->addSurface(name, sdlSurface, rect);
+  SDL_FreeSurface(sdlSurface);
 }
 
 
