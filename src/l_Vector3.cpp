@@ -372,4 +372,5 @@ int luaopen_vector(lua_State *L) {
   luaL_register(L, NULL, l_Vector3);
 
   luaL_register(L, KF_LUA_LIBNAME, l_Vector3_Registry);
+  return 1;
 }

@@ -19,8 +19,13 @@ void SDLDrawable::setRect(SDL_Rect* rect) {
   this->sourceRectangle = rect;
 }
 
-void SDLDrawable::setRect(integerType x, integerType y, integerType w, integerType h) {
+void SDLDrawable::setRect(integerType x, integerType y, 
+			  integerType w, integerType h) {
   
+}
+
+const SDL_Rect* SDLDrawable::getRect() {
+  return sourceRectangle;
 }
 
 void SDLDrawable::setRenderer(SDL_Renderer* renderer) {

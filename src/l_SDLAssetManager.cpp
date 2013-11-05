@@ -5,7 +5,7 @@ void lua_pushSDL_AM(lua_State* L, SDLAssetManager* sdlasset = nullptr) {
     sdlasset = SDLAssetManager::getInstance();
     }
   SDLAssetManager** assetPtr = static_cast<SDLAssetManager**>
-    (lua_newuserdata(L, sizeof(Vector3*)));
+    (lua_newuserdata(L, sizeof(SDLAssetManager*)));
 
   *assetPtr = sdlasset;
 
@@ -70,7 +70,27 @@ static int l_SDL_AM_addBMP(lua_State *L) {
     lua_pop(L, 4);
     drawable->setRect(w,h,x,y);
   }
+  lua_push_sdldrawable(L, drawable);
 
+  return 1;
+}
+
+static int l_SDL_AM_getDrawable(lua_State *L) {
+  auto sdlasset = lua_toSDL_AM(L, 1);
+  stringType name = luaL_checkstring(L, 2);
+  
+  auto drawable = sdlasset->getDrawable(name);
+  lua_push_sdldrawable(L, drawable);
+
+  return 1;
+}
+
+static int l_SDL_AM_deleteDrawable(lua_State *L) {
+  auto sdlasset = lua_toSDL_AM(L, 1);
+  stringType name = luaL_checkstring(L, 2);
+
+  sdlasset->removeDrawable(name);
+  
   return 0;
 }
 
@@ -94,6 +114,8 @@ static const struct luaL_Reg l_SDL_AM_Registry [] = {
 
 static const struct luaL_Reg l_SDL_AM [] = {
   {"addBMP", l_SDL_AM_addBMP},
+  {"getDrawable", l_SDL_AM_getDrawable},
+  {"deleteDrawable", l_SDL_AM_deleteDrawable},
   {"hasDrawable", l_SDL_AM_hasDrawable},
   {NULL, NULL}
 };
@@ -106,4 +128,6 @@ int luaopen_SDL_AM(lua_State *L) {
   luaL_register(L, NULL, l_SDL_AM);
 
   luaL_register(L, KF_LUA_LIBNAME, l_SDL_AM_Registry);
+
+  return 1;
 }

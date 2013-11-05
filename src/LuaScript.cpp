@@ -21,6 +21,10 @@ LuaScript::LuaScript(Kampf* kf) {
   //kf quaternions
   luaopen_quaternion(L);
 
+  //SDLAssetManager
+  luaopen_SDL_AM(L);
+  luaopen_SDLDrawable(L);
+
   if (kf != nullptr) {
     
   }

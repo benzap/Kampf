@@ -49,9 +49,10 @@ public:
 	   Quaternion orientation = Quaternion());
 
   void setRect(SDL_Rect*);
-
   void setRect(integerType x, integerType y,
 	       integerType w, integerType h);
+  const SDL_Rect* getRect();
+
   void setRenderer(SDL_Renderer*);
   void setWindow(SDL_Window*);
 };

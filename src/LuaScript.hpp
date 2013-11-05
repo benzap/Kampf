@@ -19,6 +19,8 @@ class LuaScript;
 //the kampf extensible libraries
 #include "l_Vector3.hpp"
 #include "l_Quaternion.hpp"
+#include "l_SDLAssetManager.hpp"
+#include "l_SDLDrawable.hpp"
 
 //DEFINITIONS
 

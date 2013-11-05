@@ -13,6 +13,7 @@
 #include "KF_utilities.hpp"
 #include "SDLAssetManager.hpp"
 #include "LuaScript.hpp"
+#include "l_SDLDrawable.hpp"
 
 //DEFINITIONS
 #define LUA_USERDATA_SDLASSETMANAGER "l_kf.sdlassetmanager"

@@ -344,4 +344,6 @@ int luaopen_quaternion(lua_State *L) {
   luaL_register(L, NULL, l_Quaternion);
 
   luaL_register(L, KF_LUA_LIBNAME, l_Quaternion_Registry);
+  
+  return 1;
 }
