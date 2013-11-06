@@ -11,7 +11,7 @@ Kampf::Kampf(enumInitType initType,
   windowContext(nullptr),
   messenger(Messenger::getInstance()),
   ruleMachine(new RuleMachine()),
-  lua(new LuaScript()) {
+  lua(new LuaScript(this)) {
 
   //set the OS
 #if defined(KF_WIN)
@@ -42,9 +42,6 @@ Kampf::Kampf(enumInitType initType,
 #endif
   lua->setGlobal("KF_EXEC_PATH", executablePath);
 
-  //execute our main script
-  lua->loadScript(KF_INIT_FILE);
-
   //the intialization of the kampf configuration
   if (initType == enumInitType::Basic || initType == enumInitType::Manual) {
     if (windowType == enumWindowType::SDL) {
@@ -57,7 +54,7 @@ Kampf::Kampf(enumInitType initType,
 
       if (renderType == enumRenderType::SDL) {
 	sdlContext->setRendererFlags(SDL_RENDERER_ACCELERATED);
-      }
+     }
     } //END if (windowType == enumWindowType::SDL) {
   
     if (windowType == enumWindowType::SFML) {
@@ -100,6 +97,11 @@ Kampf::Kampf(enumInitType initType,
   //the SDL event system
   auto eventSystem = new EventSystem();
   this->addSystem(eventSystem);
+
+  //run our Lua scripts starting with the init file, after everything
+  //has been initialized.
+
+  lua->loadScript(KF_INIT_FILE);
 }
 
 Kampf::~Kampf() {
@@ -108,9 +110,13 @@ Kampf::~Kampf() {
   delete ruleMachine;
 }
 
-void Kampf::runMainLoop(Uint32 duration) {
+void Kampf::runMainLoop(int duration) {
   auto messenger = this->getMessenger();
   auto rulemachine = this->getRuleMachine();
+
+  if (duration != KF_LOOP_FOREVER) {
+    duration += SDL_GetTicks();
+  }
 
   this->bRunning = true;
   while(this->bRunning) {

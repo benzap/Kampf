@@ -26,7 +26,7 @@ LuaScript::LuaScript(Kampf* kf) {
   luaopen_SDLDrawable(L);
 
   if (kf != nullptr) {
-    
+    luaopen_kampf(L, kf);
   }
 }
 
