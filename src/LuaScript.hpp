@@ -4,7 +4,7 @@
 /*
   Contains the lua scripting state machine, which will allow lua scripting
   within the engine at key points. This should speed up production...
- */
+*/
 //CLASSES
 class LuaScript;
 
@@ -23,7 +23,6 @@ class LuaScript;
 #include "l_SDLAssetManager.hpp"
 #include "l_SDLDrawable.hpp"
 
-
 //DEFINITIONS
 
 //the name of the library to store all of our lua bindings
@@ -38,33 +37,36 @@ class LuaScript;
 //BEGIN
 class LuaScript {
 private:
-  lua_State *L;
+    lua_State *L;
 public:
-  LuaScript(Kampf* kf = nullptr);
-  virtual ~LuaScript();
+    LuaScript(Kampf* kf = nullptr);
+    virtual ~LuaScript();
 
-  lua_State* getState();
+    lua_State* getState();
 
-  void setGlobal(stringType, floatType);
-  floatType getGlobal_float(stringType);
-  void setGlobal(stringType, integerType);
-  integerType getGlobal_int(stringType);
-  void setGlobal(stringType, stringType);
-  stringType getGlobal_string(stringType);
-  void setGlobal(stringType, floatArrayType);
-  floatArrayType getGlobal_floatArray(stringType);
-  void setGlobal(stringType, intArrayType);
-  intArrayType getGlobal_intArray(stringType);
+    void setGlobal(stringType, floatType);
+    floatType getGlobal_float(stringType);
+    void setGlobal(stringType, integerType);
+    integerType getGlobal_int(stringType);
+    void setGlobal(stringType, stringType);
+    stringType getGlobal_string(stringType);
+    void setGlobal(stringType, floatArrayType);
+    floatArrayType getGlobal_floatArray(stringType);
+    void setGlobal(stringType, intArrayType);
+    intArrayType getGlobal_intArray(stringType);
 
-  //load script from the given file path
-  boolType loadScript(stringType);
+    //load script from the given file path
+    boolType loadScript(stringType);
 
-  //load string into the lua REPL
-  boolType loadString(stringType, stringType name = "stdin");
+    //load string into the lua REPL
+    boolType loadString(stringType, stringType name = "stdin");
   
-//run the interpreter
-void runInterpreter();
+    //run the interpreter
+    void runInterpreter();
 
+    //path functions
+    void addPath(stringType);
+    void clearPath();
 };
 
 #endif //END LUASCRIPT__HPP

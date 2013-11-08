@@ -28,6 +28,12 @@ LuaScript::LuaScript(Kampf* kf) {
   if (kf != nullptr) {
     luaopen_kampf(L, kf);
   }
+
+  //hard coding the packages path to the current directory
+  this->clearPath();
+  this->addPath("?.lua");
+  this->addPath("./scripts/?.lua");
+  this->addPath("../scripts/?.lua");
 }
 
 LuaScript::~LuaScript() {
@@ -216,3 +222,17 @@ void LuaScript::runInterpreter() {
   }
   std::cout << "Kampf Interpreter Exited" << std::endl;
 }
+
+void LuaScript::addPath(stringType pathString) {
+    stringType luaString = "package.path = package.path .. ";
+    luaString += "';";
+    luaString += pathString;
+    luaString += "'";
+    this->loadString(luaString);
+}
+
+void LuaScript::clearPath() {
+    this->loadString("package.path = '?.lua'");
+}
+
+

@@ -10,7 +10,7 @@ int main(int argc, char *argv[]) {
 
   luaScript.loadString("print('hello world!')");
 
-  luaScript.loadScript("test2.lua");
+  luaScript.loadScript("test.lua");
 
   luaScript.setGlobal("PI", 3.14);
   auto PI_value = luaScript.getGlobal_float("PI");
