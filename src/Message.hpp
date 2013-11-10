@@ -61,25 +61,28 @@ COLLISION,
 
 //FUNCTIONS
 
+
 //BEGIN
 class Message {
 private:
-incrementType id;
-enumMessageType type = enumMessageType::NONE;
+    incrementType id;
+    enumMessageType type = enumMessageType::NONE;
 public:
-AbstractEntity* firstEntity = nullptr;
-AbstractComponent* firstComponent = nullptr;
-AbstractEntity* secondEntity = nullptr;
-AbstractComponent* secondComponent = nullptr;
-std::map<stringType, CustomAttribute> customData;
-void* data = nullptr;
-
-Message(incrementType id);
-virtual ~Message();
-
-incrementType getID();
-enumMessageType getType();
-void setType(enumMessageType);
+    AbstractEntity* firstEntity = nullptr;
+    AbstractComponent* firstComponent = nullptr;
+    AbstractEntity* secondEntity = nullptr;
+    AbstractComponent* secondComponent = nullptr;
+    std::map<stringType, CustomAttribute> customData;
+    void* data = nullptr;
+    
+    Message(incrementType id);
+    virtual ~Message();
+    
+    incrementType getID();
+    enumMessageType getType();
+    stringType getTypeString();
+    void setType(enumMessageType);
+    void setTypeString(stringType typeString);
 };
 
 #endif //END MESSAGE__HPP
