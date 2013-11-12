@@ -73,7 +73,11 @@ static int l_RuleMachine_isrulemachine(lua_State *L) {
 }
 
 static int l_RuleMachine_addRule(lua_State *L) {
-    
+    auto wrapperCondition = RuleWrapper_condition(L, 1);
+    auto wrapperFunction = RuleWrapper_function(L, 2);
+    auto rulemachine = lua_getRuleMachine(L);
+    rulemachine->addRule(wrapperCondition, wrapperFunction);
+    return 0;
 }
 
 static const struct luaL_Reg l_rulemachine_kampf [] = {

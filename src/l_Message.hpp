@@ -23,8 +23,8 @@ class Message;
 //FUNCTIONS
 
 //BEGIN
-Message* lua_pushmessage(lua_State *L);
-void lua_tomessage(lua_State *L, int index);
+Message* lua_pushmessage(lua_State *L, Message* message = nullptr);
+Message* lua_tomessage(lua_State *L, int index);
 boolType lua_ismessage(lua_State *L, int index);
 
 

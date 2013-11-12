@@ -13,6 +13,7 @@
 #include "LuaScript.hpp"
 #include "kampf.hpp"
 #include "RuleMachine.hpp"
+#include "l_RuleWrapper.hpp"
 
 //DEFINITIONS
 #define LUA_REGISTRY_RULEMACHINE "l_kf.rulemachine"

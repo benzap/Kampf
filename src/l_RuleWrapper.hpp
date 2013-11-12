@@ -25,8 +25,8 @@ class RuleWrapper_function;
 
 //FUNCTIONS
 
-//pushes the value at the top of the stack into a table including
-//references
+//gets and creates a function reference within the table stored in
+//FUNCTION_REF_TABLE
 int lua_getFunctionRef(lua_State *L);
 
 //grabs the value at the given index / reference and pushes it to the
@@ -51,7 +51,7 @@ private:
     lua_State *L = nullptr;
     int luaFunctionRef = LUA_NOREF;
 public:
-    RuleWrapper_function(int index);
+    RuleWrapper_function(lua_State *L, int index);
     virtual ~RuleWrapper_function();
 
     boolType operator () (Message msg);

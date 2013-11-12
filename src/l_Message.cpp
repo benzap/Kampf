@@ -1,6 +1,6 @@
 #include "l_Message.hpp"
 
-Message* lua_pushmessage(lua_State *L, Message* message = nullptr) { 
+Message* lua_pushmessage(lua_State *L, Message* message) { 
     if (message == nullptr) {
 	message = Messenger::getInstance()->appendMessage();
     }
@@ -37,11 +37,11 @@ boolType lua_ismessage(lua_State* L, int index) {
     return false;
 }
 
-static int l_Message_Message(lua_State *L) {
-    auto message = lua_pushmessage(L);
+// static int l_Message_Message(lua_State *L) {
+//     auto message = lua_pushmessage(L);
     
-    return 1;
-}
+//     return 1;
+// }
 
 static int l_Message_isMessage(lua_State *L) {
     if (lua_ismessage(L, -1)) {
@@ -62,7 +62,7 @@ static int l_Message_getID(lua_State *L) {
 static int l_Message_getType(lua_State *L) {
     auto message = lua_tomessage(L, 1);
     enumMessageType messageType = message->getType();
-    lua_pushstring(L, message->getTypeString());
+    lua_pushstring(L, message->getTypeString().c_str());
 
     return 1;
 }
@@ -76,7 +76,7 @@ static int l_Message_setType(lua_State *L) {
 }
 
 static const struct luaL_Reg l_Message_registry [] = {
-    {"Message", l_Message_Message},
+    //{"Message", l_Message_Message},
     {"isMessage", l_Message_isMessage},
     {NULL, NULL}
 };

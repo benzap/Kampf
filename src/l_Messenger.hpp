@@ -13,6 +13,7 @@
 #include "LuaScript.hpp"
 #include "kampf.hpp"
 #include "Messenger.hpp"
+#include "l_Message.hpp"
 
 //DEFINITIONS
 #define LUA_REGISTRY_MESSENGER "l_kf.messenger"

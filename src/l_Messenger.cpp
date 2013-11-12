@@ -72,8 +72,22 @@ static int l_Messenger_ismessenger(lua_State *L) {
     return 1;
 }
 
-static int l_Messenger_addMessage(lua_State *L) {
-    
+//appends the message to the messenger, and returns the Message
+static int l_Messenger_appendMessage(lua_State *L) {
+    auto message = lua_pushmessage(L);
+    return 1;
+}
+
+static int l_Messenger_retrieveMessages(lua_State *L) {
+    auto messenger = lua_getMessenger(L);
+    auto messageVector = messenger->retrieveMessages();
+    lua_newtable(L);
+    int index = 1;
+    for (auto msg : messageVector) {
+	lua_pushmessage(L, &msg);
+	lua_rawseti(L, -1, index++);
+    }
+    return 1;
 }
 
 static const struct luaL_Reg l_messenger_kampf [] = {
@@ -82,7 +96,8 @@ static const struct luaL_Reg l_messenger_kampf [] = {
 };
  
 static const struct luaL_Reg l_messenger [] = {
-    {"addMessage", l_Messenger_addMessage},
+    {"appendMessage", l_Messenger_appendMessage},
+    {"retrieveMessages", l_Messenger_retrieveMessages},
     {NULL, NULL}
 };
 
