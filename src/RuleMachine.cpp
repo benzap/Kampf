@@ -11,10 +11,10 @@ void RuleMachine::process() {
   for (auto pair : this->ruleContainer) {
     for (auto msg : messenger->retrieveMessages()) {
       RuleCondition conditionFunction = pair.first;
-      if (conditionFunction(msg)) {
+      if (conditionFunction(&msg)) {
 	//expressing what I want, if the condition is true
         RuleFunction expressionFunction = pair.second;
-	expressionFunction(msg);
+	expressionFunction(&msg);
       }
     }
   }

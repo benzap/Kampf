@@ -26,7 +26,7 @@ RuleWrapper_condition::~RuleWrapper_condition() {
     luaL_unref(L, FUNCTION_REF_TABLE, this->luaConditionRef);
 }
 
-boolType RuleWrapper_condition::operator () (Message msg) {
+boolType RuleWrapper_condition::operator () (Message* msg) {
     //push our function onto the stack
     lua_pushFunctionRef(L, this->luaConditionRef);
     //push the message onto the stack
@@ -53,7 +53,7 @@ RuleWrapper_function::~RuleWrapper_function() {
     luaL_unref(L, FUNCTION_REF_TABLE, this->luaFunctionRef);
 }
 
-boolType RuleWrapper_function::operator () (Message msg) {
+boolType RuleWrapper_function::operator () (Message* msg) {
     //push our function onto the stack
     lua_pushFunctionRef(L, this->luaFunctionRef);
     //push the message onto the stack

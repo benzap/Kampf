@@ -19,8 +19,8 @@ class RuleMachine;
 //MACROS
 
 //TYPEDEFS
-typedef std::function<bool(Message)> RuleCondition;
-typedef std::function<void(Message)> RuleFunction;
+typedef std::function<bool(Message*)> RuleCondition;
+typedef std::function<void(Message*)> RuleFunction;
 typedef std::pair<RuleCondition, RuleFunction> RuleTuple;
 
 //FUNCTIONS

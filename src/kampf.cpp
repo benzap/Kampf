@@ -65,14 +65,14 @@ Kampf::Kampf(enumInitType initType,
     if (initType != enumInitType::Manual) {
 
       //add a quit function
-      RuleCondition condQuit = [] (Message msg) {
-	if (msg.getType() == enumMessageType::EVENT_QUIT) {
+      RuleCondition condQuit = [] (Message* msg) {
+	if (msg->getType() == enumMessageType::EVENT_QUIT) {
 	  return true;
 	}
 	return false;
       };
     
-      RuleFunction funcQuit = [this] (Message msg) {
+      RuleFunction funcQuit = [this] (Message* msg) {
 	this->bRunning = false;
       };
 

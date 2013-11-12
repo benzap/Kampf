@@ -14,10 +14,11 @@ class RuleWrapper_function;
 #include <functional>
 #include "RuleMachine.hpp"
 #include "LuaScript.hpp"
+#include "l_Message.hpp"
 
 //DEFINITIONS
 //location of the function references
-#define FUNCTION_REF_TABLE "LUA_REGISTRYINDEX"
+#define FUNCTION_REF_TABLE LUA_REGISTRYINDEX
 
 //MACROS
 
@@ -42,7 +43,7 @@ public:
     RuleWrapper_condition(lua_State *L, int index);
     virtual ~RuleWrapper_condition();
 
-    boolType operator () (Message msg);
+    boolType operator () (Message* msg);
 
 };
 
@@ -54,7 +55,7 @@ public:
     RuleWrapper_function(lua_State *L, int index);
     virtual ~RuleWrapper_function();
 
-    boolType operator () (Message msg);
+    boolType operator () (Message* msg);
 };
 
 
