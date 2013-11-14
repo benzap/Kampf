@@ -109,6 +109,17 @@ class EventManager << (S,#FF7700) >> {
    + void pollEvents()
 }
 
+class SDLAssetManager << (S,#FF7700) >> {
+   - textureContainerType textureContainer
+   - SDL_Renderer* renderer
+   + void setRenderer(SDL_Renderer*)
+   + SDLDrawable* addSurface(const stringType&, SDL_Surface*, SDL_Rect* = FULL_ASSET)
+   + SDLDrawable* addBMP(const stringType&, const stringType&, SDL_Rect* = FULL_ASSET)
+   + boolType hasDrawable(const stringType&);
+   + SDLDrawable* getDrawable(const stringType&)
+   + boolType removeDrawable(const stringType&)
+}  
+
 
 } 
 'END package "Managers"
@@ -336,30 +347,81 @@ class Messenger {
 }
 
 class Message {
-   - int messageID
-   - enumMessageType messageType
-   - AbstractEntity* entity = nullptr
-   - AbstractComponent* component = nullptr
-   - void* customData = nullptr
+   - incrementType id
+   - enumMessageType type
+   - AbstractEntity* firstEntity = nullptr
+   - AbstractComponent* firstComponent = nullptr
+   - std::map<stringType, CustomAttribute> customData
+   - void* data = nullptr
+   + incrementType getID()
+   + enumMessageType getType()
+   + stringType getTypeString()
+   + void setType(enumMessageType)
+   + void setTypeString(stringType typeString)
 }
 
 enum enumMessageType {
      CUSTOM,
      COLLIDE,
-     EVENT
+     EVENT_COMMON,
+     EVENT_WINDOW,
+     EVENT_KEYBOARD,
+     EVENT_TEXT_EDIT,
+     EVENT_TEXT_INPUT,
+     EVENT_MOUSE_MOVE,
+     EVENT_MOUSE_BUTTON,
+     EVENT_MOUSE_WHEEL,
+     EVENT_JOYSTICK_AXIS,
+     EVENT_JOYSTICK_BALL,
+     EVENT_JOYSTICK_HAT,
+     EVENT_JOYSTICK_BUTTON,
+     EVENT_JOYSTICK_DEVICE,
+     EVENT_CONTROLLER_AXIS,
+     EVENT_CONTROLLER_BUTTON,
+     EVENT_CONTROLLER_DEVICE,
+     EVENT_QUIT,
+     EVENT_USER_CUSTOM,
+     EVENT_OS,
+     EVENT_TOUCH_SINGLE,
+     EVENT_TOUCH_MULTI,
+     EVENT_TOUCH_DOLLAR,
+     EVENT_DRAG_DROP,
 }
 
 class RuleMachine {
    - std::vector<Rule> ruleList
 ==
-   + addRule(std::function<Message> conditionFunction,
-     	     std::function<Message> ruleFunction)
+   + addRule(std::function<boolType(Message*)> conditionFunction,
+     	     std::function<boolType(Message*)> ruleFunction)
 }
 
 class Rule {
-   + std::function<Message> conditionFunction
-   + std::function<Message> ruleFunction
+   + std::function<boolType(Message*)> conditionFunction
+   + std::function<boolType(Message*)> ruleFunction
 }
+
+class LuaScript {
+  - lua_State *L
+  + lua_State* getState()
+  + setGlobal(stringType, floatType)
+  + floatType getGlobal_float(stringType)
+  + void setGlobal(stringType, integerType);
+  + integerType getGlobal_integer(stringType);
+  + void setGlobal(stringType, stringType)
+  + stringType getGlobal_string(stringType)
+  + void setGlobal(stringType, floatArrayType)
+  + floatArrayType getGlobal_floatArray(stringType)
+  + void setGlobal(stringType, intArrayType)
+  + intArrayType getGlobal_intArray(stringType)
+  
+  + boolType loadScript(stringType)
+  + boolType loadString(stringType)
+  + void runInterpreter()
+  + void addPath(stringType)
+  + void clearPath()
+}
+
+Kampf *-- LuaScript
 
 RuleMachine *-- Rule
 Kampf *-- RuleMachine
@@ -371,5 +433,64 @@ Messenger o-- Message
 Messenger .. AbstractSystem : Kampf::getMessenger()
 EntityManager .. Kampf : EntityManager::getInstance()
 
+package "Math" {
+class Vector3 {
+  - floatType x
+  - floatType y
+  - floatType z
+  + integerType length()
+  + comp_prod(const Vector3& o)
+  + comp_prod_update(const Vector3& o)
+  + floatType magnitude_real()
+  + floatType magnitude()
+  + Vector3 unit()
+  + Vector3 cross(const Vector3& o)
+}
 
+class Matrix3 {
+  + floatType data[9]
+  + const static int length = 9
+  + const static int length = 3
+  + Matrix3(std::initializer_list<floatType> l)
+  + Matrix3()
+  + void fill(floatType)
+  + void identity(floatType)
+  + Vector3 row(integerType)
+  + Vector3 col(integerType)
+  + floatType det()
+  + floatType get(int i, int j)
+  + void set(int i, int j, floatType val)
+  + set(std::initializer_list<floatType> l)
+}
+
+class Quaternion {
+  + floatType w
+  + floatType i
+  + floatType j
+  + floatType k
+  + integerType length
+  + Quaternion conj()
+  + Quaternion inv()
+  + floatType magnitude_real()
+  + floatType magnitude()
+  + Quaternion unit()
+  + Quaternion product()
+}
+
+}
+'end package "Math"
+
+package "Lua Scripting" #6B7EA8 {
+class l_Vector3 << (L,#0077FF) >> {
+
+}
+
+class l_Quaternion << (L,#0077FF) >> {
+
+}
+
+
+
+}
+'end package "Lua Scripting"
 @enduml
