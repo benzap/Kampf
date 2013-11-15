@@ -62,6 +62,9 @@ RuleMachine* lua_torulemachine(lua_State *L, int index) {
     return rulemachine;
 }
  
+//kf.isRuleMachine(obj)
+// params - obj = obj to test if it's the rule machine
+// return - boolean, true if it's a rule machine
 static int l_RuleMachine_isrulemachine(lua_State *L) {
     if (lua_isrulemachine(L, 1)) {
 	lua_pushboolean(L, 1);
@@ -72,24 +75,34 @@ static int l_RuleMachine_isrulemachine(lua_State *L) {
     return 1;
 }
 
+//rulemachine.addRule(ruleCond, ruleFunc)
+// params - ruleCond = function(msg) ... end
+//        - ruleFunc = function(msg) ... end
 static int l_RuleMachine_addRule(lua_State *L) {
+    std::cout << "condition" << std::endl;
     auto wrapperCondition = RuleWrapper_condition(L, 1);
+    std::cout << "function" << std::endl;
     auto wrapperFunction = RuleWrapper_function(L, 2);
     auto rulemachine = lua_getRuleMachine(L);
+    std::cout << "adding..." << std::endl;
     rulemachine->addRule(wrapperCondition, wrapperFunction);
+    std::cout << "done" << std::endl;
     return 0;
 }
 
+//kf module registered functions
 static const struct luaL_Reg l_rulemachine_kampf [] = {
     {"isRuleMachine", l_RuleMachine_isrulemachine},
     {NULL, NULL}
 };
  
+//RuleMachine methods
 static const struct luaL_Reg l_rulemachine [] = {
     {"addRule", l_RuleMachine_addRule},
     {NULL, NULL}
 };
 
+//luaopen_registered functions
 int luaopen_rulemachine(lua_State *L, RuleMachine* rulemachine) {
     //Rule Machine
     luaL_newmetatable(L, LUA_USERDATA_RULEMACHINE);

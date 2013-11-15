@@ -55,7 +55,7 @@ public:
     RuleWrapper_function(lua_State *L, int index);
     virtual ~RuleWrapper_function();
 
-    boolType operator () (Message* msg);
+    void operator () (Message* msg);
 };
 
 

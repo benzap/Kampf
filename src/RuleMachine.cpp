@@ -7,20 +7,33 @@ RuleMachine::~RuleMachine() {
 }
 
 void RuleMachine::process() {
-  auto messenger = Messenger::getInstance();
-  for (auto pair : this->ruleContainer) {
-    for (auto msg : messenger->retrieveMessages()) {
-      RuleCondition conditionFunction = pair.first;
-      if (conditionFunction(&msg)) {
-	//expressing what I want, if the condition is true
-        RuleFunction expressionFunction = pair.second;
-	expressionFunction(&msg);
-      }
+    auto messenger = Messenger::getInstance();
+    for (auto pair : this->ruleContainer) {
+	for (auto msg : messenger->retrieveMessages()) {
+	    RuleCondition conditionFunction = pair.first;
+	    if (conditionFunction(&msg)) {
+		//expressing what I want, if the condition is true
+		RuleFunction expressionFunction = pair.second;
+		expressionFunction(&msg);
+	    }
+	}
     }
-  }
 }
 
 void RuleMachine::addRule(RuleCondition condition,
 			  RuleFunction function) {
-  this->ruleContainer.push_back(RuleTuple(condition, function));
+    auto msg = Messenger::getInstance()->appendMessage();
+    if (condition) {
+	std::cout << "condition: " << condition(msg) << std::endl;
+    }
+
+    if (function) {
+	std::cout << "function: running..." << std::endl;
+	function(msg);
+	std::cout << "function: ran..." << std::endl;
+    }
+
+    std::cout << "adding rule" << std::endl;
+    this->ruleContainer.push_back(RuleTuple(condition, function));
+    std::cout << "rule added" << std::endl;
 }

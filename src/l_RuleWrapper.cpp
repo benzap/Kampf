@@ -4,6 +4,7 @@ int lua_getFunctionRef(lua_State *L) {
     //pushes the top value on the stack and returns an integer
     //representing the reference to our pushed function.
     int reference = luaL_ref(L, FUNCTION_REF_TABLE);
+
     //TODO: error checking
     return reference;
 }
@@ -18,6 +19,7 @@ RuleWrapper_condition::RuleWrapper_condition(lua_State *L, int index) :
     L(L) {
     //push the index to the top of the stack
     lua_pushvalue(L, index);
+
     //push and pop into reference;
     this->luaConditionRef = lua_getFunctionRef(L);
 }
@@ -45,6 +47,7 @@ RuleWrapper_function::RuleWrapper_function(lua_State*L, int index) :
     L(L) {
     //push the index to the top of the stack
     lua_pushvalue(L, index);
+
     //push and pop into reference;
     this->luaFunctionRef = lua_getFunctionRef(L);
 }
@@ -53,7 +56,7 @@ RuleWrapper_function::~RuleWrapper_function() {
     luaL_unref(L, FUNCTION_REF_TABLE, this->luaFunctionRef);
 }
 
-boolType RuleWrapper_function::operator () (Message* msg) {
+void RuleWrapper_function::operator () (Message* msg) {
     //push our function onto the stack
     lua_pushFunctionRef(L, this->luaFunctionRef);
     //push the message onto the stack
@@ -64,6 +67,8 @@ boolType RuleWrapper_function::operator () (Message* msg) {
     //grab the boolean result
     boolType result = lua_toboolean(L, -1);
     lua_pop(L, 1);
-    return result;
+
+    //returns NOTHING
+    //TODO: use result as error check
 }
 
