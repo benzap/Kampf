@@ -27,6 +27,8 @@ LuaScript::LuaScript(Kampf* kf) {
 
   if (kf != nullptr) {
     luaopen_kampf(L, kf);
+    luaopen_messenger(L, kf->getMessenger());
+    luaopen_rulemachine(L, kf->getRuleMachine());
   }
 
   //hard coding the packages path to the current directory

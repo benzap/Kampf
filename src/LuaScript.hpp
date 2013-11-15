@@ -22,6 +22,8 @@ class LuaScript;
 #include "l_Quaternion.hpp"
 #include "l_SDLAssetManager.hpp"
 #include "l_SDLDrawable.hpp"
+#include "l_Messenger.hpp"
+#include "l_RuleMachine.hpp"
 
 //DEFINITIONS
 
