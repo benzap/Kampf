@@ -40,6 +40,9 @@ void RuleMachine::addRule(RuleCondition condition,
     ruleTuple.first(msg);
     ruleTuple.second(msg);
 
+    //checking initialization
+    auto ruleContainer = this->ruleContainer;
+
     std::cout << "adding rule" << std::endl;
     this->ruleContainer.push_back(ruleTuple);
     std::cout << "rule added" << std::endl;
