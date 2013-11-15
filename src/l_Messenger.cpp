@@ -79,7 +79,13 @@ static int l_Messenger_appendMessage(lua_State *L) {
 }
 
 static int l_Messenger_retrieveMessages(lua_State *L) {
-    auto messenger = lua_getMessenger(L);
+    Messenger* messenger = nullptr;
+    if (lua_hasMessenger(L)) {
+	messenger = lua_getMessenger(L);
+    }
+    else {
+	luaL_error(L, "Messenger has not been registered in lua");
+    }
     auto messageVector = messenger->retrieveMessages();
     lua_newtable(L);
     int index = 1;
@@ -109,6 +115,8 @@ int luaopen_messenger(lua_State *L, Messenger* messenger) {
     luaL_register(L, NULL, l_messenger);
 
     luaL_register(L, KF_LUA_LIBNAME, l_messenger_kampf);
+
+    lua_registerMessenger(L, messenger);
 
     return 1;
 }

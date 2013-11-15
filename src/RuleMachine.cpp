@@ -1,11 +1,11 @@
 #include "RuleMachine.hpp"
 
 RuleMachine::RuleMachine() {
-    std::cout << "Rulemachine constructed" << std::endl;
+
 }
   
 RuleMachine::~RuleMachine() {
-    std::cout << "Rulemachine deconstructed" << std::endl;
+
 }
 
 void RuleMachine::process() {
@@ -24,28 +24,6 @@ void RuleMachine::process() {
 
 void RuleMachine::addRule(RuleCondition condition,
 			  RuleFunction function) {
-    auto msg = Messenger::getInstance()->appendMessage();
-    if (condition) {
-	std::cout << "condition: " << condition(msg) << std::endl;
-    }
-
-    if (function) {
-	std::cout << "function: running..." << std::endl;
-	function(msg);
-	std::cout << "function: ran..." << std::endl;
-    }
-
-    std::cout << "creating rule" << std::endl;
     auto ruleTuple = RuleTuple(condition, function);
-
-    std::cout << "calling rule stuff" << std::endl;
-    ruleTuple.first(msg);
-    ruleTuple.second(msg);
-
-    //checking initialization
-    auto ruleContainer = this->ruleContainer;
-
-    std::cout << "adding rule" << std::endl;
     this->ruleContainer.push_back(ruleTuple);
-    std::cout << "rule added" << std::endl;
 }

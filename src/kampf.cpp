@@ -12,9 +12,7 @@ Kampf::Kampf(enumInitType initType,
     messenger(Messenger::getInstance()),
     ruleMachine(new RuleMachine()),
     lua(new LuaScript(this)) {
-    
-    std::cout << "Kampf Started" << std::endl;
-
+   
     //set the OS
 #if defined(KF_WIN)
     lua->setGlobal("KF_OS", "WIN32");
@@ -107,7 +105,6 @@ Kampf::Kampf(enumInitType initType,
 }
 
 Kampf::~Kampf() {
-    std::cout << "Kampf Instance Removed" << std::endl;
     delete windowContext;
     //delete messenger;
     delete ruleMachine;
