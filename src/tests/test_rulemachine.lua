@@ -3,6 +3,7 @@ print(ruleMachine)
 
 function ruleCond(msg)
 	print("lua: rule condition")
+	print(msg:getType())
 	return false
 end
 
@@ -11,6 +12,5 @@ function ruleFunc(msg)
 end
 
 ruleMachine.addRule(ruleCond, ruleFunc)
-print("hello")
 
-kf.runMainLoop(5)
+kf.runMainLoop(5000)

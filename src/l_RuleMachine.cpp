@@ -79,9 +79,7 @@ static int l_RuleMachine_isrulemachine(lua_State *L) {
 // params - ruleCond = function(msg) ... end
 //        - ruleFunc = function(msg) ... end
 static int l_RuleMachine_addRule(lua_State *L) {
-    std::cout << "condition" << std::endl;
     auto wrapperCondition = RuleWrapper_condition(L, 1);
-    std::cout << "function" << std::endl;
     auto wrapperFunction = RuleWrapper_function(L, 2);
     RuleMachine* rulemachine = nullptr;
     if (lua_hasRuleMachine(L)) {
@@ -90,9 +88,7 @@ static int l_RuleMachine_addRule(lua_State *L) {
     else {
 	luaL_error(L, "No rule machine has been been added");
     }
-    std::cout << "adding..." << std::endl;
     rulemachine->addRule(wrapperCondition, wrapperFunction);
-    std::cout << "done" << std::endl;
     return 0;
 }
 

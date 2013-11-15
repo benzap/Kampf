@@ -9,3 +9,15 @@ end
 for i,v in pairs(kf) do
 	print(i,v)
 end
+
+local ruleMachine = kf.getRuleMachine()
+
+function ruleCond(msg)
+	return true
+end
+
+function ruleFunc(msg)
+	print(msg:getType())
+end
+
+ruleMachine.addRule(ruleCond, ruleFunc)
