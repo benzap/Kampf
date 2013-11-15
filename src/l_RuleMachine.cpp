@@ -83,7 +83,13 @@ static int l_RuleMachine_addRule(lua_State *L) {
     auto wrapperCondition = RuleWrapper_condition(L, 1);
     std::cout << "function" << std::endl;
     auto wrapperFunction = RuleWrapper_function(L, 2);
-    auto rulemachine = lua_getRuleMachine(L);
+    RuleMachine* rulemachine = nullptr;
+    if (lua_hasRuleMachine(L)) {
+	rulemachine = lua_getRuleMachine(L);
+    }
+    else {
+	luaL_error(L, "No rule machine has been been added");
+    }
     std::cout << "adding..." << std::endl;
     rulemachine->addRule(wrapperCondition, wrapperFunction);
     std::cout << "done" << std::endl;
@@ -111,6 +117,9 @@ int luaopen_rulemachine(lua_State *L, RuleMachine* rulemachine) {
     luaL_register(L, NULL, l_rulemachine);
 
     luaL_register(L, KF_LUA_LIBNAME, l_rulemachine_kampf);
+
+    //LOL DERP
+    lua_registerRuleMachine(L, rulemachine);
 
     return 1;
 }

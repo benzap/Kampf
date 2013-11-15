@@ -1,9 +1,11 @@
 #include "RuleMachine.hpp"
 
-RuleMachine::RuleMachine() {}
+RuleMachine::RuleMachine() {
+    std::cout << "Rulemachine constructed" << std::endl;
+}
   
 RuleMachine::~RuleMachine() {
-    
+    std::cout << "Rulemachine deconstructed" << std::endl;
 }
 
 void RuleMachine::process() {
