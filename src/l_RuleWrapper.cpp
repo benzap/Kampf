@@ -25,7 +25,7 @@ RuleWrapper_condition::RuleWrapper_condition(lua_State *L, int index) :
 }
 
 RuleWrapper_condition::~RuleWrapper_condition() {
-    luaL_unref(L, FUNCTION_REF_TABLE, this->luaConditionRef);
+    //luaL_unref(L, FUNCTION_REF_TABLE, this->luaConditionRef);
 }
 
 boolType RuleWrapper_condition::operator () (Message* msg) {
@@ -53,7 +53,7 @@ RuleWrapper_function::RuleWrapper_function(lua_State*L, int index) :
 }
 
 RuleWrapper_function::~RuleWrapper_function() {
-    luaL_unref(L, FUNCTION_REF_TABLE, this->luaFunctionRef);
+    //luaL_unref(L, FUNCTION_REF_TABLE, this->luaFunctionRef);
 }
 
 void RuleWrapper_function::operator () (Message* msg) {
