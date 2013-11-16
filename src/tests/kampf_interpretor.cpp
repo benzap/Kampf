@@ -13,9 +13,9 @@ int main(int argc, char *argv[]) {
     stringType filename = stringType(argv[1]);
     lua->loadScript(filename);
   }
-  else {
-    //grab the luascript instance and run the interpretor
-    lua->runInterpreter();
-  }
+
+  //grab the luascript instance and run the interpretor
+  lua->runInterpreter();
+
   return 0;
 }
