@@ -98,10 +98,11 @@ Kampf::Kampf(enumInitType initType,
     auto eventSystem = new EventSystem();
     this->addSystem(eventSystem);
 
-    //run our Lua scripts starting with the init file, after everything
-    //has been initialized.
-
-    lua->loadScript(KF_INIT_FILE);
+    //run our Lua scripts starting with the init file, after
+    //everything has been initialized.  since it's at the end, I
+    //figured it would make more sense to do it outside of the
+    //constructor when intializing the engine itself, so commented!
+    //lua->loadScript(KF_INIT_FILE);
 }
 
 Kampf::~Kampf() {
