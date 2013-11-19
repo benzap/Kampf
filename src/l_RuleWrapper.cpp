@@ -25,7 +25,7 @@ RuleWrapper_condition::RuleWrapper_condition(lua_State *L, int index) :
 }
 
 RuleWrapper_condition::~RuleWrapper_condition() {
-    luaL_unref(L, FUNCTION_REF_TABLE, this->luaConditionRef);
+    //luaL_unref(L, FUNCTION_REF_TABLE, this->luaConditionRef);
 }
 
 boolType RuleWrapper_condition::operator () (Message* msg) {
@@ -34,12 +34,31 @@ boolType RuleWrapper_condition::operator () (Message* msg) {
     //push the message onto the stack
     lua_pushmessage(L, msg);
     //call the function, the result is pushed onto the stack
-    lua_call(L, 1, 1);
+    //lua_call(L, 1, 1);
+    
+    
 
-    //grab the boolean result
-    boolType result = lua_toboolean(L, -1);
-    lua_pop(L, 1);
-    return result;
+    int chk = lua_pcall(L, 1, 1, 0);
+    if (chk) {
+	if (chk == LUA_ERRRUN) {
+	    stringType errString = lua_tostring(L, -1);
+	    std::cout << "LUA_ERROR - Condition Function: " << errString << std::endl;
+	}
+	else if (chk == LUA_ERRMEM) {
+	    std::cout << "LUA_ERROR - Condition Function: MEMORY ERROR" << std::endl;
+	}
+	else if (chk == LUA_ERRERR) {
+	    std::cout << "LUA_ERROR - Condition Function: Error Handler Error" << std::endl;
+	}
+	
+	return false;
+    }
+    else {
+	//grab the boolean result
+	boolType result = lua_toboolean(L, -1);
+	lua_pop(L, 1);
+	return result;
+    }
 }
 
 
@@ -53,7 +72,7 @@ RuleWrapper_function::RuleWrapper_function(lua_State*L, int index) :
 }
 
 RuleWrapper_function::~RuleWrapper_function() {
-    luaL_unref(L, FUNCTION_REF_TABLE, this->luaFunctionRef);
+    //luaL_unref(L, FUNCTION_REF_TABLE, this->luaFunctionRef);
 }
 
 void RuleWrapper_function::operator () (Message* msg) {
@@ -62,13 +81,30 @@ void RuleWrapper_function::operator () (Message* msg) {
     //push the message onto the stack
     lua_pushmessage(L, msg);
     //call the function, the result is pushed onto the stack
-    lua_call(L, 1, 1);
+    //lua_call(L, 1, 1);
 
-    //grab the boolean result
-    boolType result = lua_toboolean(L, -1);
-    lua_pop(L, 1);
-
-    //returns NOTHING
-    //TODO: use result as error check
+    int chk = lua_pcall(L, 1, 1, 0);
+    boolType result = false;
+    if (chk) {
+	if (chk == LUA_ERRRUN) {
+	    stringType errString = lua_tostring(L, -1);
+	    std::cout << "LUA_ERROR - Expression Function: " << errString << std::endl;
+	}
+	else if (chk == LUA_ERRMEM) {
+	    std::cout << "LUA_ERROR - Expression Function: MEMORY ERROR" << std::endl;
+	}
+	else if (chk == LUA_ERRERR) {
+	    std::cout << "LUA_ERROR - Expression Function: Error Handler Error" << std::endl;
+	}
+	else {
+	    std::cout << "LUA_ERROR - Expression Function: Unknown Error" << std::endl;
+	}
+    }
+    else {
+	//grab the boolean result
+	result = lua_toboolean(L, -1);
+	lua_pop(L, 1);
+    }
+    //return result;
 }
 

@@ -87,3 +87,14 @@ static const struct luaL_Reg l_Message [] = {
     {"setType", l_Message_setType},
     {NULL, NULL}
 };
+
+int luaopen_message(lua_State *L) {
+    luaL_newmetatable(L, LUA_USERDATA_MESSAGE);
+    lua_pushvalue(L, -1);
+    lua_setfield(L, -2, "__index");
+    luaL_register(L, NULL, l_Message);
+
+    luaL_register(L, KF_LUA_LIBNAME, l_Message_registry);
+
+    return 1;
+}

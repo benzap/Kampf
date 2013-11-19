@@ -25,9 +25,12 @@ LuaScript::LuaScript(Kampf* kf) {
   luaopen_SDL_AM(L);
   luaopen_SDLDrawable(L);
 
+  
+
   if (kf != nullptr) {
     luaopen_kampf(L, kf);
     luaopen_messenger(L, kf->getMessenger());
+    luaopen_message(L);
     luaopen_rulemachine(L, kf->getRuleMachine());
   }
 

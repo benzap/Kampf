@@ -27,5 +27,6 @@ Message* lua_pushmessage(lua_State *L, Message* message = nullptr);
 Message* lua_tomessage(lua_State *L, int index);
 boolType lua_ismessage(lua_State *L, int index);
 
+int luaopen_message(lua_State *L);
 
 #endif //END L_MESSAGE__HPP
