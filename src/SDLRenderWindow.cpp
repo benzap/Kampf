@@ -15,8 +15,7 @@ void SDLRenderWindow::draw(AbstractDrawable* drawable,
 			   Quaternion orientation) {
   if (drawable->getType() == "SDL") {
     SDLDrawable* sdl_drawable = static_cast<SDLDrawable*> (drawable);
-    sdl_drawable->setRenderer(renderer);
-    sdl_drawable->setWindow(window);
+    sdl_drawable->setRenderer(this);
     sdl_drawable->draw(position,
 		       orientation);
   }
@@ -64,4 +63,12 @@ void SDLRenderWindow::setPosition(int xPosition, int yPosition) {
 
 void SDLRenderWindow::setTitle(stringType title) {
   this->windowTitle = title;
+}
+
+SDL_Window* SDLRenderWindow::getWindow() {
+    return this->window;
+}
+
+SDL_Renderer* SDLRenderWindow::getRenderer() {
+    return this->renderer;
 }

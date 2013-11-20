@@ -3,7 +3,7 @@
 //DESCRIPTION
 /*
   The drawable for SDL images. SDL is limited to drawing only 2D.
- */
+*/
 
 //CLASSES
 class SDLDrawable;
@@ -15,7 +15,7 @@ class SDLDrawable;
 #include "KF_utilities.hpp"
 #include "KF_math.hpp"
 #include "AbstractDrawable.hpp"
-
+#include "SDLRenderWindow.hpp"
 
 //DEFINITIONS
 #define SDL_DRAWABLE_TYPE "SDL"
@@ -29,32 +29,27 @@ class SDLDrawable;
 //BEGIN
 class SDLDrawable : public AbstractDrawable {
 private:
-  //the surface that the drawable will be drawing to
-  SDL_Texture* texture = nullptr;
+    //the surface that the drawable will be drawing to
+    SDL_Texture* texture = nullptr;
 
-  //the area of the texture to draw to the screen
-  SDL_Rect* sourceRectangle = nullptr;
-
-  //the renderer reference used to draw to the window
-  SDL_Renderer* renderer = nullptr;
-
-  //the window reference
-  SDL_Window* window = nullptr;
+    //the area of the texture to draw to the screen
+    SDL_Rect* sourceRectangle = nullptr;
+    
+    SDLRenderWindow* renderer;
 
 public:
-  SDLDrawable(SDL_Texture* = nullptr);
-  virtual ~SDLDrawable();
+    SDLDrawable(SDL_Texture* = nullptr);
+    virtual ~SDLDrawable();
 
-  int draw(Vector3 position = Vector3(), 
-	   Quaternion orientation = Quaternion());
+    int draw(Vector3 position = Vector3(), 
+	     Quaternion orientation = Quaternion());
 
-  void setRect(SDL_Rect*);
-  void setRect(integerType x, integerType y,
-	       integerType w, integerType h);
-  const SDL_Rect* getRect();
+    void setRect(SDL_Rect*);
+    void setRect(integerType x, integerType y,
+		 integerType w, integerType h);
+    const SDL_Rect* getRect();
 
-  void setRenderer(SDL_Renderer*);
-  void setWindow(SDL_Window*);
+    void setRenderer(AbstractRenderWindow*);
 };
 
 #endif //END SDLDRAWABLE__HPP

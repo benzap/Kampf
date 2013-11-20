@@ -16,6 +16,7 @@ class SDLAssetManager;
 #include "KF_globals.hpp"
 #include "KF_utilities.hpp"
 #include "SDLDrawable.hpp"
+#include "SDLRenderWindow.hpp"
 
 //DEFINITIONS
 
@@ -35,14 +36,14 @@ private:
   void operator=(SDLAssetManager const&);
   
   textureContainerType textureContainer;
-  SDL_Renderer* renderer;
+  SDLRenderWindow* renderer;
 public:
   static SDLAssetManager* getInstance() {
     static SDLAssetManager _instance = SDLAssetManager();
     return &_instance;
   }
 
-  void setRenderer(SDL_Renderer*);
+  void setRenderer(AbstractRenderWindow*);
 
   //add an SDL surface to the asset manager, where only the section
   //defined by the generated texture is stored in the manager 

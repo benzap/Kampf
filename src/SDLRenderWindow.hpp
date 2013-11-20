@@ -79,9 +79,6 @@ public:
 
   SDL_Window* getWindow();
   SDL_Renderer* getRenderer();
-
-
-
 };
 
 #endif //END SDLRENDERWINDOW__HPP
