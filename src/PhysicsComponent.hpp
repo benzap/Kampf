@@ -3,7 +3,7 @@
 //DESCRIPTION
 /*
   component which holds information on the effects of physics on the object
- */
+*/
 
 //INCLUDES
 #include "KF_globals.hpp"
@@ -26,20 +26,38 @@ class PhysicsComponent;
 //BEGIN
 class PhysicsComponent : public AbstractComponent {
 private:
-  Vector3 position;
-  Vector3 velocity;
-  Vector3 acceleration;
+    Vector3 position;
+    Vector3 velocity;
+    Vector3 acceleration;
   
-  Quaternion orientation;
+    Quaternion orientation;
 
-  floatType damping;
-  floatType inverseMass;
+    floatType damping;
+    floatType inverseMass;
 
 public:
-  PhysicsComponent(stringType name,
-		   bool bIsParent = true);
+    PhysicsComponent(stringType name,
+		     bool bIsParent = true);
 
-  virtual ~PhysicsComponent();
+    virtual ~PhysicsComponent();
+
+    void setPosition(Vector3);
+    const Vector3& getPosition();
+
+    void setVelocity(Vector3);
+    const Vector3& getVector();
+    
+    void setAcceleration(Vector3);
+    const Vector3& getAcceleration();
+
+    void setOrientation(Quaternion);
+    const Quaternion& getQuaternion();
+
+    void setDamping(floatType);
+    floatType getDamping();
+
+    void setMass(floatType);
+    floatType getMass();
 };
 
 #endif //END PHYSICSCOMPONENT__HPP

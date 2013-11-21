@@ -24,6 +24,5 @@ void RuleMachine::process() {
 
 void RuleMachine::addRule(RuleCondition condition,
 			  RuleFunction function) {
-    auto ruleTuple = RuleTuple(condition, function);
-    this->ruleContainer.push_back(ruleTuple);
+    this->ruleContainer.push_back(RuleTuple(condition, function));
 }

@@ -6,10 +6,13 @@ SDLDrawable* SDLAssetManager::addSurface(
 					 SDL_Rect* rect) {
     assert(renderer != nullptr);
     SDL_Renderer* sdl_renderer = this->renderer->getRenderer();
-    SDL_Texture* texture = SDL_CreateTextureFromSurface(sdl_renderer, surface);
+    SDL_Texture* texture = SDL_CreateTextureFromSurface(sdl_renderer,
+							surface);
   
     auto sdlDrawable = SDLDrawable(texture);
-    sdlDrawable.setRect(rect);
+    if (rect != nullptr) {
+	sdlDrawable.setRect(rect);
+    }
     sdlDrawable.setRenderer(renderer);
 }
 

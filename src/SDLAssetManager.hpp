@@ -47,12 +47,12 @@ public:
 
   //add an SDL surface to the asset manager, where only the section
   //defined by the generated texture is stored in the manager 
-  SDLDrawable* addSurface(const stringType&, SDL_Surface*, SDL_Rect* = FULL_ASSET);
+  SDLDrawable* addSurface(const stringType&, SDL_Surface*, SDL_Rect* = nullptr);
 
   //add a BMP to the asset manager, where only the section defined by
   //the SDL_Rect will be used by the generated texture stored in the
   //manager
-  SDLDrawable* addBMP(const stringType&, const stringType&, SDL_Rect* = FULL_ASSET);
+  SDLDrawable* addBMP(const stringType&, const stringType&, SDL_Rect* = nullptr);
 
   boolType hasDrawable(const stringType&);
   SDLDrawable* getDrawable(const stringType&);

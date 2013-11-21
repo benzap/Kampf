@@ -9,6 +9,8 @@
 class SDLDrawable;
 
 //INCLUDES
+#include <vector>
+
 #include <SDL2/SDL.h>
 
 #include "KF_globals.hpp"
@@ -50,6 +52,8 @@ public:
     const SDL_Rect* getRect();
 
     void setRenderer(AbstractRenderWindow*);
+
+    std::vector<int> getTextureSize();
 };
 
 #endif //END SDLDRAWABLE__HPP

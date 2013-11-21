@@ -1,9 +1,13 @@
 #include "SDLDrawable.hpp"
 
-SDLDrawable::SDLDrawable(SDL_Texture* texture) : AbstractDrawable("SDL"),
-						 texture(texture) {
-  
-						 }
+SDLDrawable::SDLDrawable(SDL_Texture* texture) :
+    AbstractDrawable("SDL"),
+    texture(texture) {
+    auto textureSize = this->getTextureSize();
+    this->sourceRectangle = new SDL_Rect();
+    this->sourceRectangle->w = textureSize[0];
+    this->sourceRectangle->h = textureSize[1];
+}
 
 SDLDrawable::~SDLDrawable() { 
     SDL_DestroyTexture(texture);
@@ -16,7 +20,7 @@ int SDLDrawable::draw(Vector3 position,
 }
 
 void SDLDrawable::setRect(SDL_Rect* rect) {
-    this->sourceRectangle = rect;
+    *this->sourceRectangle = *rect;
 }
 
 void SDLDrawable::setRect(integerType x, integerType y, 
@@ -31,4 +35,16 @@ const SDL_Rect* SDLDrawable::getRect() {
 void SDLDrawable::setRenderer(AbstractRenderWindow* renderer) {
     SDLRenderWindow* sdlRenderer = dynamic_cast<SDLRenderWindow*> (renderer);
     this->renderer = sdlRenderer;
+}
+
+std::vector<int> SDLDrawable::getTextureSize() {
+    int* textureWidth;
+    int* textureHeight;
+    SDL_QueryTexture(texture, NULL, NULL, textureWidth, textureHeight);
+
+    std::vector<int> textureSize = {
+	*textureWidth, *textureHeight 
+    };
+    
+    return textureSize;
 }

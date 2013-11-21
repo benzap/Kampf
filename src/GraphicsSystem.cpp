@@ -24,7 +24,7 @@ void GraphicsSystem::process() {
     for (auto component : entity->getComponentsByFamily(enumComponentFamily::GRAPHICS)) {
       auto graphicsComponent = std::static_pointer_cast<GraphicsComponent> (component);
 
-
+      
       std::cout << "draw" << std::endl;
 
 
