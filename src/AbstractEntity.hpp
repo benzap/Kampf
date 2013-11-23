@@ -6,6 +6,9 @@
   are described with components.
  */
 
+//CLASSES
+class AbstractEntity;
+
 //INCLUDES
 #include <iostream>
 #include <memory>
@@ -14,14 +17,10 @@
 #include "KF_utilities.hpp"
 #include "Components.hpp"
 
-//CLASSES
-class AbstractEntity;
-
 //DEFINITIONS
 
 //provided within the id field of an entity, will generate an ID
 #define GENERATE_ID 0
-
 #define ENTITY_ABSTRACT_TYPE "ABSTRACT"
 
 //MACROS

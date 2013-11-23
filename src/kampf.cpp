@@ -54,6 +54,14 @@ Kampf::Kampf(enumInitType initType,
 
 	    if (renderType == enumRenderType::SDL) {
 		sdlContext->setRendererFlags(SDL_RENDERER_ACCELERATED);
+
+		//since we're using SDL, we might as well make sure
+		//our SDLAssetManager is using the correct windowContext
+		auto sdlAssetManager = SDLAssetManager::getInstance();
+		auto windowContext = this->getWindowContext();
+		//see if it casts to SDLRenderWindow
+		SDLRenderWindow* sdlWindowContext = dynamic_cast<SDLRenderWindow*> (windowContext);
+		sdlAssetManager->setWindowContext(sdlWindowContext);
 	    }
 	} //END if (windowType == enumWindowType::SDL) {
   
@@ -160,7 +168,7 @@ void Kampf::runMainLoop(int duration) {
     }
 }
   
-AbstractRenderWindow* Kampf::getRenderWindow() {
+AbstractRenderWindow* Kampf::getWindowContext() {
     return this->windowContext;
 }
 
@@ -176,9 +184,14 @@ Messenger* Kampf::getMessenger() {
     return this->messenger;
 }
 
+void Kampf::addRule(RuleCondition ruleCond, RuleFunction ruleFunc) {
+    this->ruleMachine->addRule(ruleCond, ruleFunc);
+}
+
 RuleMachine* Kampf::getRuleMachine() {
     return this->ruleMachine;
 }
+
 
 LuaScript* Kampf:: getLua() {
     return this->lua;

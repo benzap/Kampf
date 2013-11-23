@@ -37,7 +37,7 @@ private:
     //the area of the texture to draw to the screen
     SDL_Rect* sourceRectangle = nullptr;
     
-    SDLRenderWindow* renderer;
+    SDLRenderWindow* windowContext;
 
 public:
     SDLDrawable(SDL_Texture* = nullptr);
@@ -51,7 +51,7 @@ public:
 		 integerType w, integerType h);
     const SDL_Rect* getRect();
 
-    void setRenderer(AbstractRenderWindow*);
+    void setWindowContext(SDLRenderWindow*);
 
     std::vector<int> getTextureSize();
 };

@@ -212,3 +212,14 @@ bool AbstractComponent::hasChildren() {
 const componentContainerType* AbstractComponent::getChildContainer() {
   return &this->children;
 }
+
+std::shared_ptr<AbstractComponent> createAbstractComponent(
+    stringType name,
+    boolType bIsParent) {
+    auto abstractComponent = std::shared_ptr<AbstractComponent>
+	(new AbstractComponent(name,
+			       enumComponentFamily::ABSTRACT,
+			       bIsParent));
+
+    return abstractComponent;
+}

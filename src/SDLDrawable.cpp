@@ -16,7 +16,7 @@ SDLDrawable::~SDLDrawable() {
 
 int SDLDrawable::draw(Vector3 position, 
 		      Quaternion orientation) {
-    SDL_RenderCopy(renderer->getRenderer(), texture, NULL, NULL);
+    SDL_RenderCopy(windowContext->getRenderer(), texture, NULL, NULL);
 }
 
 void SDLDrawable::setRect(SDL_Rect* rect) {
@@ -32,9 +32,8 @@ const SDL_Rect* SDLDrawable::getRect() {
     return sourceRectangle;
 }
 
-void SDLDrawable::setRenderer(AbstractRenderWindow* renderer) {
-    SDLRenderWindow* sdlRenderer = dynamic_cast<SDLRenderWindow*> (renderer);
-    this->renderer = sdlRenderer;
+void SDLDrawable::setWindowContext(SDLRenderWindow* windowContext) {
+    this->windowContext = windowContext;
 }
 
 std::vector<int> SDLDrawable::getTextureSize() {

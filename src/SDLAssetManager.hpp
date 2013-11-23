@@ -36,14 +36,14 @@ private:
   void operator=(SDLAssetManager const&);
   
   textureContainerType textureContainer;
-  SDLRenderWindow* renderer;
+  SDLRenderWindow* windowContext;
 public:
   static SDLAssetManager* getInstance() {
     static SDLAssetManager _instance = SDLAssetManager();
     return &_instance;
   }
 
-  void setRenderer(AbstractRenderWindow*);
+  void setWindowContext(SDLRenderWindow*);
 
   //add an SDL surface to the asset manager, where only the section
   //defined by the generated texture is stored in the manager 
@@ -52,7 +52,10 @@ public:
   //add a BMP to the asset manager, where only the section defined by
   //the SDL_Rect will be used by the generated texture stored in the
   //manager
-  SDLDrawable* addBMP(const stringType&, const stringType&, SDL_Rect* = nullptr);
+  SDLDrawable* addBMP(
+      const stringType& name,
+      const stringType& filename,
+      SDL_Rect* rect = nullptr);
 
   boolType hasDrawable(const stringType&);
   SDLDrawable* getDrawable(const stringType&);

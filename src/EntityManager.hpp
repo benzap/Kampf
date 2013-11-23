@@ -6,14 +6,13 @@
   singleton class which should only hold one instance.
  */
 
+//CLASSES
+class EntityManager;
+
 //INCLUDES
 #include <vector>
 #include <memory>
 #include "Entities.hpp"
-
-
-//CLASSES
-class EntityManager;
 
 //DEFINITIONS
 

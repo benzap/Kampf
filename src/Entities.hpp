@@ -13,6 +13,8 @@
 #include "AbstractEntity.hpp"
 #include "MainEntity.hpp"
 
+#include "EntityManager.hpp"
+
 //CLASSES
 
 //DEFINITIONS
@@ -20,6 +22,7 @@
 //MACROS
 
 //TYPEDEFS
+typedef AbstractEntity Entity;
 
 //FUNCTIONS
 
