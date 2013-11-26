@@ -22,6 +22,9 @@ class PhysicsComponent;
 //TYPEDEFS
 
 //FUNCTIONS
+std::shared_ptr<PhysicsComponent> createPhysicsComponent(
+    stringType name, boolType bIsParent);
+
 
 //BEGIN
 class PhysicsComponent : public AbstractComponent {

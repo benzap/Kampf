@@ -10,8 +10,8 @@ SDLDrawable::SDLDrawable(SDL_Texture* texture) :
 }
 
 SDLDrawable::~SDLDrawable() { 
-    SDL_DestroyTexture(texture);
-    delete sourceRectangle;
+    //SDL_DestroyTexture(texture);
+    //delete sourceRectangle;
 }
 
 int SDLDrawable::draw(Vector3 position, 

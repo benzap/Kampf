@@ -24,3 +24,10 @@ void GraphicsComponent::setDrawableKey(stringType keyString) {
 stringType GraphicsComponent::getDrawableKey() {
     return this->drawableKey;
 }
+
+std::shared_ptr<GraphicsComponent> createGraphicsComponent(
+    stringType name, boolType bIsParent) {
+    auto graphicsComponent = std::shared_ptr<GraphicsComponent>
+	(new GraphicsComponent(name, bIsParent));
+    return graphicsComponent;    
+}

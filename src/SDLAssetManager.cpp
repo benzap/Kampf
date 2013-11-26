@@ -1,7 +1,7 @@
 #include "SDLAssetManager.hpp"
 
 SDLDrawable* SDLAssetManager::addSurface(
-					 const stringType& name,
+					 stringType name,
 					 SDL_Surface* surface,
 					 SDL_Rect* rect) {
     assert(windowContext != nullptr);
@@ -9,26 +9,28 @@ SDLDrawable* SDLAssetManager::addSurface(
     SDL_Texture* texture = SDL_CreateTextureFromSurface(sdl_renderer,
 							surface);
   
-    auto sdlDrawable = SDLDrawable(texture);
+    auto drawablePair = std::make_pair(name, SDLDrawable(texture));
+
     if (rect != nullptr) {
-	sdlDrawable.setRect(rect);
+	drawablePair.second.setRect(rect);
     }
-    sdlDrawable.setWindowContext(windowContext);
+    drawablePair.second.setWindowContext(windowContext);
+    textureContainer.insert(drawablePair);
 }
 
 SDLDrawable* SDLAssetManager::addBMP(
-    const stringType& name,
+    stringType name,
     const stringType& filename,
     SDL_Rect* rect) {
     
     SDL_Surface* sdlSurface = SDL_LoadBMP(filename.c_str());
     this->addSurface(name, sdlSurface, rect);
-    SDL_FreeSurface(sdlSurface);
+    //SDL_FreeSurface(sdlSurface);
 }
 
 
 boolType SDLAssetManager::hasDrawable(const stringType& name) {
-    if (textureContainer.find(name) != textureContainer.cend()) {
+    if (textureContainer.find(name) != textureContainer.end()) {
 	return true;
     }
     return false;

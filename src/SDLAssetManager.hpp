@@ -10,6 +10,7 @@ class SDLAssetManager;
 
 //INCLUDES
 #include <unordered_map>
+#include <tuple>
 
 #include <SDL2/SDL.h>
 
@@ -47,13 +48,13 @@ public:
 
   //add an SDL surface to the asset manager, where only the section
   //defined by the generated texture is stored in the manager 
-  SDLDrawable* addSurface(const stringType&, SDL_Surface*, SDL_Rect* = nullptr);
+  SDLDrawable* addSurface(stringType, SDL_Surface*, SDL_Rect* = nullptr);
 
   //add a BMP to the asset manager, where only the section defined by
   //the SDL_Rect will be used by the generated texture stored in the
   //manager
   SDLDrawable* addBMP(
-      const stringType& name,
+      stringType name,
       const stringType& filename,
       SDL_Rect* rect = nullptr);
 

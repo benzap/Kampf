@@ -55,3 +55,10 @@ void PhysicsComponent::setMass(floatType mass) {
 floatType PhysicsComponent::getMass() {
     return 1 / this->inverseMass;
 }
+
+std::shared_ptr<PhysicsComponent> createPhysicsComponent(
+    stringType name, boolType bIsParent) {
+    auto physicsComponent = std::shared_ptr<PhysicsComponent>
+	(new PhysicsComponent(name, bIsParent));
+    return physicsComponent;
+}
