@@ -16,7 +16,17 @@ SDLDrawable::~SDLDrawable() {
 
 int SDLDrawable::draw(Vector3 position, 
 		      Quaternion orientation) {
-    SDL_RenderCopy(windowContext->getRenderer(), texture, NULL, NULL);
+
+    //need to fit our drawing to the preferred resolution
+    auto viewport = this->windowContext->getViewport();
+    
+
+
+    SDL_Rect outputRect;
+
+    SDL_RenderCopy(windowContext->getRenderer(),
+		   texture, 
+		   this->sourceRectangle, NULL);
 }
 
 void SDLDrawable::setRect(SDL_Rect* rect) {

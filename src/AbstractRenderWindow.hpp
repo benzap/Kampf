@@ -45,12 +45,6 @@ private:
 	DEFAULT_VIRTUAL_SCREEN_WIDTH,
 	DEFAULT_VIRTUAL_SCREEN_HEIGHT
     };
-    
-    //the virtual resolution that makes up a window
-    Resolution resolution = {
-	DEFAULT_VIRTUAL_SCREEN_WIDTH,
-	DEFAULT_VIRTUAL_SCREEN_HEIGHT
-    };
 
 protected:
     int windowWidth;
@@ -72,17 +66,12 @@ public:
     virtual boolType clear() = 0;
 
     //get the actual window's dimensions
-    const Resolution* getWindowSize();
-    void setWindowSize(Resolution resolution);
+    const std::vector<int> getWindowSize();
+    void setWindowSize(floatType w, floatType h);
 
     //get the current viewport
     const Viewport* getViewport();
     void setViewport(Viewport viewport);
-
-    //get the virtual resolution
-    const Resolution* getResolution();
-    void setResolution(Resolution resolution);
-
 };
 
 #endif //END ABSTRACTRENDERWINDOW__HPP

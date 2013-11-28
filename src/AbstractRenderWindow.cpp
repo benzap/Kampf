@@ -9,19 +9,11 @@ AbstractRenderWindow::~AbstractRenderWindow() {
   
 }
 
-const Resolution* AbstractRenderWindow::getWindowSize() {
+const std::vector<int> AbstractRenderWindow::getWindowSize() {
     
 }
 
-void AbstractRenderWindow::setWindowSize(Resolution resolution) {
-    
-}
-
-const Resolution* AbstractRenderWindow::getResolution() {
-    
-}
-
-void AbstractRenderWindow::setResolution(Resolution resolution) {
+void AbstractRenderWindow::setWindowSize(floatType w, floatType h) {
     
 }
 
