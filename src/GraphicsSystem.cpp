@@ -1,11 +1,10 @@
 #include "GraphicsSystem.hpp"
-#include <memory>
-#include <iostream>
 #include "EntityManager.hpp"
 
 
-GraphicsSystem::GraphicsSystem() :
-  AbstractSystem("Graphics") {
+GraphicsSystem::GraphicsSystem(enumRenderType renderType) :
+    renderType(renderType),
+    AbstractSystem("Graphics") {
 
 }
 
@@ -18,16 +17,46 @@ void GraphicsSystem::createMessages() {
 }
 
 void GraphicsSystem::process() {
-  //get the entity manager
-  auto entityManager = EntityManager::getInstance();
-  for (auto entity : entityManager->getEntities()) {
-    for (auto component : entity->getComponentsByFamily(enumComponentFamily::GRAPHICS)) {
-      auto graphicsComponent = std::static_pointer_cast<GraphicsComponent> (component);
+    //get the entity manager
+    auto entityManager = EntityManager::getInstance();
+    for (auto entity : entityManager->getEntities()) {
+	
+	//grab all of the graphics components
+	auto graphicsList = entity->getComponentsByFamily(
+	    enumComponentFamily::GRAPHICS);
 
-      
-      std::cout << "draw" << std::endl;
+	//grab all of the physics components
+	auto physicsList = entity->getComponentsByFamily(
+	    enumComponentFamily::PHYSICS);
+	
+	//do nothing if these don't exist
+	if (graphicsList.size() <= 0 || physicsList.size() <= 0) {
+	    continue;
+	}
+	
+	auto graphicsComponent = std::static_pointer_cast
+	    <GraphicsComponent> (graphicsList.front());
+	
+	auto physicsComponent = std::static_pointer_cast
+	    <PhysicsComponent> (physicsList.front());
 
+	if (renderType == enumRenderType::SDL) {
+	    //get the graphics component drawable
+	    auto drawable = graphicsComponent->getDrawable();
+	    if (drawable == nullptr) {
+		auto sdlAssetManager = SDLAssetManager::getInstance();
+		drawable = sdlAssetManager->getDrawable(
+		    graphicsComponent->getDrawableKey());
+		graphicsComponent->setDrawable(drawable);
+	    }
+	    
+	    //get the physics component position and orientation
+	    auto position = physicsComponent->getPosition();
+	    auto orientation = physicsComponent->getOrientation();
 
+	    //draw the drawable with the given position and orientation
+	    drawable->draw(position, orientation);
+
+	} //END if (renderType == enumRenderType::SDL) {
     }
-  }
 }

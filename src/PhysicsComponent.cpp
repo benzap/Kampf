@@ -36,7 +36,7 @@ void PhysicsComponent::setOrientation(Quaternion orientation) {
     this->orientation = orientation;
 }
 
-const Quaternion& PhysicsComponent::getQuaternion() {
+const Quaternion& PhysicsComponent::getOrientation() {
     return this->orientation;
 }
 

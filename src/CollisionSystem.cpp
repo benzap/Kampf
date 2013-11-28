@@ -1,7 +1,7 @@
 #include "CollisionSystem.hpp"
 
 CollisionSystem::CollisionSystem() :
-  AbstractSystem("Collision") {
+    AbstractSystem("Collision") {
   
 }
 

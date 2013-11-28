@@ -4,14 +4,15 @@
 /*
   This is the abstract class for systems, that is inherited for each
   included system.
- */
+*/
+
+//CLASSES
+class AbstractSystem;
 
 //INCLUDES
 #include "KF_globals.hpp"
 #include "KF_utilities.hpp"
 
-//CLASSES
-class AbstractSystem;
 //DEFINITIONS
 
 //MACROS
@@ -23,16 +24,14 @@ class AbstractSystem;
 //BEGIN
 class AbstractSystem {
 private:
-  stringType type;
+    stringType type;
 
 public:
-  AbstractSystem(stringType type);
-  virtual ~AbstractSystem();
+    AbstractSystem(stringType type);
+    virtual ~AbstractSystem();
 
-  virtual void createMessages() = 0;
-  virtual void process() = 0;
-
-
+    virtual void createMessages() = 0;
+    virtual void process() = 0;
 };
 
 

@@ -8,6 +8,9 @@
   For now, the event system is hard-coded to use SDL events.
  */
 
+//CLASSES
+class EventSystem;
+
 //INCLUDES
 #include <SDL2/SDL.h>
 
@@ -15,9 +18,6 @@
 #include "KF_utilities.hpp"
 #include "AbstractSystem.hpp"
 #include "Messenger.hpp"
-
-//CLASSES
-class EventSystem;
 
 //DEFINITIONS
 

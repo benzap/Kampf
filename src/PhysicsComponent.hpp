@@ -23,7 +23,7 @@ class PhysicsComponent;
 
 //FUNCTIONS
 std::shared_ptr<PhysicsComponent> createPhysicsComponent(
-    stringType name, boolType bIsParent);
+    stringType name, boolType bIsParent = true);
 
 
 //BEGIN
@@ -54,7 +54,7 @@ public:
     const Vector3& getAcceleration();
 
     void setOrientation(Quaternion);
-    const Quaternion& getQuaternion();
+    const Quaternion& getOrientation();
 
     void setDamping(floatType);
     floatType getDamping();

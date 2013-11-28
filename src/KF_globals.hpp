@@ -57,7 +57,25 @@ typedef std::vector<floatType> floatArrayType;
 
 //FUNCTIONS
 
-//BEGIN
+//ENUMS
+enum class enumInitType {
+    Server,
+	Basic,
+	Manual
+	};
+
+enum class enumWindowType {
+    SERVER,
+	SDL,
+	SFML
+	};
+
+enum class enumRenderType {
+    SERVER,
+	SDL,
+	OPENGL,
+	DIRECTX
+	};
 
 
 #endif //END KF_GLOBALS__HPP

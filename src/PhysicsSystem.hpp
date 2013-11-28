@@ -5,7 +5,7 @@
   System used to deal with physics components and handle the per frame
   changes of entities. Interactions between entities is handled by the
   collision system.
- */
+*/
 
 //INCLUDES
 #include "AbstractSystem.hpp"

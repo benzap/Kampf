@@ -18,6 +18,7 @@ AbstractDrawable* GraphicsComponent::getDrawable() {
 }
 
 void GraphicsComponent::setDrawableKey(stringType keyString) {
+    //go grab the drawable from the asset manager
     this->drawableKey = keyString;
 }
 

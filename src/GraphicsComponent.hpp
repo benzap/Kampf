@@ -26,7 +26,7 @@ class GraphicsComponent;
 //FUNCTIONS
 
 std::shared_ptr<GraphicsComponent> createGraphicsComponent(
-    stringType name, boolType bIsParent);
+    stringType name, boolType bIsParent = true);
     
 //BEGIN
 class GraphicsComponent : public AbstractComponent {

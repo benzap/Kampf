@@ -6,9 +6,16 @@
  */
 
 //CLASSES
+class GraphicsSystem;
 
 //INCLUDES
+#include <memory>
+#include <iostream>
+
+#include "kampf.hpp"
 #include "AbstractSystem.hpp"
+
+//ENUMS
 
 //DEFINITIONS
 
@@ -21,13 +28,13 @@
 //BEGIN
 class GraphicsSystem : public AbstractSystem {
 private:
-  
+    enumRenderType renderType;
 public:
-  GraphicsSystem();
-  virtual ~GraphicsSystem();
-
-  void createMessages();
-  void process();
+    GraphicsSystem(enumRenderType);
+    virtual ~GraphicsSystem();
+    
+    void createMessages();
+    void process();
 };
 
 

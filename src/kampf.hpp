@@ -44,26 +44,6 @@ class Kampf;
 //this is the first and only lua file that is loaded at startup
 #define KF_INIT_FILE "kampf.lua"
 
-//ENUMS
-enum class enumInitType {
-    Server,
-	Basic,
-	Manual
-	};
-
-enum class enumWindowType {
-    SERVER,
-	SDL,
-	SFML
-	};
-
-enum class enumRenderType {
-    SERVER,
-	SDL,
-	OPENGL,
-	DIRECTX
-	};
-
 //MACROS
 
 //TYPEDEFS

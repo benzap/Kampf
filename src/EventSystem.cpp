@@ -3,7 +3,7 @@
 #include <iostream>
 
 EventSystem::EventSystem() : 
-  AbstractSystem("event") {
+    AbstractSystem("event") {
   SDL_InitSubSystem(SDL_INIT_VIDEO);
 }
 

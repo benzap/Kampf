@@ -62,6 +62,15 @@ Kampf::Kampf(enumInitType initType,
 		//see if it casts to SDLRenderWindow
 		SDLRenderWindow* sdlWindowContext = dynamic_cast<SDLRenderWindow*> (windowContext);
 		sdlAssetManager->setWindowContext(sdlWindowContext);
+		
+		std::cout << "Initializing Window..." << std::endl;
+		
+		//Adding the graphics system
+		auto graphicsSystem = new GraphicsSystem(
+		    enumRenderType::SDL);
+		this->addSystem(graphicsSystem);
+		
+		
 	    }
 	} //END if (windowType == enumWindowType::SDL) {
   
@@ -88,12 +97,6 @@ Kampf::Kampf(enumInitType initType,
 
 	    //initialize our render window
 	    this->windowContext->initialize();
-
-	    std::cout << "Initializing Window..." << std::endl;
-
-	    //Adding the graphics system
-	    auto graphicsSystem = new GraphicsSystem();
-	    this->addSystem(graphicsSystem);
 	}
     } //END if (initType == enumInitType::Basic || ...
     else if (initType == enumInitType::Server) {

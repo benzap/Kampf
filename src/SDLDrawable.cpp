@@ -37,12 +37,17 @@ void SDLDrawable::setWindowContext(SDLRenderWindow* windowContext) {
 }
 
 std::vector<int> SDLDrawable::getTextureSize() {
-    int* textureWidth;
-    int* textureHeight;
-    SDL_QueryTexture(texture, NULL, NULL, textureWidth, textureHeight);
+    int textureWidth;
+    int textureHeight;
+    int error = SDL_QueryTexture(texture, NULL, NULL, &textureWidth, &textureHeight);
+
+    if (error) {
+	std::cerr << "Error - getTextureSize" << std::endl;
+	std::cerr << SDL_GetError() << std::endl;
+    }
 
     std::vector<int> textureSize = {
-	*textureWidth, *textureHeight 
+	textureWidth, textureHeight 
     };
     
     return textureSize;

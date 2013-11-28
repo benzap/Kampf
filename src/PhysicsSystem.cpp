@@ -1,7 +1,7 @@
 #include "PhysicsSystem.hpp"
 
 PhysicsSystem::PhysicsSystem() :
-  AbstractSystem("Physics") {
+    AbstractSystem("Physics") {
   
 }
 
