@@ -6,16 +6,15 @@
   else for that matter.
 */
 
+//CLASSES
+class Message;
+
 //INCLUDES
 #include <map>
 
 #include "Entities.hpp"
 #include "Components.hpp"
 #include "CustomAttribute.hpp"
-
-
-//CLASSES
-class Message;
 
 //DEFINITIONS
 

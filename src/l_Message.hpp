@@ -5,9 +5,6 @@
   lua binding for the Message class
  */
 
-//CLASSES
-class Message;
-
 //INCLUDES
 #include "LuaScript.hpp"
 #include "Message.hpp"
