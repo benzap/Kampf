@@ -5,7 +5,7 @@
   A lua wrapper for the custom attribute type. This binding tries to
   provide facilities for dealing with the custom attributes stored
   within some of the classes.
- */
+*/
 
 //CLASSES
 
@@ -21,6 +21,22 @@
 //TYPEDEFS
 
 //FUNCTIONS
+
+static int l_CustomAttribute_gc(lua_State *L);
+static int l_CustomAttribute_tostring(lua_State *L);
+static int l_CustomAttribute_type(lua_State *L);
+static int l_CustomAttribute_get(lua_State *L);
+static int l_CustomAttribute_set(lua_State *L);
+static int l_CustomAttribute_getInteger(lua_State *L);
+static int l_CustomAttribute_setInteger(lua_State *L);
+static int l_CustomAttribute_getFloat(lua_State *L);
+static int l_CustomAttribute_setFloat(lua_State *L);
+static int l_CustomAttribute_getChar(lua_State *L);
+static int l_CustomAttribute_setChar(lua_State *L);
+static int l_CustomAttribute_getArray(lua_State *L);
+static int l_CustomAttribute_setArray(lua_State *L);
+static int l_CustomAttribute_getString(lua_State *L);
+static int l_CustomAttribute_setString(lua_State *L);
 
 //BEGIN
 CustomAttribute* lua_pushcustomAttribute(lua_State *L, CustomAttribute* customAttribute = nullptr);

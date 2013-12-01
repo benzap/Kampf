@@ -5,3 +5,4 @@ print(package.path)
 
 require "test_quaternion"
 require "test_vector"
+require "test_customAttribute"

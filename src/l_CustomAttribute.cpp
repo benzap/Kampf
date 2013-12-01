@@ -39,6 +39,12 @@ boolType lua_iscustomAttribute(lua_State *L, int index) {
 
 static int l_CustomAttribute_CustomAttribute(lua_State *L) {
     lua_pushcustomAttribute(L);
+    lua_insert(L, 1);
+
+    if (lua_gettop(L) > 1) {
+	l_CustomAttribute_set(L);
+	lua_pop(L, 1);
+    }
 
     return 1;
 }
@@ -58,8 +64,14 @@ static int l_CustomAttribute_gc(lua_State *L) {
 }
 
 static int l_CustomAttribute_tostring(lua_State *L) {
-    lua_pushstring(L, "not implemented");
     
+    l_CustomAttribute_type(L);
+    stringType theType = luaL_checkstring(L, -1);
+    lua_pop(L, 1);
+    
+    stringType msg = "CustomAttribute: " + theType;
+    lua_pushstring(L, msg.c_str());
+
     return 1;
 }
 
@@ -125,7 +137,7 @@ static int l_CustomAttribute_get(lua_State *L) {
     }
 
     else if (theType == enumAttribute::VOID) {
-	lua_pushnumber(L, (integerType) attr->get_void());
+	lua_pushnil(L);
     }
 
     else if (theType == enumAttribute::INTEGER_VECTOR) {
