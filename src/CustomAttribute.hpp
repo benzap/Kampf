@@ -5,13 +5,13 @@
   Contains the CustomAttribute and CustomAttributePtr types
  */
 
+//CLASSES
+class CustomAttribute;
+
 //INCLUDES
 #include <iostream>
 #include "KF_globals.hpp"
 #include "KF_utilities.hpp"
-
-//CLASSES
-class CustomAttribute;
 
 //DEFINITIONS
 

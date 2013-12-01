@@ -10,6 +10,7 @@
 #include <string>
 #include <vector>
 #include <cassert>
+#include <map>
 
 //CLASSES
 
@@ -45,7 +46,6 @@ typedef double floatType;
 //character type to use
 typedef char charType;
 
-
 //boolean type to use
 typedef bool boolType;
 
@@ -54,6 +54,12 @@ typedef std::vector<integerType> intArrayType;
 
 //float array type
 typedef std::vector<floatType> floatArrayType;
+
+#include "CustomAttribute.hpp"
+
+//custom attribute map type
+typedef std::map<stringType, CustomAttribute> customMapType;
+
 
 //FUNCTIONS
 

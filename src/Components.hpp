@@ -18,6 +18,7 @@
 //MACROS
 
 //TYPEDEFS
+typedef AbstractComponent Component;
 
 //FUNCTIONS
 

@@ -54,12 +54,11 @@ COLLISION,
 
 //for custom events
   CUSTOM
-  };
+    };
 
 //TYPEDEFS
 
 //FUNCTIONS
-
 
 //BEGIN
 class Message {
