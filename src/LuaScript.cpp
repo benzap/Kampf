@@ -25,6 +25,8 @@ LuaScript::LuaScript(Kampf* kf) {
   luaopen_SDL_AM(L);
   luaopen_SDLDrawable(L);
 
+  //Entity-related
+  luaopen_entity(L);
   
 
   if (kf != nullptr) {
