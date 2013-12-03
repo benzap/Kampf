@@ -60,6 +60,8 @@ static int l_CustomAttribute_isCustomAttribute(lua_State *L) {
 }
 
 static int l_CustomAttribute_gc(lua_State *L) {
+    auto attr = lua_tocustomAttribute(L, 1);
+    delete attr;
     return 0;
 }
 
