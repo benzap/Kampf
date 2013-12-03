@@ -60,7 +60,6 @@ void CustomAttribute::set(floatType fValue) {
   value.f = fValue;
 }
 
-
 charType CustomAttribute::get_char() {
   return value.c;
 }
@@ -69,7 +68,6 @@ void CustomAttribute::set(charType cValue) {
   valueType = enumAttribute::CHAR;
   value.c = cValue;
 }
-
 
 intArrayType* CustomAttribute::get_intArray() {
   return static_cast<intArrayType*>(value.v);

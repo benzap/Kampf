@@ -145,7 +145,7 @@ static int l_CustomAttribute_get(lua_State *L) {
 	lua_createtable(L, iarray.size(), 0);
 	for (int i = 0; i < iarray.size(); i++) {
 	    lua_pushnumber(L, iarray[i]);
-	    lua_rawseti(L, -1, i);
+	    lua_rawseti(L, -2, i+1);
 	}
     }
 
@@ -154,7 +154,7 @@ static int l_CustomAttribute_get(lua_State *L) {
 	lua_createtable(L, farray.size(), 0);
 	for (int i = 0; i < farray.size(); i++) {
 	    lua_pushnumber(L, farray[i]);
-	    lua_rawseti(L, -1, i);
+	    lua_rawseti(L, -2, i+1);
 	}
     }
 
@@ -200,10 +200,10 @@ static int l_CustomAttribute_set(lua_State *L) {
 	//create a new float array
 	floatArrayType* floatArray = new floatArrayType();
 	floatType fValue;
-	for (int i = 0; i < tableSize; i++) {
+	for (int i = 1; i <= tableSize; i++) {
 	    lua_rawgeti(L, 2, i);
 	    fValue = lua_tonumber(L, -1);
-	    (*floatArray).push_back(fValue);
+	    floatArray->push_back(fValue);
 	    lua_pop(L, 1);
 	}
 	attr->set(floatArray);
@@ -284,19 +284,19 @@ static int l_CustomAttribute_getArray(lua_State *L) {
     
     enumAttribute attrType = attr->getType();
     if (attrType == enumAttribute::FLOAT_VECTOR) {
-	floatArrayType farray = *(attr->get_floatArray());
+	auto farray = *(attr->get_floatArray());
 	lua_createtable(L, farray.size(), 0);
 	for (int i = 0; i < farray.size(); i++) {
 	    lua_pushnumber(L, farray[i]);
-	    lua_rawseti(L, -1, i);
+	    lua_rawseti(L, -2, i+1);
 	}
     }
     else if (attrType == enumAttribute::INTEGER_VECTOR) {
-    	intArrayType iarray = *(attr->get_intArray());
+    	auto iarray = *(attr->get_intArray());
 	lua_createtable(L, iarray.size(), 0);
 	for (int i = 0; i < iarray.size(); i++) {
 	    lua_pushnumber(L, iarray[i]);
-	    lua_rawseti(L, -1, i);
+	    lua_rawseti(L, -2, i+1);
 	}
     }
     else {
@@ -315,7 +315,7 @@ static int l_CustomAttribute_setArray(lua_State *L) {
     //create a new float array
     floatArrayType* floatArray = new floatArrayType();
     floatType fValue;
-    for (int i = 0; i < tableSize; i++) {
+    for (int i = 1; i <= tableSize; i++) {
 	lua_rawgeti(L, 2, i);
 	fValue = lua_tonumber(L, -1);
 	(*floatArray).push_back(fValue);

@@ -1,3 +1,4 @@
+require "utils"
 unit = require "unit_test"
 
 test_case = unit.test_case
@@ -21,15 +22,19 @@ test_case(
 		test_assert("getString", customAttr_string:getString() == "Hello")
 		test_assert("get (string)", customAttr_string:get() == "Hello")
 
-		local customAttr_array = kf.CustomAttribute{1,2,3,4}
+		local customAttr_array = kf.CustomAttribute{2,2,4,4}
 		print(customAttr_array)
-		test_assert("getArray", customAttr_array:getArray() == {1,2,3,4})
-		test_assert("get (array)", customAttr_array:get() == {1,2,3,4})
-		
+
+		local array = customAttr_array:getArray()
+		test_assert("getArray",table.eq(array, {2,2,4,4}))
+		local array = customAttr_array:get()
+		test_assert("get (array)", table.eq(array, {2,2,4,4}))
 
 		local customAttr_char = kf.CustomAttribute()
 		customAttr_num:setChar("a")
 		print(customAttr_char)
+
+		print(customAttr_char:getChar())
 		test_assert("getChar", customAttr_char:getChar() == "a")
 		test_assert("get (char)", customAttr_char:get() == "a")
 
