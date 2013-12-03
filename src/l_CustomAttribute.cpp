@@ -218,8 +218,17 @@ static int l_CustomAttribute_set(lua_State *L) {
 static int l_CustomAttribute_getInteger(lua_State *L) {
     auto attr = lua_tocustomAttribute(L, 1);
 
-    auto iValue = attr->get_int();
-    lua_pushnumber(L, iValue);
+    enumAttribute theType = attr->getType();
+    
+    if (theType == enumAttribute::INTEGER) {
+	auto iValue = attr->get_int();
+	lua_pushnumber(L, iValue);
+    }
+    else if (theType == enumAttribute::FLOAT) {
+	std::cerr << "Lua-Binding: conversion from float" << std::endl;
+	auto fValue = attr->get_float();
+	lua_pushnumber(L, static_cast<integerType>(fValue));
+    }
 
     return 1;
 }
