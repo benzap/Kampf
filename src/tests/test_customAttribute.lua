@@ -31,7 +31,7 @@ test_case(
 		test_assert("get (array)", table.eq(array, {2,2,4,4}))
 
 		local customAttr_char = kf.CustomAttribute()
-		customAttr_num:setChar("a")
+		customAttr_char:setChar("a")
 		print(customAttr_char)
 
 		print(customAttr_char:getChar())

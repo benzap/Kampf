@@ -274,7 +274,7 @@ static int l_CustomAttribute_setChar(lua_State *L) {
     auto attr = lua_tocustomAttribute(L, 1);
     stringType sValue = luaL_checkstring(L, 2);
     
-    attr->set(sValue.c_str()[0]);    
+    attr->set(sValue.c_str()[0]);
 
     return 0;
 }
