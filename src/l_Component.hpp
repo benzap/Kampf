@@ -12,6 +12,7 @@
 #include "Components.hpp"
 
 //DEFINITIONS
+#define LUA_USERDATA_COMPONENT "l_kf.component"
 
 //MACROS
 

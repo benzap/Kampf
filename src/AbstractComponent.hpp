@@ -118,6 +118,9 @@ public:
     enumAttribute getCustomAttributeType(stringType);
     void deleteCustomAttribute(stringType);
  
+    CustomAttribute* get(stringType);
+    void set(stringType, CustomAttribute);
+
     std::shared_ptr<AbstractComponent> createChild(
 	stringType name,
 	enumComponentFamily family);

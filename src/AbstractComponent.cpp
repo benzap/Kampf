@@ -209,6 +209,14 @@ bool AbstractComponent::hasChildren() {
   return true;
 }
 
+CustomAttribute* AbstractComponent::get(stringType keyname) {
+    return &(customAttributeMap[keyname]);
+}
+
+void AbstractComponent::set(stringType keyname, CustomAttribute attr) {
+    customAttributeMap[keyname] = attr;
+}
+
 const componentContainerType* AbstractComponent::getChildContainer() {
   return &this->children;
 }
