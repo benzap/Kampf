@@ -193,10 +193,9 @@ void AbstractComponent::addChild(std::shared_ptr<AbstractComponent> component) {
 }
 
 std::shared_ptr<AbstractComponent> 
-AbstractComponent::createChild(stringType name, 
-			       enumComponentFamily family) {
+AbstractComponent::createChild(stringType name) {
   auto component = std::shared_ptr<AbstractComponent>
-    (new AbstractComponent(name, family, false));
+      (new AbstractComponent(name, enumComponentFamily::ABSTRACT, false));
   
   this->children.push_back(component);
   return component;

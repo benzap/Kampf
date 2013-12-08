@@ -121,9 +121,11 @@ public:
     CustomAttribute* get(stringType);
     void set(stringType, CustomAttribute);
 
-    std::shared_ptr<AbstractComponent> createChild(
-	stringType name,
-	enumComponentFamily family);
+    //creates a new child, and pushes the child component into the
+    //child container. Each inherited type creates and pushes to the
+    //container the same type of component as itself.
+    virtual std::shared_ptr<AbstractComponent> createChild(
+	stringType name);
     
     //deleting children can be done through the list itself
     void addChild(std::shared_ptr<AbstractComponent>);

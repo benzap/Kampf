@@ -11,7 +11,7 @@
   It's important to note that a collision component's is primarily
   affected by the positioning of the physics component. In the future, the position should refer
 
- */
+*/
 
 //INCLUDES
 #include "KF_globals.hpp"
@@ -32,25 +32,28 @@ class CollisionComponent;
 //BEGIN
 class CollisionComponent : public AbstractComponent {
 private:
-  //its current position
-  Vector3 position;
+    //its current position
+    Vector3 position;
 
-  //the offset from the position
-  Vector3 offset;
+    //the offset from the position
+    Vector3 offset;
 
-  //it's center of rotation
-  Vector3 origin;
+    //it's center of rotation
+    Vector3 origin;
   
-  //the scaling
-  Vector3 scale;
+    //the scaling
+    Vector3 scale;
 
-  Quaternion orientation;
+    Quaternion orientation;
 
 public:
-  CollisionComponent(stringType name, 
-		     bool bIsParent = true);
+    CollisionComponent(stringType name, 
+		       bool bIsParent = true);
   
-  virtual ~CollisionComponent();
+    virtual ~CollisionComponent();
+    
+    virtual std::shared_ptr<AbstractComponent> createChild(
+	stringType name);
 };
 
 #endif //END COLLISIONCOMPONENT__HPP

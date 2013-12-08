@@ -101,7 +101,7 @@ int main(int argc, char *argv[]) {
   TEST_BOOL(!component.hasChildren(), "doesn't have children");
 
   //add child components
-  component.createChild("childAbstract1", enumComponentFamily::ABSTRACT);
+  component.createChild("childAbstract1");
   TEST_BOOL(component.hasChildren(), "has children");
 
   auto childList = component.getChildContainer();

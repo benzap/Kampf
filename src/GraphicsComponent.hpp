@@ -55,6 +55,9 @@ public:
     GraphicsComponent(stringType name, bool bIsParent = true);
     virtual ~GraphicsComponent();
 
+    virtual std::shared_ptr<AbstractComponent> createChild(
+	stringType name);
+
     void setDrawable(AbstractDrawable*);
     AbstractDrawable* getDrawable();
     

@@ -27,3 +27,6 @@ print("--ruleMachine.addRule")
 ruleMachine.addRule(ruleCond, ruleFunc)
 
 print("--Running...")
+
+print ("--Running tests--")
+tests = require "tests"

@@ -44,6 +44,9 @@ public:
 
     virtual ~PhysicsComponent();
 
+    virtual std::shared_ptr<AbstractComponent> createChild(
+	stringType name);
+
     void setPosition(Vector3);
     const Vector3& getPosition();
 

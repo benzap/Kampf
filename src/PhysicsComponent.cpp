@@ -8,6 +8,15 @@ PhysicsComponent::~PhysicsComponent() {
 
 }
 
+std::shared_ptr<AbstractComponent> PhysicsComponent::createChild(
+    stringType name) {
+    auto component = std::shared_ptr<AbstractComponent>
+	(new PhysicsComponent(name, false));
+    
+    this->addChild(component);
+    return component;
+}
+
 void PhysicsComponent::setPosition(Vector3 position) {
     this->position = position;
 }

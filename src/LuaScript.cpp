@@ -28,7 +28,7 @@ LuaScript::LuaScript(Kampf* kf) {
   //Entity-related
   luaopen_entity(L);
   luaopen_customAttribute(L);
-  
+  luaopen_abstractComponent(L);
 
   if (kf != nullptr) {
     luaopen_kampf(L, kf);

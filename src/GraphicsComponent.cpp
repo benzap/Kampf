@@ -9,6 +9,15 @@ GraphicsComponent::~GraphicsComponent() {
 
 }
 
+std::shared_ptr<AbstractComponent> GraphicsComponent::createChild(
+    stringType name) {
+    auto component = std::shared_ptr<AbstractComponent>
+	(new GraphicsComponent(name, false));
+    
+    this->addChild(component);
+    return component;
+}
+
 void GraphicsComponent::setDrawable(AbstractDrawable* drawable) {
     this->drawableReference = drawable;
 }
