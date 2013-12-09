@@ -77,8 +77,9 @@ test_case(
 		--now does it have children?
 		test_assert("hasChildren (true)", component:hasChildren() == true)
 
+		local children = component:children()
 		--lets get the child from our children list
-		test_assert("children", component:children()[1]:getName() == "ben")
+		test_assert("children", component:children()[1]:getName() == "sibling")
 
 
 

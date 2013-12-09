@@ -19,8 +19,6 @@ AbstractComponent* lua_pushabstractComponent(
     luaL_getmetatable(L, LUA_USERDATA_ABSTRACTCOMPONENT);
     lua_setmetatable(L, -2);  
 
-    std::cout << "getname: " << abstractComponent->getName() << std::endl;
-
     return abstractComponent;
 }
 
@@ -220,8 +218,18 @@ static int l_AbstractComponent_hasChildren(lua_State *L) {
 
 static int l_AbstractComponent_children(lua_State *L) {
     auto component = lua_toabstractComponent(L, 1);
-    luaL_error(L, "Not Implemented");
-    return 0;
+    auto childList = *(component->getChildContainer());
+
+    lua_createtable(L, childList.size(), 0);
+    
+    int i = 0;
+    for (auto child : childList) {
+	lua_pushabstractComponent(L, child);
+	lua_rawseti(L, -2, i+1);
+	
+	i++;
+    }
+    return 1;
 }
 
 static const struct luaL_Reg l_AbstractComponent_Registry [] = {
