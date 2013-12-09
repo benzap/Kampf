@@ -9,10 +9,9 @@ CollisionComponent::~CollisionComponent() {
 
 }
 
-std::shared_ptr<AbstractComponent> CollisionComponent::createChild(
+AbstractComponent* CollisionComponent::createChild(
     stringType name) {
-    auto component = std::shared_ptr<AbstractComponent>
-	(new CollisionComponent(name, false));
+    auto component = new CollisionComponent(name, false);
     
     this->addChild(component);
     return component;

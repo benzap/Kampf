@@ -34,11 +34,11 @@ void GraphicsSystem::process() {
 	    continue;
 	}
 	
-	auto graphicsComponent = std::static_pointer_cast
-	    <GraphicsComponent> (graphicsList.front());
+	GraphicsComponent* graphicsComponent = static_cast
+	    <GraphicsComponent*> (graphicsList.front());
 	
-	auto physicsComponent = std::static_pointer_cast
-	    <PhysicsComponent> (physicsList.front());
+	PhysicsComponent* physicsComponent = static_cast
+	    <PhysicsComponent*> (physicsList.front());
 
 	if (renderType == enumRenderType::SDL) {
 	    //get the graphics component drawable

@@ -8,10 +8,9 @@ PhysicsComponent::~PhysicsComponent() {
 
 }
 
-std::shared_ptr<AbstractComponent> PhysicsComponent::createChild(
+AbstractComponent* PhysicsComponent::createChild(
     stringType name) {
-    auto component = std::shared_ptr<AbstractComponent>
-	(new PhysicsComponent(name, false));
+    auto component = new PhysicsComponent(name, false);
     
     this->addChild(component);
     return component;
@@ -65,9 +64,8 @@ floatType PhysicsComponent::getMass() {
     return 1 / this->inverseMass;
 }
 
-std::shared_ptr<PhysicsComponent> createPhysicsComponent(
+PhysicsComponent* createPhysicsComponent(
     stringType name, boolType bIsParent) {
-    auto physicsComponent = std::shared_ptr<PhysicsComponent>
-	(new PhysicsComponent(name, bIsParent));
+    auto physicsComponent = new PhysicsComponent(name, bIsParent);
     return physicsComponent;
 }

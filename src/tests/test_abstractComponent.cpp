@@ -109,9 +109,8 @@ int main(int argc, char *argv[]) {
   TEST_EQUAL(childList->front()->getName(),"childAbstract1",
 	     "checking if valid child");
   
-  auto component2 = std::shared_ptr<AbstractComponent> 
-    (new AbstractComponent("anotherComponent",
-			   enumComponentFamily::ABSTRACT, false));
+  auto component2 = new AbstractComponent("anotherComponent",
+			   enumComponentFamily::ABSTRACT, false);
   
   component.addChild(component2);
   

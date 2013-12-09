@@ -9,10 +9,9 @@ GraphicsComponent::~GraphicsComponent() {
 
 }
 
-std::shared_ptr<AbstractComponent> GraphicsComponent::createChild(
+AbstractComponent* GraphicsComponent::createChild(
     stringType name) {
-    auto component = std::shared_ptr<AbstractComponent>
-	(new GraphicsComponent(name, false));
+    auto component = new GraphicsComponent(name, false);
     
     this->addChild(component);
     return component;
@@ -35,9 +34,8 @@ stringType GraphicsComponent::getDrawableKey() {
     return this->drawableKey;
 }
 
-std::shared_ptr<GraphicsComponent> createGraphicsComponent(
+GraphicsComponent* createGraphicsComponent(
     stringType name, boolType bIsParent) {
-    auto graphicsComponent = std::shared_ptr<GraphicsComponent>
-	(new GraphicsComponent(name, bIsParent));
+    auto graphicsComponent = new GraphicsComponent(name, bIsParent);
     return graphicsComponent;    
 }

@@ -1,11 +1,11 @@
 #include "l_AbstractComponent.hpp"
 
-std::shared_ptr<AbstractComponent> lua_pushabstractComponent(
+AbstractComponent* lua_pushabstractComponent(
     lua_State *L,
-    std::shared_ptr<AbstractComponent> abstractComponent = nullptr) {
+    AbstractComponent* abstractComponent = nullptr) {
     if (abstractComponent == nullptr) {
 	std::cerr << "Warning: AbstractComponent - this will not work, nullptr" << std::endl;
-	abstractComponent = std::make_shared<AbstractComponent>("");
+	abstractComponent = new AbstractComponent("");
     }
 
     AbstractComponent** abstractComponentPtr = static_cast<AbstractComponent**>
@@ -14,7 +14,7 @@ std::shared_ptr<AbstractComponent> lua_pushabstractComponent(
     //storing the address directly. Lua can be seen as a window,
     //looking in at the engine. This could be a good source for a lot
     //of problems.
-    *abstractComponentPtr = abstractComponent.get();
+    *abstractComponentPtr = abstractComponent;
 
     luaL_getmetatable(L, LUA_USERDATA_ABSTRACTCOMPONENT);
     lua_setmetatable(L, -2);  
@@ -50,7 +50,7 @@ static int l_AbstractComponent_AbstractComponent(lua_State *L) {
     stringType componentName = luaL_checkstring(L, 1);
     boolType isParent = lua_toboolean(L, 2);
 
-    auto component = std::make_shared<AbstractComponent>(
+    auto component = new AbstractComponent(
 	componentName,
 	enumComponentFamily::ABSTRACT,
 	!isParent);

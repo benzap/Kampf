@@ -25,7 +25,7 @@ class GraphicsComponent;
 
 //FUNCTIONS
 
-std::shared_ptr<GraphicsComponent> createGraphicsComponent(
+GraphicsComponent* createGraphicsComponent(
     stringType name, boolType bIsParent = true);
     
 //BEGIN
@@ -55,8 +55,7 @@ public:
     GraphicsComponent(stringType name, bool bIsParent = true);
     virtual ~GraphicsComponent();
 
-    virtual std::shared_ptr<AbstractComponent> createChild(
-	stringType name);
+    virtual AbstractComponent* createChild(stringType name);
 
     void setDrawable(AbstractDrawable*);
     AbstractDrawable* getDrawable();

@@ -23,8 +23,7 @@ int main(int argc, char *argv[]) {
   TEST_EQUAL(entity2.getID(), 3,
 	     "getID()");
 
-  auto component = std::shared_ptr<AbstractComponent>
-    (new AbstractComponent("Some Component"));
+  auto component = new AbstractComponent("Some Component");
   
   entity2.addComponent(component);
 

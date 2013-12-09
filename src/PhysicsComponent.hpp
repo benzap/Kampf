@@ -22,7 +22,7 @@ class PhysicsComponent;
 //TYPEDEFS
 
 //FUNCTIONS
-std::shared_ptr<PhysicsComponent> createPhysicsComponent(
+PhysicsComponent* createPhysicsComponent(
     stringType name, boolType bIsParent = true);
 
 
@@ -44,8 +44,7 @@ public:
 
     virtual ~PhysicsComponent();
 
-    virtual std::shared_ptr<AbstractComponent> createChild(
-	stringType name);
+    virtual AbstractComponent* createChild(stringType name);
 
     void setPosition(Vector3);
     const Vector3& getPosition();

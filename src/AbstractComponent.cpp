@@ -188,14 +188,13 @@ void AbstractComponent::deleteCustomAttribute(stringType keyname) {
   }
 }
 
-void AbstractComponent::addChild(std::shared_ptr<AbstractComponent> component) {
+void AbstractComponent::addChild(AbstractComponent* component) {
   this->children.push_back(component);
 }
 
-std::shared_ptr<AbstractComponent> 
+AbstractComponent* 
 AbstractComponent::createChild(stringType name) {
-  auto component = std::shared_ptr<AbstractComponent>
-      (new AbstractComponent(name, enumComponentFamily::ABSTRACT, false));
+  auto component = new AbstractComponent(name, enumComponentFamily::ABSTRACT, false);
   
   this->children.push_back(component);
   return component;
@@ -220,13 +219,13 @@ const componentContainerType* AbstractComponent::getChildContainer() {
   return &this->children;
 }
 
-std::shared_ptr<AbstractComponent> createAbstractComponent(
+AbstractComponent* createAbstractComponent(
     stringType name,
     boolType bIsParent) {
-    auto abstractComponent = std::shared_ptr<AbstractComponent>
-	(new AbstractComponent(name,
-			       enumComponentFamily::ABSTRACT,
-			       bIsParent));
+    auto abstractComponent = new AbstractComponent(
+	name,
+	enumComponentFamily::ABSTRACT,
+	bIsParent);
 
     return abstractComponent;
 }

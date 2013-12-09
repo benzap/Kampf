@@ -26,8 +26,8 @@ class AbstractEntity;
 //MACROS
 
 //TYPEDEFS
-typedef std::vector<std::shared_ptr<AbstractComponent>> componentListType;
-typedef std::list<std::shared_ptr<AbstractComponent>> partialComponentListType;
+typedef std::vector<AbstractComponent*> componentListType;
+typedef std::list<AbstractComponent*> partialComponentListType;
 //FUNCTIONS
 
 //BEGIN
@@ -54,7 +54,7 @@ public:
   partialComponentListType getComponentsByFamily(enumComponentFamily family);
   partialComponentListType getComponentsByName(stringType name);
   
-  void addComponent(std::shared_ptr<AbstractComponent> theComponent);
+  void addComponent(AbstractComponent* theComponent);
   
 
 };

@@ -51,9 +51,7 @@ public:
 		       bool bIsParent = true);
   
     virtual ~CollisionComponent();
-    
-    virtual std::shared_ptr<AbstractComponent> createChild(
-	stringType name);
+    virtual AbstractComponent* createChild(stringType name);
 };
 
 #endif //END COLLISIONCOMPONENT__HPP

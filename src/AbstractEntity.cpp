@@ -60,7 +60,7 @@ partialComponentListType AbstractEntity::getComponentsByName(stringType name) {
   return partCompList;
 }
   
-void AbstractEntity::addComponent(std::shared_ptr<AbstractComponent> theComponent) {
+void AbstractEntity::addComponent(AbstractComponent* theComponent) {
   this->componentList.push_back(theComponent);
 }
 

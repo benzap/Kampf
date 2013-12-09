@@ -32,7 +32,7 @@ typedef std::map<stringType, CustomAttribute> customAttributeMapType;
 //requiring dereferencing on deletion
 
 //componentContainer type
-typedef std::list<std::shared_ptr<AbstractComponent> > componentContainerType;
+typedef std::list<AbstractComponent*> componentContainerType;
 
 //ENUMS The main component family enumeration. This describes what the
 //component is, for dynamic casting.
@@ -45,7 +45,7 @@ enum enumComponentFamily {
 };
 
 //FUNCTIONS
-std::shared_ptr<AbstractComponent> createAbstractComponent(
+AbstractComponent* createAbstractComponent(
     stringType name, boolType bIsParent = true);
 
 //BEGIN
@@ -124,11 +124,11 @@ public:
     //creates a new child, and pushes the child component into the
     //child container. Each inherited type creates and pushes to the
     //container the same type of component as itself.
-    virtual std::shared_ptr<AbstractComponent> createChild(
+    virtual AbstractComponent* createChild(
 	stringType name);
     
     //deleting children can be done through the list itself
-    void addChild(std::shared_ptr<AbstractComponent>);
+    void addChild(AbstractComponent*);
     bool hasChildren();
     const componentContainerType* getChildContainer();
 
