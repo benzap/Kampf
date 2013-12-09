@@ -1,17 +1,25 @@
 #include "l_AbstractComponent.hpp"
 
-AbstractComponent* lua_pushabstractComponent(lua_State *L, AbstractComponent* abstractComponent = nullptr) {
+std::shared_ptr<AbstractComponent> lua_pushabstractComponent(
+    lua_State *L,
+    std::shared_ptr<AbstractComponent> abstractComponent = nullptr) {
     if (abstractComponent == nullptr) {
-	abstractComponent = new AbstractComponent("");
+	std::cerr << "Warning: AbstractComponent - this will not work, nullptr" << std::endl;
+	abstractComponent = std::make_shared<AbstractComponent>("");
     }
 
     AbstractComponent** abstractComponentPtr = static_cast<AbstractComponent**>
-	(lua_newuserdata(L, sizeof(AbstractComponent)));
+	(lua_newuserdata(L, sizeof(AbstractComponent*)));
   
-    *abstractComponentPtr = abstractComponent;
+    //storing the address directly. Lua can be seen as a window,
+    //looking in at the engine. This could be a good source for a lot
+    //of problems.
+    *abstractComponentPtr = abstractComponent.get();
 
     luaL_getmetatable(L, LUA_USERDATA_ABSTRACTCOMPONENT);
     lua_setmetatable(L, -2);  
+
+    std::cout << "getname: " << abstractComponent->getName() << std::endl;
 
     return abstractComponent;
 }
@@ -27,8 +35,9 @@ AbstractComponent* lua_toabstractComponent(lua_State *L, int index) {
 
 boolType lua_isabstractComponent(lua_State* L, int index) {
     if (lua_isuserdata(L, 1)) {
+
 	AbstractComponent* abstractComponent = *static_cast<AbstractComponent**>
-	    (luaL_checkudata(L, index, LUA_USERDATA_ABSTRACTCOMPONENT)); 
+	    (luaL_checkudata(L, index, LUA_USERDATA_ABSTRACTCOMPONENT));
 	if (abstractComponent != NULL) {
 	    return true;
 	}
@@ -38,8 +47,15 @@ boolType lua_isabstractComponent(lua_State* L, int index) {
 }
 
 static int l_AbstractComponent_AbstractComponent(lua_State *L) {
-    //TODO: name, family, isParent parameters
-    lua_pushabstractComponent(L);
+    stringType componentName = luaL_checkstring(L, 1);
+    boolType isParent = lua_toboolean(L, 2);
+
+    auto component = std::make_shared<AbstractComponent>(
+	componentName,
+	enumComponentFamily::ABSTRACT,
+	!isParent);
+
+    lua_pushabstractComponent(L, component);
     return 1;
 }
 
@@ -58,7 +74,10 @@ static int l_AbstractComponent_gc(lua_State *L) {
 }
 
 static int l_AbstractComponent_tostring(lua_State *L) {
-    lua_pushstring(L, "AbstractComponent:");
+    auto component = lua_toabstractComponent(L, 1);
+    stringType msg = "Component:ABSTRACT:";
+    msg += component->getName();
+    lua_pushstring(L, msg.c_str());
     return 1;
 }
 
@@ -175,8 +194,10 @@ static int l_AbstractComponent_has(lua_State *L) {
 
 static int l_AbstractComponent_createChild(lua_State *L) {
     auto component = lua_toabstractComponent(L, 1);
-    luaL_error(L, "Not Implemented");
-    return 0;
+    stringType childComponentName = luaL_checkstring(L, 2);
+    auto childComponent = component->createChild(childComponentName);
+    lua_pushabstractComponent(L, childComponent);
+    return 1;
 }
 
 static int l_AbstractComponent_addChild(lua_State *L) {
@@ -187,8 +208,14 @@ static int l_AbstractComponent_addChild(lua_State *L) {
 
 static int l_AbstractComponent_hasChildren(lua_State *L) {
     auto component = lua_toabstractComponent(L, 1);
-    luaL_error(L, "Not Implemented");
-    return 0;
+
+    if (component->hasChildren()) {
+	lua_pushboolean(L, 1);
+    }
+    else {
+	lua_pushboolean(L, 0);
+    }
+    return 1;
 }
 
 static int l_AbstractComponent_children(lua_State *L) {

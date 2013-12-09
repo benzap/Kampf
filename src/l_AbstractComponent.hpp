@@ -20,7 +20,9 @@
 //TYPEDEFS
 
 //FUNCTIONS
-AbstractComponent* lua_pushabstractComponent(lua_State*, AbstractComponent*);
+std::shared_ptr<AbstractComponent> lua_pushabstractComponent(
+    lua_State*,
+    std::shared_ptr<AbstractComponent>);
 AbstractComponent* lua_toabstractComponent(lua_State*, int);
 boolType lua_isabstractComponent(lua_State*, int);
 
