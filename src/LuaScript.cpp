@@ -30,6 +30,9 @@ LuaScript::LuaScript(Kampf* kf) {
   luaopen_customAttribute(L);
   luaopen_abstractComponent(L);
 
+  //components inheriting from abstract component
+  luaopen_collisionComponent(L);
+
   if (kf != nullptr) {
     luaopen_kampf(L, kf);
     luaopen_messenger(L, kf->getMessenger());

@@ -28,6 +28,8 @@ class LuaScript;
 #include "l_Entity.hpp"
 #include "l_CustomAttribute.hpp"
 #include "l_AbstractComponent.hpp"
+#include "l_CollisionComponent.hpp"
+#include "l_Component.hpp"
 
 //DEFINITIONS
 

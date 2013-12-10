@@ -11,9 +11,10 @@
 #include "LuaScript.hpp"
 #include "AbstractComponent.hpp"
 #include "l_CustomAttribute.hpp"
+#include "l_Component.hpp"
 
 //DEFINITIONS
-#define LUA_USERDATA_ABSTRACTCOMPONENT "l_kf.abstract_component"
+
 
 //MACROS
 
