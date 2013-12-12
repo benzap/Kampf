@@ -1,7 +1,25 @@
 #include "l_Component.hpp"
 
 Component* lua_pushcomponent(lua_State *L, Component* component) {
-    return nullptr;
+    if (component->getFamily() == enumComponentFamily::ABSTRACT) {
+	lua_pushabstractComponent(L, component);
+    }
+    else if (component->getFamily() == enumComponentFamily::COLLISION) {
+	CollisionComponent* component_collision = static_cast<CollisionComponent*>
+	    (component);
+	lua_pushcollisionComponent(L, component_collision);
+    }
+    else if (component->getFamily() == enumComponentFamily::PHYSICS) {
+	PhysicsComponent* component_physics = static_cast<PhysicsComponent*>
+	    (component);
+	lua_pushphysicsComponent(L, component_physics);
+    }
+    else if (component->getFamily() == enumComponentFamily::GRAPHICS) {
+	GraphicsComponent* component_graphics = static_cast<GraphicsComponent*>
+	    (component);
+	lua_pushgraphicsComponent(L, component_graphics);
+    }
+    return component;
 }
 
 Component* lua_tocomponent(lua_State *L, int index) {

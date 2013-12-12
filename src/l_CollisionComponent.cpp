@@ -1,6 +1,6 @@
 #include "l_CollisionComponent.hpp"
 
-CollisionComponent* lua_pushcollisioncomponent(
+CollisionComponent* lua_pushcollisionComponent(
     lua_State *L,
     CollisionComponent* collisioncomponent = nullptr) {
     if (collisioncomponent == nullptr) {
@@ -47,7 +47,7 @@ static int l_CollisionComponent_CollisionComponent(lua_State *L) {
 	componentName,
 	!isParent);
 
-    lua_pushcollisioncomponent(L, component);
+    lua_pushcollisionComponent(L, component);
     return 1;
 }
 
@@ -84,7 +84,7 @@ static int l_CollisionComponent_createChild(lua_State *L) {
     auto childComponent = component->createChild(childComponentName);
     CollisionComponent* childComponent_cast = static_cast<CollisionComponent*>
 	(childComponent);
-    lua_pushcollisioncomponent(L, childComponent_cast);
+    lua_pushcollisionComponent(L, childComponent_cast);
     return 1;
 }
 
