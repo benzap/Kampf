@@ -14,6 +14,7 @@
 #include "l_AbstractComponent.hpp"
 #include "l_CollisionComponent.hpp"
 #include "l_PhysicsComponent.hpp"
+#include "l_GraphicsComponent.hpp"
 
 //DEFINITIONS
 #define LUA_USERDATA_ABSTRACTCOMPONENT "l_kf.abstract_component"

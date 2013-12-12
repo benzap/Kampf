@@ -18,6 +18,10 @@ Component* lua_tocomponent(lua_State *L, int index) {
 	component = *static_cast<AbstractComponent**>
 	    (luaL_checkudata(L, index, LUA_USERDATA_PHYSICSCOMPONENT));
     }
+    else if (lua_isgraphicsComponent(L, 1)) {
+	component = *static_cast<AbstractComponent**>
+	    (luaL_checkudata(L, index,LUA_USERDATA_GRAPHICSCOMPONENT));
+    }
     else {
 	luaL_error(L, "ERROR: Userdata is not a component type");
     }
@@ -30,7 +34,8 @@ boolType lua_iscomponent(lua_State *L, int index) {
 	//check if it's an abstract component
 	if (lua_isUserdataType(L, 1, LUA_USERDATA_ABSTRACTCOMPONENT) ||
 	    lua_isUserdataType(L, 1, LUA_USERDATA_COLLISIONCOMPONENT)||
-	    lua_isUserdataType(L, 1, LUA_USERDATA_PHYSICSCOMPONENT)) {
+	    lua_isUserdataType(L, 1, LUA_USERDATA_PHYSICSCOMPONENT) ||
+	    lua_isUserdataType(L, 1, LUA_USERDATA_GRAPHICSCOMPONENT)){
 	    return true;
 	}
     }
