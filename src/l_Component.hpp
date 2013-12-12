@@ -10,14 +10,16 @@
 //INCLUDES
 #include "LuaScript.hpp"
 #include "Components.hpp"
+#include "l_Utils.hpp"
 #include "l_AbstractComponent.hpp"
 #include "l_CollisionComponent.hpp"
+#include "l_PhysicsComponent.hpp"
 
 //DEFINITIONS
 #define LUA_USERDATA_ABSTRACTCOMPONENT "l_kf.abstract_component"
 #define LUA_USERDATA_COLLISIONCOMPONENT "l_kf.collision_component"
-
-
+#define LUA_USERDATA_PHYSICSCOMPONENT "l_kf.physics_component"
+#define LUA_USERDATA_GRAPHICSCOMPONENT "l_kf.graphics_component"
 
 //MACROS
 
@@ -31,8 +33,6 @@
 Component* lua_pushcomponent(lua_State *L, Component* component);
 Component* lua_tocomponent(lua_State *L, int index);
 boolType lua_iscomponent(lua_State *L, int index);
-
-boolType lua_isUserdata(lua_State *L, int index, const char *tname);
 
 int luaopen_component(lua_State *L);
 

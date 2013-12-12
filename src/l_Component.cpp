@@ -14,6 +14,10 @@ Component* lua_tocomponent(lua_State *L, int index) {
 	component = *static_cast<AbstractComponent**>
 	    (luaL_checkudata(L, index, LUA_USERDATA_COLLISIONCOMPONENT));
     }
+    else if (lua_isphysicsComponent(L, 1)) {
+	component = *static_cast<AbstractComponent**>
+	    (luaL_checkudata(L, index, LUA_USERDATA_PHYSICSCOMPONENT));
+    }
     else {
 	luaL_error(L, "ERROR: Userdata is not a component type");
     }
@@ -24,21 +28,11 @@ Component* lua_tocomponent(lua_State *L, int index) {
 boolType lua_iscomponent(lua_State *L, int index) {
     if (lua_isuserdata(L, index)) {
 	//check if it's an abstract component
-	if (lua_isUserdata(L, 1, LUA_USERDATA_ABSTRACTCOMPONENT) ||
-	    lua_isUserdata(L, 1, LUA_USERDATA_COLLISIONCOMPONENT)) {
+	if (lua_isUserdataType(L, 1, LUA_USERDATA_ABSTRACTCOMPONENT) ||
+	    lua_isUserdataType(L, 1, LUA_USERDATA_COLLISIONCOMPONENT)||
+	    lua_isUserdataType(L, 1, LUA_USERDATA_PHYSICSCOMPONENT)) {
 	    return true;
 	}
-    }
-    return false;
-}
-
-boolType lua_isUserdata(lua_State *L, int index,
-			const char *tname) {
-    int chk = lua_getmetatable(L, index);
-    if (!chk) { return false; }
-    lua_getfield(L, LUA_REGISTRYINDEX, tname);
-    if (lua_equal(L, -1, -2)) {
-	return true;
     }
     return false;
 }

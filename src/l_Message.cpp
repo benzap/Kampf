@@ -26,13 +26,9 @@ Message* lua_tomessage(lua_State *L, int index) {
 }
 
 boolType lua_ismessage(lua_State* L, int index) {
-    if (lua_isuserdata(L, 1)) {
-	Message* message = *static_cast<Message**>
-	    (luaL_checkudata(L, index, LUA_USERDATA_MESSAGE)); 
-	if (message != NULL) {
-	    return true;
-	}
-	return false;
+    if (lua_isuserdata(L, index)) {
+	auto chk = lua_isUserdataType(L, index, LUA_USERDATA_MESSAGE);
+	return chk;
     }
     return false;
 }

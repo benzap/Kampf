@@ -29,6 +29,7 @@ class LuaScript;
 #include "l_CustomAttribute.hpp"
 #include "l_AbstractComponent.hpp"
 #include "l_CollisionComponent.hpp"
+#include "l_PhysicsComponent.hpp"
 #include "l_Component.hpp"
 
 //DEFINITIONS

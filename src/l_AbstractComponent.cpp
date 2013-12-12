@@ -33,7 +33,7 @@ AbstractComponent* lua_toabstractComponent(lua_State *L, int index) {
 
 boolType lua_isabstractComponent(lua_State* L, int index) {
     if (lua_isuserdata(L, index)) {
-	auto chk = lua_isUserdata(L, index, LUA_USERDATA_ABSTRACTCOMPONENT);
+	auto chk = lua_isUserdataType(L, index, LUA_USERDATA_ABSTRACTCOMPONENT);
 	return chk;
     }
     return false;
@@ -75,7 +75,6 @@ static int l_AbstractComponent_tostring(lua_State *L) {
 }
 
 static int l_AbstractComponent_getName(lua_State *L) {
-    std::cout << "Entering getName from abstract" << std::endl;
     auto component = lua_tocomponent(L, 1);
     stringType compName = component->getName();
     lua_pushstring(L, compName.c_str());

@@ -26,13 +26,10 @@ CustomAttribute* lua_tocustomAttribute(lua_State *L, int index) {
 }
 
 boolType lua_iscustomAttribute(lua_State *L, int index) {
-    if (lua_isuserdata(L, 1)) {
-	CustomAttribute* customAttribute = *static_cast<CustomAttribute**>
-	    (luaL_checkudata(L, index, LUA_USERDATA_CUSTOMATTRIBUTE)); 
-	if (customAttribute != NULL) {
-	    return true;
-	}
-	return false;
+    if (lua_isuserdata(L, index)) {
+	auto chk = lua_isUserdataType(L, index, 
+				      LUA_USERDATA_CUSTOMATTRIBUTE); 
+	return chk;
     }
     return false;
 }

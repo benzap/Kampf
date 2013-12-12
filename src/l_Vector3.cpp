@@ -27,13 +27,9 @@ Vector3* lua_tovector(lua_State *L, int index) {
 }
 
 boolType lua_isvector(lua_State* L, int index) {
-  if (lua_isuserdata(L, 1)) {
-    Vector3* vector = *static_cast<Vector3**>
-      (luaL_checkudata(L, index, LUA_USERDATA_VECTOR)); 
-    if (vector != NULL) {
-      return true;
-    }
-    return false;
+  if (lua_isuserdata(L, index)) {
+      auto chk = lua_isUserdataType(L, index, LUA_USERDATA_VECTOR); 
+      return chk;
   }
   return false;
 }

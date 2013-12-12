@@ -12,6 +12,7 @@
 //INCLUDES
 #include "LuaScript.hpp"
 #include "CustomAttribute.hpp"
+#include "l_Utils.hpp"
 
 //DEFINITIONS
 

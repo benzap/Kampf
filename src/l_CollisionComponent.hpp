@@ -10,6 +10,7 @@
 //INCLUDES
 #include "LuaScript.hpp"
 #include "CollisionComponent.hpp"
+#include "l_Utils.hpp"
 #include "l_Component.hpp"
 #include "l_AbstractComponent.hpp"
 

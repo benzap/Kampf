@@ -28,13 +28,9 @@ Entity* lua_toentity(lua_State *L, int index) {
 }
 
 boolType lua_isentity(lua_State *L, int index) {
-    if (lua_isuserdata(L, 1)) {
-	Entity* entity = *static_cast<Entity**>
-	    (luaL_checkudata(L, index, LUA_USERDATA_ENTITY)); 
-	if (entity != NULL) {
-	    return true;
-	}
-	return false;
+    if (lua_isuserdata(L, index)) {
+	auto chk = lua_isUserdataType(L, index, LUA_USERDATA_ENTITY); 
+	return chk;
     }
     return false;
 }

@@ -32,6 +32,7 @@ LuaScript::LuaScript(Kampf* kf) {
 
   //components inheriting from abstract component
   luaopen_collisionComponent(L);
+  luaopen_physicsComponent(L);
 
   if (kf != nullptr) {
     luaopen_kampf(L, kf);

@@ -10,11 +10,12 @@
 //INCLUDES
 #include "LuaScript.hpp"
 #include "AbstractComponent.hpp"
+#include "l_Utils.hpp"
 #include "l_CustomAttribute.hpp"
 #include "l_Component.hpp"
 
 //DEFINITIONS
-
+//userdata definition was moved to l_components.hpp
 
 //MACROS
 

@@ -10,6 +10,7 @@
 //INCLUDES
 #include "LuaScript.hpp"
 #include "Entities.hpp"
+#include "l_Utils.hpp"
 
 //DEFINITIONS
 #define LUA_USERDATA_ENTITY "l_kf.entity"

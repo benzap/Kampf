@@ -33,7 +33,7 @@ CollisionComponent* lua_tocollisioncomponent(lua_State *L, int index) {
 
 boolType lua_iscollisionComponent(lua_State* L, int index) {
     if (lua_isuserdata(L, 1)) {
-	auto chk = lua_isUserdata(L, index, LUA_USERDATA_COLLISIONCOMPONENT);
+	auto chk = lua_isUserdataType(L, index, LUA_USERDATA_COLLISIONCOMPONENT);
 	return chk;
     }
     return false;
@@ -66,16 +66,32 @@ static int l_CollisionComponent_gc(lua_State *L) {
 }
 
 static int l_CollisionComponent_tostring(lua_State *L) {
-    return 0;
+    auto component = lua_tocomponent(L, 1);
+    stringType msg = "Component:COLLISION:";
+    msg += component->getName();
+    lua_pushstring(L, msg.c_str());
+    return 1;
+}
+
+static int l_CollisionComponent_getFamily(lua_State *L) {
+    lua_pushstring(L, "COLLISION");
+    return 1;
 }
 
 static int l_CollisionComponent_createChild(lua_State *L) {
-    return 0;
+    auto component = lua_tocomponent(L, 1);
+    stringType childComponentName = luaL_checkstring(L, 2);
+    auto childComponent = component->createChild(childComponentName);
+    CollisionComponent* childComponent_cast = static_cast<CollisionComponent*>
+	(childComponent);
+    lua_pushcollisioncomponent(L, childComponent_cast);
+    return 1;
 }
 
 static const struct luaL_Reg l_CollisionComponent [] = {
     {"__gc", l_CollisionComponent_gc},
     {"__tostring", l_CollisionComponent_tostring},
+    {"getFamily", l_CollisionComponent_getFamily},
     {"createChild", l_CollisionComponent_createChild},
     {NULL, NULL}
 };
