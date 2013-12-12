@@ -24,19 +24,19 @@ Component* lua_pushcomponent(lua_State *L, Component* component) {
 
 Component* lua_tocomponent(lua_State *L, int index) {
     Component* component = nullptr;
-    if (lua_isabstractComponent(L, 1)) {
+    if (lua_isabstractComponent(L, index)) {
 	component = *static_cast<AbstractComponent**>
 	    (luaL_checkudata(L, index, LUA_USERDATA_ABSTRACTCOMPONENT));
     }
-    else if (lua_iscollisionComponent(L, 1)) {
+    else if (lua_iscollisionComponent(L, index)) {
 	component = *static_cast<AbstractComponent**>
 	    (luaL_checkudata(L, index, LUA_USERDATA_COLLISIONCOMPONENT));
     }
-    else if (lua_isphysicsComponent(L, 1)) {
+    else if (lua_isphysicsComponent(L, index)) {
 	component = *static_cast<AbstractComponent**>
 	    (luaL_checkudata(L, index, LUA_USERDATA_PHYSICSCOMPONENT));
     }
-    else if (lua_isgraphicsComponent(L, 1)) {
+    else if (lua_isgraphicsComponent(L, index)) {
 	component = *static_cast<AbstractComponent**>
 	    (luaL_checkudata(L, index,LUA_USERDATA_GRAPHICSCOMPONENT));
     }
@@ -50,10 +50,10 @@ Component* lua_tocomponent(lua_State *L, int index) {
 boolType lua_iscomponent(lua_State *L, int index) {
     if (lua_isuserdata(L, index)) {
 	//check if it's an abstract component
-	if (lua_isUserdataType(L, 1, LUA_USERDATA_ABSTRACTCOMPONENT) ||
-	    lua_isUserdataType(L, 1, LUA_USERDATA_COLLISIONCOMPONENT)||
-	    lua_isUserdataType(L, 1, LUA_USERDATA_PHYSICSCOMPONENT) ||
-	    lua_isUserdataType(L, 1, LUA_USERDATA_GRAPHICSCOMPONENT)){
+	if (lua_isUserdataType(L, index, LUA_USERDATA_ABSTRACTCOMPONENT) ||
+	    lua_isUserdataType(L, index, LUA_USERDATA_COLLISIONCOMPONENT)||
+	    lua_isUserdataType(L, index, LUA_USERDATA_PHYSICSCOMPONENT) ||
+	    lua_isUserdataType(L, index, LUA_USERDATA_GRAPHICSCOMPONENT)){
 	    return true;
 	}
     }

@@ -36,7 +36,9 @@ boolType lua_isentity(lua_State *L, int index) {
 }
 
 static int l_Entity_Entity(lua_State* L) {
-    lua_pushentity(L);
+    stringType entityName = luaL_checkstring(L, 1);
+    auto entity = new MainEntity(entityName);
+    lua_pushentity(L, entity);
 
     return 1;
 }
@@ -79,10 +81,14 @@ static int l_Entity_getComponents(lua_State* L) {
     auto componentList = entity->getComponentContainer();
 
     //pre-allocating space for our components
-    //lua_newtable(L, componentList.size(), 0);
-
-    //TODO: implement component types in lua
-    lua_pushnil(L);
+    lua_createtable(L, componentList.size(), 0);
+    int i = 0;
+    for (auto component : componentList) {
+	lua_pushcomponent(L, component);
+	lua_rawseti(L, -2, i+1);
+	i++;
+    }
+    
     return 1;
 }
 
@@ -91,23 +97,23 @@ static int l_Entity_getComponentsByFamily(lua_State* L) {
     auto familyString = stringType(luaL_checkstring(L, 2));
     
     partialComponentListType componentList;
-    if (familyString == "abstract") {
+    if (familyString == "ABSTRACT") {
 	componentList = entity->getComponentsByFamily(
 	    enumComponentFamily::ABSTRACT);
     }
-    else if (familyString == "collision") {
+    else if (familyString == "COLLISION") {
 	componentList = entity->getComponentsByFamily(
 	    enumComponentFamily::COLLISION);
     }
-    else if (familyString == "physics") {
+    else if (familyString == "PHYSICS") {
 	componentList = entity->getComponentsByFamily(
 	    enumComponentFamily::PHYSICS);
     }
-    else if (familyString == "graphics") {
+    else if (familyString == "GRAPHICS") {
 	componentList = entity->getComponentsByFamily(
 	    enumComponentFamily::GRAPHICS);
     }
-    else if (familyString == "custom") {
+    else if (familyString == "CUSTOM") {
 	componentList = entity->getComponentsByFamily(
 	    enumComponentFamily::CUSTOM);
     }
@@ -115,9 +121,13 @@ static int l_Entity_getComponentsByFamily(lua_State* L) {
 	luaL_error(L, "Incorrect family type");
     }
     
-    //TODO: create component lua type
-    //lua_createtable(L, componentList.size(), 0);
-    lua_pushnil(L);
+    lua_createtable(L, componentList.size(), 0);
+    int i = 0;
+    for (auto component : componentList) {
+	lua_pushcomponent(L, component);
+	lua_rawseti(L, -2, i+1);
+	i++;
+    }
     return 1;
 }
 
@@ -127,18 +137,22 @@ static int l_Entity_getComponentsByName(lua_State* L) {
 
     auto componentList = entity->getComponentsByName(componentName);
     
-    //TODO: create lua component bindings
-    //lua_createtable(L, componentList.size(), 0);
-    lua_pushnil(L);
+    lua_createtable(L, componentList.size(), 0);
+    int i = 0;
+    for (auto component : componentList) {
+	lua_pushcomponent(L, component);
+	lua_rawseti(L, -2, i+1);
+	i++;
+    }
     return 1;
 }
 
 static int l_Entity_addComponent(lua_State* L) {
     auto entity = lua_toentity(L, 1);
-    //TODO: implement lua component type
-    //auto component = lua_tocomponent(L, 2);
-				     
-				     
+    auto component = lua_tocomponent(L, 2);			     
+    entity->addComponent(component);
+
+    return 0;
 }
 
 static const struct luaL_Reg l_Entity_registry [] = {
