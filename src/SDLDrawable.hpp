@@ -33,14 +33,15 @@ class SDLDrawable : public AbstractDrawable {
 private:
     //the surface that the drawable will be drawing to
     SDL_Texture* texture = nullptr;
+    SDL_Surface* surface = nullptr;
 
     //the area of the texture to draw to the screen
     SDL_Rect* sourceRectangle = nullptr;
     
-    SDLRenderWindow* windowContext;
+    SDLRenderWindow* windowContext = nullptr;
 
 public:
-    SDLDrawable(SDL_Texture* = nullptr);
+    SDLDrawable(SDL_Surface* surface, SDLRenderWindow* windowContext);
     virtual ~SDLDrawable();
 
     int draw(Vector3 position = Vector3(), 
@@ -53,7 +54,7 @@ public:
 
     void setWindowContext(SDLRenderWindow*);
 
-    std::vector<int> getTextureSize();
+    std::vector<int> getSize();
 };
 
 #endif //END SDLDRAWABLE__HPP

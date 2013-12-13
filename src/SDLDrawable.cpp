@@ -1,10 +1,25 @@
 #include "SDLDrawable.hpp"
 
-SDLDrawable::SDLDrawable(SDL_Texture* texture) :
+SDLDrawable::SDLDrawable(SDL_Surface* surface,
+			 SDLRenderWindow* windowContext) :
     AbstractDrawable("SDL"),
-    texture(texture) {
-    auto textureSize = this->getTextureSize();
+    windowContext(windowContext),
+    surface(surface) {
+
+    this->texture = SDL_CreateTextureFromSurface(
+	windowContext->getRenderer(),
+	surface);
+
+    if (this->texture == NULL) {
+	std::cerr << "Warning: unable to create texture from surface";
+	std::cerr << std::endl;
+	std::cerr << SDL_GetError() << std::endl;
+    }
+
+    auto textureSize = this->getSize();
     this->sourceRectangle = new SDL_Rect();
+    this->sourceRectangle->x = 0;
+    this->sourceRectangle->y = 0;
     this->sourceRectangle->w = textureSize[0];
     this->sourceRectangle->h = textureSize[1];
 }
@@ -19,14 +34,29 @@ int SDLDrawable::draw(Vector3 position,
 
     //need to fit our drawing to the preferred resolution
     auto viewport = this->windowContext->getViewport();
+    auto resolution = this->windowContext->getResolution();
     
-
+    int width, height;
+    SDL_GetWindowSize(windowContext->getWindow(),
+		      &width, &height);    
 
     SDL_Rect outputRect;
+    outputRect.x = width / resolution->w * (position.x - viewport->x);
+    outputRect.y = height / resolution->h * (position.y - viewport->y);
+    outputRect.w = width / resolution->w * viewport->w;
+    outputRect.h = height / resolution->h * viewport->h;
+
+    // std::cout << "Drawing:" << std::endl;
+    // std::cout << "outputrect:" << outputRect.x << " ";
+    // std::cout << outputRect.y << " ";
+    // std::cout << outputRect.w << " ";
+    // std::cout << outputRect.h << std::endl;
+	
 
     SDL_RenderCopy(windowContext->getRenderer(),
 		   texture, 
-		   this->sourceRectangle, NULL);
+		   this->sourceRectangle,
+		   &outputRect);
 }
 
 void SDLDrawable::setRect(SDL_Rect* rect) {
@@ -46,18 +76,19 @@ void SDLDrawable::setWindowContext(SDLRenderWindow* windowContext) {
     this->windowContext = windowContext;
 }
 
-std::vector<int> SDLDrawable::getTextureSize() {
-    int textureWidth;
-    int textureHeight;
-    int error = SDL_QueryTexture(texture, NULL, NULL, &textureWidth, &textureHeight);
+std::vector<int> SDLDrawable::getSize() {
+    // int textureWidth;
+    // int textureHeight;
+    // int error = SDL_QueryTexture(texture, NULL, NULL, 
+    // 				 &textureWidth, &textureHeight);
 
-    if (error) {
-	std::cerr << "Error - getTextureSize" << std::endl;
-	std::cerr << SDL_GetError() << std::endl;
-    }
+    // if (error) {
+    // 	std::cerr << "Error - getTextureSize" << std::endl;
+    // 	std::cerr << SDL_GetError() << std::endl;
+    // }
 
     std::vector<int> textureSize = {
-	textureWidth, textureHeight 
+	surface->w, surface->h 
     };
     
     return textureSize;

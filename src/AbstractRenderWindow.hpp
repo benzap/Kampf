@@ -46,6 +46,12 @@ private:
 	DEFAULT_VIRTUAL_SCREEN_HEIGHT
     };
 
+    //The virtual resolution of the screen
+    Resolution resolution = {
+	DEFAULT_VIRTUAL_SCREEN_WIDTH,
+	DEFAULT_VIRTUAL_SCREEN_HEIGHT
+    };
+
 protected:
     int windowWidth;
     int windowHeight;
@@ -72,6 +78,8 @@ public:
     //get the current viewport
     const Viewport* getViewport();
     void setViewport(Viewport viewport);
-};
 
+    const Resolution* getResolution();
+    void setResolution(floatType w, floatType h);
+};
 #endif //END ABSTRACTRENDERWINDOW__HPP

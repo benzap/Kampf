@@ -107,6 +107,8 @@ public:
     case 2:
       return this->z;
     }
+    //TODO: fix this
+    return this->x;
   };
 
   //equality

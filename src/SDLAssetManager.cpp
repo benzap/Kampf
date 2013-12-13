@@ -5,26 +5,21 @@ SDLDrawable* SDLAssetManager::addSurface(
 					 SDL_Surface* surface,
 					 SDL_Rect* rect) {
     assert(windowContext != nullptr);
-    SDL_Renderer* sdl_renderer = this->windowContext->getRenderer();
-    SDL_Texture* texture = SDL_CreateTextureFromSurface(sdl_renderer,
-							surface);
-  
-    if (texture != NULL) {
-	auto drawable = SDLDrawable(texture);
-	
-	if (rect != nullptr) {
-	    drawable.setRect(rect);
-	}
-	drawable.setWindowContext(windowContext);
-	
-	textureContainer[name] = drawable;
-	//textureContainer.insert(drawablePair);
-    }
-    else  {
+
+    if (surface == nullptr)  {
 	std::cerr << "Warning: unable to add surface to asset manager";
 	std::cerr << std::endl;
 	std::cerr << SDL_GetError() << std::endl;
     }
+
+    SDLDrawable drawable = SDLDrawable(surface, windowContext);
+    
+    if (rect != nullptr) {
+	drawable.setRect(rect);
+    }
+    auto drawablePair = std::pair<stringType, SDLDrawable>(name, drawable);
+    //textureContainer[name] = drawable;
+    textureContainer.insert(drawablePair);
 }
 
 SDLDrawable* SDLAssetManager::addBMP(
@@ -53,7 +48,7 @@ boolType SDLAssetManager::hasDrawable(const stringType& name) {
 }
 
 SDLDrawable* SDLAssetManager::getDrawable(const stringType& name) {
-    return &textureContainer[name];
+    //return &textureContainer[name];
 }
 
 boolType SDLAssetManager::removeDrawable(const stringType& name) {

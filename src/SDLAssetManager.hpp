@@ -10,14 +10,15 @@ class SDLAssetManager;
 
 //INCLUDES
 #include <unordered_map>
+#include <map>
 #include <tuple>
 
 #include <SDL2/SDL.h>
 
 #include "KF_globals.hpp"
 #include "KF_utilities.hpp"
-#include "SDLDrawable.hpp"
 #include "SDLRenderWindow.hpp"
+#include "SDLDrawable.hpp"
 
 //DEFINITIONS
 
@@ -39,7 +40,7 @@ private:
   textureContainerType textureContainer;
   SDLRenderWindow* windowContext;
 public:
-  static SDLAssetManager* getInstance() {
+    static SDLAssetManager* getInstance() {
     static SDLAssetManager _instance = SDLAssetManager();
     return &_instance;
   }

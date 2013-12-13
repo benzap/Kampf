@@ -23,11 +23,13 @@ void SDLRenderWindow::draw(AbstractDrawable* drawable,
 
 boolType SDLRenderWindow::update() {
   SDL_RenderPresent(renderer);
+  return true;
 }
 
 boolType SDLRenderWindow::clear() {
   SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
   SDL_RenderClear(renderer);
+  return true;
 }
 
 bool SDLRenderWindow::initialize() {
@@ -42,10 +44,11 @@ bool SDLRenderWindow::initialize() {
   
   this->renderer = SDL_CreateRenderer(this->window, -1,
 				      this->rendererFlags);
+  return true;
 }
 
 bool SDLRenderWindow::reinitialize() {
-  
+    return true;
 }
 
 void SDLRenderWindow::setWindowFlags(Uint32 windowFlags) {

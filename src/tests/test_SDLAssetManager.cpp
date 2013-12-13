@@ -40,8 +40,9 @@ int main(int argc, char *argv[]) {
   TEST_BOOL(!assetManager->hasDrawable("pacman"), "removeDrawable");
 
   //reading the drawable
-  assetManager->addBMP("pacman", "assets/pacman.bmp");
-
+  SDL_Rect pacmanSize = {0,0, 100, 100};
+  assetManager->addBMP("pacman", "assets/pacman.bmp", &pacmanSize);
+  
   //creating an entity that holds pacman image/sprite
   auto pacman = create_pacman();
 
