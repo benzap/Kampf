@@ -41,6 +41,7 @@ private:
     SDLRenderWindow* windowContext = nullptr;
 
 public:
+    SDLDrawable();
     SDLDrawable(SDL_Surface* surface, SDLRenderWindow* windowContext);
     virtual ~SDLDrawable();
 
