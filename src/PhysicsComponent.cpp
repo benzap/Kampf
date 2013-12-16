@@ -28,7 +28,7 @@ void PhysicsComponent::setVelocity(Vector3 velocity) {
     this->velocity = velocity;
 }
 
-const Vector3& PhysicsComponent::getVector() {
+const Vector3& PhysicsComponent::getVelocity() {
     return this->velocity;
 }
     
@@ -38,6 +38,14 @@ void PhysicsComponent::setAcceleration(Vector3 acceleration) {
 
 const Vector3& PhysicsComponent::getAcceleration() {
     return this->acceleration;
+}
+
+void PhysicsComponent::setScale(Vector3 scale) {
+    this->scale = scale;
+}
+
+const Vector3& PhysicsComponent::getScale() {
+    return this->scale;
 }
 
 void PhysicsComponent::setOrientation(Quaternion orientation) {

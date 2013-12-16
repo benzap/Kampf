@@ -45,17 +45,20 @@ int SDLDrawable::draw(Vector3 position,
     SDL_GetWindowSize(windowContext->getWindow(),
 		      &width, &height);    
 
-    SDL_Rect outputRect;
-    outputRect.x = width / resolution->w * (position.x - viewport->x);
-    outputRect.y = height / resolution->h * (position.y - viewport->y);
-    outputRect.w = width / resolution->w * viewport->w;
-    outputRect.h = height / resolution->h * viewport->h;
+    auto textureWidth = sourceRectangle->w;
+    auto textureHeight = sourceRectangle->h;
 
-    // std::cout << "Drawing:" << std::endl;
-    // std::cout << "outputrect:" << outputRect.x << " ";
-    // std::cout << outputRect.y << " ";
-    // std::cout << outputRect.w << " ";
-    // std::cout << outputRect.h << std::endl;
+    SDL_Rect outputRect;
+    outputRect.x = position.x - viewport->x;
+    outputRect.y = position.y - viewport->y;
+    outputRect.w = textureWidth;
+    outputRect.h = textureHeight;
+
+    std::cout << "Drawing:" << std::endl;
+    std::cout << "outputrect:" << outputRect.x << " ";
+    std::cout << outputRect.y << " ";
+    std::cout << outputRect.w << " ";
+    std::cout << outputRect.h << std::endl;
 	
 
     SDL_RenderCopy(windowContext->getRenderer(),
@@ -82,16 +85,6 @@ void SDLDrawable::setWindowContext(SDLRenderWindow* windowContext) {
 }
 
 std::vector<int> SDLDrawable::getSize() {
-    // int textureWidth;
-    // int textureHeight;
-    // int error = SDL_QueryTexture(texture, NULL, NULL, 
-    // 				 &textureWidth, &textureHeight);
-
-    // if (error) {
-    // 	std::cerr << "Error - getTextureSize" << std::endl;
-    // 	std::cerr << SDL_GetError() << std::endl;
-    // }
-
     std::vector<int> textureSize = {
 	surface->w, surface->h 
     };

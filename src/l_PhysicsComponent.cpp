@@ -1,8 +1,8 @@
 #include "l_PhysicsComponent.hpp"
 
 PhysicsComponent* lua_pushphysicsComponent(
-    lua_State *L,
-    PhysicsComponent* physicscomponent = nullptr) {
+					   lua_State *L,
+					   PhysicsComponent* physicscomponent = nullptr) {
     if (physicscomponent == nullptr) {
 	std::cerr << "Warning: PhysicsComponent - this will not work, nullptr" << std::endl;
 	physicscomponent = new PhysicsComponent("");
@@ -44,8 +44,8 @@ static int l_PhysicsComponent_PhysicsComponent(lua_State *L) {
     boolType isParent = lua_toboolean(L, 2);
 
     auto component = new PhysicsComponent(
-	componentName,
-	!isParent);
+					  componentName,
+					  !isParent);
 
     lua_pushphysicsComponent(L, component);
     return 1;
@@ -63,6 +63,104 @@ static const struct luaL_Reg l_PhysicsComponent_Registry [] = {
 
 static int l_PhysicsComponent_gc(lua_State *L) {
     return 0;
+}
+
+static int l_PhysicsComponent_setPosition(lua_State *L) {
+    auto component = lua_tophysicsComponent(L, 1);
+    auto vector = lua_tovector(L, 2);
+    component->setPosition(*vector);
+    return 0;   
+}
+
+static int l_PhysicsComponent_getPosition(lua_State *L) {
+    auto component = lua_tophysicsComponent(L, 1);
+    auto vector = new Vector3(component->getPosition());
+    lua_pushvector(L, vector);
+    return 1;
+}
+
+static int l_PhysicsComponent_setVelocity(lua_State *L) {
+    auto component = lua_tophysicsComponent(L, 1);
+    auto vector = lua_tovector(L, 2);
+    component->setVelocity(*vector);
+    return 0;
+}
+
+static int l_PhysicsComponent_getVelocity(lua_State *L) {
+    auto component = lua_tophysicsComponent(L, 1);
+    auto vector = new Vector3(component->getVelocity());
+    lua_pushvector(L, vector);
+    return 1;
+}
+
+static int l_PhysicsComponent_setAcceleration(lua_State *L) {
+    auto component = lua_tophysicsComponent(L, 1);
+    auto vector = lua_tovector(L, 2);
+    component->setAcceleration(*vector);
+    return 0;
+}
+
+static int l_PhysicsComponent_getAcceleration(lua_State *L) {
+    auto component = lua_tophysicsComponent(L, 1);
+    auto vector = new Vector3(component->getAcceleration());
+    lua_pushvector(L, vector);
+    return 1;
+}
+
+static int l_PhysicsComponent_setScale(lua_State *L) {
+    auto component = lua_tophysicsComponent(L, 1);
+    auto vector = lua_tovector(L, 2);
+    component->setScale(*vector);
+    return 0;
+}
+
+static int l_PhysicsComponent_getScale(lua_State *L) {
+    auto component = lua_tophysicsComponent(L, 1);
+    auto vector = new Vector3(component->getScale());
+    lua_pushvector(L, vector);
+    return 1;
+}
+
+static int l_PhysicsComponent_setOrientation(lua_State *L) {
+    auto component = lua_tophysicsComponent(L, 1);
+    auto orientation = lua_toquaternion(L, 2);
+    component->setOrientation(*orientation);
+    return 0;
+}
+
+static int l_PhysicsComponent_getOrientation(lua_State *L) {
+    auto component = lua_tophysicsComponent(L, 1);
+    auto orientation = new Quaternion(component->getOrientation());
+    lua_pushquaternion(L, orientation);
+    return 1;
+}
+
+static int l_PhysicsComponent_setDamping(lua_State *L) {
+    auto component = lua_tophysicsComponent(L, 1);
+    floatType damping = luaL_checknumber(L, 2);
+    component->setDamping(damping);
+    return 0;
+}
+
+static int l_PhysicsComponent_getDamping(lua_State *L) {
+    auto component = lua_tophysicsComponent(L, 1);
+    floatType damping = component->getDamping();
+    lua_pushnumber(L, damping);
+    return 1;
+}
+
+static int l_PhysicsComponent_setMass(lua_State *L) {
+    auto component = lua_tophysicsComponent(L, 1);
+    floatType mass = luaL_checknumber(L, 2);
+    component->setMass(mass);
+    return 0;
+}
+
+static int l_PhysicsComponent_getMass(lua_State *L) {
+    auto component = lua_tophysicsComponent(L, 1);
+    floatType mass = component->getMass();
+    lua_pushnumber(L, mass);
+    return 1;
 }
 
 static int l_PhysicsComponent_tostring(lua_State *L) {
@@ -88,9 +186,25 @@ static int l_PhysicsComponent_createChild(lua_State *L) {
     return 1;
 }
 
+
+
 static const struct luaL_Reg l_PhysicsComponent [] = {
     {"__gc", l_PhysicsComponent_gc},
     {"__tostring", l_PhysicsComponent_tostring},
+    {"setPosition", l_PhysicsComponent_setPosition},
+    {"getPosition", l_PhysicsComponent_getPosition},
+    {"setVelocity", l_PhysicsComponent_setVelocity},
+    {"getVelocity", l_PhysicsComponent_getVelocity},
+    {"setAcceleration", l_PhysicsComponent_setAcceleration},
+    {"getAcceleration", l_PhysicsComponent_getAcceleration},
+    {"setScale", l_PhysicsComponent_setScale},
+    {"getScale", l_PhysicsComponent_getScale},
+    {"setOrientation", l_PhysicsComponent_setOrientation},
+    {"getOrientation", l_PhysicsComponent_getOrientation},
+    {"setDamping", l_PhysicsComponent_setDamping},
+    {"getDamping", l_PhysicsComponent_getDamping},
+    {"setMass", l_PhysicsComponent_setMass},
+    {"getMass", l_PhysicsComponent_getMass},
     {"getFamily", l_PhysicsComponent_getFamily},
     {"createChild", l_PhysicsComponent_createChild},
     {NULL, NULL}

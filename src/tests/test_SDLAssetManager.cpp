@@ -12,7 +12,7 @@ Entity* create_pacman() {
     auto physicsComponent = createPhysicsComponent("physics");
     entity->addComponent(physicsComponent);
     
-    physicsComponent->setPosition({0,0,0});
+    physicsComponent->setPosition({100,100,0});
 
     auto graphicsComponent = createGraphicsComponent("graphics");
     entity->addComponent(graphicsComponent);
@@ -40,7 +40,7 @@ int main(int argc, char *argv[]) {
   TEST_BOOL(!assetManager->hasDrawable("pacman"), "removeDrawable");
 
   //reading the drawable
-  SDL_Rect pacmanSize = {0,0, 100, 100};
+  SDL_Rect pacmanSize = {0, 0, 100, 100};
   assetManager->addBMP("pacman", "assets/pacman.bmp", &pacmanSize);
   
   //creating an entity that holds pacman image/sprite
@@ -48,6 +48,9 @@ int main(int argc, char *argv[]) {
 
   auto entityManager = EntityManager::getInstance();
   entityManager->addEntity(pacman);
+
+  auto window = kampf.getWindowContext();
+  window->setViewport(100, 100, 800, 600);
 
   kampf.runMainLoop(5000);
   return 0;

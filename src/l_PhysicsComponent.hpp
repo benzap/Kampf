@@ -13,6 +13,8 @@
 #include "l_Utils.hpp"
 #include "l_Component.hpp"
 #include "l_AbstractComponent.hpp"
+#include "l_Vector3.hpp"
+#include "l_Quaternion.hpp"
 
 //DEFINITIONS
 

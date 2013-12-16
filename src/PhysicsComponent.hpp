@@ -32,11 +32,13 @@ private:
     Vector3 position;
     Vector3 velocity;
     Vector3 acceleration;
-  
+
+    
+    Vector3 scale = Vector3(1,1,1);
     Quaternion orientation;
 
-    floatType damping;
-    floatType inverseMass;
+    floatType damping = 0;
+    floatType inverseMass = 1;
 
 public:
     PhysicsComponent(stringType name,
@@ -50,10 +52,13 @@ public:
     const Vector3& getPosition();
 
     void setVelocity(Vector3);
-    const Vector3& getVector();
+    const Vector3& getVelocity();
     
     void setAcceleration(Vector3);
     const Vector3& getAcceleration();
+
+    void setScale(Vector3);
+    const Vector3& getScale();
 
     void setOrientation(Quaternion);
     const Quaternion& getOrientation();

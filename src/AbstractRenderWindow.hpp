@@ -78,6 +78,10 @@ public:
     //get the current viewport
     const Viewport* getViewport();
     void setViewport(Viewport viewport);
+    void setViewport(integerType x,
+		     integerType y,
+		     integerType w,
+		     integerType h);
 
     const Resolution* getResolution();
     void setResolution(floatType w, floatType h);
