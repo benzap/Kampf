@@ -25,6 +25,7 @@ class LuaScript;
 #include "l_Message.hpp"
 #include "l_Messenger.hpp"
 #include "l_RuleMachine.hpp"
+#include "l_RenderWindow.hpp"
 #include "l_Entity.hpp"
 #include "l_EntityManager.hpp"
 #include "l_CustomAttribute.hpp"

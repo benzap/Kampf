@@ -41,6 +41,7 @@ LuaScript::LuaScript(Kampf* kf) {
     luaopen_messenger(L, kf->getMessenger());
     luaopen_message(L);
     luaopen_rulemachine(L, kf->getRuleMachine());
+    luaopen_renderwindow(L, kf->getWindowContext());
   }
 
   //hard coding the packages path to the current directory

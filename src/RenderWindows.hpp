@@ -16,6 +16,7 @@
 //MACROS
 
 //TYPEDEFS
+typedef AbstractRenderWindow RenderWindow;
 
 //FUNCTIONS
 

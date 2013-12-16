@@ -44,13 +44,10 @@ void lua_pushrulemachine(lua_State *L) {
 
 boolType lua_isrulemachine(lua_State *L, int index) {
     if (lua_isuserdata(L, 1)) {
-	RuleMachine* rulemachine = *static_cast<RuleMachine**>
-	    (luaL_checkudata(L, index, LUA_USERDATA_RULEMACHINE)); 
-	if (rulemachine != NULL) {
-	    return true;
-	}
-	return false;
+	auto chk = lua_isUserdataType(L, index, LUA_USERDATA_RULEMACHINE); 
+	return chk;
     }
+    return false;
 }
 
 RuleMachine* lua_torulemachine(lua_State *L, int index) {

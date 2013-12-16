@@ -14,6 +14,7 @@
 #include "kampf.hpp"
 #include "RuleMachine.hpp"
 #include "l_RuleWrapper.hpp"
+#include "l_Utils.hpp"
 
 //DEFINITIONS
 

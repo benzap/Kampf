@@ -21,4 +21,4 @@ assetManager:addBMP("pacman", "./assets/pacman.bmp")
 local entityManager = kf.EntityManager()
 entityManager:addEntity(pacman)
 
-kf.runMainLoop(500)
+kf.runMainLoop(5000)
