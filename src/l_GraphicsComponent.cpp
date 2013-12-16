@@ -73,6 +73,21 @@ static int l_GraphicsComponent_tostring(lua_State *L) {
     return 1;
 }
 
+static int l_GraphicsComponent_getDrawableKey(lua_State *L) {
+    auto component = lua_tographicsComponent(L, 1);
+    stringType key = component->getDrawableKey();
+    lua_pushstring(L, key.c_str());
+    return 1;
+}
+
+static int l_GraphicsComponent_setDrawableKey(lua_State *L) {
+    auto component = lua_tographicsComponent(L, 1);
+    stringType key = luaL_checkstring(L, 2);
+    component->setDrawableKey(key);
+    return 0;
+}
+
+
 static int l_GraphicsComponent_getFamily(lua_State *L) {
     lua_pushstring(L, "GRAPHICS");
     return 1;
@@ -91,6 +106,8 @@ static int l_GraphicsComponent_createChild(lua_State *L) {
 static const struct luaL_Reg l_GraphicsComponent [] = {
     {"__gc", l_GraphicsComponent_gc},
     {"__tostring", l_GraphicsComponent_tostring},
+    {"getDrawableKey", l_GraphicsComponent_getDrawableKey},
+    {"setDrawableKey", l_GraphicsComponent_setDrawableKey},
     {"getFamily", l_GraphicsComponent_getFamily},
     {"createChild", l_GraphicsComponent_createChild},
     {NULL, NULL}

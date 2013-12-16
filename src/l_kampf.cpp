@@ -50,11 +50,18 @@ static int l_kampf_addSystem(lua_State *L) {
     return 0;
 }
 
+static int l_kampf_getTick(lua_State *L) {
+    floatType currentTick = SDL_GetTicks();
+    lua_pushnumber(L, currentTick);
+    return 1;
+}
+
 static const struct luaL_Reg l_kampf [] = {
     {"runMainLoop", l_kampf_runMainLoop},
     {"getMessenger", l_kampf_getMessenger},
     {"getRuleMachine", l_kampf_getRuleMachine},
     {"addSystem", l_kampf_addSystem},
+    {"getTick", l_kampf_getTick},
     {NULL, NULL}
 };
 
