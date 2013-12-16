@@ -27,6 +27,7 @@ LuaScript::LuaScript(Kampf* kf) {
 
   //Entity-related
   luaopen_entity(L);
+  luaopen_entityManager(L);
   luaopen_customAttribute(L);
   luaopen_abstractComponent(L);
 
