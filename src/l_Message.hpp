@@ -9,6 +9,11 @@
 #include "LuaScript.hpp"
 #include "Message.hpp"
 #include "Messenger.hpp"
+#include "CustomAttribute.hpp"
+#include "l_Utils.hpp"
+#include "l_Entity.hpp"
+#include "l_Component.hpp"
+#include "l_CustomAttribute.hpp"
 
 //DEFINITIONS
 #define LUA_USERDATA_MESSAGE "l_kf.message"

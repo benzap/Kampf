@@ -71,6 +71,97 @@ static int l_Message_setType(lua_State *L) {
     return 0;
 }
 
+static int l_Message_getFirstEntity(lua_State *L) {
+    auto message = lua_tomessage(L, 1);
+    if (message->firstEntity != nullptr) {
+	lua_pushentity(L, message->firstEntity);
+    }
+    else {
+	lua_pushnil(L);
+    }
+    
+    return 1;
+}
+
+static int l_Message_setFirstEntity(lua_State *L) {
+    auto message = lua_tomessage(L, 1);
+    auto entity = lua_toentity(L, 2);
+    message->firstEntity = entity;
+    return 0;
+}
+
+static int l_Message_getFirstComponent(lua_State *L) {
+    auto message = lua_tomessage(L, 1);
+    if (message->firstComponent != nullptr) {
+	lua_pushcomponent(L, message->firstComponent);
+    }
+    else {
+	lua_pushnil(L);
+    }
+    return 1;
+}
+
+static int l_Message_setFirstComponent(lua_State *L) {
+    auto message = lua_tomessage(L, 1);
+    auto component  = lua_tocomponent(L, 2);
+    message->firstComponent = component;
+    return 0;
+}
+
+static int l_Message_getSecondEntity(lua_State *L) {
+    auto message = lua_tomessage(L, 1);
+    if (message->secondEntity != nullptr) {
+	lua_pushentity(L, message->secondEntity);
+    }
+    else {
+	lua_pushnil(L);
+    }
+    
+    return 1;
+}
+
+static int l_Message_setSecondEntity(lua_State *L) {
+    auto message = lua_tomessage(L, 1);
+    auto entity = lua_toentity(L, 2);
+    message->secondEntity = entity;
+    return 0;
+}
+
+static int l_Message_getSecondComponent(lua_State *L) {
+    auto message = lua_tomessage(L, 1);
+    if (message->secondComponent != nullptr) {
+	lua_pushcomponent(L, message->secondComponent);
+    }
+    else {
+	lua_pushnil(L);
+    }
+    return 1;
+}
+
+static int l_Message_setSecondComponent(lua_State *L) {
+    auto message = lua_tomessage(L, 1);
+    auto component  = lua_tocomponent(L, 2);
+    message->secondComponent = component;
+    return 0;
+}
+
+static int l_Message_getCustomAttribute(lua_State *L) {
+    auto message = lua_tomessage(L, 1);
+    stringType keyname = luaL_checkstring(L, 2);
+    //todo, check if attribute exists
+    auto customAttribute = message->customData[keyname];
+    lua_pushcustomAttribute(L, new CustomAttribute(customAttribute));
+    return 1;
+}
+
+static int l_Message_setCustomAttribute(lua_State *L) {
+    auto message = lua_tomessage(L, 1);
+    stringType keyname = luaL_checkstring(L, 2);
+    auto customAttribute = lua_tocustomAttribute(L, 3);
+    message->customData[keyname] = customAttribute;
+    return 0;
+}
+
 static const struct luaL_Reg l_Message_registry [] = {
     //{"Message", l_Message_Message},
     {"isMessage", l_Message_isMessage},
@@ -81,6 +172,18 @@ static const struct luaL_Reg l_Message [] = {
     {"getID", l_Message_getID},
     {"getType", l_Message_getType},
     {"setType", l_Message_setType},
+    {"getFirstEntity", l_Message_getFirstEntity},
+    {"setFirstEntity", l_Message_setFirstEntity},
+    {"getFirstComponent", l_Message_getFirstComponent},
+    {"setFirstComponent", l_Message_setFirstComponent},
+    {"getSecondEntity", l_Message_getSecondEntity},
+    {"setSecondEntity", l_Message_setSecondEntity},
+    {"getSecondComponent", l_Message_getSecondComponent},
+    {"setSecondComponent", l_Message_setSecondComponent},
+    {"getCustomAttribute", l_Message_getCustomAttribute},
+    {"get", l_Message_getCustomAttribute},
+    {"setCustomAttribute", l_Message_setCustomAttribute},
+    {"set", l_Message_setCustomAttribute},
     {NULL, NULL}
 };
 

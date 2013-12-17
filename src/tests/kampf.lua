@@ -20,6 +20,10 @@ end
 
 print("--Rule Function")
 function ruleFunc(msg)
+	local msgType = msg:getType()
+	if msgType == "KEYBOARD" then
+		print(msg:get("Key"):getString())
+	end
 	print(msg:getType())
 end
 
