@@ -59,11 +59,15 @@ void EventSystem::createMessages() {
     else if (event.type == SDL_KEYDOWN) {
 	msg = messenger->appendMessage();
 	msg->setType(enumMessageType::EVENT_KEYBOARD);
+	std::cout << "key: " << SDL_GetScancodeName(event.key.keysym.scancode);
+	std::cout << std::endl;
     }
 
     else if (event.type == SDL_KEYUP) {
 	msg = messenger->appendMessage();
 	msg->setType(enumMessageType::EVENT_KEYBOARD);
+	std::cout << "key: " << SDL_GetScancodeName(event.key.keysym.scancode);
+	std::cout << std::endl;
     }
 
     else if (event.type == SDL_TEXTEDITING) {

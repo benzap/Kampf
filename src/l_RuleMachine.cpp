@@ -85,7 +85,23 @@ static int l_RuleMachine_addRule(lua_State *L) {
     else {
 	luaL_error(L, "No rule machine has been been added");
     }
-    rulemachine->addRule(wrapperCondition, wrapperFunction);
+    auto inter = rulemachine->addRule(wrapperCondition,
+				      wrapperFunction);
+
+    lua_pushnumber(L, inter);
+    return 1;
+}
+
+static int l_RuleMachine_removeRule(lua_State *L) {
+    incrementType increment = luaL_checkint(L, 1);
+    RuleMachine* rulemachine = nullptr;
+    if (lua_hasRuleMachine(L)) {
+	rulemachine = lua_getRuleMachine(L);
+    }
+    else {
+	luaL_error(L, "No rule machine has been been added");
+    }
+    rulemachine->removeRule(increment);
     return 0;
 }
 
@@ -98,6 +114,7 @@ static const struct luaL_Reg l_rulemachine_kampf [] = {
 //RuleMachine methods
 static const struct luaL_Reg l_rulemachine [] = {
     {"addRule", l_RuleMachine_addRule},
+    {"removeRule", l_RuleMachine_removeRule},
     {NULL, NULL}
 };
 

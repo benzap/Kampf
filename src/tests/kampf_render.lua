@@ -1,6 +1,5 @@
 require "utils"
 
-
 function createPacman()
 	local entity = kf.Entity("pacman")
 	local physicsComponent = kf.PhysicsComponent("physical")

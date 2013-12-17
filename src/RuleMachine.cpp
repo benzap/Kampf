@@ -1,5 +1,7 @@
 #include "RuleMachine.hpp"
 
+incrementType RuleMachine::RuleIncrement = 1;
+
 RuleMachine::RuleMachine() {
 
 }
@@ -10,19 +12,38 @@ RuleMachine::~RuleMachine() {
 
 void RuleMachine::process() {
     auto messenger = Messenger::getInstance();
-    for (auto pair : this->ruleContainer) {
+    for (auto ruleTuple : this->ruleContainer) {
+	RuleCondition conditionFunction;
+	RuleFunction expressionFunction;
+	incrementType inc;
+	std::tie(conditionFunction, expressionFunction, inc) = ruleTuple;
+
 	for (auto msg : messenger->retrieveMessages()) {
-	    RuleCondition conditionFunction = pair.first;
 	    if (conditionFunction(&msg)) {
 		//expressing what I want, if the condition is true
-		RuleFunction expressionFunction = pair.second;
 		expressionFunction(&msg);
 	    }
 	}
     }
 }
 
-void RuleMachine::addRule(RuleCondition condition,
+incrementType RuleMachine::addRule(RuleCondition condition,
 			  RuleFunction function) {
-    this->ruleContainer.push_back(RuleTuple(condition, function));
+
+    auto ruleTuple = RuleTuple(condition,
+			       function,
+			       RuleMachine::RuleIncrement);
+    this->ruleContainer.push_back(ruleTuple);
+    return RuleMachine::RuleIncrement++;
+}
+
+void RuleMachine::removeRule(incrementType inc) {
+    std::remove_if(this->ruleContainer.begin(),
+	this->ruleContainer.end(),
+	[&] (RuleTuple& val) {
+	    if (std::get<2>(val) == inc) {
+		return true;
+	    }
+	    return false;
+	});
 }

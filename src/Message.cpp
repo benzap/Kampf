@@ -66,6 +66,8 @@ stringType Message::getTypeString() {
 	return "DRAG_DROP";
     case enumMessageType::CUSTOM:
 	return "CUSTOM";
+    case enumMessageType::TIMER:
+	return "TIMER";
     default:
 	return "NONE";
     }
@@ -149,6 +151,9 @@ void Message::setTypeString(stringType typeString) {
     }
     else if (typeString == "CUSTOM") {
 	this->setType(enumMessageType::CUSTOM);
+    }
+    else if (typeString == "TIMER") {
+	this->setType(enumMessageType::TIMER);
     }
     else {
 	this->setType(enumMessageType::NONE);
