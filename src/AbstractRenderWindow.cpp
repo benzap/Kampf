@@ -10,11 +10,12 @@ AbstractRenderWindow::~AbstractRenderWindow() {
 }
 
 const std::vector<int> AbstractRenderWindow::getWindowSize() {
-    
+    //not implemented
+    return {0, 0};
 }
 
 void AbstractRenderWindow::setWindowSize(floatType w, floatType h) {
-    
+    //not implemented
 }
 
 const Viewport* AbstractRenderWindow::getViewport() {

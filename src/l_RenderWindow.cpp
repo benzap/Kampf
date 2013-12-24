@@ -32,6 +32,9 @@ void lua_pushrenderwindow(lua_State *L) {
     if (lua_hasRenderWindow(L)) {
 	renderwindow = lua_getRenderWindow(L);
     }
+    else {
+	luaL_error(L, "Render window hasn't been initialized");
+    }
 
     RenderWindow** rulePtr = static_cast<RenderWindow**>
 	(lua_newuserdata(L, sizeof(RenderWindow*)));
@@ -74,31 +77,94 @@ static int l_RenderWindow_isrenderwindow(lua_State *L) {
 
 static int l_RenderWindow_getWindowSize(lua_State *L) {
     auto renderWindow = lua_torenderwindow(L, 1);
-    return 0;
+    auto windowSize = renderWindow->getWindowSize();
+    lua_createtable(L, 2, 0);
+    lua_pushinteger(L, windowSize[0]);
+    lua_rawseti(L, -2, 1);
+
+    lua_pushinteger(L, windowSize[1]);
+    lua_rawseti(L, -2, 2);
+    
+    return 1;
 }
 
 static int l_RenderWindow_setWindowSize(lua_State *L) {
     auto renderWindow = lua_torenderwindow(L, 1);
+    integerType width = luaL_checkint(L, 2);
+    integerType height = luaL_checkint(L, 3);
+    renderWindow->setWindowSize(width, height);
     return 0;
 }
 
 static int l_RenderWindow_getViewport(lua_State *L) {
     auto renderWindow = lua_torenderwindow(L, 1);
-    return 0;
+    auto viewport = renderWindow->getViewport();
+    lua_createtable(L, 0, 4);
+    //width and height
+    lua_pushinteger(L, viewport->w);
+    lua_setfield(L, -2, "w");
+
+    lua_pushinteger(L, viewport->h);
+    lua_setfield(L, -2, "h");
+
+    //x, y offsets
+    lua_pushinteger(L, viewport->x);
+    lua_setfield(L, -2, "x");
+    
+    lua_pushinteger(L, viewport->y);
+    lua_setfield(L, -2, "y");
+
+    return 1;
 }
 
 static int l_RenderWindow_setViewport(lua_State *L) {
     auto renderWindow = lua_torenderwindow(L, 1);
+    if (lua_istable(L, 2)) {
+	//x offset
+	lua_getfield(L, -1, "x");
+	integerType xOffset = luaL_checkint(L, -1);
+	lua_pop(L, 1);
+
+	//y offset
+	lua_getfield(L, -1, "y");
+	integerType yOffset = luaL_checkint(L, -1);
+	lua_pop(L, 1);
+
+	//width value
+	lua_getfield(L, -1, "w");
+	integerType width = luaL_checkint(L, -1);
+	lua_pop(L, 1);
+
+	//height value
+	lua_getfield(L, -1, "h");
+	integerType height = luaL_checkint(L, -1);
+	lua_pop(L, 1);
+
+	renderWindow->setViewport(xOffset, yOffset,
+				  width, height);
+    }
+    else {
+	luaL_error(L, "setViewport function takes a table as it's second argument.");
+    }
     return 0;
 }
 
 static int l_RenderWindow_getResolution(lua_State *L) {
     auto renderWindow = lua_torenderwindow(L, 1);
-    return 0;
+    auto resolution = renderWindow->getResolution();
+    lua_createtable(L, 2, 0);
+    lua_pushinteger(L, resolution->w);
+    lua_rawseti(L, -2, 1);
+    lua_pushinteger(L, resolution->h);
+    lua_rawseti(L, -2, 2);
+    return 1;
 }
 
 static int l_RenderWindow_setResolution(lua_State *L) {
     auto renderWindow = lua_torenderwindow(L, 1);
+    integerType width = luaL_checkint(L, 2);
+    integerType height = luaL_checkint(L, 3);
+    renderWindow->setResolution(width, height);
     return 0;
 }
 
@@ -128,8 +194,6 @@ int luaopen_renderwindow(lua_State *L, RenderWindow* renderwindow) {
     luaL_register(L, NULL, l_renderwindow);
 
     luaL_register(L, KF_LUA_LIBNAME, l_renderwindow_kampf);
-
-    //LOL DERP
     lua_registerRenderWindow(L, renderwindow);
 
     return 1;

@@ -46,6 +46,11 @@ static int l_kampf_getRuleMachine(lua_State *L) {
     return 1;
 }
 
+static int l_kampf_getRenderWindow(lua_State *L) {
+    lua_pushrenderwindow(L);
+    return 1;
+}
+
 static int l_kampf_addSystem(lua_State *L) {
     return 0;
 }
@@ -60,6 +65,7 @@ static const struct luaL_Reg l_kampf [] = {
     {"runMainLoop", l_kampf_runMainLoop},
     {"getMessenger", l_kampf_getMessenger},
     {"getRuleMachine", l_kampf_getRuleMachine},
+    {"getRenderWindow", l_kampf_getRenderWindow},
     {"addSystem", l_kampf_addSystem},
     {"getTick", l_kampf_getTick},
     {NULL, NULL}

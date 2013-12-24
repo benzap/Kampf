@@ -65,7 +65,9 @@ void SDLRenderWindow::setPosition(int xPosition, int yPosition) {
 }
 
 void SDLRenderWindow::setTitle(stringType title) {
-  this->windowTitle = title;
+    SDL_SetWindowTitle(this->window,
+		       title.c_str());
+    this->windowTitle = title;
 }
 
 SDL_Window* SDLRenderWindow::getWindow() {
@@ -74,4 +76,16 @@ SDL_Window* SDLRenderWindow::getWindow() {
 
 SDL_Renderer* SDLRenderWindow::getRenderer() {
     return this->renderer;
+}
+
+const std::vector<int> SDLRenderWindow::getWindowSize() {
+    int width, height;
+    SDL_GetWindowSize(this->window,
+		      &width, &height);
+    std::vector<int> windowSize = {width, height};
+    return windowSize;
+}
+
+void SDLRenderWindow::setWindowSize(floatType w, floatType h) {
+    SDL_SetWindowSize(this->window, (int) w, (int) h);
 }

@@ -20,4 +20,8 @@ assetManager:addBMP("pacman", "./assets/pacman.bmp")
 local entityManager = kf.EntityManager()
 entityManager:addEntity(pacman)
 
+local renderWindow = kf.getRenderWindow()
+renderWindow:setWindowSize(200, 200);
+
 kf.runMainLoop(5000)
+
