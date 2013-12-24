@@ -46,7 +46,9 @@ Kampf::Kampf(enumInitType initType,
     if (initType == enumInitType::Basic || initType == enumInitType::Manual) {
 	if (windowType == enumWindowType::SDL) {
 	    this->windowContext = new SDLRenderWindow();
-      
+	    //this is when we can register our render window in lua
+	    lua_registerRenderWindow(lua->getState(), this->windowContext);
+
 	    auto sdlContext = static_cast<SDLRenderWindow*> (this->windowContext);
       
 	    //TODO: grab from configuration file

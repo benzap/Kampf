@@ -16,6 +16,7 @@ const std::vector<int> AbstractRenderWindow::getWindowSize() {
 
 void AbstractRenderWindow::setWindowSize(floatType w, floatType h) {
     //not implemented
+    std::cout << "Abstract: setWindowSize not implemented" << std::endl;
 }
 
 const Viewport* AbstractRenderWindow::getViewport() {
@@ -41,6 +42,7 @@ const Resolution* AbstractRenderWindow::getResolution() {
 }
 
 void AbstractRenderWindow::setResolution(floatType w, floatType h) {
+    std::cout << "set resolution" << std::endl;
     this->resolution.w = w;
     this->resolution.h = h;
 }

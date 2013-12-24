@@ -81,8 +81,8 @@ public:
     SDL_Window* getWindow();
     SDL_Renderer* getRenderer();
 
-    const std::vector<int> getWindowSize();
-    void setWindowSize(floatType w, floatType h);
+    virtual const std::vector<int> getWindowSize();
+    virtual void setWindowSize(floatType w, floatType h);
 };
 
 #endif //END SDLRENDERWINDOW__HPP

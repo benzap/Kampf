@@ -21,7 +21,7 @@ local entityManager = kf.EntityManager()
 entityManager:addEntity(pacman)
 
 local renderWindow = kf.getRenderWindow()
-renderWindow:setWindowSize(200, 200);
-
+--renderWindow:setWindowSize(800, 600)
+renderWindow:setResolution(200, 200)
 kf.runMainLoop(5000)
 

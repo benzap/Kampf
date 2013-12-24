@@ -43,6 +43,9 @@ LuaScript::LuaScript(Kampf* kf) {
     luaopen_rulemachine(L, kf->getRuleMachine());
     luaopen_renderwindow(L, kf->getWindowContext());
   }
+  else {
+      std::cout << "Kampf not initialized, some functionality will not be available" << std::endl;
+  }
 
   //hard coding the packages path to the current directory
   this->clearPath();

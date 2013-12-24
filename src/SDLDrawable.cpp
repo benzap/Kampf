@@ -49,12 +49,13 @@ int SDLDrawable::draw(Vector3 position,
     auto textureHeight = sourceRectangle->h;
 
     SDL_Rect outputRect;
-    outputRect.x = position.x - viewport->x;
-    outputRect.y = position.y - viewport->y;
-    outputRect.w = textureWidth * resolution->w / width * 
-	viewport->w / resolution->w;
-    outputRect.h = textureHeight * resolution->h / height *
-	viewport->h / resolution->h;
+
+    outputRect.x = (position.x - viewport->x) * (floatType) width / resolution->w * (floatType) viewport->w / width;
+    outputRect.y = (position.y - viewport->y) * (floatType) height / resolution->h * (floatType) viewport->h / height;
+    outputRect.w = textureWidth * (floatType) width / resolution->w * 
+	viewport->w / width;
+    outputRect.h = textureHeight * (floatType) height / resolution->h *
+	viewport->h / height;
 
     std::cout << "Drawing:" << std::endl;
     std::cout << "outputrect:" << outputRect.x << " ";

@@ -87,5 +87,6 @@ const std::vector<int> SDLRenderWindow::getWindowSize() {
 }
 
 void SDLRenderWindow::setWindowSize(floatType w, floatType h) {
+    std::cout << "set new window size" << std::endl;
     SDL_SetWindowSize(this->window, (int) w, (int) h);
 }

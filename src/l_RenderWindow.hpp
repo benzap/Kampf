@@ -26,7 +26,7 @@
 //FUNCTIONS
 
 //places the renderwindow within the lua registry
-void lua_registerRenderwindow(lua_State *L, RenderWindow* renderwindow);
+void lua_registerRenderWindow(lua_State *L, RenderWindow* renderwindow);
 //checks if the registry has a copy of the renderwindow
 boolType lua_hasRenderWindow(lua_State *L);
 //gets the renderwindow from the registry

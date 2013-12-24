@@ -72,8 +72,8 @@ public:
     virtual boolType clear() = 0;
 
     //get the actual window's dimensions
-    const std::vector<int> getWindowSize();
-    void setWindowSize(floatType w, floatType h);
+    virtual const std::vector<int> getWindowSize();
+    virtual void setWindowSize(floatType w, floatType h);
 
     //get the current viewport
     const Viewport* getViewport();
