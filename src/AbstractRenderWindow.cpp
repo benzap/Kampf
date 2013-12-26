@@ -46,3 +46,13 @@ void AbstractRenderWindow::setResolution(floatType w, floatType h) {
     this->resolution.w = w;
     this->resolution.h = h;
 }
+
+floatType AbstractRenderWindow::getScaledWidthFactor() {
+    std::cout << "Not Implemented: AbstractRenderWindow::getScaledWidthFactor" << std::endl;
+    return 0;
+}
+
+floatType AbstractRenderWindow::getScaledHeightFactor() {
+    std::cout << "Not Implemented: AbstractRenderWindow::getScaledHeightFactor" << std::endl;
+    return 0;
+}

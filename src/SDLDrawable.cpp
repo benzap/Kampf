@@ -37,32 +37,27 @@ SDLDrawable::~SDLDrawable() {
 int SDLDrawable::draw(Vector3 position, 
 		      Quaternion orientation) {
 
-    //need to fit our drawing to the preferred resolution
-    auto viewport = this->windowContext->getViewport();
-    auto resolution = this->windowContext->getResolution();
+
     
-    int width, height;
-    SDL_GetWindowSize(windowContext->getWindow(),
-		      &width, &height);    
+    auto viewport = this->windowContext->getViewport();
+    floatType widthFactor = this->windowContext->getScaledWidthFactor();
+    floatType heightFactor = this->windowContext->getScaledHeightFactor();
+    
+    
 
     auto textureWidth = sourceRectangle->w;
     auto textureHeight = sourceRectangle->h;
 
     SDL_Rect outputRect;
+    outputRect.x = (position.x - viewport->x) * widthFactor;
+    outputRect.y = (position.y - viewport->y) * heightFactor;
+    outputRect.w = textureWidth * widthFactor;
+    outputRect.h = textureHeight * heightFactor;
 
-    outputRect.x = (position.x - viewport->x) * (floatType) width / resolution->w * (floatType) viewport->w / width;
-    outputRect.y = (position.y - viewport->y) * (floatType) height / resolution->h * (floatType) viewport->h / height;
-    outputRect.w = textureWidth * (floatType) width / resolution->w * 
-	viewport->w / width;
-    outputRect.h = textureHeight * (floatType) height / resolution->h *
-	viewport->h / height;
-
-    std::cout << "Drawing:" << std::endl;
     std::cout << "outputrect:" << outputRect.x << " ";
     std::cout << outputRect.y << " ";
     std::cout << outputRect.w << " ";
-    std::cout << outputRect.h << std::endl;
-	
+    std::cout << outputRect.h << std::endl;	
 
     SDL_RenderCopy(windowContext->getRenderer(),
 		   texture, 

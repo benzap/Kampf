@@ -85,5 +85,9 @@ public:
 
     const Resolution* getResolution();
     void setResolution(floatType w, floatType h);
+
+    virtual floatType getScaledWidthFactor();
+    virtual floatType getScaledHeightFactor();
+
 };
 #endif //END ABSTRACTRENDERWINDOW__HPP

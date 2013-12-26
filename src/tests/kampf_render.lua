@@ -8,7 +8,7 @@ function createPacman()
 	entity:addComponent(graphicsComponent)
 
 	graphicsComponent:setDrawableKey("pacman")
-	physicsComponent:setPosition(kf.Vector3(100, 100, 0))
+	physicsComponent:setPosition(kf.Vector3(0, 0, 0))
 
 	return entity
 end
@@ -21,8 +21,14 @@ local entityManager = kf.EntityManager()
 entityManager:addEntity(pacman)
 
 local renderWindow = kf.getRenderWindow()
---renderWindow:setWindowSize(800, 600)
-renderWindow:setResolution(800, 600)
+renderWindow:setWindowSize(1000, 800)
+renderWindow:setResolution(200, 200)
+renderWindow:setViewport{
+	x = 0,
+	y = 0,
+	w = 200,
+	h = 200,
+}
 
 local ruleMachine = kf.getRuleMachine()
 print(ruleMachine)
@@ -42,7 +48,7 @@ function ruleFunc(msg)
 	phys:setPosition(kf.Vector3(xPosition-50, yPosition-50, 0))
 end
 
-ruleMachine.addRule(ruleCond, ruleFunc)
+--ruleMachine.addRule(ruleCond, ruleFunc)
 
 
 kf.runMainLoop(20000)

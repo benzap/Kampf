@@ -83,6 +83,14 @@ public:
 
     virtual const std::vector<int> getWindowSize();
     virtual void setWindowSize(floatType w, floatType h);
+
+    //deals with providing the right scaling factor, taking into
+    //account the current resolution, window size, and viewport width
+    //and height
+    virtual floatType getScaledWidthFactor();
+    virtual floatType getScaledHeightFactor();
+
+
 };
 
 #endif //END SDLRENDERWINDOW__HPP

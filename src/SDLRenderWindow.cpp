@@ -90,3 +90,41 @@ void SDLRenderWindow::setWindowSize(floatType w, floatType h) {
     std::cout << "set new window size" << std::endl;
     SDL_SetWindowSize(this->window, (int) w, (int) h);
 }
+
+floatType SDLRenderWindow::getScaledWidthFactor() {
+    int width, height;
+    SDL_GetWindowSize(window,
+		      &width, &height); 
+
+    //need to fit our drawing to the preferred resolution
+    auto viewport = this->getViewport();
+    auto resolution = this->getResolution();
+
+    auto result = 1;
+    result *= static_cast<floatType>(width);
+    result *= static_cast<floatType>(viewport->w);
+    result /= (resolution->w * resolution->w);
+    
+    std::cout << "width: " << result << std::endl;
+
+    return result;
+}
+
+floatType SDLRenderWindow::getScaledHeightFactor() {
+    int width, height;
+    SDL_GetWindowSize(this->window,
+		      &width, &height); 
+
+    //need to fit our drawing to the preferred resolution
+    auto viewport = this->getViewport();
+    auto resolution = this->getResolution();
+
+    auto result = 1;
+    result *= (floatType) height;
+    result *= (floatType) viewport->h;
+    result /= (resolution->h * resolution->h);
+    
+    std::cout << "height: " << result << std::endl;
+
+    return result;
+}
