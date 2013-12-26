@@ -105,8 +105,6 @@ floatType SDLRenderWindow::getScaledWidthFactor() {
     result *= static_cast<floatType>(viewport->w);
     result /= (resolution->w * resolution->w);
     
-    std::cout << "width: " << result << std::endl;
-
     return result;
 }
 
@@ -123,8 +121,6 @@ floatType SDLRenderWindow::getScaledHeightFactor() {
     result *= (floatType) height;
     result *= (floatType) viewport->h;
     result /= (resolution->h * resolution->h);
-    
-    std::cout << "height: " << result << std::endl;
 
     return result;
 }

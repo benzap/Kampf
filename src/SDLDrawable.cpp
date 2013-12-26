@@ -54,10 +54,10 @@ int SDLDrawable::draw(Vector3 position,
     outputRect.w = textureWidth * widthFactor;
     outputRect.h = textureHeight * heightFactor;
 
-    std::cout << "outputrect:" << outputRect.x << " ";
-    std::cout << outputRect.y << " ";
-    std::cout << outputRect.w << " ";
-    std::cout << outputRect.h << std::endl;	
+    // std::cout << "outputrect:" << outputRect.x << " ";
+    // std::cout << outputRect.y << " ";
+    // std::cout << outputRect.w << " ";
+    // std::cout << outputRect.h << std::endl;	
 
     SDL_RenderCopy(windowContext->getRenderer(),
 		   texture, 

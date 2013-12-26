@@ -24,14 +24,13 @@ local renderWindow = kf.getRenderWindow()
 renderWindow:setWindowSize(1000, 800)
 renderWindow:setResolution(200, 200)
 renderWindow:setViewport{
-	x = 0,
+	x = 100,
 	y = 0,
 	w = 200,
 	h = 200,
 }
 
 local ruleMachine = kf.getRuleMachine()
-print(ruleMachine)
 
 function ruleCond(msg)
 	if msg:getType() == "MOUSE_MOVE" then
@@ -41,14 +40,17 @@ function ruleCond(msg)
 end
 
 function ruleFunc(msg)
-	local xPosition = msg:get("x"):get()
-	local yPosition = msg:get("y"):get()
+
+	local scaleFactor = renderWindow:getScaleFactor();
+
+	local xPosition = msg:get("x"):get() / scaleFactor[1]
+	local yPosition = msg:get("y"):get() / scaleFactor[2]
 	
 	local phys = pacman:getComponentsByFamily("PHYSICS")[1]
 	phys:setPosition(kf.Vector3(xPosition-50, yPosition-50, 0))
 end
 
---ruleMachine.addRule(ruleCond, ruleFunc)
+ruleMachine.addRule(ruleCond, ruleFunc)
 
 
 kf.runMainLoop(20000)

@@ -168,6 +168,19 @@ static int l_RenderWindow_setResolution(lua_State *L) {
     return 0;
 }
 
+static int l_RenderWindow_getScaleFactor(lua_State *L) {
+    auto renderWindow = lua_torenderwindow(L, 1);
+    floatType widthFactor = renderWindow->getScaledWidthFactor();
+    floatType heightFactor = renderWindow->getScaledHeightFactor();
+    lua_createtable(L, 2, 0);
+    lua_pushnumber(L, widthFactor);
+    lua_rawseti(L, -2, 1);
+    lua_pushnumber(L, heightFactor);
+    lua_rawseti(L, -2, 2);
+
+    return 1;
+}
+
 //kf module registered functions
 static const struct luaL_Reg l_renderwindow_kampf [] = {
     {"isRenderWindow", l_RenderWindow_isrenderwindow},
@@ -182,6 +195,7 @@ static const struct luaL_Reg l_renderwindow [] = {
     {"setViewport", l_RenderWindow_setViewport},
     {"getResolution", l_RenderWindow_getResolution},
     {"setResolution", l_RenderWindow_setResolution},
+    {"getScaleFactor", l_RenderWindow_getScaleFactor},
     {NULL, NULL}
 };
 
