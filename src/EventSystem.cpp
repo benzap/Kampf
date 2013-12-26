@@ -94,6 +94,16 @@ void EventSystem::createMessages() {
     else if (event.type == SDL_MOUSEMOTION) {
 	msg = messenger->appendMessage();
 	msg->setType(enumMessageType::EVENT_MOUSE_MOVE);
+
+	floatType xPosition = event.motion.x;
+	floatType yPosition = event.motion.y;
+	msg->customData["x"] = CustomAttribute(xPosition);
+	msg->customData["y"] = CustomAttribute(yPosition);
+
+	floatType xRelative = event.motion.xrel;
+	floatType yRelative = event.motion.yrel;
+	msg->customData["xrel"] = CustomAttribute(xRelative);
+	msg->customData["yrel"] = CustomAttribute(yRelative);
     }
 
     else if (event.type == SDL_MOUSEBUTTONDOWN) {

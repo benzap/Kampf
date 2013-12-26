@@ -27,6 +27,12 @@ class CollisionComponent;
 
 //TYPEDEFS
 
+//ENUM
+enum class enumCollisionType {
+    CIRCLE,
+    SQUARE,
+};
+
 //FUNCTIONS
 
 //BEGIN

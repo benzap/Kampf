@@ -9,7 +9,7 @@
 class SDLAssetManager;
 
 //INCLUDES
-#include <unordered_map>
+#include <map>
 #include <map>
 #include <tuple>
 
@@ -26,7 +26,7 @@ class SDLAssetManager;
 #define FULL_ASSET NULL
 
 //TYPEDEFS
-typedef std::unordered_map<stringType, SDLDrawable> textureContainerType;
+typedef std::map<stringType, SDLDrawable> textureContainerType;
 
 //FUNCTIONS
 

@@ -22,6 +22,28 @@ entityManager:addEntity(pacman)
 
 local renderWindow = kf.getRenderWindow()
 --renderWindow:setWindowSize(800, 600)
-renderWindow:setResolution(200, 200)
-kf.runMainLoop(5000)
+renderWindow:setResolution(800, 600)
+
+local ruleMachine = kf.getRuleMachine()
+print(ruleMachine)
+
+function ruleCond(msg)
+	if msg:getType() == "MOUSE_MOVE" then
+		return true
+	end
+	return false
+end
+
+function ruleFunc(msg)
+	local xPosition = msg:get("x"):get()
+	local yPosition = msg:get("y"):get()
+	
+	local phys = pacman:getComponentsByFamily("PHYSICS")[1]
+	phys:setPosition(kf.Vector3(xPosition-50, yPosition-50, 0))
+end
+
+ruleMachine.addRule(ruleCond, ruleFunc)
+
+
+kf.runMainLoop(20000)
 
