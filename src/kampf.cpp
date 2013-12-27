@@ -72,6 +72,9 @@ Kampf::Kampf(enumInitType initType,
 		    enumRenderType::SDL);
 		this->addSystem(graphicsSystem);
 		
+		//Adding the collision system
+		auto collisionSystem = new CollisionSystem();
+		this->addSystem(collisionSystem);
 		
 	    }
 	} //END if (windowType == enumWindowType::SDL) {

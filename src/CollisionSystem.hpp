@@ -12,6 +12,8 @@ class CollisionSystem;
 
 //INCLUDES
 #include "AbstractSystem.hpp"
+#include "EntityManager.hpp"
+#include "CollisionComponent.hpp"
 
 //DEFINITIONS
 

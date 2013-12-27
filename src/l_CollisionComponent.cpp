@@ -1,8 +1,8 @@
 #include "l_CollisionComponent.hpp"
 
 CollisionComponent* lua_pushcollisionComponent(
-    lua_State *L,
-    CollisionComponent* collisioncomponent = nullptr) {
+					       lua_State *L,
+					       CollisionComponent* collisioncomponent = nullptr) {
     if (collisioncomponent == nullptr) {
 	std::cerr << "Warning: CollisionComponent - this will not work, nullptr" << std::endl;
 	collisioncomponent = new CollisionComponent("");
@@ -44,8 +44,8 @@ static int l_CollisionComponent_CollisionComponent(lua_State *L) {
     boolType isParent = lua_toboolean(L, 2);
 
     auto component = new CollisionComponent(
-	componentName,
-	!isParent);
+					    componentName,
+					    !isParent);
 
     lua_pushcollisionComponent(L, component);
     return 1;
@@ -88,11 +88,108 @@ static int l_CollisionComponent_createChild(lua_State *L) {
     return 1;
 }
 
+static int l_CollisionComponent_setType(lua_State *L) {
+    auto component = lua_tocomponent(L, 1);
+    auto collisionComponent = static_cast<CollisionComponent*>
+	(component);
+    stringType typeString = luaL_checkstring(L, 2);
+    collisionComponent->setCollisionTypeString(typeString);
+    return 0;
+}
+
+static int l_CollisionComponent_getType(lua_State *L) {
+    auto component = lua_tocomponent(L, 1);
+    auto collisionComponent = static_cast<CollisionComponent*>
+	(component);\
+    auto typeString = collisionComponent->getCollisionTypeString();
+    lua_pushstring(L, typeString.c_str());
+    return 1;
+}
+
+static int l_CollisionComponent_setRadius(lua_State *L) {
+    auto component = lua_tocomponent(L, 1);
+    auto collisionComponent = static_cast<CollisionComponent*>
+	(component);
+    floatType floatValue = luaL_checknumber(L, 2);
+    collisionComponent->setRadius(floatValue);
+    return 0;
+}
+
+static int l_CollisionComponent_getRadius(lua_State *L) {
+    auto component = lua_tocomponent(L, 1);
+    auto collisionComponent = static_cast<CollisionComponent*>
+	(component);
+    floatType floatValue = collisionComponent->getRadius();
+    lua_pushnumber(L, floatValue);
+    return 1;
+}
+
+static int l_CollisionComponent_setWidth(lua_State *L) {
+    auto component = lua_tocomponent(L, 1);
+    auto collisionComponent = static_cast<CollisionComponent*>
+	(component);
+    floatType floatValue = luaL_checknumber(L, 2);
+    collisionComponent->setWidth(floatValue);
+    return 0;
+}
+
+static int l_CollisionComponent_getWidth(lua_State *L) {
+    auto component = lua_tocomponent(L, 1);
+    auto collisionComponent = static_cast<CollisionComponent*>
+	(component);
+    floatType floatValue = collisionComponent->getWidth();
+    lua_pushnumber(L, floatValue);
+    return 1;
+}
+
+static int l_CollisionComponent_setHeight(lua_State *L) {
+    auto component = lua_tocomponent(L, 1);
+    auto collisionComponent = static_cast<CollisionComponent*>
+	(component);
+    floatType floatValue = luaL_checknumber(L, 2);
+    collisionComponent->setHeight(floatValue);
+    return 0;
+}
+
+static int l_CollisionComponent_getHeight(lua_State *L) {
+    auto component = lua_tocomponent(L, 1);
+    auto collisionComponent = static_cast<CollisionComponent*>
+	(component);
+    floatType floatValue = collisionComponent->getHeight();
+    lua_pushnumber(L, floatValue);
+    return 0;
+}
+
+static int l_CollisionComponent_setVectorList(lua_State *L) {
+    auto component = lua_tocomponent(L, 1);
+    auto collisionComponent = static_cast<CollisionComponent*>
+	(component);
+    return 0;
+}
+
+static int l_CollisionComponent_getVectorList(lua_State *L) {
+    auto component = lua_tocomponent(L, 1);
+    auto collisionComponent = static_cast<CollisionComponent*>
+	(component);
+    return 0;
+}
+
+
 static const struct luaL_Reg l_CollisionComponent [] = {
     {"__gc", l_CollisionComponent_gc},
     {"__tostring", l_CollisionComponent_tostring},
     {"getFamily", l_CollisionComponent_getFamily},
     {"createChild", l_CollisionComponent_createChild},
+    {"setType", l_CollisionComponent_setType},
+    {"getType", l_CollisionComponent_getType},
+    {"setRadius", l_CollisionComponent_setRadius},
+    {"getRadius", l_CollisionComponent_getRadius},
+    {"setWidth", l_CollisionComponent_setWidth},
+    {"getWidth", l_CollisionComponent_getWidth},
+    {"setHeight", l_CollisionComponent_setHeight},
+    {"getHeight", l_CollisionComponent_getHeight},
+    {"setVectorList", l_CollisionComponent_setVectorList},
+    {"getVectorList", l_CollisionComponent_getVectorList},
     {NULL, NULL}
 };
 

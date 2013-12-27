@@ -2,13 +2,17 @@ require "utils"
 
 function createPacman()
 	local entity = kf.Entity("pacman")
+
 	local physicsComponent = kf.PhysicsComponent("physical")
 	entity:addComponent(physicsComponent)
+	physicsComponent:setPosition(kf.Vector3(0, 0, 0))
+
 	local graphicsComponent = kf.GraphicsComponent("graphical")
 	entity:addComponent(graphicsComponent)
-
 	graphicsComponent:setDrawableKey("pacman")
-	physicsComponent:setPosition(kf.Vector3(0, 0, 0))
+
+	local collisionComponent = kf.CollisionComponent("collidable")
+	entity:addComponent(collisionComponent)
 
 	return entity
 end
@@ -21,10 +25,10 @@ local entityManager = kf.EntityManager()
 entityManager:addEntity(pacman)
 
 local renderWindow = kf.getRenderWindow()
-renderWindow:setWindowSize(1000, 800)
+renderWindow:setWindowSize(1000, 600)
 renderWindow:setResolution(200, 200)
 renderWindow:setViewport{
-	x = 100,
+	x = 0,
 	y = 0,
 	w = 200,
 	h = 200,
