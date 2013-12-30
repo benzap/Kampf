@@ -9,6 +9,12 @@
 //CLASSES
 class AbstractEntity;
 
+//DEFINITIONS
+
+//provided within the id field of an entity, will generate an ID
+#define GENERATE_ID 0
+#define ENTITY_ABSTRACT_TYPE "ABSTRACT"
+
 //INCLUDES
 #include <iostream>
 #include <memory>
@@ -16,12 +22,6 @@ class AbstractEntity;
 #include "KF_globals.hpp"
 #include "KF_utilities.hpp"
 #include "Components.hpp"
-
-//DEFINITIONS
-
-//provided within the id field of an entity, will generate an ID
-#define GENERATE_ID 0
-#define ENTITY_ABSTRACT_TYPE "ABSTRACT"
 
 //MACROS
 

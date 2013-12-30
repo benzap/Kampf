@@ -13,8 +13,6 @@
 #include "AbstractEntity.hpp"
 #include "MainEntity.hpp"
 
-#include "EntityManager.hpp"
-
 //CLASSES
 
 //DEFINITIONS

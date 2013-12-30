@@ -5,6 +5,9 @@
   component which holds information on the effects of physics on the object
 */
 
+//CLASSES
+class PhysicsComponent;
+
 //INCLUDES
 #include "KF_globals.hpp"
 #include "KF_utilities.hpp"
@@ -12,8 +15,6 @@
 
 
 #include "AbstractComponent.hpp"
-//CLASSES
-class PhysicsComponent;
 
 //DEFINITIONS
 

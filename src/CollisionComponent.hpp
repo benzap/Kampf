@@ -13,16 +13,16 @@
 
 */
 
+//CLASSES
+class CollisionComponent;
+
 //INCLUDES
 #include "KF_globals.hpp"
 #include "KF_utilities.hpp"
 #include "KF_math.hpp"
 #include "AbstractComponent.hpp"
-#include "EntityManager.hpp"
 #include "PhysicsComponent.hpp"
 
-//CLASSES
-class CollisionComponent;
 //DEFINITIONS
 
 //MACROS
