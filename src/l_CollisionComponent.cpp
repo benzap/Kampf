@@ -157,13 +157,28 @@ static int l_CollisionComponent_getHeight(lua_State *L) {
 	(component);
     floatType floatValue = collisionComponent->getHeight();
     lua_pushnumber(L, floatValue);
-    return 0;
+    return 1;
 }
 
 static int l_CollisionComponent_setVectorList(lua_State *L) {
     auto component = lua_tocomponent(L, 1);
     auto collisionComponent = static_cast<CollisionComponent*>
 	(component);
+
+    if (!lua_istable(L, 2)) {
+	luaL_error(L, "2nd argument must be a table of kf.Vector3's");
+    }
+
+    integerType tableLength = lua_objlen(L, 2);
+    std::vector<Vector3> vectorList;
+    for (int i = 0; i < tableLength; i++) {
+	lua_rawgeti(L, 2, i+1);
+	auto vector = lua_tovector(L, -1);
+	vectorList.push_back(*vector);
+    }
+
+    collisionComponent->setVectorList(vectorList);
+
     return 0;
 }
 
@@ -171,7 +186,15 @@ static int l_CollisionComponent_getVectorList(lua_State *L) {
     auto component = lua_tocomponent(L, 1);
     auto collisionComponent = static_cast<CollisionComponent*>
 	(component);
-    return 0;
+    auto vectorList = collisionComponent->getVectorList();
+    lua_createtable(L, vectorList.size(), 0);
+    for(int i = 0; i < vectorList.size(); i++) {
+	auto vector = new Vector3(vectorList[i]);
+	lua_pushvector(L, vector);
+	lua_rawseti(L, -2, i+1);
+    }
+    
+    return 1;
 }
 
 

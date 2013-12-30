@@ -80,5 +80,47 @@ test_case(
 		--lets get the child from our children list
 		test_assert("children", component:children()[1]:getName() == "sibling")		
 
+		-- collision component specifics
+
+		--testing defaults
+		test_assert("getType", component:getType() == "NONE")
+		
+		--setType (CIRCLE)
+		component:setType("CIRCLE")
+		test_assert("setType", component:getType() == "CIRCLE")
+
+		--setRadius / getRadius
+		component:setRadius(10)
+		test_assert("setRadius - getRadius", component:getRadius() == 10)
+
+		--setWidth / getWidth
+		component:setWidth(5)
+		test_assert("setWidth - getWidth", component:getWidth() == 5)
+
+		--setHeight / getHeight
+		component:setHeight(3)
+		test_assert("setHeight - getHeight", component:getHeight() == 3)
+
+		local v3 = kf.Vector3
+		component:setVectorList{
+			v3(0,0,0),
+			v3(0,1,0),
+			v3(1,0,0),
+			v3(1,1,0)
+		}
+
+		local vecList = {
+			v3(0,0,0),
+			v3(0,1,0),
+			v3(1,0,0),
+			v3(1,1,0)
+		}
+
+		local compList = component:getVectorList()
+		
+		for i = 1,#vecList do
+			test_assert("comparison veclist - " .. i, vecList[i] == compList[i])
+		end
+		
 
 end)
