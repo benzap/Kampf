@@ -16,6 +16,38 @@ AbstractComponent* CollisionComponent::createChild(stringType name) {
     return component;
 }
 
+void CollisionComponent::setPhysicsRelation(PhysicsComponent* phys) {
+    this->physicsRelation = phys;
+}
+
+PhysicsComponent* CollisionComponent::getPhysicsRelation() {
+    return this->physicsRelation;
+}
+
+void CollisionComponent::setOffset(Vector3 offset) {
+    this->offset = offset;
+}
+
+const Vector3& CollisionComponent::getOffset() {
+    return this->offset;
+}
+    
+void CollisionComponent::setOrigin(Vector3 origin) {
+    this->origin = origin;
+}
+
+const Vector3& CollisionComponent::getOrigin() {
+    return this->origin;
+}
+
+void CollisionComponent::setOrientation(Quaternion orientation) {
+    this->orientation = orientation;
+}
+
+Quaternion CollisionComponent::getOrientation() {
+    return this->orientation;
+}
+
 void CollisionComponent::setCollisionType(
     enumCollisionType collisionType) {
     this->collisionType = collisionType;

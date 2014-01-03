@@ -75,6 +75,18 @@ public:
     virtual ~CollisionComponent();
     virtual AbstractComponent* createChild(stringType name);
 
+    void setPhysicsRelation(PhysicsComponent*);
+    PhysicsComponent* getPhysicsRelation();
+
+    void setOffset(Vector3);
+    const Vector3& getOffset();
+    
+    void setOrigin(Vector3);
+    const Vector3& getOrigin();
+
+    void setOrientation(Quaternion);
+    Quaternion getOrientation();
+
     void setCollisionType(enumCollisionType);
     enumCollisionType getCollisionType();
 

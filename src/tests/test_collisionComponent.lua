@@ -78,7 +78,29 @@ test_case(
 
 		local children = component:children()
 		--lets get the child from our children list
-		test_assert("children", component:children()[1]:getName() == "sibling")		
+		test_assert("children",
+					component:children()[1]:getName() == "sibling")		
+
+
+		-- collision bounds
+
+		--setOffset / getOffset
+		component:setOffset(kf.Vector3(1,2,3))
+		test_assert("setOffset - getOffset",
+					component:getOffset() == kf.Vector3(1,2,3))
+
+		--setOrigin / getOrigin
+		component:setOrigin(kf.Vector3(1,1.1,1.3))
+		local origin = component:getOrigin()
+		test_assert("setOrigin - getOrigin",
+					origin == kf.Vector3(1,1.1,1.3))
+
+		--setOrientation / getOrientation
+		component:setOrientation(kf.Quaternion(1.1, 1.4, 1.2, 0))
+		local orientation = component:getOrientation()
+		test_assert("setOrientation - getOrientation",
+					orientation == kf.Quaternion(1.1, 1.4, 1.2, 0))
+
 
 		-- collision component specifics
 

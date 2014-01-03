@@ -88,6 +88,84 @@ static int l_CollisionComponent_createChild(lua_State *L) {
     return 1;
 }
 
+static int l_CollisionComponent_setPhysicsRelation(lua_State *L) {
+    auto component = lua_tocomponent(L, 1);
+    auto collisionComponent = static_cast<CollisionComponent*>
+	(component);
+    
+    //get the physics component
+    auto p_component = lua_tocomponent(L, 2);
+    auto physicsComponent = static_cast<PhysicsComponent*>
+	(p_component);
+    collisionComponent->setPhysicsRelation(physicsComponent);
+    return 0;
+}
+
+static int l_CollisionComponent_getPhysicsRelation(lua_State *L) {
+    auto component = lua_tocomponent(L, 1);
+    auto collisionComponent = static_cast<CollisionComponent*>
+	(component);
+
+    auto p_component = collisionComponent->getPhysicsRelation();
+    lua_pushphysicsComponent(L, p_component);
+    return 1;
+}
+
+static int l_CollisionComponent_setOffset(lua_State *L) {
+    auto component = lua_tocomponent(L, 1);
+    auto collisionComponent = static_cast<CollisionComponent*>
+	(component);
+    auto vector = lua_tovector(L, 2);
+    collisionComponent->setOffset(*vector);
+    return 0;
+}
+
+static int l_CollisionComponent_getOffset(lua_State *L) {
+    auto component = lua_tocomponent(L, 1);
+    auto collisionComponent = static_cast<CollisionComponent*>
+	(component);
+    auto vector = collisionComponent->getOffset();
+    lua_pushvector(L, new Vector3(vector));
+    return 1;
+}
+
+static int l_CollisionComponent_setOrigin(lua_State *L) {
+    auto component = lua_tocomponent(L, 1);
+    auto collisionComponent = static_cast<CollisionComponent*>
+	(component);
+    auto vector = lua_tovector(L, 2);
+    collisionComponent->setOrigin(*vector);
+    return 0;
+}
+
+static int l_CollisionComponent_getOrigin(lua_State *L) {
+    auto component = lua_tocomponent(L, 1);
+    auto collisionComponent = static_cast<CollisionComponent*>
+	(component);
+    auto vector = collisionComponent->getOrigin();
+    lua_pushvector(L, new Vector3(vector));
+    return 1;
+}
+
+static int l_CollisionComponent_setOrientation(lua_State *L) {
+    auto component = lua_tocomponent(L, 1);
+    auto collisionComponent = static_cast<CollisionComponent*>
+	(component);
+    auto quat = lua_toquaternion(L, 2);
+    collisionComponent->setOrientation(*quat);
+    return 0;
+}
+
+static int l_CollisionComponent_getOrientation(lua_State *L) {
+    auto component = lua_tocomponent(L, 1);
+    auto collisionComponent = static_cast<CollisionComponent*>
+	(component);
+    auto quat = collisionComponent->getOrientation();
+    lua_pushquaternion(L, new Quaternion(quat));
+    return 1;
+}
+
+
 static int l_CollisionComponent_setType(lua_State *L) {
     auto component = lua_tocomponent(L, 1);
     auto collisionComponent = static_cast<CollisionComponent*>
@@ -203,6 +281,14 @@ static const struct luaL_Reg l_CollisionComponent [] = {
     {"__tostring", l_CollisionComponent_tostring},
     {"getFamily", l_CollisionComponent_getFamily},
     {"createChild", l_CollisionComponent_createChild},
+    {"setPhysicsRelation", l_CollisionComponent_setPhysicsRelation},
+    {"getPhyiscsRelation", l_CollisionComponent_getPhysicsRelation},
+    {"setOffset", l_CollisionComponent_setOffset},
+    {"getOffset", l_CollisionComponent_getOffset},
+    {"setOrigin", l_CollisionComponent_setOrigin},
+    {"getOrigin", l_CollisionComponent_getOrigin},
+    {"setOrientation", l_CollisionComponent_setOrientation},
+    {"getOrientation", l_CollisionComponent_getOrientation},
     {"setType", l_CollisionComponent_setType},
     {"getType", l_CollisionComponent_getType},
     {"setRadius", l_CollisionComponent_setRadius},
