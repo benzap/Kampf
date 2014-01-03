@@ -28,11 +28,15 @@ class CollisionSystem : public AbstractSystem {
 private:
   
 public:
-  CollisionSystem();
-  virtual ~CollisionSystem();
-
-  void createMessages();
-  void process();
+    CollisionSystem();
+    virtual ~CollisionSystem();
+    
+    void createMessages();
+    void process();
+    boolType checkCollisions(Entity* firstEntity,
+			     CollisionComponent* firstColl,
+			     Entity* secondEntity,
+			     CollisionComponent* secondColl);
 };
 
 #endif //END COLLISIONSYSTEM__HPP

@@ -18,11 +18,14 @@ function createPacman()
 end
 
 local pacman = createPacman()
+local pacman2 = createPacman()
+
 local assetManager = kf.SDLAssetManager()
 assetManager:addBMP("pacman", "./assets/pacman.bmp")
 
 local entityManager = kf.EntityManager()
 entityManager:addEntity(pacman)
+entityManager:addEntity(pacman2)
 
 local renderWindow = kf.getRenderWindow()
 renderWindow:setWindowSize(1000, 600)

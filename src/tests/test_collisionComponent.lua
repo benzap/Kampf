@@ -114,7 +114,7 @@ test_case(
 		--setRadius / getRadius
 		component:setRadius(10)
 		test_assert("setRadius - getRadius", component:getRadius() == 10)
-
+ 
 		--setWidth / getWidth
 		component:setWidth(5)
 		test_assert("setWidth - getWidth", component:getWidth() == 5)
