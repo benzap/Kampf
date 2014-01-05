@@ -25,10 +25,15 @@ TESTS_DIRECTORY = ./tests
 #global hpp files
 GLOBAL_HPP= KF_globals.hpp KF_utilities.hpp KF_math.hpp
 
+#included directories considered for compiling
+INCLUDED_DIRS = ./collision
+
 #get all of the .cpp files and .hpp files
-HPP_FILES=$(wildcard *.hpp)
-CPP_FILES=$(wildcard *.cpp)
-OBJ_FILES=$(CPP_FILES:.cpp=.o)
+HPP_FILES = $(wildcard *.hpp)
+HPP_FILES += $(foreach dir,$(INCLUDED_DIRS),$(wildcard $(dir)/*.hpp))
+CPP_FILES = $(wildcard *.cpp)
+CPP_FILES += $(foreach dir,$(INCLUDED_DIRS),$(wildcard $(dir)/*.cpp))
+OBJ_FILES = $(CPP_FILES:.cpp=.o)
 
 LIBS = 
 ifeq ($(UNAME), Linux)
@@ -51,6 +56,9 @@ all: clean kampf tests
 %.o: %.cpp %.hpp $(GLOBAL_HPP)
 	$(CXX) $(CXXFLAGS) -o $@ -c $< $(LIBS_DIR) $(LIBS) 
 
+./collision/%.o: ./collision/%.cpp ./collision/%.hpp $(GLOBAL_HPP)
+	$(CXX) $(CXXFLAGS) -o $@ -c $< $(LIBS_DIR) $(LIBS) 
+
 libkampf.a: $(OBJ_FILES)
 	ar rcs $@ $(OBJ_FILES)
 	cp $@ $(OUTPUT_DIRECTORY)/
@@ -66,7 +74,7 @@ tests: libkampf.a libkampf.so
 	make -C $(TESTS_DIRECTORY)
 
 clean:
-	rm -f *.o
+	rm -f $(OBJ_FILES)
 	rm -f libkampf.a
 	rm -f libkampf.so
 	rm -f $(OUTPUT_DIRECTORY)/libkampf.a
