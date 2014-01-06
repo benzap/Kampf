@@ -21,6 +21,9 @@ class Kampf;
 #include "KF_utilities.hpp"
 #include "KF_math.hpp"
 
+//collision stuff
+#include "collision/KF_collision.hpp"
+
 //Main Packages
 #include "Components.hpp"
 #include "Entities.hpp"

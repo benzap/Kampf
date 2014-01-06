@@ -25,7 +25,8 @@ typedef struct COL_circle_struct {
 
 
 //FUNCTIONS
-boolType check_circle_circle(COL_circle, COL_circle);
+boolType check_circle_circle(const COL_circle&, const COL_circle&);
+Vector3 get_circle_circle_pt(const COL_circle&, const COL_circle&);
 
 //BEGIN
 
