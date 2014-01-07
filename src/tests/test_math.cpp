@@ -33,6 +33,30 @@ int main(int argc, char *argv[]) {
   TEST_EQUAL(added[1], 3, "added-y");
   TEST_EQUAL(added[2], 4, "added-z");
 
+  //compound add
+  v2 += v3;
+  TEST_EQUAL(v2[0], 2, "compound added-x");
+  TEST_EQUAL(v2[1], 3, "compound added-y");
+  TEST_EQUAL(v2[2], 4, "compound added-z");
+
+  v2 = Vector3(1,2,3);
+  v3 = Vector3(1,1,1);
+  
+  //subtracting vectors
+  auto subtracting = v2 - v3;
+  TEST_EQUAL(subtracting[0], 0, "subtract-x");
+  TEST_EQUAL(subtracting[1], 1, "subtract-y");
+  TEST_EQUAL(subtracting[2], 2, "subtract-z");
+
+  //compound subtract
+  v2 -= v3;
+  TEST_EQUAL(v2[0], 0, "compound subtracted-x");
+  TEST_EQUAL(v2[1], 1, "compound subtracted-y");
+  TEST_EQUAL(v2[2], 2, "compound subtracted-z");
+
+  v2 = Vector3(1,2,3);
+  v3 = Vector3(1,1,1);
+  
   //scalar with a vector
   auto scalarVec = v3 * 2;
   TEST_EQUAL(scalarVec[0], 2, "scalar-x");
