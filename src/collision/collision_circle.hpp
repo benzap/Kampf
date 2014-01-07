@@ -9,9 +9,15 @@
 //CLASSES
 
 //INCLUDES
+#if defined(KF_WIN)
+#include "../KF_globals.hpp"
+#include "../KF_utilities.hpp"
+#include "../KF_math.hpp"
+#else
 #include "KF_globals.hpp"
 #include "KF_utilities.hpp"
 #include "KF_math.hpp"
+#endif
 
 //DEFINITIONS
 
