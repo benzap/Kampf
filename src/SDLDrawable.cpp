@@ -37,14 +37,10 @@ SDLDrawable::~SDLDrawable() {
 int SDLDrawable::draw(Vector3 position, 
 		      Quaternion orientation) {
 
-
-    
     auto viewport = this->windowContext->getViewport();
     floatType widthFactor = this->windowContext->getScaledWidthFactor();
     floatType heightFactor = this->windowContext->getScaledHeightFactor();
     
-    
-
     auto textureWidth = sourceRectangle->w;
     auto textureHeight = sourceRectangle->h;
 
