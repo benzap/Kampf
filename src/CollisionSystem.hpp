@@ -14,6 +14,7 @@ class CollisionSystem;
 #include "AbstractSystem.hpp"
 #include "EntityManager.hpp"
 #include "CollisionComponent.hpp"
+#include "collision/KF_collision.hpp"
 
 //DEFINITIONS
 

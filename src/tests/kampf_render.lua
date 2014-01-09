@@ -13,7 +13,11 @@ function createPacman()
 
 	local collisionComponent = kf.CollisionComponent("collidable")
 	entity:addComponent(collisionComponent)
-
+	collisionComponent:setPhysicsRelation(physicsComponent)
+	collisionComponent:setType("CIRCLE")
+	collisionComponent:setOrigin(kf.Vector3(50, 50, 0))
+	collisionComponent:setRadius(50)
+	
 	return entity
 end
 

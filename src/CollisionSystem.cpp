@@ -33,10 +33,10 @@ void CollisionSystem::createMessages() {
 						   secondEntity,
 						   secondColl);
 		    
-		}
-	    }
-	}
-    }
+		} //END for (auto secondComponent : secondCollList) {
+	    } //END for (auto firstComponent : firstCollList) {
+	} //END for (auto secondEntity : entityManager ...
+    } //END for (auto firstEntity : entityManager ...
 }
 
 void CollisionSystem::process() {
@@ -46,6 +46,39 @@ void CollisionSystem::process() {
 boolType CollisionSystem::checkCollisions(Entity* firstEntity, 
 					  CollisionComponent* firstColl,
 					  Entity* secondEntity,
-					  CollisionComponent* secondColl) {
-    //std::cout << "collision check - " << std::endl;
+					  CollisionComponent* secondColl){
+    //get the physics relations
+    auto firstPhys = firstColl->getPhysicsRelation();
+    auto secondPhys = secondColl->getPhysicsRelation();
+    
+    //collision structures
+    COL_circle first_circle, second_circle;
+
+
+    //get the types for each component
+    auto firstType = firstColl->getCollisionType();
+
+    if (firstType == enumCollisionType::CIRCLE) {
+	first_circle.center = firstPhys->getPosition();
+	first_circle.center += firstColl->getOrigin();
+	first_circle.radius = firstColl->getRadius();
+    }
+    
+    auto secondType = secondColl->getCollisionType();
+
+    if (secondType == enumCollisionType::CIRCLE) {
+	second_circle.center = secondPhys->getPosition();
+	second_circle.center += secondColl->getOrigin();
+	second_circle.radius = secondColl->getRadius();
+    }
+    
+    boolType bCollided = false;
+    if (firstType == enumCollisionType::CIRCLE) {
+	//handling circle to circle collisions
+	if (secondType == enumCollisionType::CIRCLE) {
+	    bCollided = check_circle_circle(first_circle, second_circle);
+	}
+    }
+
+    return bCollided;
 }
