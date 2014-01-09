@@ -21,7 +21,9 @@ local pacman = createPacman()
 local pacman2 = createPacman()
 
 local assetManager = kf.SDLAssetManager()
-assetManager:addBMP("pacman", "./assets/pacman.bmp")
+
+local pacDrawable = assetManager:addBMP("pacman", "./assets/pacman.bmp")
+pacDrawable:setColorKey(255, 255, 255)
 
 local entityManager = kf.EntityManager()
 entityManager:addEntity(pacman)

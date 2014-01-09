@@ -70,8 +70,27 @@ void SDLDrawable::setRect(integerType x, integerType y,
     
 }
 
+
+
 const SDL_Rect* SDLDrawable::getRect() {
     return sourceRectangle;
+}
+
+void SDLDrawable::setColorKey(unsigned short r,
+			      unsigned short g,
+			      unsigned short b) {
+    //the pixel format
+    auto format = surface->format;
+    //generating the color for the color key
+    auto colorKey = SDL_MapRGB(format, r, g, b);
+
+    //setting the key
+    SDL_SetColorKey(surface, SDL_TRUE, colorKey);
+
+    SDL_DestroyTexture(this->texture);
+    this->texture = SDL_CreateTextureFromSurface(
+	windowContext->getRenderer(),
+	surface);   
 }
 
 void SDLDrawable::setWindowContext(SDLRenderWindow* windowContext) {

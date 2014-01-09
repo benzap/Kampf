@@ -20,6 +20,8 @@ SDLDrawable* SDLAssetManager::addSurface(
     auto drawablePair = std::pair<stringType, SDLDrawable>(name, drawable);
     //textureContainer[name] = drawable;
     textureContainer.insert(drawablePair);
+    
+    return &textureContainer[name];
 }
 
 SDLDrawable* SDLAssetManager::addBMP(
@@ -28,15 +30,17 @@ SDLDrawable* SDLAssetManager::addBMP(
     SDL_Rect* rect) {
     
     SDL_Surface* sdlSurface = SDL_LoadBMP(filename.c_str());
-    
+
+    SDLDrawable* sdlDrawable = nullptr;
     if (sdlSurface != NULL) {
-	this->addSurface(name, sdlSurface, rect);
+	sdlDrawable = this->addSurface(name, sdlSurface, rect);
 	//SDL_FreeSurface(sdlSurface);
     }
     else {
 	std::cerr << "Error: in file - " << filename << std::endl;
 	std::cerr << SDL_GetError() << std::endl;
     }
+    return sdlDrawable;
 }
 
 boolType SDLAssetManager::hasDrawable(const stringType& name) {

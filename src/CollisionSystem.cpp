@@ -47,5 +47,5 @@ boolType CollisionSystem::checkCollisions(Entity* firstEntity,
 					  CollisionComponent* firstColl,
 					  Entity* secondEntity,
 					  CollisionComponent* secondColl) {
-    std::cout << "collision check - " << std::endl;
+    //std::cout << "collision check - " << std::endl;
 }

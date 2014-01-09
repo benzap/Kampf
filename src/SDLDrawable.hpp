@@ -9,6 +9,7 @@
 class SDLDrawable;
 
 //INCLUDES
+#include <iomanip>
 #include <vector>
 
 #include <SDL2/SDL.h>
@@ -53,6 +54,10 @@ public:
 		 integerType w, integerType h);
     const SDL_Rect* getRect();
 
+    void setColorKey(unsigned short r,
+		     unsigned short g,
+		     unsigned short b);
+    
     void setWindowContext(SDLRenderWindow*);
 
     std::vector<int> getSize();
