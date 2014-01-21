@@ -35,12 +35,12 @@ entityManager:addEntity(pacman2)
 
 local renderWindow = kf.getRenderWindow()
 renderWindow:setWindowSize(1000, 600)
-renderWindow:setResolution(200, 200)
+renderWindow:setResolution(800, 600)
 renderWindow:setViewport{
 	x = 0,
 	y = 0,
-	w = 200,
-	h = 200,
+	w = 800,
+	h = 600,
 }
 
 local ruleMachine = kf.getRuleMachine()

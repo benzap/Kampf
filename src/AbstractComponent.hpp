@@ -1,9 +1,22 @@
 #ifndef ABSTRACTCOMPONENT__HPP
 #define ABSTRACTCOMPONENT__HPP
 //DESCRIPTION
-/*
-  The abstract component makes up all of the components contained
-  within the system.
+/*!
+  @file AbstractComponent.hpp
+  @brief Abstract for all components
+
+  The abstract component is used to describe each component within the
+  system. This abstract includes all of the custom attribute
+  functionality, which allows for more dynamic types to be included to
+  describe a component.
+
+  Components can also store children of itself, which means you can
+  develop a hierarchy of the same component. How this hierarchy is
+  built depends on the type of component.
+
+  To summarize, components are containers that can fit into a tree
+  hierarchy. These containers hold dynamic types through the
+  CustomAttribute type.
 */
 
 //INCLUDES
@@ -25,17 +38,19 @@ class AbstractComponent;
 
 //TYPEDEFS
 
-//type used by abstract component to store custom attributes
+//! type used by abstract component to store custom attributes
 typedef std::map<stringType, CustomAttribute> customAttributeMapType;
 
-//used for the components to store components as references without
-//requiring dereferencing on deletion
-
-//componentContainer type
+//! componentContainer type
 typedef std::list<AbstractComponent*> componentContainerType;
 
-//ENUMS The main component family enumeration. This describes what the
-//component is, for dynamic casting.
+//ENUMS
+
+/*!
+  
+  The main component family enumeration. This describes what the
+  component is, for dynamic casting.
+*/
 enum enumComponentFamily {
     ABSTRACT,
     COLLISION,
@@ -45,6 +60,10 @@ enum enumComponentFamily {
 };
 
 //FUNCTIONS
+
+/*!
+  
+ */
 AbstractComponent* createAbstractComponent(
     stringType name, boolType bIsParent = true);
 

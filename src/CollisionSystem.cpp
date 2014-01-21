@@ -79,6 +79,6 @@ boolType CollisionSystem::checkCollisions(Entity* firstEntity,
 	    bCollided = check_circle_circle(first_circle, second_circle);
 	}
     }
-
+    
     return bCollided;
 }
