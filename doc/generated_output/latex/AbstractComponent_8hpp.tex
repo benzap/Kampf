@@ -1,0 +1,63 @@
+\hypertarget{AbstractComponent_8hpp}{\section{/home/benzap/\-Projects/kampf/src/\-Abstract\-Component.hpp File Reference}
+\label{AbstractComponent_8hpp}\index{/home/benzap/\-Projects/kampf/src/\-Abstract\-Component.\-hpp@{/home/benzap/\-Projects/kampf/src/\-Abstract\-Component.\-hpp}}
+}
+
+
+Abstract for all components.  
+
+
+{\ttfamily \#include $<$iostream$>$}\\*
+{\ttfamily \#include $<$map$>$}\\*
+{\ttfamily \#include $<$string$>$}\\*
+{\ttfamily \#include $<$list$>$}\\*
+{\ttfamily \#include $<$memory$>$}\\*
+{\ttfamily \#include \char`\"{}K\-F\-\_\-globals.\-hpp\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}Custom\-Attribute.\-hpp\char`\"{}}\\*
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \hyperlink{classAbstractComponent}{Abstract\-Component}
+\end{DoxyCompactItemize}
+\subsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{AbstractComponent_8hpp_a613a53ca72ff2c9fa8248b1ea066a5af}{typedef std\-::map$<$ string\-Type, \\*
+\hyperlink{classCustomAttribute}{Custom\-Attribute} $>$ \hyperlink{AbstractComponent_8hpp_a613a53ca72ff2c9fa8248b1ea066a5af}{custom\-Attribute\-Map\-Type}}\label{AbstractComponent_8hpp_a613a53ca72ff2c9fa8248b1ea066a5af}
+
+\begin{DoxyCompactList}\small\item\em type used by abstract component to store custom attributes \end{DoxyCompactList}\item 
+\hypertarget{AbstractComponent_8hpp_a2422f907615dc397bb0347b2543f54d4}{typedef std\-::list\\*
+$<$ \hyperlink{classAbstractComponent}{Abstract\-Component} $\ast$ $>$ \hyperlink{AbstractComponent_8hpp_a2422f907615dc397bb0347b2543f54d4}{component\-Container\-Type}}\label{AbstractComponent_8hpp_a2422f907615dc397bb0347b2543f54d4}
+
+\begin{DoxyCompactList}\small\item\em component\-Container type \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \hyperlink{AbstractComponent_8hpp_a3be2c3a78b2355914f50f3966ac68542}{enum\-Component\-Family} \{ \\*
+{\bfseries A\-B\-S\-T\-R\-A\-C\-T}, 
+{\bfseries C\-O\-L\-L\-I\-S\-I\-O\-N}, 
+{\bfseries P\-H\-Y\-S\-I\-C\-S}, 
+{\bfseries G\-R\-A\-P\-H\-I\-C\-S}, 
+\\*
+{\bfseries C\-U\-S\-T\-O\-M}
+ \}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{AbstractComponent_8hpp_a8f1b8794a24d09969c40b475b0d7dac2}{\hyperlink{classAbstractComponent}{Abstract\-Component} $\ast$ {\bfseries create\-Abstract\-Component} (string\-Type name, bool\-Type b\-Is\-Parent=true)}\label{AbstractComponent_8hpp_a8f1b8794a24d09969c40b475b0d7dac2}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Abstract for all components. The abstract component is used to describe each component within the system. This abstract includes all of the custom attribute functionality, which allows for more dynamic types to be included to describe a component.
+
+Components can also store children of itself, which means you can develop a hierarchy of the same component. How this hierarchy is built depends on the type of component.
+
+To summarize, components are containers that can fit into a tree hierarchy. These containers hold dynamic types through the \hyperlink{classCustomAttribute}{Custom\-Attribute} type. 
+
+\subsection{Enumeration Type Documentation}
+\hypertarget{AbstractComponent_8hpp_a3be2c3a78b2355914f50f3966ac68542}{\index{Abstract\-Component.\-hpp@{Abstract\-Component.\-hpp}!enum\-Component\-Family@{enum\-Component\-Family}}
+\index{enum\-Component\-Family@{enum\-Component\-Family}!AbstractComponent.hpp@{Abstract\-Component.\-hpp}}
+\subsubsection[{enum\-Component\-Family}]{\setlength{\rightskip}{0pt plus 5cm}enum {\bf enum\-Component\-Family}}}\label{AbstractComponent_8hpp_a3be2c3a78b2355914f50f3966ac68542}
+The main component family enumeration. This describes what the component is, for dynamic casting. 

@@ -1,0 +1,72 @@
+\hypertarget{classAbstractRenderWindow}{\section{Abstract\-Render\-Window Class Reference}
+\label{classAbstractRenderWindow}\index{Abstract\-Render\-Window@{Abstract\-Render\-Window}}
+}
+Inheritance diagram for Abstract\-Render\-Window\-:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classAbstractRenderWindow}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classAbstractRenderWindow_af6900b9e886bd317fd45d16160d3cfe7}{{\bfseries Abstract\-Render\-Window} (int window\-Width=D\-E\-F\-A\-U\-L\-T\-\_\-\-V\-I\-R\-T\-U\-A\-L\-\_\-\-S\-C\-R\-E\-E\-N\-\_\-\-W\-I\-D\-T\-H, int window\-Height=D\-E\-F\-A\-U\-L\-T\-\_\-\-V\-I\-R\-T\-U\-A\-L\-\_\-\-S\-C\-R\-E\-E\-N\-\_\-\-H\-E\-I\-G\-H\-T)}\label{classAbstractRenderWindow_af6900b9e886bd317fd45d16160d3cfe7}
+
+\item 
+\hypertarget{classAbstractRenderWindow_a7618020f62296003484d8ac8f679552f}{virtual bool {\bfseries reinitialize} ()=0}\label{classAbstractRenderWindow_a7618020f62296003484d8ac8f679552f}
+
+\item 
+\hypertarget{classAbstractRenderWindow_a4066c9d04fad75533932bfb7ea6824b1}{virtual bool {\bfseries initialize} ()=0}\label{classAbstractRenderWindow_a4066c9d04fad75533932bfb7ea6824b1}
+
+\item 
+\hypertarget{classAbstractRenderWindow_a7a66d30711e042f22634906ad82dc271}{virtual void {\bfseries draw} (\hyperlink{classAbstractDrawable}{Abstract\-Drawable} $\ast$drawable, \hyperlink{classVector3}{Vector3} position, \hyperlink{classQuaternion}{Quaternion} orientation)=0}\label{classAbstractRenderWindow_a7a66d30711e042f22634906ad82dc271}
+
+\item 
+\hypertarget{classAbstractRenderWindow_ae84cb964db859ffc3f4f738bae8e2b87}{virtual bool\-Type {\bfseries update} ()=0}\label{classAbstractRenderWindow_ae84cb964db859ffc3f4f738bae8e2b87}
+
+\item 
+\hypertarget{classAbstractRenderWindow_a647d0764e07f6e8b19261aedf8c39893}{virtual bool\-Type {\bfseries clear} ()=0}\label{classAbstractRenderWindow_a647d0764e07f6e8b19261aedf8c39893}
+
+\item 
+\hypertarget{classAbstractRenderWindow_a7307c3893811e1fe0ebe2a39c2731e29}{virtual const std\-::vector$<$ int $>$ {\bfseries get\-Window\-Size} ()}\label{classAbstractRenderWindow_a7307c3893811e1fe0ebe2a39c2731e29}
+
+\item 
+\hypertarget{classAbstractRenderWindow_a2c4df802ae30d2353a630d4c516a09d0}{virtual void {\bfseries set\-Window\-Size} (float\-Type w, float\-Type h)}\label{classAbstractRenderWindow_a2c4df802ae30d2353a630d4c516a09d0}
+
+\item 
+\hypertarget{classAbstractRenderWindow_ad8208c399c06e065cf4ee3339c686c52}{const \hyperlink{structViewport}{Viewport} $\ast$ {\bfseries get\-Viewport} ()}\label{classAbstractRenderWindow_ad8208c399c06e065cf4ee3339c686c52}
+
+\item 
+\hypertarget{classAbstractRenderWindow_af13f1aa627e009a2a40a0cddc5d9c86c}{void {\bfseries set\-Viewport} (\hyperlink{structViewport}{Viewport} viewport)}\label{classAbstractRenderWindow_af13f1aa627e009a2a40a0cddc5d9c86c}
+
+\item 
+\hypertarget{classAbstractRenderWindow_a1b0b555e3130140a75340ac23cf0f81c}{void {\bfseries set\-Viewport} (integer\-Type x, integer\-Type y, integer\-Type w, integer\-Type h)}\label{classAbstractRenderWindow_a1b0b555e3130140a75340ac23cf0f81c}
+
+\item 
+\hypertarget{classAbstractRenderWindow_aacb3216ba30f916f7aab58cff0b9dfa4}{const \hyperlink{structResolution}{Resolution} $\ast$ {\bfseries get\-Resolution} ()}\label{classAbstractRenderWindow_aacb3216ba30f916f7aab58cff0b9dfa4}
+
+\item 
+\hypertarget{classAbstractRenderWindow_a56ce23ec7f5d015ffb0a419d7e9248b5}{void {\bfseries set\-Resolution} (float\-Type w, float\-Type h)}\label{classAbstractRenderWindow_a56ce23ec7f5d015ffb0a419d7e9248b5}
+
+\item 
+\hypertarget{classAbstractRenderWindow_aceaa73df5bc6ed5e046520a6e3d24ec3}{virtual float\-Type {\bfseries get\-Scaled\-Width\-Factor} ()}\label{classAbstractRenderWindow_aceaa73df5bc6ed5e046520a6e3d24ec3}
+
+\item 
+\hypertarget{classAbstractRenderWindow_a83fbb78386d30d6926eb44370e3c1396}{virtual float\-Type {\bfseries get\-Scaled\-Height\-Factor} ()}\label{classAbstractRenderWindow_a83fbb78386d30d6926eb44370e3c1396}
+
+\end{DoxyCompactItemize}
+\subsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classAbstractRenderWindow_aafc8a027534af592a6754a498dc4650d}{int {\bfseries window\-Width}}\label{classAbstractRenderWindow_aafc8a027534af592a6754a498dc4650d}
+
+\item 
+\hypertarget{classAbstractRenderWindow_a35262eea8d1786e83f306b59763cc024}{int {\bfseries window\-Height}}\label{classAbstractRenderWindow_a35262eea8d1786e83f306b59763cc024}
+
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+/home/benzap/\-Projects/kampf/src/Abstract\-Render\-Window.\-hpp\item 
+/home/benzap/\-Projects/kampf/src/Abstract\-Render\-Window.\-cpp\end{DoxyCompactItemize}
