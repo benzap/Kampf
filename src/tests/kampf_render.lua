@@ -123,6 +123,7 @@ ruleMachine.addRule(ruleCond, ruleFunc)
 
 ruleMachine.addRule(
 	function (msg)
+		print (msg:getType())
 		if msg:getType() == "COLLISION" then
 			print "Collision!"
 			return true
@@ -137,4 +138,3 @@ end)
 
 
 kf.runMainLoop(20000)
-

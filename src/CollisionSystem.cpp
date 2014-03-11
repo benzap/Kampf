@@ -43,9 +43,6 @@ void CollisionSystem::createMessages() {
 			msg->firstComponent = firstColl;
 			msg->secondEntity = secondEntity;
 			msg->secondComponent = secondColl;
-
-			std::cout << "Collision!" << std::endl;
-
 		    }
 		} //END for (auto secondComponent : secondCollList) {
 	    } //END for (auto firstComponent : firstCollList) {
