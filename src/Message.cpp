@@ -68,6 +68,10 @@ stringType Message::getTypeString() {
 	return "CUSTOM";
     case enumMessageType::TIMER:
 	return "TIMER";
+
+    //Collisions
+    case enumMessageType::COLLISION:
+	return "COLLISION";
     default:
 	return "NONE";
     }
@@ -154,6 +158,9 @@ void Message::setTypeString(stringType typeString) {
     }
     else if (typeString == "TIMER") {
 	this->setType(enumMessageType::TIMER);
+    }
+    else if (typeString == "COLLISION") {
+	this->setType(enumMessageType::COLLISION);
     }
     else {
 	this->setType(enumMessageType::NONE);

@@ -119,6 +119,22 @@ end
 
 ruleMachine.addRule(ruleCond, ruleFunc)
 
+--Testing collision system
+
+ruleMachine.addRule(
+	function (msg)
+		if msg:getType() == "COLLISION" then
+			print "Collision!"
+			return true
+		end
+		return false
+	end,
+	function (msg)
+		print "Collision inner"
+end)
+
+
+
 
 kf.runMainLoop(20000)
 

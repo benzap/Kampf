@@ -32,7 +32,21 @@ void CollisionSystem::createMessages() {
 						   firstColl,
 						   secondEntity,
 						   secondColl);
-		    
+		    //we collided!
+		    if (chk) {
+
+			//create a message with a collision designation
+			auto messenger = Messenger::getInstance();
+			auto msg = messenger->appendMessage();
+			msg->setType(enumMessageType::COLLISION);
+			msg->firstEntity = firstEntity;
+			msg->firstComponent = firstColl;
+			msg->secondEntity = secondEntity;
+			msg->secondComponent = secondColl;
+
+			std::cout << "Collision!" << std::endl;
+
+		    }
 		} //END for (auto secondComponent : secondCollList) {
 	    } //END for (auto firstComponent : firstCollList) {
 	} //END for (auto secondEntity : entityManager ...
