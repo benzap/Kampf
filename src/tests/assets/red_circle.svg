@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   height="500"
+   width="500"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.48.4 r9939"
+   sodipodi:docname="red_circle.svg">
+  <metadata
+     id="metadata10">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <defs
+     id="defs8" />
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1618"
+     inkscape:window-height="1031"
+     id="namedview6"
+     showgrid="false"
+     inkscape:zoom="0.41323039"
+     inkscape:cx="-123.6531"
+     inkscape:cy="285.55499"
+     inkscape:window-x="58"
+     inkscape:window-y="-4"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg2" />
+  <path
+     sodipodi:type="arc"
+     style="fill:#ff5855;fill-opacity:1;stroke:#ffffff;stroke-width:0.1;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+     id="path2987"
+     sodipodi:cx="284.345"
+     sodipodi:cy="274.94394"
+     sodipodi:rx="257.72549"
+     sodipodi:ry="244.41571"
+     d="m 542.0705,274.94394 a 257.72549,244.41571 0 1 1 -515.450993,0 257.72549,244.41571 0 1 1 515.450993,0 z"
+     transform="matrix(0.96978182,0,0,1.0225918,-25.752614,-31.155416)"
+     inkscape:export-filename="C:\Users\benzap\Desktop\Projects\Kampf\src\tests\assets\red_circle.png"
+     inkscape:export-xdpi="18.000607"
+     inkscape:export-ydpi="18.000607" />
+</svg>
