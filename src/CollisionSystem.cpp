@@ -28,13 +28,22 @@ void CollisionSystem::createMessages() {
 		for (auto secondComponent : secondCollList) {
 		    auto secondColl = static_cast<CollisionComponent*>
 			(secondComponent);
+
 		    boolType chk = checkCollisions(firstEntity,
 						   firstColl,
 						   secondEntity,
 						   secondColl);
-		    //we collided!
-		    if (chk) {
 
+		    //boolean resembling if the two component were
+		    //already known to be colliding
+		    boolType bActiveCollision = this->hasCollision(firstColl, secondColl);
+
+		    //If we collided, but it was already known
+		    if (chk && bActiveCollision) {
+			//do nothing...
+		    }
+		    //If we collided, but it wasn't known
+		    else if (chk && !bActiveCollision) {
 			//create a message with a collision designation
 			auto messenger = Messenger::getInstance();
 			auto msg = messenger->appendMessage();
@@ -43,6 +52,35 @@ void CollisionSystem::createMessages() {
 			msg->firstComponent = firstColl;
 			msg->secondEntity = secondEntity;
 			msg->secondComponent = secondColl;
+			
+			//include boolean that it's a registered collision
+			msg->customData["bRegistered"] = CustomAttribute(true);
+
+			//add the new collision to our list of active collisions
+			this->addCollision(firstColl, secondColl);
+		    }
+		    //We were an active collision, but it isn't an
+		    //active collision anymore. So inform the
+		    //listeners that it stopped colliding.
+		    else if (!chk && bActiveCollision) {
+			//create a message with a collision designation
+			auto messenger = Messenger::getInstance();
+			auto msg = messenger->appendMessage();
+			msg->setType(enumMessageType::COLLISION);
+			msg->firstEntity = firstEntity;
+			msg->firstComponent = firstColl;
+			msg->secondEntity = secondEntity;
+			msg->secondComponent = secondColl;
+			
+			//include boolean that it's not registered anymore
+			msg->customData["bRegistered"] = CustomAttribute(false);
+		
+			//remove the active collision from our container
+			removeCollision(firstColl, secondColl);
+		    }
+		    //nothing happened
+		    else {
+			//
 		    }
 		} //END for (auto secondComponent : secondCollList) {
 	    } //END for (auto firstComponent : firstCollList) {
@@ -92,4 +130,29 @@ boolType CollisionSystem::checkCollisions(Entity* firstEntity,
     }
     
     return bCollided;
+}
+
+
+bool CollisionSystem::hasCollision(CollisionComponent* firstComponent,
+				   CollisionComponent* secondComponent) {
+    //generate our tuple
+    auto collisionTuple = activeCollisionTuple(firstComponent, secondComponent);
+    if (collisionContainer.find(collisionTuple) != collisionContainer.end()) {
+	return true;
+    }
+    return false;
+}
+
+
+void CollisionSystem::addCollision(CollisionComponent* firstComponent,
+				   CollisionComponent* secondComponent) {
+    auto collisionTuple = activeCollisionTuple(firstComponent, secondComponent);
+    collisionContainer.insert(collisionTuple);
+}
+
+
+void CollisionSystem::removeCollision(CollisionComponent* firstComponent,
+				      CollisionComponent* secondComponent) {
+    auto collisionTuple = activeCollisionTuple(firstComponent, secondComponent);
+    collisionContainer.erase(collisionTuple);
 }

@@ -23,7 +23,7 @@ class EventSystem;
 
 //MACROS
 
-//TYPEDEFS
+//TYPEDEF
 
 //FUNCTIONS
 
