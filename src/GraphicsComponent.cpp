@@ -1,4 +1,5 @@
 #include "GraphicsComponent.hpp"
+#include <cassert>
 
 GraphicsComponent::GraphicsComponent(stringType name, bool bIsParent) :
   AbstractComponent(name, enumComponentFamily::GRAPHICS, bIsParent) {
@@ -26,8 +27,21 @@ AbstractDrawable* GraphicsComponent::getDrawable() {
 }
 
 void GraphicsComponent::setDrawableKey(stringType keyString) {
-    //go grab the drawable from the asset manager
+    //sets the drawable key
     this->drawableKey = keyString;
+
+
+    auto sdlAssetManager = SDLAssetManager::getInstance();
+    //if we already have a reference to the drawable, then assign the reference
+    if (sdlAssetManager->hasDrawable(keyString)) {
+	auto drawable = sdlAssetManager->getDrawable(keyString);
+	this->setDrawable(drawable);
+    }
+    //else we set our reference to null and handle it later within the
+    //graphics system
+    else {
+	this->drawableReference = nullptr;
+    }
 }
 
 stringType GraphicsComponent::getDrawableKey() {

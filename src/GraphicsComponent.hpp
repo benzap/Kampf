@@ -16,7 +16,7 @@ class GraphicsComponent;
 #include "KF_math.hpp"
 #include "AbstractComponent.hpp"
 #include "AbstractDrawable.hpp"
-
+#include "SDLAssetManager.hpp"
 //DEFINITIONS
 
 //MACROS

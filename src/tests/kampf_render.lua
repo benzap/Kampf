@@ -164,14 +164,40 @@ ruleMachine.addRule(
         --and unregistering
 		local bRegistered = msg:get("bRegistered"):get()
 		
-		local pacman = msg:getFirstEntity()
-		local circle = msg:getSecondEntity()
+		local circle = msg:getFirstEntity()
 
 		local graphicsComponent = circle:getComponentsByFamily("GRAPHICS")[1]
 		if bRegistered == 1 then
-			graphicsComponent:setDrawableKey("circle-blue")
+			graphicsComponent:setDrawableKey("blue-circle")
 		else
-			graphicsComponent:setDrawableKey("circle-red")
+			graphicsComponent:setDrawableKey("red-circle")
+		end
+end)
+
+--blue circle response to colliding
+ruleMachine.addRule(
+	function (msg)
+		if msg:getType() == "COLLISION" then
+			--check if the pacman is the first entity
+			local entity = msg:getFirstEntity()
+			if entity:getName() == "blue-circle" then
+				return true
+			end
+		end
+		return false
+	end,
+	function (msg)
+		--need to perform different actions for when it's registering
+        --and unregistering
+		local bRegistered = msg:get("bRegistered"):get()
+		
+		local circle = msg:getFirstEntity()
+
+		local graphicsComponent = circle:getComponentsByFamily("GRAPHICS")[1]
+		if bRegistered == 1 then
+			graphicsComponent:setDrawableKey("red-circle")
+		else
+			graphicsComponent:setDrawableKey("blue-circle")
 		end
 end)
 
