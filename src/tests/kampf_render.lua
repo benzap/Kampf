@@ -120,18 +120,16 @@ end
 ruleMachine.addRule(ruleCond, ruleFunc)
 
 --Testing collision system
-
 ruleMachine.addRule(
 	function (msg)
 		print (msg:getType())
 		if msg:getType() == "COLLISION" then
-			print "Collision!"
 			return true
 		end
 		return false
 	end,
 	function (msg)
-		print "Collision inner"
+		hasCollided = true
 end)
 
 

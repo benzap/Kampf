@@ -4,12 +4,24 @@ UNAME := $(shell uname)
 TAGS_EXEC = etags
 
 CXX = g++
-CXXFLAGS = --std=c++0x -g
+CXXFLAGS = --std=c++0x
 
 LDFLAGS = #-Wl,--verbose
 
 LD_STATIC = -static-libgcc -static-libstdc++ #-static
 LD_SHARED = -shared
+
+BUILD = debug
+
+#Production Build Versus Debug Build
+ifeq ($(BUILD), production)
+CXXFLAGS += -O2
+else ifeq ($(BUILD), debug)
+CXXFLAGS += -g
+else
+echo "Warning: Build Parameter is incorrect, using default debug build"
+CXXFLAGS += -g
+endif
 
 ifeq ($(UNAME), Linux)
 CXXFLAGS += -fPIC -DKF_LINUX
