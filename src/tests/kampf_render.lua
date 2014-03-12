@@ -120,18 +120,60 @@ end
 ruleMachine.addRule(ruleCond, ruleFunc)
 
 --Testing collision system
+--Pacman response to colliding with circles
 ruleMachine.addRule(
 	function (msg)
-		print (msg:getType())
 		if msg:getType() == "COLLISION" then
-			return true
+			--check if the pacman is the first entity
+			local entity = msg:getFirstEntity()
+			if entity:getName() == "pacman" then
+				return true
+			end
 		end
 		return false
 	end,
 	function (msg)
-		hasCollided = true
+		--need to perform different actions for when it's registering
+        --and unregistering
+		local bRegistered = msg:get("bRegistered"):get()
+		
+		local pacman = msg:getFirstEntity()
+		local circle = msg:getSecondEntity()
+
+		if bRegistered == 1 then
+			print(pacman:getName() .. " collided with " .. circle:getName())
+		else
+			print(pacman:getName() .. " stopped colliding with " .. circle:getName())
+		end
 end)
 
+--red circle response to colliding
+ruleMachine.addRule(
+	function (msg)
+		if msg:getType() == "COLLISION" then
+			--check if the pacman is the first entity
+			local entity = msg:getFirstEntity()
+			if entity:getName() == "red-circle" then
+				return true
+			end
+		end
+		return false
+	end,
+	function (msg)
+		--need to perform different actions for when it's registering
+        --and unregistering
+		local bRegistered = msg:get("bRegistered"):get()
+		
+		local pacman = msg:getFirstEntity()
+		local circle = msg:getSecondEntity()
+
+		local graphicsComponent = circle:getComponentsByFamily("GRAPHICS")[1]
+		if bRegistered == 1 then
+			graphicsComponent:setDrawableKey("circle-blue")
+		else
+			graphicsComponent:setDrawableKey("circle-red")
+		end
+end)
 
 
 
