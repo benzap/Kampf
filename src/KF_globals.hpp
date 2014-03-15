@@ -40,6 +40,12 @@ typedef std::string stringType;
 //integer type to use
 typedef int integerType;
 
+//GUID type for unique identification
+typedef std::string guidType;
+
+//timer value duration to use
+typedef unsigned long timeType;
+
 //floating point type to use
 typedef double floatType;
 

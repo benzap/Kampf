@@ -10,7 +10,6 @@ class SDLAssetManager;
 
 //INCLUDES
 #include <map>
-#include <map>
 #include <tuple>
 
 #include <SDL2/SDL.h>

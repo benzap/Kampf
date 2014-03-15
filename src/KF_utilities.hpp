@@ -6,6 +6,11 @@
  */
 
 //INCLUDES
+#include <random>
+#include <ctime>
+#include <chrono>
+
+#include "KF_globals.hpp"
 
 //CLASSES
 
@@ -16,6 +21,9 @@
 //TYPEDEFS
 
 //FUNCTIONS
+
+//generates a GUID
+guidType generateGUID();
 
 //BEGIN
 
