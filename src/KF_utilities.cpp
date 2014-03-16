@@ -2,11 +2,13 @@
 
 using std::chrono::system_clock;
 
+//TODO: better random seed
+static int randomSeed = time(NULL);
 static int increment = 0;
 guidType generateGUID() {
     std::default_random_engine rEngine;
     
-    rEngine.seed(time(NULL) + increment++);
+    rEngine.seed(randomSeed + increment++);
 
     stringType hexChars = "0123456789ABCDEF";
 

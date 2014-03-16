@@ -1,0 +1,27 @@
+Initializing Kampf Test Engine
+KF_OS	 - 	LINUX
+KF_EXEC_PATH	 - 	none
+isMessenger	function: 0x412f9400
+isSDLAssetManager	function: 0x412f23b8
+getMessenger	function: 0x412f7be0
+isRuleMachine	function: 0x412f9628
+Vector3	function: 0x412f8140
+SDLAssetManager	function: 0x412f2368
+isSDLDrawable	function: 0x412f9050
+addSystem	function: 0x412f8ed8
+isVector3	function: 0x412f8188
+Quaternion	function: 0x412f20b0
+runMainLoop	function: 0x412f7b90
+getRuleMachine	function: 0x412f7c30
+userdata: 0x412fa028
+condition
+function
+adding...
+lua: rule condition
+condition: 0
+function: running...
+lua: rule function
+function: ran...
+creating rule
+adding rule
+segmentation fault (core dumped)

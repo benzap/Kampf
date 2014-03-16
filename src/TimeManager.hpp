@@ -22,6 +22,7 @@ class TimeManager;
 //INCLUDES
 #include <map>
 #include <tuple>
+#include <list>
 
 #include <SDL2/SDL.h>
 
@@ -36,7 +37,7 @@ class TimeManager;
 
 //TYPEDEFS a tuple containing the time stored, an identifier, and a
 //boolean which is 'true' when it's an active timer.
-typedef std::tuple<timeType, guidType, boolType> timeTuple;
+typedef std::tuple<timeType, guidType> timeTuple;
 typedef std::list<timeTuple> timeContainerType;
 
 typedef std::vector<guidType> partialTimeContainer;
@@ -45,8 +46,8 @@ typedef std::vector<guidType> partialTimeContainer;
 
 //Constant which tells tock(...) command to return a duration based on
 //the very last tick command seen
-const incrementType kUseLastGuid = "";
-incrementType ticker_lastId = kUseLastGuid;
+const guidType kUseLastGuid = "";
+guidType ticker_lastId = kUseLastGuid;
 
 //calling this starts a timer, and returns a GUID used as an
 //identifier
@@ -63,9 +64,21 @@ private:
     TimeManager(TimeManager const&);
     void operator=(TimeManager const&);
 
-    //holds a mapping of times at which 
-    timeContainerType timeContainer;
+    //holds a list of active timers. This generally means that it will
+    //be holding times that are in the future. Upon being visited, the
+    //time is either moved to the inactive time container, or simply
+    //removed.
+    timeContainerType activeTimeContainer;
 
+    //the inactive time container, where timers are moved to when they
+    //have finished being active. Timers stop being active as soon as
+    //they pass the desired epoch time.
+    timeContainerType inActiveTimeContainer;
+
+    //iterates over the active container and moves any stray inactive
+    //timers into the inactive timer container.
+    void cleanActiveContainer();
+    
 public:
     static TimeManager* getInstance() {
 	static TimeManager _instance = TimeManager();
@@ -77,17 +90,28 @@ public:
     //milliseconds to the current time.
     guidType appendTime(timeType offset = 0);
     
-    //extends the offset on the given timeGuid
-    void extendTime(guidType timeGuid, timeType, duration);
+    //extends the offset on the given timeGuid. If the time extended
+    //goes beyond the inactive state of the timer, it becomes an
+    //active timer again.
+    void extendTime(guidType timeGuid, timeType duration);
 
-    //checks if the given time exists
+    //checks if the given time exists as an active or inactive timer.
     boolType hasTime(guidType timeGuid);
 
+    //checks if the given timer is still active
+    boolType isActive(guidType timeGuid);
+
+    //removes the given timer from either the inactive or active time
+    //container.
     void removeTime(guidType timeGuid);
 
+    //returns the time for the given timeGuid
     timeType getTime(guidType timeGuid);
-    
-    const std::
+
+    //returns a list of timerGuids for timers that have just become
+    //inactive since the last call. This function also will take care
+    //of moving these inactive times to the inactive time container.
+    partialTimeContainer getNewInactives();
 
 };
 

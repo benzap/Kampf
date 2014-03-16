@@ -70,7 +70,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Enumerations</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerations</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -140,8 +140,8 @@ Enumerations</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a8f1b8794a24d09969c40b475b0d7dac2"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a8f1b8794a24d09969c40b475b0d7dac2"></a>
-<a class="el" href="classAbstractComponent.html">AbstractComponent</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>createAbstractComponent</b> (stringType name, boolType bIsParent=true)</td></tr>
+<tr class="memitem:a8f1b8794a24d09969c40b475b0d7dac2"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classAbstractComponent.html">AbstractComponent</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="AbstractComponent_8hpp.html#a8f1b8794a24d09969c40b475b0d7dac2">createAbstractComponent</a> (stringType name, boolType bIsParent=true)</td></tr>
+<tr class="memdesc:a8f1b8794a24d09969c40b475b0d7dac2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Allocates a new abstract component and returns a pointer to it.  <a href="#a8f1b8794a24d09969c40b475b0d7dac2">More...</a><br/></td></tr>
 <tr class="separator:a8f1b8794a24d09969c40b475b0d7dac2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
@@ -163,10 +163,46 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<h2 class="groupheader">Function Documentation</h2>
+<a class="anchor" id="a8f1b8794a24d09969c40b475b0d7dac2"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classAbstractComponent.html">AbstractComponent</a>* createAbstractComponent </td>
+          <td>(</td>
+          <td class="paramtype">stringType&#160;</td>
+          <td class="paramname"><em>name</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">boolType&#160;</td>
+          <td class="paramname"><em>bIsParent</em> = <code>true</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Allocates a new abstract component and returns a pointer to it. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">name</td><td>The name to give the component </td></tr>
+    <tr><td class="paramname">bIsParent</td><td>Set to false if the component will reside as a child of another component </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Jan 27 2014 12:40:44 for Kampf Game Engine by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Jan 27 2014 13:01:02 for Kampf Game Engine by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.3.1
 </small></address>

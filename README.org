@@ -35,3 +35,8 @@
   - Lua5.1 or Luajit2.0
 
 
+* Tasks
+** Collision
+** Physics
+** Timing
+** Misc.

@@ -1,0 +1,539 @@
+Running Kampf Interpretor
+Kampf>> Kampf Interpreter Exited
+Initializing Window...
+set new window size
+set resolution
+pacman collided with red-circle
+pacman stopped colliding with red-circle
+pacman collided with red-circle
+
++++++++++++++++++ UNIT TEST +++++++++++
+FILE:	test_abstractComponent.cpp
+Test No. 1	 - getName()	> PASSED
+Test No. 2	 - setName()	> PASSED
+Test No. 3	 - hasCustomAttribute false	> PASSED
+Test No. 4	 - getCustomAttribute_int()	> PASSED
+Test No. 5	 - has Test	> PASSED
+Test No. 6	 - getCustomAttribute_float()	> PASSED
+Test No. 7	 - has Float	> PASSED
+Test No. 8	 - getCustomAttribute_char()	> PASSED
+Test No. 9	 - has Char	> PASSED
+Test No. 10	 - checking int array valid ptr	> PASSED
+Test No. 11	 - checking int array elements	> PASSED
+Test No. 12	 - checking float array valid ptr	> PASSED
+Test No. 13	 - checking float array elements	> PASSED
+Test No. 14	 - Equal strings	> PASSED
+Test No. 15	 - testing void	> PASSED
+Test No. 16	 - checking valid void dereference	> PASSED
+Test No. 17	 - test attribute types	> PASSED
+Test No. 18	 - doesn't have children	> PASSED
+Test No. 19	 - has children	> PASSED
+Test No. 20	 - checking if valid child	> PASSED
+Test No. 21	 - Equal Components	> PASSED
+item: childAbstract1
+item: anotherComponent
+Test No. 22	 - does not have deleted attribute	> PASSED
+
++++++++++++++++++ UNIT TEST +++++++++++
+FILE:	test_abstractEntity.cpp
+Test No. 1	 - getName()	> PASSED
+Test No. 2	 - getType()	> PASSED
+Test No. 3	 - setName()	> PASSED
+Test No. 4	 - getID()	> PASSED
+Test No. 5	 - getComponentsByFamily()	> PASSED
+Test No. 6	 - getComponentsByName()	> PASSED
+Test No. 7	 - getComponentContainer()	> PASSED
+
++++++++++++++++++ UNIT TEST +++++++++++
+FILE:	test_collision_circle.cpp
+Test No. 1	 - circle and circle collision	> PASSED
+Test No. 2	 - circle and circle no collision	> PASSED
+
++++++++++++++++++ UNIT TEST +++++++++++
+FILE:	test_entityManager.cpp
+Test No. 1	 - getEntityByID()	> PASSED
+Test No. 2	 - getEntities()	> PASSED
+
++++++++++++++++++ UNIT TEST +++++++++++
+FILE:	test_kampf.cpp
+
++++++++++++++++++ UNIT TEST +++++++++++
+FILE:	test_luascript.cpp
+Kampf not initialized, some functionality will not be available
+hello world!
+helloworld
+hello world!
+Test No. 1	 - global - float	> PASSED
+Test No. 2	 - global - int	> PASSED
+Test No. 3	 - global - string	> PASSED
+1	1.1
+2	2.2
+3	3.3
+Test No. 4	 - global - float array	> PASSED
+1.1
+2.2
+3.3
+1	1
+2	2
+3	3
+Test No. 5	 - global - int array	> PASSED
+
++++++++++++++++++ UNIT TEST +++++++++++
+FILE:	test_mainEntity.cpp
+Test No. 1	 - getName()	> PASSED
+Test No. 2	 - getType()	> PASSED
+Test No. 3	 - setName()	> PASSED
+Test No. 4	 - getID()	> PASSED
+Test No. 5	 - getComponentsByFamily()	> PASSED
+Test No. 6	 - getComponentsByName()	> PASSED
+Test No. 7	 - getComponentContainer()	> PASSED
+
++++++++++++++++++ UNIT TEST +++++++++++
+FILE:	test_math.cpp
+Test No. 1	 - test assignment - x	> PASSED
+Test No. 2	 - test equal assignment	> PASSED
+Test No. 3	 - test assignment - y	> PASSED
+Test No. 4	 - test equal assignment	> PASSED
+Test No. 5	 - test assignment - z	> PASSED
+Test No. 6	 - test equal assignment	> PASSED
+Test No. 7	 - added-x	> PASSED
+Test No. 8	 - added-y	> PASSED
+Test No. 9	 - added-z	> PASSED
+Test No. 10	 - compound added-x	> PASSED
+Test No. 11	 - compound added-y	> PASSED
+Test No. 12	 - compound added-z	> PASSED
+Test No. 13	 - subtract-x	> PASSED
+Test No. 14	 - subtract-y	> PASSED
+Test No. 15	 - subtract-z	> PASSED
+Test No. 16	 - compound subtracted-x	> PASSED
+Test No. 17	 - compound subtracted-y	> PASSED
+Test No. 18	 - compound subtracted-z	> PASSED
+Test No. 19	 - scalar-x	> PASSED
+Test No. 20	 - scalar-y	> PASSED
+Test No. 21	 - scalar-z	> PASSED
+Test No. 22	 - addedScalar-x	> PASSED
+Test No. 23	 - addedScalar-y	> PASSED
+Test No. 24	 - addedScalar-z	> PASSED
+Test No. 25	 - dot scalar	> PASSED
+Test No. 26	 - compV-x	> PASSED
+Test No. 27	 - compV-y	> PASSED
+Test No. 28	 - compV-z	> PASSED
+Test No. 29	 - compV-x update	> PASSED
+Test No. 30	 - compV-y update	> PASSED
+Test No. 31	 - compV-z update	> PASSED
+Test No. 32	 - testing boolean equality	> PASSED
+Test No. 33	 - testing magnitude	> PASSED
+orig: vector(1, 2, 1)
+unit: vector(0.408248, 0.816497, 0.408248)
+Test No. 34	 - cross product	> PASSED
+Test No. 35	 - cross product2	> PASSED
+Test No. 36	 - testing orthonormal	> PASSED
+
++++++++++++++++++ UNIT TEST +++++++++++
+FILE:	test_matrix3.cpp
+Test No. 1	 - Testing addition	> PASSED
+m4:Mat3[
+1, 2, 3,
+4, 5, 6,
+7, 8, 9,
+]
+m6:Mat3[
+1, 0, 0,
+0, 1, 0,
+0, 0, 1,
+]
+Test No. 2	 - Identity	> PASSED
+Test No. 3	 - determinate	> PASSED
+m4 det-9
+Test No. 4	 - row1	> PASSED
+Test No. 5	 - col1	> PASSED
+m3: Mat3[
+25, 32, 39,
+55, 74, 93,
+85, 116, 147,
+]
+Test No. 6	 - Matrix Multiplication	> PASSED
+Test No. 7	 - Matrix Multiplication 2	> PASSED
+vResult: vector(27, 69, 111)
+Test No. 8	 - Vector Multiplication	> PASSED
+
++++++++++++++++++ UNIT TEST +++++++++++
+FILE:	test_messenger.cpp
+Test No. 1	 - messenger retrieve messages	> PASSED
+Test No. 2	 - correct referencing	> PASSED
+Test No. 3	 - Clear messages works	> PASSED
+Test No. 4	 - checking custom attributes	> PASSED
+
++++++++++++++++++ UNIT TEST +++++++++++
+FILE:	test_quaternion.cpp
+Test No. 1	 - quaternion addition	> PASSED
+q1: quat(1, 2, 3, 0)
+q2: quat(1, 1, 1, 1)
+q1 * q2 = 6
+Test No. 2	 - scalar multiplication	> PASSED
+q1 x q2 = quat(-4, 6, 2, 0)
+Test No. 3	 - product multiplication	> PASSED
+Test No. 4	 - Conjugate	> PASSED
+Test No. 5	 - Real Magnitude	> PASSED
+Test No. 6	 - Magnitude	> PASSED
+q4-unit: quat(0.771517, 0.46291, 0.308607, 0.308607)
+q4-inverse: quat(0.119048, -0.0714286, -0.047619, -0.047619)
+Test No. 7	 - testing product2	> PASSED
+q7: quat(1, 2, 3, 4)
+Test No. 8	 - testing assignment	> PASSED
+
++++++++++++++++++ UNIT TEST +++++++++++
+FILE:	test_renderwindow.cpp
+Initializing Window...
+Initializing Kampf Test Engine
+KF_OS	 - 	LINUX
+KF_EXEC_PATH	 - 	none
+isMessenger	function: 0x408da1b8
+CustomAttribute	function: 0x408daf50
+isMessage	function: 0x408ddc20
+isRenderWindow	function: 0x408de1b0
+AbstractComponent	function: 0x408db320
+getTick	function: 0x408dd238
+isRuleMachine	function: 0x408ddcc8
+SDLAssetManager	function: 0x408d3368
+isEntity	function: 0x408da5d0
+addSystem	function: 0x408dd1e8
+getMessenger	function: 0x408dd0f8
+EntityManager	function: 0x408da7e0
+runMainLoop	function: 0x408dd0a8
+getRuleMachine	function: 0x408dd148
+CollisionComponent	function: 0x408dc238
+isSDLAssetManager	function: 0x408d33b8
+getRenderWindow	function: 0x408dd198
+isGraphicsComponent	function: 0x408dd028
+Entity	function: 0x408da588
+isVector3	function: 0x408d9188
+isPhysicsComponent	function: 0x408dc708
+PhysicsComponent	function: 0x408dc6b0
+Vector3	function: 0x408d9140
+isEntityManager	function: 0x408d9ed8
+isSDLDrawable	function: 0x408d9fc8
+Quaternion	function: 0x408d30b0
+isCustomAttribute	function: 0x408dafa0
+GraphicsComponent	function: 0x408da8b8
+isCollisionComponent	function: 0x408dc290
+isAbstractComponent	function: 0x408db378
+--Initializing Rule Machine
+--Rule Condition
+--Rule Function
+--ruleMachine.addRule
+--Running...
+--Running tests--
+UNIT_TESTS
+?.lua;?.lua;./scripts/?.lua;../scripts/?.lua
+TEST_CASE #1: Quaternion - STARTED
+ - Quaternion Init - PASSED
+ - Add - PASSED
+ - grab w - 1 - PASSED
+ - grab x - 1 - PASSED
+ - grab y - 1 - PASSED
+ - grab z - 1 - PASSED
+ - grab w - 2 - PASSED
+ - grab x - 2 - PASSED
+ - grab y - 2 - PASSED
+ - grab z - 2 - PASSED
+ - negation - PASSED
+ - length - PASSED
+ - unit - PASSED
+ - quat product - PASSED
+ - quat conj - PASSED
+ - quat inv - PASSED
+TEST_CASE #1: Quaternion - PASSED
+
+TEST_CASE #2: Vector3 - STARTED
+ - Cross-1 - PASSED
+ - Cross-2 - PASSED
+ - Dot-1 - PASSED
+ - Scalar-1 - PASSED
+ - grab x - 1 - PASSED
+ - grab y - 1 - PASSED
+ - grab z - 1 - PASSED
+ - grab x - 2 - PASSED
+ - grab y - 2 - PASSED
+ - grab z - 2 - PASSED
+ - addition - PASSED
+ - negation - PASSED
+ - set x - 1 - PASSED
+ - set x - 2 - PASSED
+ - set y - 1 - PASSED
+ - set y - 2 - PASSED
+ - set z - 1 - PASSED
+ - set z - 2 - PASSED
+ - compProd - PASSED
+ - magnitude - PASSED
+ - mag real - PASSED
+TEST_CASE #2: Vector3 - PASSED
+
+TEST_CASE #3: CustomAttribute - STARTED
+CustomAttribute: FLOAT
+ - getInteger - PASSED
+ - get (int) - PASSED
+ - setInteger - test - PASSED
+CustomAttribute: FLOAT
+ - getFloat - PASSED
+ - get (float) - PASSED
+ - setFloat -test - PASSED
+CustomAttribute: STRING
+ - getString - PASSED
+ - get (string) - PASSED
+ - setString - test - PASSED
+CustomAttribute: ARRAY
+ - getArray - PASSED
+ - get (array) - PASSED
+ - setArray - test - PASSED
+CustomAttribute: CHAR
+ - getChar - PASSED
+ - get (char) - PASSED
+TEST_CASE #3: CustomAttribute - PASSED
+
+TEST_CASE #4: AbstractComponent - STARTED
+bacon
+ - getName - PASSED
+ - setName - PASSED
+ - toString - PASSED
+ - getFamily - PASSED
+ - isParent - PASSED
+ - isActive - true - PASSED
+ - isActive - false (setInactive()) - PASSED
+ - isActive - true (setActive()) - PASSED
+ - has - PASSED
+ - has (false) - PASSED
+ - isCustomAttribute - PASSED
+ - is it a float? - PASSED
+ - get() - PASSED
+ - hasChildren - PASSED
+ - new child check name - PASSED
+ - hasChildren (true) - PASSED
+ - children - PASSED
+TEST_CASE #4: AbstractComponent - PASSED
+
+TEST_CASE #5: CollisionComponent - STARTED
+ - getName - PASSED
+ - setName - PASSED
+ - toString - PASSED
+ - getFamily - PASSED
+ - isParent - PASSED
+ - isActive - true - PASSED
+ - isActive - false (setInactive()) - PASSED
+ - isActive - true (setActive()) - PASSED
+ - has - PASSED
+ - has (false) - PASSED
+ - isCustomAttribute - PASSED
+ - is it a float? - PASSED
+ - get() - PASSED
+ - hasChildren - PASSED
+ - new child check name - PASSED
+ - hasChildren (true) - PASSED
+ - children - PASSED
+ - setOffset - getOffset - PASSED
+ - setOrigin - getOrigin - PASSED
+ - setOrientation - getOrientation - PASSED
+ - getType - PASSED
+ - setType - PASSED
+ - setRadius - getRadius - PASSED
+ - setWidth - getWidth - PASSED
+ - setHeight - getHeight - PASSED
+ - comparison veclist - 1 - PASSED
+ - comparison veclist - 2 - PASSED
+ - comparison veclist - 3 - PASSED
+ - comparison veclist - 4 - PASSED
+TEST_CASE #5: CollisionComponent - PASSED
+
+TEST_CASE #6: PhysicsComponent - STARTED
+ - getName - PASSED
+ - setName - PASSED
+ - toString - PASSED
+ - getFamily - PASSED
+ - isParent - PASSED
+ - isActive - true - PASSED
+ - isActive - false (setInactive()) - PASSED
+ - isActive - true (setActive()) - PASSED
+ - has - PASSED
+ - has (false) - PASSED
+ - isCustomAttribute - PASSED
+ - is it a float? - PASSED
+ - get() - PASSED
+ - hasChildren - PASSED
+ - new child check name - PASSED
+ - hasChildren (true) - PASSED
+ - children - PASSED
+ - position - PASSED
+ - velocity - PASSED
+ - acceleration - PASSED
+ - scale - PASSED
+ - orientation - PASSED
+ - damping - PASSED
+ - mass - PASSED
+TEST_CASE #6: PhysicsComponent - PASSED
+
+TEST_CASE #7: GraphicsComponent - STARTED
+ - getName - PASSED
+ - setName - PASSED
+ - toString - PASSED
+ - getFamily - PASSED
+ - isParent - PASSED
+ - isActive - true - PASSED
+ - isActive - false (setInactive()) - PASSED
+ - isActive - true (setActive()) - PASSED
+ - has - PASSED
+ - has (false) - PASSED
+ - isCustomAttribute - PASSED
+ - is it a float? - PASSED
+ - get() - PASSED
+ - hasChildren - PASSED
+ - new child check name - PASSED
+ - hasChildren (true) - PASSED
+ - children - PASSED
+TEST_CASE #7: GraphicsComponent - PASSED
+
+WINDOW
+WINDOW
+WINDOW
+WINDOW
+WINDOW
+WINDOW
+MOUSE_MOVE
+WINDOW
+MOUSE_MOVE
+MOUSE_MOVE
+MOUSE_MOVE
+MOUSE_MOVE
+MOUSE_MOVE
+MOUSE_MOVE
+MOUSE_MOVE
+MOUSE_MOVE
+MOUSE_MOVE
+MOUSE_MOVE
+MOUSE_MOVE
+MOUSE_MOVE
+MOUSE_MOVE
+MOUSE_MOVE
+MOUSE_MOVE
+MOUSE_MOVE
+MOUSE_MOVE
+WINDOW
+WINDOW
+MOUSE_MOVE
+MOUSE_MOVE
+MOUSE_MOVE
+MOUSE_MOVE
+MOUSE_MOVE
+MOUSE_MOVE
+MOUSE_MOVE
+MOUSE_MOVE
+MOUSE_MOVE
+MOUSE_MOVE
+MOUSE_MOVE
+MOUSE_MOVE
+MOUSE_MOVE
+MOUSE_MOVE
+MOUSE_MOVE
+MOUSE_MOVE
+MOUSE_MOVE
+MOUSE_MOVE
+MOUSE_MOVE
+MOUSE_MOVE
+MOUSE_MOVE
+MOUSE_MOVE
+MOUSE_MOVE
+MOUSE_MOVE
+MOUSE_MOVE
+MOUSE_MOVE
+MOUSE_MOVE
+MOUSE_MOVE
+MOUSE_MOVE
+MOUSE_MOVE
+MOUSE_MOVE
+MOUSE_MOVE
+MOUSE_MOVE
+MOUSE_MOVE
+MOUSE_MOVE
+MOUSE_MOVE
+MOUSE_MOVE
+MOUSE_MOVE
+MOUSE_MOVE
+MOUSE_MOVE
+MOUSE_MOVE
+MOUSE_MOVE
+MOUSE_MOVE
+MOUSE_MOVE
+MOUSE_MOVE
+MOUSE_MOVE
+MOUSE_MOVE
+MOUSE_MOVE
+MOUSE_MOVE
+MOUSE_MOVE
+MOUSE_MOVE
+MOUSE_MOVE
+MOUSE_MOVE
+MOUSE_MOVE
+MOUSE_MOVE
+MOUSE_MOVE
+MOUSE_MOVE
+MOUSE_MOVE
+MOUSE_MOVE
+MOUSE_MOVE
+MOUSE_MOVE
+MOUSE_MOVE
+MOUSE_MOVE
+MOUSE_MOVE
+MOUSE_MOVE
+MOUSE_MOVE
+MOUSE_MOVE
+MOUSE_MOVE
+MOUSE_MOVE
+MOUSE_MOVE
+MOUSE_MOVE
+MOUSE_MOVE
+MOUSE_MOVE
+MOUSE_MOVE
+MOUSE_MOVE
+MOUSE_MOVE
+MOUSE_MOVE
+MOUSE_MOVE
+MOUSE_MOVE
+MOUSE_MOVE
+MOUSE_MOVE
+MOUSE_MOVE
+MOUSE_MOVE
+MOUSE_BUTTON
+MOUSE_MOVE
+MOUSE_BUTTON
+MOUSE_MOVE
+MOUSE_MOVE
+MOUSE_MOVE
+MOUSE_MOVE
+MOUSE_MOVE
+MOUSE_MOVE
+MOUSE_MOVE
+MOUSE_MOVE
+MOUSE_MOVE
+MOUSE_MOVE
+MOUSE_MOVE
+MOUSE_MOVE
+MOUSE_MOVE
+MOUSE_MOVE
+MOUSE_MOVE
+A
+KEYBOARD
+TEXT_INPUT
+S
+KEYBOARD
+TEXT_INPUT
+F
+KEYBOARD
+TEXT_INPUT
+S
+KEYBOARD
+
++++++++++++++++++ UNIT TEST +++++++++++
+FILE:	test_SDLAssetManager.cpp
+Initializing Window...
+Test No. 1	 - hasDrawable true	> PASSED
+Test No. 2	 - hasDrawable false	> PASSED
+Test No. 3	 - removeDrawable	> PASSED

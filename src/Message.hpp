@@ -1,7 +1,11 @@
 #ifndef MESSAGE__HPP
 #define MESSAGE__HPP
 //DESCRIPTION
-/*
+/*!
+
+  @file Message.hpp
+  @brief represents a message used by the Messenger
+  
   This is used to store messages on events, collisions, or anything
   else for that matter.
 */
@@ -21,6 +25,8 @@ class Message;
 //MACROS
 
 //ENUMS
+
+//! Enumerable used to determine the type of message
 enum class enumMessageType {
     NONE,
     // for collisions between two entities with collision components.
@@ -65,23 +71,49 @@ enum class enumMessageType {
 //BEGIN
 class Message {
 private:
+
+    //! the unique message id
     incrementType id;
+    //! the message type
     enumMessageType type = enumMessageType::NONE;
 public:
+    //! used to store an entity
     AbstractEntity* firstEntity = nullptr;
+    //! used to store a component
     AbstractComponent* firstComponent = nullptr;
+    //! used to store a second entity
     AbstractEntity* secondEntity = nullptr;
+    //! used to store a second component
     AbstractComponent* secondComponent = nullptr;
+
+    //! a map container that stores any custom attributes
     std::map<stringType, CustomAttribute> customData;
+
+    //! a void pointer for storing more custom data
     void* data = nullptr;
-    
+
+    //! Message constructor
+    /*!
+      @param id the unique id assigned to the message
+      
+      Messages are typically created through the Messenger
+     */
     Message(incrementType id);
     virtual ~Message();
-    
+
+    //! get the ID of the current message
     incrementType getID();
+
+    //! get the type of message
     enumMessageType getType();
+
+    //! get the type of message in the form of a string
     stringType getTypeString();
+
+    //! set the type of message
     void setType(enumMessageType);
+
+    //! set the type of message in the form of a string
     void setTypeString(stringType typeString);
 };
 
