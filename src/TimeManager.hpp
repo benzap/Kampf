@@ -18,9 +18,10 @@
 
 //CLASSES
 class TimeManager;
+//class TimeTupleCriterion;
 
 //INCLUDES
-#include <map>
+#include <set>
 #include <tuple>
 #include <list>
 
@@ -35,12 +36,25 @@ class TimeManager;
 
 //ENUMS
 
-//TYPEDEFS a tuple containing the time stored, an identifier, and a
+//TYPEDEFS
+
+//a tuple containing the time stored, an identifier, and a
 //boolean which is 'true' when it's an active timer.
-typedef std::tuple<timeType, guidType> timeTuple;
-typedef std::list<timeTuple> timeContainerType;
+typedef std::pair<timeType, guidType> timeTuple;
+
+//TYPEDEF CRITERION
+class TimeTupleCriterion {
+public:
+    bool operator() (const timeTuple& t1,
+		     const timeTuple& t2) const {
+	return (t1.first < t2.first);
+    }
+};
+
+typedef std::set<timeTuple, TimeTupleCriterion> timeContainerType;
 
 typedef std::vector<guidType> partialTimeContainer;
+
 
 //FUNCTIONS
 
@@ -59,11 +73,7 @@ timeType tock(guidType tickID = kUseLastGuid);
 //BEGIN
 
 class TimeManager {
-private:
-    TimeManager() {}
-    TimeManager(TimeManager const&);
-    void operator=(TimeManager const&);
-
+private:    
     //holds a list of active timers. This generally means that it will
     //be holding times that are in the future. Upon being visited, the
     //time is either moved to the inactive time container, or simply
@@ -78,6 +88,15 @@ private:
     //iterates over the active container and moves any stray inactive
     //timers into the inactive timer container.
     void cleanActiveContainer();
+
+    TimeManager() {
+	auto tc = TimeTupleCriterion();
+	activeTimeContainer = timeContainerType(tc);
+	inActiveTimeContainer = timeContainerType(tc);
+    }
+    
+    TimeManager(TimeManager const&);
+    void operator=(TimeManager const&);
     
 public:
     static TimeManager* getInstance() {

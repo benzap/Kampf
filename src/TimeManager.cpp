@@ -8,6 +8,10 @@ guidType TimeManager::appendTime(int offset) {
     if (offset > 0) {
 	
     }
+    else {
+	
+    }
+    
     return generateGUID();
 }
     
