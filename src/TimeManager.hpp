@@ -88,7 +88,7 @@ public:
     //appends a time to the time manager, and returns a guidType
     //identifying it within the time manager. offset is a time offset in
     //milliseconds to the current time.
-    guidType appendTime(timeType offset = 0);
+    guidType appendTime(int offset = 0);
     
     //extends the offset on the given timeGuid. If the time extended
     //goes beyond the inactive state of the timer, it becomes an

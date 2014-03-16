@@ -4,12 +4,15 @@ void TimeManager::cleanActiveContainer() {
 
 }
 
-guidType TimeManager::appendTime(timeType offset) {
-    
+guidType TimeManager::appendTime(int offset) {
+    if (offset > 0) {
+	
+    }
     return generateGUID();
 }
     
 void TimeManager::extendTime(guidType timeGuid, timeType duration) {
+    
 }
 
 boolType TimeManager::hasTime(guidType timeGuid) {

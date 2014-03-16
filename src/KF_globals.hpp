@@ -44,7 +44,7 @@ typedef int integerType;
 typedef std::string guidType;
 
 //timer value duration to use
-typedef unsigned long timeType;
+typedef unsigned int timeType;
 
 //floating point type to use
 typedef double floatType;
