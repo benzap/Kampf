@@ -52,28 +52,12 @@ public:
 };
 
 typedef std::set<timeTuple, TimeTupleCriterion> timeContainerType;
-
 typedef std::vector<guidType> partialTimeContainer;
-
-
-//FUNCTIONS
-
-//Constant which tells tock(...) command to return a duration based on
-//the very last tick command seen
-const guidType kUseLastGuid = "";
-guidType ticker_lastId = kUseLastGuid;
-
-//calling this starts a timer, and returns a GUID used as an
-//identifier
-guidType tick();
-
-//returns the duration for the given timer
-timeType tock(guidType tickID = kUseLastGuid);
 
 //BEGIN
 
 class TimeManager {
-private:    
+private:
     //holds a list of active timers. This generally means that it will
     //be holding times that are in the future. Upon being visited, the
     //time is either moved to the inactive time container, or simply
@@ -104,6 +88,17 @@ public:
 	return &_instance;
     }
     
+    //STATIC members
+    
+    //a NULL time tuple
+    static timeTuple nullTime;
+
+    //Constant which tells tock(...) command to return a duration based on
+    //the very last tick command seen
+    static guidType kUseLastGuid;
+    static guidType ticker_lastId;
+    
+
     //appends a time to the time manager, and returns a guidType
     //identifying it within the time manager. offset is a time offset in
     //milliseconds to the current time.
@@ -117,12 +112,17 @@ public:
     //checks if the given time exists as an active or inactive timer.
     boolType hasTime(guidType timeGuid);
 
+    boolType hasActiveTime(guidType timeGuid);
+    boolType hasInactiveTime(guidType timeGuid);
+
     //checks if the given timer is still active
     boolType isActive(guidType timeGuid);
 
     //removes the given timer from either the inactive or active time
     //container.
     void removeTime(guidType timeGuid);
+
+    const timeTuple& getTimeTuple(guidType timeGuid);
 
     //returns the time for the given timeGuid
     timeType getTime(guidType timeGuid);
@@ -134,5 +134,13 @@ public:
 
 };
 
+//FUNCTIONS
+
+//calling this starts a timer, and returns a GUID used as an
+//identifier
+guidType tick();
+
+//returns the duration for the given timer
+timeType tock(guidType tickID = TimeManager::kUseLastGuid);
 
 #endif //END TIMEMANAGER__HPP

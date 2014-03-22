@@ -7,6 +7,8 @@
 
 //INCLUDES
 #include "EntityManager.hpp"
+#include "TimeManager.hpp"
+#include "SDLAssetManager.hpp"
 
 //CLASSES
 
