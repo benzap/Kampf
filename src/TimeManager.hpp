@@ -88,6 +88,9 @@ public:
 	return &_instance;
     }
     
+    const timeContainerType& getActiveContainer();
+    const timeContainerType& getInactiveContainer();
+
     //STATIC members
     
     //a NULL time tuple

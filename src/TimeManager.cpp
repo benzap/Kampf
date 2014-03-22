@@ -11,6 +11,14 @@ void TimeManager::cleanActiveContainer() {
 
 }
 
+const timeContainerType& TimeManager::getActiveContainer() {
+    return activeTimeContainer;
+}
+
+const timeContainerType& TimeManager::getInactiveContainer() {
+    return inActiveTimeContainer;
+}
+
 guidType TimeManager::appendTime(int offset) {
     auto timeGuid = generateGUID();
     auto timeValue = SDL_GetTicks();
