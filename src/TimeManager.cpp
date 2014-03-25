@@ -6,11 +6,6 @@ timeTuple TimeManager::nullTime = timeTuple(0, "0000-00000-000000");
 guidType TimeManager::kUseLastGuid = "";
 guidType TimeManager::ticker_lastId = kUseLastGuid;
 
-
-void TimeManager::cleanActiveContainer() {
-
-}
-
 const timeContainerType& TimeManager::getActiveContainer() {
     return activeTimeContainer;
 }
@@ -113,5 +108,28 @@ timeType TimeManager::getTime(guidType timeGuid) {
 }
 
 partialTimeContainer TimeManager::getNewInactives() {
-    return partialTimeContainer();
+    auto partialTimes = partialTimeContainer();
+
+    timeType currentTime = static_cast<timeType>(SDL_GetTicks());
+    for (auto timeTuple : this->activeTimeContainer) {
+	if (timeTuple.first <= currentTime) {
+	    partialTimes.push_back(timeTuple);
+	}
+	else {
+	    break;
+	}
+    }
+    
+    return partialTimes;
+}
+
+void TimeManager::cleanActiveContainer() {
+    //grab the list of inactive timers within the active container
+    auto newInactives = this->getNewInactives();
+
+    //move them over to the inactive container
+    for (auto inactiveTime : newInactives) {
+	this->inActiveTimeContainer.insert(inactiveTime);
+	this->activeTimeContainer.erase(inactiveTime);
+    }
 }

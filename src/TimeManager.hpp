@@ -52,7 +52,7 @@ public:
 };
 
 typedef std::set<timeTuple, TimeTupleCriterion> timeContainerType;
-typedef std::vector<guidType> partialTimeContainer;
+typedef std::vector<timeTuple> partialTimeContainer;
 
 //BEGIN
 
@@ -68,10 +68,6 @@ private:
     //have finished being active. Timers stop being active as soon as
     //they pass the desired epoch time.
     timeContainerType inActiveTimeContainer;
-
-    //iterates over the active container and moves any stray inactive
-    //timers into the inactive timer container.
-    void cleanActiveContainer();
 
     TimeManager() {
 	auto tc = TimeTupleCriterion();
@@ -135,6 +131,10 @@ public:
     //of moving these inactive times to the inactive time container.
     partialTimeContainer getNewInactives();
 
+    //iterates over the active container and moves any stray inactive
+    //timers into the inactive timer container.
+    void cleanActiveContainer();
+    
 };
 
 //FUNCTIONS
