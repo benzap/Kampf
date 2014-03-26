@@ -75,6 +75,10 @@ Kampf::Kampf(enumInitType initType,
 		//Adding the collision system
 		auto collisionSystem = new CollisionSystem();
 		this->addSystem(collisionSystem);
+
+		//Adding the time system, for handling timers
+		auto timeSystem = new TimeSystem();
+		this->addSystem(timeSystem);
 		
 	    }
 	} //END if (windowType == enumWindowType::SDL) {
