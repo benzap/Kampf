@@ -10,6 +10,38 @@ void sleep( clock_t wait ) {
 	;
 }
 
+void printTimeTuple(timeTuple theTime) {
+    auto currentTime = SDL_GetTicks();
+    
+    std::cout << "TimeTuple<" << theTime.first << ", " << theTime.second;
+    std::cout << "> (" << currentTime << ")" << std::endl;
+}
+
+
+
+void viewContainers() {
+    auto timeManager = TimeManager::getInstance();
+    auto currentTime = SDL_GetTicks();
+
+    std::cout << std::endl;
+    std::cout << "Viewing at time: " << currentTime << std::endl;
+    std::cout << std::endl;
+    std::cout << "Inactive Time Container" << std::endl;
+    std::cout << "-----------------------" << std::endl;
+    for (auto timeTuple : timeManager->getInactiveContainer()) {
+	printTimeTuple(timeTuple);
+    }
+
+    std::cout << std::endl;
+    
+    std::cout << "Active Time Container" << std::endl;
+    std::cout << "---------------------" << std::endl;
+    for (auto timeTuple : timeManager->getActiveContainer()) {
+	printTimeTuple(timeTuple);
+    }
+    
+}
+
 int main(int argc, char *argv[]) {
     TEST_NAME("test_TimeManager.cpp");
 
@@ -36,9 +68,7 @@ int main(int argc, char *argv[]) {
     auto time4 = timeManager->appendTime();
 
     //check out the timeTuples in the inactive container
-    for (auto timeTuple : timeManager->getInactiveContainer()) {
-	std::cout << "TimeTuple<" << timeTuple.first << ", " << timeTuple.second << ">" << std::endl;
-    }
+    viewContainers();
 
     //test deletion within the inactive container
     timeManager->removeTime(time4);
@@ -58,6 +88,22 @@ int main(int argc, char *argv[]) {
     TEST_BOOL(timeManager->getNewInactives().size() == 0,
 	      "cleanActiveContainer()");
 
+    //try extending a time into the active container
+    auto newActive = timeManager->appendTime();
+    timeManager->extendTime(newActive, 1000);
+
+    TEST_BOOL(timeManager->hasActiveTime(newActive), "extendTime");
+    
+    SDL_Delay(1010);
+    timeManager->cleanActiveContainer();
+    timeManager->extendTime(newActive, 2000);
+
+    TEST_BOOL(timeManager->hasActiveTime(newActive), "extendTime2");
+
+    viewContainers();
+
+    
+    
     return 0;    
 }
 

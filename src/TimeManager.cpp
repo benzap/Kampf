@@ -16,7 +16,7 @@ const timeContainerType& TimeManager::getInactiveContainer() {
 
 guidType TimeManager::appendTime(int offset) {
     auto timeGuid = generateGUID();
-    auto timeValue = SDL_GetTicks();
+    auto timeValue = SDL_GetTicks() + offset;
     auto timePair = timeTuple(timeValue, timeGuid);
 
     //if the offset is greater than zero, we add to active container
@@ -31,7 +31,39 @@ guidType TimeManager::appendTime(int offset) {
 }
     
 void TimeManager::extendTime(guidType timeGuid, timeType duration) {
-    
+    assert(hasTime(timeGuid) && "timeTuple doesn't exist");
+
+    //check if it's within the active time container
+    for (auto timeTuple : activeTimeContainer) {
+	if (timeTuple.second == timeGuid) {
+	    timeTuple.first += duration;
+	    return;
+	}
+    }
+
+    //check if it's within the inactive time container
+    for (auto timeTuple : inActiveTimeContainer) {
+	if (timeTuple.second == timeGuid) {
+	    //grab the current time
+	    timeType currentTime = static_cast<timeType>(SDL_GetTicks());
+	    
+	    timeTuple.first += duration;
+
+	    //check to see if the new timestamp is even older after
+	    //it's been extended
+	    if (timeTuple.first < currentTime) {
+		return;
+	    }
+
+	    //move it into the active container
+	    activeTimeContainer.insert(timeTuple);
+
+	    //remove it from the inactivecontainer
+	    inActiveTimeContainer.erase(timeTuple);
+
+	    return;
+	}
+    }
 }
 
 boolType TimeManager::hasTime(guidType timeGuid) {
