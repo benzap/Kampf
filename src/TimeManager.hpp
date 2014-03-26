@@ -134,7 +134,9 @@ public:
     //iterates over the active container and moves any stray inactive
     //timers into the inactive timer container.
     void cleanActiveContainer();
-    
+
+    //clears out all of the containers within the time manager
+    void clearAll();
 };
 
 //FUNCTIONS

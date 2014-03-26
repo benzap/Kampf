@@ -39,7 +39,7 @@ void viewContainers() {
     for (auto timeTuple : timeManager->getActiveContainer()) {
 	printTimeTuple(timeTuple);
     }
-    
+    std::cout << std::endl;
 }
 
 int main(int argc, char *argv[]) {
@@ -102,7 +102,38 @@ int main(int argc, char *argv[]) {
 
     viewContainers();
 
+    //completely new set of tests
+    timeManager->clearAll();
+
+    TEST_BOOL(!timeManager->getActiveContainer().size(), "clearAll");
+    TEST_BOOL(!timeManager->getInactiveContainer().size(), "clearAll2");
+
+    //create a set of timers and watch as they progressively get moved
+    //to the the inactive container
+    auto timer_active_1 = timeManager->appendTime(1000);
+    auto timer_active_2 = timeManager->appendTime(2000);
+    auto timer_active_3 = timeManager->appendTime(3000);
+
+#define NUM_INACTIVES() timeManager->getNewInactives().size()
     
+    TEST_BOOL(NUM_INACTIVES() == 0, "zero seconds");
+    timeManager->cleanActiveContainer();
+    viewContainers();
+    
+    SDL_Delay(1001);
+    TEST_BOOL(NUM_INACTIVES() == 1, "one second");
+    timeManager->cleanActiveContainer();
+    viewContainers();
+    
+    SDL_Delay(1001);
+    TEST_BOOL(NUM_INACTIVES() == 1, "two seconds");
+    timeManager->cleanActiveContainer();
+    viewContainers();
+    
+    SDL_Delay(1001);
+    TEST_BOOL(NUM_INACTIVES() == 1, "three seconds");
+    timeManager->cleanActiveContainer();
+    viewContainers();
     
     return 0;    
 }

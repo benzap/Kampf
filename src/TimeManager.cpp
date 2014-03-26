@@ -165,3 +165,8 @@ void TimeManager::cleanActiveContainer() {
 	this->activeTimeContainer.erase(inactiveTime);
     }
 }
+
+void TimeManager::clearAll() {
+    this->inActiveTimeContainer.clear();
+    this->activeTimeContainer.clear();
+}
