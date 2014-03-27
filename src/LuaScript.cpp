@@ -36,6 +36,9 @@ LuaScript::LuaScript(Kampf* kf) {
   luaopen_physicsComponent(L);
   luaopen_graphicsComponent(L);
 
+  //TimeManager
+  luaopen_timeManager(L);
+
   if (kf != nullptr) {
     luaopen_kampf(L, kf);
     luaopen_messenger(L, kf->getMessenger());

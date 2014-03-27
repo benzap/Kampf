@@ -31,12 +31,13 @@ guidType TimeManager::appendTime(int offset) {
 }
     
 void TimeManager::extendTime(guidType timeGuid, timeType duration) {
-    assert(hasTime(timeGuid) && "timeTuple doesn't exist");
+    assert(hasTime(timeGuid) || "timeTuple doesn't exist");
 
     //check if it's within the active time container
     for (auto timeTuple : activeTimeContainer) {
 	if (timeTuple.second == timeGuid) {
 	    timeTuple.first += duration;
+	    inActiveTimeContainer.insert(timeTuple);
 	    return;
 	}
     }
@@ -64,6 +65,7 @@ void TimeManager::extendTime(guidType timeGuid, timeType duration) {
 	    return;
 	}
     }
+    assert(false || "Given Guid was manipulated");
 }
 
 boolType TimeManager::hasTime(guidType timeGuid) {
@@ -99,7 +101,7 @@ boolType TimeManager::isActive(guidType timeGuid) {
 }
 
 void TimeManager::removeTime(guidType timeGuid) {
-    assert(hasTime(timeGuid) || "given timeGuid doesn't exist");
+    assert( hasTime(timeGuid) || "given timeGuid doesn't exist");
 
     auto timeTuple = getTimeTuple(timeGuid);
     if (hasActiveTime(timeGuid)) {

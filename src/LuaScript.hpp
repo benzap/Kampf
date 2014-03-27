@@ -33,6 +33,7 @@ class LuaScript;
 #include "l_CollisionComponent.hpp"
 #include "l_PhysicsComponent.hpp"
 #include "l_Component.hpp"
+#include "l_TimeManager.hpp"
 
 //DEFINITIONS
 

@@ -87,6 +87,16 @@ static int l_TimeManager_hasTime(lua_State *L) {
 }
 
 static int l_TimeManager_removeTime(lua_State *L) {
+    auto timeManager = lua_totimeManager(L, 1);
+    auto timeGuid = luaL_checkstring(L, 2);
+
+    if (timeManager->hasTime(timeGuid)) {	
+	timeManager->removeTime(timeGuid);
+    }
+    else {
+	luaL_error(L, "Provided timeGuid does not exist in the TimeManager");
+    }
+
     return 0;
 }
 
@@ -94,9 +104,10 @@ static int l_TimeManager_getTime(lua_State *L) {
     auto timeManager = lua_totimeManager(L, 1);
     auto timeGuid = luaL_checkstring(L, 2);
 
-    timeManager->removeTime(timeGuid);
-    
-    return 0;
+    timeType theTime = timeManager->getTime(timeGuid);
+    lua_pushinteger(L, theTime);
+
+    return 1;
 }
 
 	

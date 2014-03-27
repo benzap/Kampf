@@ -61,6 +61,12 @@ static int l_kampf_getTick(lua_State *L) {
     return 1;
 }
 
+static int l_kampf_delay(lua_State *L) {
+    unsigned int delayValue = luaL_checkint(L, 1);
+    SDL_Delay(delayValue);
+    return 0;
+}
+
 static const struct luaL_Reg l_kampf [] = {
     {"runMainLoop", l_kampf_runMainLoop},
     {"getMessenger", l_kampf_getMessenger},
@@ -68,6 +74,7 @@ static const struct luaL_Reg l_kampf [] = {
     {"getRenderWindow", l_kampf_getRenderWindow},
     {"addSystem", l_kampf_addSystem},
     {"getTick", l_kampf_getTick},
+    {"delay", l_kampf_delay},
     {NULL, NULL}
 };
 
