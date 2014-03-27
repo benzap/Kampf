@@ -201,6 +201,39 @@ ruleMachine.addRule(
 		end
 end)
 
+local toggleCircle = createRedCircle()
+toggleCircle:getComponentsByFamily("PHYSICS")[1]:setPosition(kf.Vector3(400,400,0))
+entityManager:addEntity(toggleCircle)
+local toggleDrawable = toggleCircle:getComponentsByFamily("GRAPHICS")[1]
 
+
+--test out the time manager
+local bToggleColor = false
+local toggleDelay = 1000
+local toggleTimer = kf.TimeManager():appendTime(toggleDelay)
+ruleMachine.addRule(
+	function(msg)
+		if msg:getType() == "TIMER" then
+			local timeGuid = msg:get("timeGuid"):get()
+			if (timeGuid == toggleTimer) then
+				return true
+			end
+		end
+		return false
+	end,
+	function(msg)
+		if bToggleColor then
+			toggleDrawable:setDrawableKey("red-circle")
+		else
+			toggleDrawable:setDrawableKey("blue-circle")
+		end
+		bToggleColor = not bToggleColor
+		
+		--remove the old timer
+		kf.TimeManager():removeTime(toggleTimer)
+
+		--append a new timer
+		toggleTimer = kf.TimeManager():appendTime(toggleDelay)
+end)
 
 kf.runMainLoop(-1)
