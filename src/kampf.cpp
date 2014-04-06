@@ -80,6 +80,10 @@ Kampf::Kampf(enumInitType initType,
 		auto timeSystem = new TimeSystem();
 		this->addSystem(timeSystem);
 		
+		//Adding the physics system, for handling physics
+		auto physicsSystem = new PhysicsSystem();
+		this->addSystem(physicsSystem);
+
 	    }
 	} //END if (windowType == enumWindowType::SDL) {
   

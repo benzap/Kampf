@@ -38,8 +38,10 @@ private:
     Vector3 scale = Vector3(1,1,1);
     Quaternion orientation;
 
-    floatType damping = 0;
+    floatType damping = 1;
     floatType inverseMass = 1;
+
+    Vector3 forceAccumulator = Vector3(0,0,0);
 
 public:
     PhysicsComponent(stringType name,
@@ -69,6 +71,12 @@ public:
 
     void setMass(floatType);
     floatType getMass();
+
+    void setInverseMass(floatType);
+    floatType getInverseMass();
+
+    const Vector3& getForceAccumulator();
+    void setForceAccumulator(Vector3);
 };
 
 #endif //END PHYSICSCOMPONENT__HPP

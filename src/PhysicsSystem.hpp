@@ -8,7 +8,11 @@
 */
 
 //INCLUDES
+#include <SDL2/SDL.h>
+
+#include "KF_math.hpp"
 #include "AbstractSystem.hpp"
+#include "EntityManager.hpp"
 
 //CLASSES
 class PhysicsSystem;
@@ -24,7 +28,9 @@ class PhysicsSystem;
 //BEGIN
 class PhysicsSystem : public AbstractSystem {
 private:
-  
+    timeType previousTime = SDL_GetTicks();
+    timeType currentTime = 0;
+
 public:
   PhysicsSystem();
   virtual ~PhysicsSystem();

@@ -72,8 +72,27 @@ floatType PhysicsComponent::getMass() {
     return 1 / this->inverseMass;
 }
 
+void PhysicsComponent::setInverseMass(floatType inverseMass) {
+    this->inverseMass = inverseMass;
+}
+
+floatType PhysicsComponent::getInverseMass() {
+    return this->inverseMass;
+}
+
+const Vector3& PhysicsComponent::getForceAccumulator() {
+    return forceAccumulator;
+}
+
+void PhysicsComponent::setForceAccumulator(Vector3 value) {
+    this->forceAccumulator = value;
+}
+
 PhysicsComponent* createPhysicsComponent(
     stringType name, boolType bIsParent) {
     auto physicsComponent = new PhysicsComponent(name, bIsParent);
     return physicsComponent;
 }
+
+
+

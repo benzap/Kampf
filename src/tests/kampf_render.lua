@@ -68,6 +68,8 @@ end
 
 local pacman = createPacman()
 local redCircle = createRedCircle()
+
+local redPhysics = redCircle:getComponentsByFamily("PHYSICS")[1]
 local blueCircle = createBlueCircle()
 blueCircle:getComponentsByFamily("PHYSICS")[1]:setPosition(kf.Vector3(100,100,0)) 
 
@@ -235,5 +237,14 @@ ruleMachine.addRule(
 		--append a new timer
 		toggleTimer = kf.TimeManager():appendTime(toggleDelay)
 end)
+
+--Testing Physics System
+redPhysics:setVelocity(kf.Vector3(500.0, 300.0, 0.0))
+redPhysics:setAcceleration(kf.Vector3(0, -300, 0))
+redPhysics:setDamping(0.9)
+
+--lets add rules so that the ball stays within the bounds
+
+
 
 kf.runMainLoop(-1)
