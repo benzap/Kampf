@@ -38,7 +38,7 @@ TESTS_DIRECTORY = ./tests
 GLOBAL_HPP= KF_globals.hpp KF_utilities.hpp KF_math.hpp
 
 #included directories considered for compiling
-INCLUDED_DIRS = ./collision
+INCLUDED_DIRS = ./collision ./physics
 
 #get all of the .cpp files and .hpp files
 HPP_FILES = $(wildcard *.hpp)
@@ -68,8 +68,14 @@ all: clean kampf tests
 %.o: %.cpp %.hpp $(GLOBAL_HPP)
 	$(CXX) $(CXXFLAGS) -o $@ -c $< $(LIBS_DIR) $(LIBS) 
 
+######### INCLUDED DIRECTORIES #############
 ./collision/%.o: ./collision/%.cpp ./collision/%.hpp $(GLOBAL_HPP)
-	$(CXX) $(CXXFLAGS) -o $@ -c $< $(LIBS_DIR) $(LIBS) 
+	$(CXX) $(CXXFLAGS) -o $@ -c $< $(LIBS_DIR) $(LIBS)
+
+./physics/%.o: ./physics/%.cpp ./physics/%.hpp $(GLOBAL_HPP)
+	$(CXX) $(CXXFLAGS) -o $@ -c $< $(LIBS_DIR) $(LIBS)
+#############################################
+
 
 libkampf.a: $(OBJ_FILES)
 	ar rcs $@ $(OBJ_FILES)
