@@ -4,7 +4,7 @@
 #include "KF_test.hpp"
 
 int main(int argc, char *argv[]) {
-  TEST_NAME("test_renderwindow.cpp");
+  TEST_NAME();
   auto kampf = Kampf(enumInitType::Basic); 
   auto lua = kampf.getLua();
   lua->loadScript(KF_INIT_FILE);

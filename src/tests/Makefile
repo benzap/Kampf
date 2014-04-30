@@ -30,7 +30,7 @@ CXXFLAGS += -mconsole -m32 -DKF_WIN
 endif
 
 #global hpp files
-GLOBAL_HPP= ../kampf.hpp
+GLOBAL_HPP= ../kampf.hpp KF_test.hpp
 
 #get all of the .cpp files and .hpp files
 HPP_FILES=$(wildcard *.hpp)

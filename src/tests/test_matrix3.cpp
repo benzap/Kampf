@@ -5,7 +5,7 @@
 #include "KF_test.hpp"
 
 int main(int argc, char *argv[]) {
-  TEST_NAME("test_matrix3.cpp");
+  TEST_NAME();
 
   auto m1 = Matrix3();
   auto m2 = Matrix3();

@@ -204,6 +204,7 @@ ruleMachine.addRule(
 end)
 
 local toggleCircle = createRedCircle()
+toggleCircle:setName("toggleCircle")
 toggleCircle:getComponentsByFamily("PHYSICS")[1]:setPosition(kf.Vector3(400,400,0))
 entityManager:addEntity(toggleCircle)
 local toggleDrawable = toggleCircle:getComponentsByFamily("GRAPHICS")[1]

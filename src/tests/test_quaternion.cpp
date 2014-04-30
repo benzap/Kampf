@@ -5,7 +5,7 @@
 #include "KF_test.hpp"
 
 int main(int argc, char *argv[]) {
-  TEST_NAME("test_quaternion.cpp");
+  TEST_NAME();
 
   auto q1 = Quaternion(1,2,3,0);
 

@@ -43,7 +43,7 @@ void viewContainers() {
 }
 
 int main(int argc, char *argv[]) {
-    TEST_NAME("test_TimeManager.cpp");
+    TEST_NAME();
 
     auto timeManager = TimeManager::getInstance();
 

@@ -4,7 +4,7 @@
 #include "KF_test.hpp"
 
 int main(int argc, char *argv[]) {
-  TEST_NAME("test_math.cpp");
+  TEST_NAME();
 
   auto v = Vector3(0,0,0);
 

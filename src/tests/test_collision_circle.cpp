@@ -4,7 +4,7 @@
 #include "KF_test.hpp"
 
 int main(int argc, char *argv[]) {
-    TEST_NAME("test_collision_circle.cpp");
+    TEST_NAME();
 
     COL_circle first = {
 	Vector3{10, 0, 0},

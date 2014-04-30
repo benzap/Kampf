@@ -4,7 +4,7 @@
 #include "KF_test.hpp"
 
 int main(int argc, char *argv[]) {
-  TEST_NAME("test_entityManager.cpp");
+  TEST_NAME();
 
   auto entityManager = EntityManager::getInstance();
 

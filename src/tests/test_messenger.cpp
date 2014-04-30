@@ -4,7 +4,7 @@
 #include "KF_test.hpp"
 
 int main(int argc, char *argv[]) {
-  TEST_NAME("test_messenger.cpp");
+  TEST_NAME();
 
   auto messenger = Messenger::getInstance();
   auto msg1 = messenger->appendMessage();

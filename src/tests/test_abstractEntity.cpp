@@ -4,7 +4,7 @@
 #include "KF_test.hpp"
 
 int main(int argc, char *argv[]) {
-  TEST_NAME("test_abstractEntity.cpp");
+  TEST_NAME();
 
   auto entity = AbstractEntity("Some Entity");
   
