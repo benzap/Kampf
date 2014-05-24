@@ -200,8 +200,8 @@ Messenger* Kampf::getMessenger() {
     return this->messenger;
 }
 
-void Kampf::addRule(RuleCondition ruleCond, RuleFunction ruleFunc) {
-    this->ruleMachine->addRule(ruleCond, ruleFunc);
+incrementType Kampf::addRule(RuleCondition ruleCond, RuleFunction ruleFunc) {
+    return this->ruleMachine->addRule(ruleCond, ruleFunc);
 }
 
 RuleMachine* Kampf::getRuleMachine() {

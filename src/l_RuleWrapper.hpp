@@ -15,24 +15,15 @@ class RuleWrapper_function;
 #include "RuleMachine.hpp"
 #include "LuaScript.hpp"
 #include "l_Message.hpp"
+#include "l_Wrapper_Utils.hpp"
 
 //DEFINITIONS
-//location of the function references
-#define FUNCTION_REF_TABLE LUA_REGISTRYINDEX
 
 //MACROS
 
 //TYPEDEFS
 
 //FUNCTIONS
-
-//gets and creates a function reference within the table stored in
-//FUNCTION_REF_TABLE
-int lua_getFunctionRef(lua_State *L);
-
-//grabs the value at the given index / reference and pushes it to the
-//top of the stack.
-void lua_pushFunctionRef(lua_State *L, int ref);
 
 //BEGIN
 class RuleWrapper_condition {

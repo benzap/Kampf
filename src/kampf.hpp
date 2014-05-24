@@ -78,7 +78,7 @@ public:
     AbstractSystem* getSystem(stringType systemType);
     void addSystem(AbstractSystem*);
     Messenger* getMessenger();
-    void addRule(RuleCondition, RuleFunction);
+    incrementType addRule(RuleCondition, RuleFunction);
     RuleMachine* getRuleMachine();
     
     LuaScript* getLua();
