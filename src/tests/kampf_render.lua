@@ -270,32 +270,23 @@ kf.addSystem("CollisionBounds",
 				 local acceleration = redPhysics:getAcceleration()
 				 local redRadius = 50
 				 if xPosition + redRadius*2 > width then
-					 redPhysics:setVelocity(kf.Vector3(
-													-velocity[1],
-												velocity[2],
-												0))
+					 velocity.x = -velocity.x
+					 redPhysics:setVelocity(velocity)
 				 end
 
 				 if xPosition < 0 then
-					 redPhysics:setVelocity(
-						 kf.Vector3(
-								 -velocity[1],
-							 velocity[2],
-							 0))
+					 velocity.x = -velocity.x
+					 redPhysics:setVelocity(velocity)
 				 end
 					 
 				 if yPosition + redRadius*2 > height then
-					 redPhysics:setVelocity(kf.Vector3(
-													velocity[1],
-												-velocity[2],
-												0))
+					 velocity.y = -velocity.y
+					 redPhysics:setVelocity(velocity)
 				 end
 
 				 if yPosition < 0 then
-					 redPhysics:setVelocity(kf.Vector3(
-												velocity[1],
-													-velocity[2],
-												0))
+					 velocity.y = -velocity.y
+					 redPhysics:setVelocity(velocity)
 				 end
 			 end
 )
