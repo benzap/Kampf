@@ -90,7 +90,7 @@ entityManager:addEntity(redCircle)
 entityManager:addEntity(blueCircle)
 
 local renderWindow = kf.getRenderWindow()
-renderWindow:setWindowSize(1000, 600)
+renderWindow:setWindowSize(800, 600)
 renderWindow:setResolution(800, 600)
 renderWindow:setViewport{
 	x = 0,
@@ -241,11 +241,64 @@ end)
 
 --Testing Physics System
 redPhysics:setVelocity(kf.Vector3(500.0, 300.0, 0.0))
-redPhysics:setAcceleration(kf.Vector3(0, -300, 0))
+redPhysics:setAcceleration(kf.Vector3(0, 300, 0))
 redPhysics:setDamping(0.9)
 
---lets add rules so that the ball stays within the bounds
+--lets add a secondary collision system so that the ball stays within
+--the bounds
 
+kf.addSystem("CollisionBounds",
+			 --[[
+				 Create Messages, we aren't creating 
+				 any messages so this is empty
+			 ]]
+			 function()	end,
+
+			 --Process Messages, we're checking the bounds of our
+			 --redPhysics ball.
+			 function()
+				 local ballPosition = redPhysics:getPosition()
+				 local xPosition = ballPosition[1]
+				 local yPosition = ballPosition[2]
+				 
+				 local windowSize = kf.getRenderWindow():getResolution()
+				 local width = windowSize[1]
+				 local height = windowSize[2]
+
+				 
+				 local velocity = redPhysics:getVelocity()
+				 local acceleration = redPhysics:getAcceleration()
+				 local redRadius = 50
+				 if xPosition + redRadius*2 > width then
+					 redPhysics:setVelocity(kf.Vector3(
+													-velocity[1],
+												velocity[2],
+												0))
+				 end
+
+				 if xPosition < 0 then
+					 redPhysics:setVelocity(
+						 kf.Vector3(
+								 -velocity[1],
+							 velocity[2],
+							 0))
+				 end
+					 
+				 if yPosition + redRadius*2 > height then
+					 redPhysics:setVelocity(kf.Vector3(
+													velocity[1],
+												-velocity[2],
+												0))
+				 end
+
+				 if yPosition < 0 then
+					 redPhysics:setVelocity(kf.Vector3(
+												velocity[1],
+													-velocity[2],
+												0))
+				 end
+			 end
+)
 
 
 kf.runMainLoop(-1)
