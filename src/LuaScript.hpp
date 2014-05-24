@@ -17,6 +17,7 @@ class LuaScript;
 #include "kampf.hpp"
 
 //the kampf extensible libraries
+#include "l_Wrapper.hpp"
 #include "l_kampf.hpp"
 #include "l_Vector3.hpp"
 #include "l_Quaternion.hpp"

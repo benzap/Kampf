@@ -6,10 +6,10 @@
  */
 
 //CLASSES
-class lua_FunctionWrapper;
+class Lua_FunctionWrapper;
 
 //INCLUDES
-#include "LuaScript.hpp"
+#include "lua.hpp"
 #include "l_Wrapper_Utils.hpp"
 
 //DEFINITIONS
@@ -22,7 +22,7 @@ class lua_FunctionWrapper;
 
 //BEGIN
 class Lua_FunctionWrapper {
-private:
+protected:
     //a reference to the current lua_state
     lua_State *L = nullptr;
 

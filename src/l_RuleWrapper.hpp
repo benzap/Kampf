@@ -16,6 +16,7 @@ class RuleWrapper_function;
 #include "LuaScript.hpp"
 #include "l_Message.hpp"
 #include "l_Wrapper_Utils.hpp"
+#include "l_Wrapper.hpp"
 
 //DEFINITIONS
 
@@ -26,16 +27,12 @@ class RuleWrapper_function;
 //FUNCTIONS
 
 //BEGIN
-class RuleWrapper_condition {
-private:
-    lua_State *L = nullptr;
-    int luaConditionRef = LUA_NOREF;
+class RuleWrapper_condition : public Lua_FunctionWrapper {
 public:
-    RuleWrapper_condition(lua_State *L, int index);
-    virtual ~RuleWrapper_condition();
-
+    RuleWrapper_condition(lua_State *L, int index) :
+	Lua_FunctionWrapper(L, index) {}
+    
     boolType operator () (Message* msg);
-
 };
 
 class RuleWrapper_function {

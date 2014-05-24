@@ -1,33 +1,20 @@
 #include "l_RuleWrapper.hpp"
 
-RuleWrapper_condition::RuleWrapper_condition(lua_State *L, int index) :
-    L(L) {
-    //push the index to the top of the stack
-    lua_pushvalue(L, index);
-
-    //push and pop into reference;
-    this->luaConditionRef = lua_getFunctionRef(L);
-}
-
-RuleWrapper_condition::~RuleWrapper_condition() {
-    //luaL_unref(L, FUNCTION_REF_TABLE, this->luaConditionRef);
-}
-
 boolType RuleWrapper_condition::operator () (Message* msg) {
     //push our function onto the stack
-    lua_pushFunctionRef(L, this->luaConditionRef);
+    lua_pushFunctionRef(this->L, this->luaFunctionRef);
     //push the message onto the stack
-    lua_pushmessage(L, msg);
+    lua_pushmessage(this->L, msg);
     //call the function, the result is pushed onto the stack
     int chk = lua_pcall(L, 1, 1, 0);
     if (chk) {
-	lua_pcall_generateErrorMessage(L, chk);
+	lua_pcall_generateErrorMessage(this->L, chk);
 	
 	return false;
     }
     else {
 	//grab the boolean result
-	boolType result = lua_toboolean(L, -1);
+	boolType result = lua_toboolean(this->L, -1);
 	lua_pop(L, 1);
 	return result;
     }

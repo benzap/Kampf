@@ -9,7 +9,10 @@
 //CLASSES
 
 //INCLUDES
-#include "LuaScript.hpp"
+#include <iostream>
+#include "KF_globals.hpp"
+#include "KF_utilities.hpp"
+#include "lua.hpp"
 
 //DEFINITIONS
 
