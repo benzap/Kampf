@@ -12,8 +12,8 @@ class GraphicsSystem;
 #include <memory>
 #include <iostream>
 
-#include "kampf.hpp"
 #include "AbstractSystem.hpp"
+#include "RenderWindows.hpp"
 
 //ENUMS
 

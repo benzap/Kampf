@@ -35,13 +35,10 @@ public:
     boolType operator () (Message* msg);
 };
 
-class RuleWrapper_function {
-private:
-    lua_State *L = nullptr;
-    int luaFunctionRef = LUA_NOREF;
+class RuleWrapper_function : public Lua_FunctionWrapper {
 public:
-    RuleWrapper_function(lua_State *L, int index);
-    virtual ~RuleWrapper_function();
+    RuleWrapper_function(lua_State *L, int index) :
+	Lua_FunctionWrapper(L, index) {}
 
     void operator () (Message* msg);
 };

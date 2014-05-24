@@ -20,20 +20,6 @@ boolType RuleWrapper_condition::operator () (Message* msg) {
     }
 }
 
-
-RuleWrapper_function::RuleWrapper_function(lua_State*L, int index) :
-    L(L) {
-    //push the index to the top of the stack
-    lua_pushvalue(L, index);
-
-    //push and pop into reference;
-    this->luaFunctionRef = lua_getFunctionRef(L);
-}
-
-RuleWrapper_function::~RuleWrapper_function() {
-    //luaL_unref(L, FUNCTION_REF_TABLE, this->luaFunctionRef);
-}
-
 void RuleWrapper_function::operator () (Message* msg) {
     //push our function onto the stack
     lua_pushFunctionRef(L, this->luaFunctionRef);

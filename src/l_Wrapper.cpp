@@ -13,7 +13,8 @@ Lua_FunctionWrapper::~Lua_FunctionWrapper() {
     //luaL_unref(L, FUNCTION_REF_TABLE, this->luaConditionRef);
 }
 
-void Lua_FunctionWrapper::operator () () {
+//Implentation of the simple void function
+void LuaWrap_VoidFunction::operator () () {
     //push our function onto the stack
     lua_pushFunctionRef(L, this->luaFunctionRef);
 

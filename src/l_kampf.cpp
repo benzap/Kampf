@@ -51,7 +51,24 @@ static int l_kampf_getRenderWindow(lua_State *L) {
     return 1;
 }
 
+/* 
+   KF.addSystem (systemType :: string,
+                 createMessage :: void function(void)
+                 process :: void function(void)
+ */
 static int l_kampf_addSystem(lua_State *L) {
+    Kampf* kf = lua_getKampf(L);
+
+    stringType systemType = luaL_checkstring(L, 1);
+    auto wrapperCreateMessage = LuaWrap_VoidFunction(L, 2);
+    auto wrapperProcess = LuaWrap_VoidFunction(L, 3);
+
+    auto luaSystem = new LuaSystem(systemType,
+				   wrapperCreateMessage,
+				   wrapperProcess);
+
+    kf->addSystem(luaSystem);
+    
     return 0;
 }
 

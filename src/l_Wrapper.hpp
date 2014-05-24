@@ -7,6 +7,7 @@
 
 //CLASSES
 class Lua_FunctionWrapper;
+class LuaWrap_VoidFunction;
 
 //INCLUDES
 #include "lua.hpp"
@@ -21,6 +22,11 @@ class Lua_FunctionWrapper;
 //FUNCTIONS
 
 //BEGIN
+
+/*
+  An Abstract Function wrapper used for passing lua functions
+  into the c++ world
+ */
 class Lua_FunctionWrapper {
 protected:
     //a reference to the current lua_state
@@ -33,7 +39,21 @@ public:
     virtual ~Lua_FunctionWrapper();
 
     //include your own operator() when wrapping the lua function
-    void operator() ();
+    //void operator() ();
+    
+};
+
+/*
+  A Lua function wrapper for functions of the form:
+  
+  void function(void)
+ */
+class LuaWrap_VoidFunction : public Lua_FunctionWrapper {
+public:
+    LuaWrap_VoidFunction(lua_State *L, int index) :
+	Lua_FunctionWrapper(L, index) {}
+
+    void operator () ();
     
 };
 

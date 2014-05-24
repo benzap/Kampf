@@ -12,6 +12,7 @@
 #include "CollisionSystem.hpp"
 #include "PhysicsSystem.hpp"
 #include "TimeSystem.hpp"
+#include "LuaSystem.hpp"
 
 //CLASSES
 
