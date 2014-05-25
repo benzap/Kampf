@@ -10,63 +10,6 @@ PhysicsSystem::~PhysicsSystem() {
 
 }
 
-void PhysicsSystem::addForceGenerator(AbstractForceGenerator* generator) {
-    this->generatorContainer.push_back(generator);
-}
-
-void PhysicsSystem::removeForceGenerator(AbstractForceGenerator* gen) {
-    auto genIter = std::find(this->generatorContainer.begin(),
-			     this->generatorContainer.end(),
-			     gen);
-    this->generatorContainer.erase(genIter);
-}
-
-void PhysicsSystem::removeForceGenerator(stringType generatorName) {
-    auto genIter = std::find_if(this->generatorContainer.begin(),
-				this->generatorContainer.end(),
-				[&] (AbstractForceGenerator* aGenerator) {
-				    if (aGenerator->getName() == generatorName) {
-					return true;
-				    }
-				    return false;
-				});
-    
-    this->generatorContainer.erase(genIter);
-}
-
-AbstractForceGenerator* PhysicsSystem::getForceGenerator(stringType generatorName) {
-    assert(this->hasForceGenerator(generatorName));
-    
-    auto genIter = std::find_if(this->generatorContainer.begin(),
-			    this->generatorContainer.end(),
-			    [&] (AbstractForceGenerator* aGenerator) {
-				if (aGenerator->getName() == generatorName) {
-				    return true;
-				}
-				return false;
-			    });
-    return *genIter;
-}
-
-boolType PhysicsSystem::hasForceGenerator(stringType generatorName) {
-    auto genIter = std::find_if(this->generatorContainer.begin(),
-			    this->generatorContainer.end(),
-			    [&] (AbstractForceGenerator* aGenerator) {
-				if (aGenerator->getName() == generatorName) {
-				    return true;
-				}
-				return false;
-			    });
-    if (genIter != this->generatorContainer.end()) {
-	return true;
-    }
-    return false;
-}
-
-const std::vector<AbstractForceGenerator*>& PhysicsSystem::getForceGeneratorContainer() {
-    return this->generatorContainer;
-}
-
 void PhysicsSystem::createMessages() {
 
 }
@@ -90,7 +33,10 @@ void PhysicsSystem::process() {
 
     //need to add the forces to our physics components
     //TODO:
-
+    auto physicsRegistry = PhysicsRegistry::getInstance();
+    for (auto gen : physicsRegistry->getForceGeneratorContainer()) {
+	gen->update(timeDelta_sec);
+    }
     
     for (auto entity : entityManager->getEntities()) {
 	auto physicsComponentList = entity->getComponentsByFamily(enumComponentFamily::PHYSICS);

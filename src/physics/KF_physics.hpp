@@ -10,6 +10,8 @@
 
 //INCLUDES
 #include "AbstractForceGenerator.hpp"
+#include "GravityForceGenerator.hpp"
+#include "PhysicsRegistry.hpp"
 
 //DEFINITIONS
 

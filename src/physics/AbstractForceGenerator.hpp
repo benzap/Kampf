@@ -54,6 +54,7 @@ public:
     void registerComponent(CollisionComponent*);
     void unregisterComponent(CollisionComponent*);
     boolType hasRegisteredComponent(CollisionComponent*);
+    const generatorContainerType& getRegisteredComponents();
     
     virtual void update(floatType timeDelta_ms) {}
 };

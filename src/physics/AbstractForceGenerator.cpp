@@ -21,7 +21,7 @@ void AbstractForceGenerator::unregisterComponent(CollisionComponent* component) 
     this->componentList.erase(containerIterator);
 }
 
-boolType AbstractForceGenerator:: hasRegisteredComponent(CollisionComponent* component) {
+boolType AbstractForceGenerator::hasRegisteredComponent(CollisionComponent* component) {
     auto bCheck = std::find(componentList.begin(),
 			    componentList.end(),
 			    component);
@@ -32,3 +32,6 @@ boolType AbstractForceGenerator:: hasRegisteredComponent(CollisionComponent* com
     return false;
 }
 
+const generatorContainerType& AbstractForceGenerator::getRegisteredComponents() {
+    return this->componentList;
+}
