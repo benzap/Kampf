@@ -19,14 +19,14 @@ class AbstractForceGenerator;
 #include "../KF_globals.hpp"
 #include "../KF_utilities.hpp"
 #include "../KF_math.hpp"
-#include "../AbstractComponent.hpp"
+#include "../CollisionComponent.hpp"
 
 #else
 
 #include "KF_globals.hpp"
 #include "KF_utilities.hpp"
 #include "KF_math.hpp"
-#include "AbstractComponent.hpp"
+#include "CollisionComponent.hpp"
 
 #endif
 
@@ -35,7 +35,7 @@ class AbstractForceGenerator;
 //MACROS
 
 //TYPEDEFS
-typedef std::vector<AbstractComponent*> generatorContainerType;
+typedef std::vector<CollisionComponent*> generatorContainerType;
 
 //FUNCTIONS
 
@@ -51,12 +51,11 @@ public:
 
     stringType getName();
 
-    void registerComponent(AbstractComponent*);
-    void unregisterComponent(AbstractComponent*);
-    boolType hasRegisteredComponent(AbstractComponent*);
+    void registerComponent(CollisionComponent*);
+    void unregisterComponent(CollisionComponent*);
+    boolType hasRegisteredComponent(CollisionComponent*);
     
-    virtual void update() {}
-
+    virtual void update(floatType timeDelta_ms) {}
 };
 
 

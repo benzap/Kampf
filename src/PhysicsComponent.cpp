@@ -88,11 +88,16 @@ void PhysicsComponent::setForceAccumulator(Vector3 value) {
     this->forceAccumulator = value;
 }
 
+void PhysicsComponent::addForce(const Vector3& value) {
+    this->forceAccumulator += value;
+}
+
+void PhysicsComponent::clearForceAccumulator() {
+    this->forceAccumulator = Vector3(0,0,0);
+}
+
 PhysicsComponent* createPhysicsComponent(
     stringType name, boolType bIsParent) {
     auto physicsComponent = new PhysicsComponent(name, bIsParent);
     return physicsComponent;
 }
-
-
-

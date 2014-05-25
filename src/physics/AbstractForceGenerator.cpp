@@ -9,17 +9,23 @@ stringType AbstractForceGenerator::getName() {
     return generatorName;
 }
 
-void AbstractForceGenerator::registerComponent(AbstractComponent* component) {
+void AbstractForceGenerator::registerComponent(CollisionComponent* component) {
     this->componentList.push_back(component);
 }
 
-void AbstractForceGenerator::unregisterComponent(AbstractComponent* component) {
-    auto containerIterator = std::find(componentList.begin(), componentList.end(), component);
+void AbstractForceGenerator::unregisterComponent(CollisionComponent* component) {
+    auto containerIterator = std::find(componentList.begin(),
+				       componentList.end(),
+				       component);
+    
     this->componentList.erase(containerIterator);
 }
 
-boolType AbstractForceGenerator:: hasRegisteredComponent(AbstractComponent* component) {
-    auto bCheck = std::find(componentList.begin(), componentList.end(), component);
+boolType AbstractForceGenerator:: hasRegisteredComponent(CollisionComponent* component) {
+    auto bCheck = std::find(componentList.begin(),
+			    componentList.end(),
+			    component);
+    
     if (bCheck != componentList.end()) {
 	return true;
     }

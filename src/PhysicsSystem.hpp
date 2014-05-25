@@ -8,11 +8,15 @@
 */
 
 //INCLUDES
+#include <vector>
+#include <algorithm>
+
 #include <SDL2/SDL.h>
 
 #include "KF_math.hpp"
 #include "AbstractSystem.hpp"
 #include "EntityManager.hpp"
+#include "physics/KF_physics.hpp"
 
 //CLASSES
 class PhysicsSystem;
@@ -31,12 +35,21 @@ private:
     timeType previousTime = SDL_GetTicks();
     timeType currentTime = 0;
 
+    std::vector<AbstractForceGenerator*> generatorContainer;
 public:
-  PhysicsSystem();
-  virtual ~PhysicsSystem();
+    PhysicsSystem();
+    virtual ~PhysicsSystem();
 
-  void createMessages();
-  void process();
+    //Generator methods
+    void addForceGenerator(AbstractForceGenerator* generator);
+    void removeForceGenerator(AbstractForceGenerator* gen);
+    void removeForceGenerator(stringType generatorName);
+    AbstractForceGenerator* getForceGenerator(stringType generatorName);
+    boolType hasForceGenerator(stringType generatorName);
+    const std::vector<AbstractForceGenerator*>& getForceGeneratorContainer();
+    
+    void createMessages();
+    void process();
 };
 
 #endif //END PHYSICSSYSTEM__HPP

@@ -77,6 +77,9 @@ public:
 
     const Vector3& getForceAccumulator();
     void setForceAccumulator(Vector3);
+    //adds force to force accumulator
+    void addForce(const Vector3&);
+    void clearForceAccumulator();
 };
 
 #endif //END PHYSICSCOMPONENT__HPP
