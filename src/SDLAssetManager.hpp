@@ -13,6 +13,7 @@ class SDLAssetManager;
 #include <tuple>
 
 #include <SDL2/SDL.h>
+#include <SDL2/SDL_ttf.h>
 
 #include "KF_globals.hpp"
 #include "KF_utilities.hpp"

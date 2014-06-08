@@ -21,7 +21,7 @@ class SDLDrawable;
 #include "SDLRenderWindow.hpp"
 
 //DEFINITIONS
-#define SDL_DRAWABLE_BMP "SDL_DRAWABLE_BMP"
+#define SDL_DRAWABLE "SDL_DRAWABLE"
 
 //MACROS
 

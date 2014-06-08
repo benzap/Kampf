@@ -50,9 +50,9 @@ OBJ_FILES = $(CPP_FILES:.cpp=.o)
 #Libraries
 LIBS = 
 ifeq ($(UNAME), Linux)
-LIBS += -lSDL2main -lSDL2 -lluajit-5.1
+LIBS += -lSDL2main -lSDL2 -lluajit-5.1 -lSDL2_ttf
 else
-LIBS += -lmingw32 -lSDL2main -lSDL2 -lShlwapi -llua51
+LIBS += -lmingw32 -lSDL2main -lSDL2 -lShlwapi -llua51 -lSDL2_ttf
 endif
 
 #Library Directories
