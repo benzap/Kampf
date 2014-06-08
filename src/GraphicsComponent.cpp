@@ -48,6 +48,14 @@ stringType GraphicsComponent::getDrawableKey() {
     return this->drawableKey;
 }
 
+void GraphicsComponent::setIndex(int value) {
+    this->zIndex = value;
+}
+
+int GraphicsComponent::getIndex() {
+    return this->zIndex;
+}
+
 GraphicsComponent* createGraphicsComponent(
     stringType name, boolType bIsParent) {
     auto graphicsComponent = new GraphicsComponent(name, bIsParent);

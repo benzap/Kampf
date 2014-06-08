@@ -28,6 +28,7 @@
 #endif
 
 #include "PhysicsRegistry.hpp"
+#include "l_AbstractForceGenerator.hpp"
 #include "l_ForceGenerator.hpp"
 
 //DEFINITIONS

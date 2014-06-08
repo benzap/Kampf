@@ -43,7 +43,7 @@ void GraphicsSystem::process() {
 	if (renderType == enumRenderType::SDL) {
 	    //get the graphics component drawable
 	    auto drawable = graphicsComponent->getDrawable();
-	    if (drawable == nullptr) {
+	    if (drawable == nullptr && drawable->getType() == SDL_DRAWABLE_BMP) {
 		auto sdlAssetManager = SDLAssetManager::getInstance();
 		drawable = sdlAssetManager->getDrawable(
 		    graphicsComponent->getDrawableKey());

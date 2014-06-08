@@ -59,8 +59,9 @@ static int l_PhysicsRegistry_addForceGenerator(lua_State *L) {
 
 static int l_PhysicsRegistry_removeForceGenerator(lua_State *L) {
     auto physicsRegistry = lua_tophysicsregistry(L, 1);
-    auto luaGenerator = lua_toluaforcegenerator(L, 2);
+    auto luaGenerator = lua_toAbstractForceGenerator(L, 2);
     
+    physicsRegistry->removeForceGenerator(luaGenerator);
 
     return 0;
 }
@@ -70,9 +71,8 @@ static int l_PhysicsRegistry_getForceGenerator(lua_State *L) {
     auto generatorName = luaL_checkstring(L, 2);
 
     auto abstractGenerator = physicsRegistry->getForceGenerator(generatorName);
-    auto luaGenerator = static_cast<LuaForceGenerator*>(abstractGenerator);
 
-    lua_pushluaforcegenerator(L, luaGenerator);
+    lua_pushAbstractForceGenerator(L, abstractGenerator);
 
     return 1;
 }

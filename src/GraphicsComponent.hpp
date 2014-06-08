@@ -51,6 +51,9 @@ private:
     //an actual reference to the drawable
     AbstractDrawable* drawableReference = nullptr;
 
+    //the depth of the given drawable, to determine when it should be drawn
+    int zIndex = 0;
+
 public:
     GraphicsComponent(stringType name, bool bIsParent = true);
     virtual ~GraphicsComponent();
@@ -62,6 +65,10 @@ public:
     
     void setDrawableKey(stringType);
     stringType getDrawableKey();
+
+    void setIndex(int);
+    int getIndex();
+
 };
 
 #endif //END GRAPHICSCOMPONENT__HPP

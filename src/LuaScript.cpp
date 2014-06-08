@@ -42,6 +42,7 @@ LuaScript::LuaScript(Kampf* kf) {
   //Physics
   luaopen_physicsregistry(L);
   luaopen_luaforcegenerator(L);
+  luaopen_AbstractForceGenerator(L);
 
   if (kf != nullptr) {
     luaopen_kampf(L, kf);

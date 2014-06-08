@@ -1,13 +1,13 @@
 #include "SDLDrawable.hpp"
 
 SDLDrawable::SDLDrawable() :
-    AbstractDrawable("SDL") {
+    AbstractDrawable(SDL_DRAWABLE_BMP) {
     
 }
 
 SDLDrawable::SDLDrawable(SDL_Surface* surface,
 			 SDLRenderWindow* windowContext) :
-    AbstractDrawable("SDL"),
+    AbstractDrawable(SDL_DRAWABLE_BMP),
     windowContext(windowContext),
     surface(surface) {
 

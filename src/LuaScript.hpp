@@ -37,8 +37,9 @@ class LuaScript;
 #include "l_TimeManager.hpp"
 
 //from physics
-#include "physics/l_PhysicsRegistry.hpp"
+#include "physics/l_AbstractForceGenerator.hpp"
 #include "physics/l_ForceGenerator.hpp"
+#include "physics/l_PhysicsRegistry.hpp"
 
 //DEFINITIONS
 
