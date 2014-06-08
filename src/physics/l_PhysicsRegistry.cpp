@@ -50,22 +50,45 @@ static int l_PhysicsRegistry_isPhysicsRegistry(lua_State* L) {
 
 static int l_PhysicsRegistry_addForceGenerator(lua_State *L) {
     auto physicsRegistry = lua_tophysicsregistry(L, 1);
+    auto luaGenerator = lua_toluaforcegenerator(L, 2);
+
+    physicsRegistry->addForceGenerator(luaGenerator);
+
     return 0;
 }
 
 static int l_PhysicsRegistry_removeForceGenerator(lua_State *L) {
     auto physicsRegistry = lua_tophysicsregistry(L, 1);
+    auto luaGenerator = lua_toluaforcegenerator(L, 2);
+    
+
     return 0;
 }
 
 static int l_PhysicsRegistry_getForceGenerator(lua_State *L) {
     auto physicsRegistry = lua_tophysicsregistry(L, 1);
-    return 0;
+    auto generatorName = luaL_checkstring(L, 2);
+
+    auto abstractGenerator = physicsRegistry->getForceGenerator(generatorName);
+    auto luaGenerator = static_cast<LuaForceGenerator*>(abstractGenerator);
+
+    lua_pushluaforcegenerator(L, luaGenerator);
+
+    return 1;
 }
 
 static int l_PhysicsRegistry_hasForceGenerator(lua_State *L) {
     auto physicsRegistry = lua_tophysicsregistry(L, 1);
-    return 0;
+    auto generatorName = luaL_checkstring(L, 2);
+
+    if (physicsRegistry->hasForceGenerator(generatorName)) {
+	lua_pushboolean(L, 1);
+    }
+    else {
+	lua_pushboolean(L, 0);
+    }
+
+    return 1;
 }
 
 
@@ -76,9 +99,6 @@ static const struct luaL_Reg l_PhysicsRegistry_registry [] = {
 };
 
 static const struct luaL_Reg l_PhysicsRegistry [] = {
-    //{"addEntity", l_PhysicsRegistry_addEntity},
-    //{"getEntityByID", l_PhysicsRegistry_getEntityByID},
-    //{"getEntities", l_PhysicsRegistry_getEntities},
     {"addForceGenerator", l_PhysicsRegistry_addForceGenerator},
     {"removeForceGenerator", l_PhysicsRegistry_removeForceGenerator},
     {"getForceGenerator", l_PhysicsRegistry_getForceGenerator},

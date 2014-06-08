@@ -38,6 +38,10 @@ LuaScript::LuaScript(Kampf* kf) {
 
   //TimeManager
   luaopen_timeManager(L);
+  
+  //Physics
+  luaopen_physicsregistry(L);
+  luaopen_luaforcegenerator(L);
 
   if (kf != nullptr) {
     luaopen_kampf(L, kf);

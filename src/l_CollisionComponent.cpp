@@ -22,7 +22,7 @@ CollisionComponent* lua_pushcollisionComponent(
     return collisioncomponent;
 }
 
-CollisionComponent* lua_tocollisioncomponent(lua_State *L, int index) {
+CollisionComponent* lua_tocollisionComponent(lua_State *L, int index) {
     CollisionComponent* collisioncomponent = *static_cast<CollisionComponent**>
 	(luaL_checkudata(L, index, LUA_USERDATA_COLLISIONCOMPONENT));
     if (collisioncomponent == NULL) {

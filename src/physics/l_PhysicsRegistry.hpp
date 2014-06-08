@@ -28,6 +28,7 @@
 #endif
 
 #include "PhysicsRegistry.hpp"
+#include "l_ForceGenerator.hpp"
 
 //DEFINITIONS
 #define LUA_USERDATA_PHYSICSREGISTRY "l_kf.physics_registry"

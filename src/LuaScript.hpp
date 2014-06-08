@@ -36,6 +36,10 @@ class LuaScript;
 #include "l_Component.hpp"
 #include "l_TimeManager.hpp"
 
+//from physics
+#include "physics/l_PhysicsRegistry.hpp"
+#include "physics/l_ForceGenerator.hpp"
+
 //DEFINITIONS
 
 //the name of the library to store all of our lua bindings

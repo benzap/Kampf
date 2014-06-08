@@ -47,6 +47,7 @@ CPP_FILES = $(wildcard *.cpp)
 CPP_FILES += $(foreach dir,$(INCLUDED_DIRS),$(wildcard $(dir)/*.cpp))
 OBJ_FILES = $(CPP_FILES:.cpp=.o)
 
+#Libraries
 LIBS = 
 ifeq ($(UNAME), Linux)
 LIBS += -lSDL2main -lSDL2 -lluajit-5.1
@@ -54,7 +55,16 @@ else
 LIBS += -lmingw32 -lSDL2main -lSDL2 -lShlwapi -llua51
 endif
 
+#Library Directories
 LIBS_DIR= -L. -L../lib -LC:\MinGW\lib
+
+#Include Directories
+INC_DIR = -I./ -I../
+ifeq ($(UNAME), Linux)
+INC_DIR +=
+else
+INC_DIR += 
+endif
 
 #redefine our suffixes
 .SUFFIXES:
@@ -66,11 +76,11 @@ kampf: libkampf.a libkampf.so
 all: clean kampf tests
 
 %.o: %.cpp %.hpp $(GLOBAL_HPP)
-	$(CXX) $(CXXFLAGS) -o $@ -c $< $(LIBS_DIR) $(LIBS) 
+	$(CXX) $(CXXFLAGS) -o $@ -c $< $(LIBS_DIR) $(LIBS) $(INC_DIR)
 
 ######### INCLUDED DIRECTORIES #############
 ./collision/%.o: ./collision/%.cpp ./collision/%.hpp $(GLOBAL_HPP)
-	$(CXX) $(CXXFLAGS) -o $@ -c $< $(LIBS_DIR) $(LIBS)
+	$(CXX) $(CXXFLAGS) -o $@ -c $< $(LIBS_DIR) $(LIBS) $(INC_DIR)
 
 ./physics/%.o: ./physics/%.cpp ./physics/%.hpp $(GLOBAL_HPP)
 	$(CXX) $(CXXFLAGS) -o $@ -c $< $(LIBS_DIR) $(LIBS)
