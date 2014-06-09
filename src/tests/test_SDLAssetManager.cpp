@@ -23,6 +23,27 @@ Entity* create_pacman() {
     return entity;
 }
 
+Entity* create_text(stringType text) {
+    auto entity = new Entity("text");
+    
+    auto physicsComponent = createPhysicsComponent("physics");
+    entity->addComponent(physicsComponent);
+    
+    physicsComponent->setPosition({200,200,0});
+
+    auto graphicsComponent = createGraphicsComponent("graphics");
+    entity->addComponent(graphicsComponent);
+
+
+    //the type of drawable
+    graphicsComponent->setType(SDL_TEXT);
+
+    //the keyname of the drawable that this component refers to
+    graphicsComponent->setDrawableKey("text");
+
+    return entity;
+}
+
 int main(int argc, char *argv[]) {
   TEST_NAME();
   auto kampf = Kampf(enumInitType::Basic); 
@@ -41,13 +62,25 @@ int main(int argc, char *argv[]) {
 
   //reading the drawable
   SDL_Rect pacmanSize = {0, 0, 100, 100};
-  assetManager->addBMP("pacman", "assets/pacman.bmp", &pacmanSize);
+  assetManager->addImage("pacman", "assets/pacman.png", &pacmanSize);
   
   //creating an entity that holds pacman image/sprite
   auto pacman = create_pacman();
 
   auto entityManager = EntityManager::getInstance();
   entityManager->addEntity(pacman);
+
+  //TESTS for Font Manager with AssetManager
+  auto fontManager = SDLFontManager::getInstance();
+  
+  //add the font to the font manager
+  auto font = fontManager->addFont("Inconsolata-12px",
+				   "../fonts/Inconsolata-Regular.ttf",
+				   12);
+
+  //generate a text drawable for our entity
+  auto textDrawable = assetManager->addText("text");
+  textDrawable->appendText("Hello World!", "Inconsolata-12px");
 
   auto window = kampf.getWindowContext();
   window->setViewport(100, 100, 800, 600);

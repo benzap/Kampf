@@ -58,13 +58,14 @@ Kampf::Kampf(enumInitType initType,
 		sdlContext->setRendererFlags(SDL_RENDERER_ACCELERATED);
 
 		//since we're using SDL, we might as well make sure
-		//our SDLAssetManager is using the correct windowContext
+		//our SDLAssetManager and SDLFontManager are using the correct windowContext
 		auto sdlAssetManager = SDLAssetManager::getInstance();
+		auto sdlFontManager = SDLFontManager::getInstance();
 		auto windowContext = this->getWindowContext();
 		//see if it casts to SDLRenderWindow
 		SDLRenderWindow* sdlWindowContext = dynamic_cast<SDLRenderWindow*> (windowContext);
 		sdlAssetManager->setWindowContext(sdlWindowContext);
-		
+		sdlFontManager->setWindowContext(sdlWindowContext);
 		std::cout << "Initializing Window..." << std::endl;
 		
 		//Adding the graphics system

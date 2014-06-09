@@ -36,6 +36,7 @@ class Kampf;
 
 //The rest
 #include "SDLAssetManager.hpp"
+#include "SDLFontManager.hpp"
 #include "Messenger.hpp"
 #include "RuleMachine.hpp"
 #include "Messenger.hpp"
