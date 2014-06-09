@@ -12,3 +12,4 @@ int SDLText::draw(Vector3 position,
 		  Quaternion orientation) {
     return 0;
 }
+ 
