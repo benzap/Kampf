@@ -19,9 +19,9 @@ SDLDrawable* SDLAssetManager::addSurface(
 	drawable.setRect(rect);
     }
     auto drawablePair = std::pair<stringType, SDLDrawable>(name, drawable);
-    textureContainer.insert(drawablePair);
+    drawableContainer.insert(drawablePair);
     
-    return &textureContainer[name];
+    return &drawableContainer[name];
 }
 
 SDLDrawable* SDLAssetManager::addBMP(
@@ -62,18 +62,18 @@ SDLDrawable* SDLAssetManager::addImage(
 }
 
 boolType SDLAssetManager::hasDrawable(const stringType& name) {
-    if (textureContainer.find(name) != textureContainer.end()) {
+    if (drawableContainer.find(name) != drawableContainer.end()) {
 	return true;
     }
     return false;
 }
 
 SDLDrawable* SDLAssetManager::getDrawable(const stringType& name) {
-    return &textureContainer[name];
+    return &drawableContainer[name];
 }
 
 boolType SDLAssetManager::removeDrawable(const stringType& name) {
-    textureContainer.erase(name);
+    drawableContainer.erase(name);
 }
 
 SDLDrawable* SDLAssetManager::copyDrawable(const stringType& srcName,
@@ -83,11 +83,35 @@ SDLDrawable* SDLAssetManager::copyDrawable(const stringType& srcName,
     SDLDrawable newDrawable = drawable->clone();
     
     auto drawablePair = std::pair<stringType, SDLDrawable>(destName, newDrawable);
-    textureContainer.insert(drawablePair);
+    drawableContainer.insert(drawablePair);
     
-    return &textureContainer[destName];
+    return &drawableContainer[destName];
 }
 
 void SDLAssetManager::setWindowContext(SDLRenderWindow* windowContext) {
     this->windowContext = windowContext;
+}
+
+SDLText* SDLAssetManager::addText(stringType name) {
+    assert(windowContext != nullptr);
+
+    SDLText sdlText = SDLText(windowContext);
+    
+    auto textPair = std::pair<stringType, SDLText>(name, sdlText);
+    textContainer.insert(textPair);
+}
+
+boolType SDLAssetManager::hasText(stringType name) {
+    if (textContainer.find(name) != textContainer.end()) {
+	return true;
+    }
+    return false;
+}
+
+SDLText* SDLAssetManager::getText(stringType name) {
+    return &textContainer[name];
+}
+
+boolType SDLAssetManager::removeText(stringType name) {
+    textContainer.erase(name);
 }

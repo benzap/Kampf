@@ -19,6 +19,7 @@ class SDLAssetManager;
 #include "KF_utilities.hpp"
 #include "SDLRenderWindow.hpp"
 #include "SDLDrawable.hpp"
+#include "SDLText.hpp"
 
 //DEFINITIONS
 
@@ -26,8 +27,8 @@ class SDLAssetManager;
 #define FULL_ASSET NULL
 
 //TYPEDEFS
-typedef std::map<stringType, SDLDrawable> textureContainerType;
-
+typedef std::map<stringType, SDLDrawable> drawableContainerType;
+typedef std::map<stringType, SDLText> textContainerType;
 //FUNCTIONS
 
 //BEGIN
@@ -37,7 +38,8 @@ private:
     SDLAssetManager(SDLAssetManager const&);
     void operator=(SDLAssetManager const&);
   
-    textureContainerType textureContainer;
+    drawableContainerType drawableContainer;
+    textContainerType textContainer;
     SDLRenderWindow* windowContext;
 public:
     static SDLAssetManager* getInstance() {
@@ -69,6 +71,10 @@ public:
     boolType removeDrawable(const stringType&);
     SDLDrawable* copyDrawable(const stringType&, const stringType&);
 
+    SDLText* addText(stringType name);
+    boolType hasText(stringType name);
+    SDLText* getText(stringType name);
+    boolType removeText(stringType name);
 };
 
 #endif //END SDLASSETMANAGER__HPP

@@ -4,6 +4,10 @@ SDLText::SDLText() : AbstractDrawable(SDL_TEXT) {
     
 }
 
+SDLText::SDLText(SDLRenderWindow* windowContext) : 
+    AbstractDrawable(SDL_TEXT),
+    windowContext(windowContext) {}
+
 SDLText::~SDLText() {
 
 }
