@@ -67,7 +67,12 @@ void SDLDrawable::setRect(SDL_Rect* rect) {
 
 void SDLDrawable::setRect(integerType x, integerType y, 
 			  integerType w, integerType h) {
-    
+    SDL_Rect rect;
+    rect.x = x;
+    rect.y = y;
+    rect.w = w;
+    rect.h = h;
+    *this->sourceRectangle = rect;
 }
 
 
@@ -103,4 +108,9 @@ std::vector<int> SDLDrawable::getSize() {
     };
     
     return textureSize;
+}
+
+SDLDrawable SDLDrawable::clone(boolType bDeepReference) {
+    SDLDrawable drawable = SDLDrawable(this->surface, this->windowContext);
+    return drawable;
 }

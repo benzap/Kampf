@@ -1,8 +1,8 @@
 #include "l_GraphicsComponent.hpp"
 
 GraphicsComponent* lua_pushgraphicsComponent(
-    lua_State *L,
-    GraphicsComponent* graphicsComponent = nullptr) {
+					     lua_State *L,
+					     GraphicsComponent* graphicsComponent = nullptr) {
     if (graphicsComponent == nullptr) {
 	std::cerr << "Warning: GraphicsComponent - this will not work, nullptr" << std::endl;
 	graphicsComponent = new GraphicsComponent("");
@@ -44,8 +44,8 @@ static int l_GraphicsComponent_GraphicsComponent(lua_State *L) {
     boolType isParent = lua_toboolean(L, 2);
 
     auto component = new GraphicsComponent(
-	componentName,
-	!isParent);
+					   componentName,
+					   !isParent);
 
     lua_pushgraphicsComponent(L, component);
     return 1;
@@ -103,6 +103,35 @@ static int l_GraphicsComponent_createChild(lua_State *L) {
     return 1;
 }
 
+static int l_GraphicsComponent_getType(lua_State *L) {
+    auto component = lua_tographicsComponent(L, 1);
+    stringType type = component->getType();
+    lua_pushstring(L, type.c_str());
+    return 1;
+}
+
+static int l_GraphicsComponent_setType(lua_State *L) {
+    auto component = lua_tographicsComponent(L, 1);
+    stringType value = luaL_checkstring(L, 2);
+    component->setType(value);
+    return 0;
+}
+
+static int l_GraphicsComponent_getIndex(lua_State *L) {
+    auto component = lua_tographicsComponent(L, 1);
+    int index = component->getIndex();
+    lua_pushinteger(L, index);
+    return 1;
+}
+
+static int l_GraphicsComponent_setIndex(lua_State *L) {
+    auto component = lua_tographicsComponent(L, 1);
+    int value = luaL_checkint(L, 2);
+    component->setIndex(value);
+    return 0;
+}
+
+
 static const struct luaL_Reg l_GraphicsComponent [] = {
     {"__gc", l_GraphicsComponent_gc},
     {"__tostring", l_GraphicsComponent_tostring},
@@ -110,6 +139,10 @@ static const struct luaL_Reg l_GraphicsComponent [] = {
     {"setDrawableKey", l_GraphicsComponent_setDrawableKey},
     {"getFamily", l_GraphicsComponent_getFamily},
     {"createChild", l_GraphicsComponent_createChild},
+    {"getType", l_GraphicsComponent_getType},
+    {"setType", l_GraphicsComponent_setType},
+    {"getIndex", l_GraphicsComponent_getIndex},
+    {"setIndex", l_GraphicsComponent_setIndex},
     {NULL, NULL}
 };
 

@@ -75,6 +75,30 @@ static int l_SDL_AM_addBMP(lua_State *L) {
   return 1;
 }
 
+static int l_SDL_AM_addImage(lua_State *L) {
+  auto sdlasset = lua_toSDL_AM(L, 1);
+  stringType name = luaL_checkstring(L, 2);
+  stringType filename = luaL_checkstring(L, 3);
+  auto drawable = sdlasset->addImage(name, filename);
+
+  if (lua_istable(L, 4)) {
+    lua_getfield(L, 4, "w");
+    floatType w = luaL_checknumber(L, -1);
+    lua_getfield(L, 4, "h");
+    floatType h = luaL_checknumber(L, -1);
+    lua_getfield(L, 4, "x");
+    floatType x = luaL_checknumber(L, -1);
+    lua_getfield(L, 4, "y");
+    floatType y = luaL_checknumber(L, -1);
+    lua_pop(L, 4);
+    drawable->setRect(w,h,x,y);
+  }
+  lua_push_sdldrawable(L, drawable);
+
+  return 1;
+}
+
+
 static int l_SDL_AM_getDrawable(lua_State *L) {
   auto sdlasset = lua_toSDL_AM(L, 1);
   stringType name = luaL_checkstring(L, 2);
@@ -106,6 +130,17 @@ static int l_SDL_AM_hasDrawable(lua_State *L) {
   return 1;
 }
 
+static int l_SDL_AM_copyDrawable(lua_State *L) {
+    auto sdlasset = lua_toSDL_AM(L, 1);
+    stringType srcName = luaL_checkstring(L, 2);
+    stringType destName = luaL_checkstring(L, 3);
+
+    auto drawable = sdlasset->copyDrawable(srcName, destName);
+    lua_push_sdldrawable(L, drawable);
+    
+    return 1;
+}
+
 static const struct luaL_Reg l_SDL_AM_Registry [] = {
   {"SDLAssetManager", l_SDL_AM_SDL_AM},
   {"isSDLAssetManager", l_SDL_AM_isSDL_AM},
@@ -114,9 +149,11 @@ static const struct luaL_Reg l_SDL_AM_Registry [] = {
 
 static const struct luaL_Reg l_SDL_AM [] = {
   {"addBMP", l_SDL_AM_addBMP},
+  {"addImage", l_SDL_AM_addImage},
   {"getDrawable", l_SDL_AM_getDrawable},
   {"deleteDrawable", l_SDL_AM_deleteDrawable},
   {"hasDrawable", l_SDL_AM_hasDrawable},
+  {"copyDrawable", l_SDL_AM_copyDrawable},
   {NULL, NULL}
 };
 

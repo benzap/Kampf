@@ -48,6 +48,14 @@ stringType GraphicsComponent::getDrawableKey() {
     return this->drawableKey;
 }
 
+void GraphicsComponent::setType(stringType drawableType) {
+    this->drawableType = drawableType;
+}
+
+stringType GraphicsComponent::getType() {
+    return this->drawableType;
+}
+
 void GraphicsComponent::setIndex(int value) {
     this->zIndex = value;
 }

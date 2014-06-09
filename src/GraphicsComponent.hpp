@@ -16,6 +16,7 @@ class GraphicsComponent;
 #include "KF_math.hpp"
 #include "AbstractComponent.hpp"
 #include "AbstractDrawable.hpp"
+#include "SDLDrawable.hpp"
 #include "SDLAssetManager.hpp"
 //DEFINITIONS
 
@@ -45,6 +46,8 @@ private:
 
     Quaternion orientation;
 
+    stringType drawableType = SDL_DRAWABLE;
+
     //the key name of the drawable this graphics component refers to
     stringType drawableKey;
 
@@ -63,6 +66,9 @@ public:
     void setDrawable(AbstractDrawable*);
     AbstractDrawable* getDrawable();
     
+    void setType(stringType drawableType);
+    stringType getType();
+
     void setDrawableKey(stringType);
     stringType getDrawableKey();
 

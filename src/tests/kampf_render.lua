@@ -75,13 +75,14 @@ blueCircle:getComponentsByFamily("PHYSICS")[1]:setPosition(kf.Vector3(100,100,0)
 
 local assetManager = kf.SDLAssetManager()
 
-local asset_pacDrawable = assetManager:addBMP("pacman", "./assets/pacman.bmp")
+local asset_pacDrawable = assetManager:addImage("pacman", "./assets/pacman.png")
 asset_pacDrawable:setColorKey(255, 255, 255)
+local rect = asset_pacDrawable:getRect()
 
-local asset_redCircle = assetManager:addBMP("red-circle", "./assets/red_circle.bmp")
+local asset_redCircle = assetManager:addImage("red-circle", "./assets/red_circle.png")
 asset_redCircle:setColorKey(255, 255, 255)
 
-local asset_blueCircle = assetManager:addBMP("blue-circle", "./assets/blue_circle.bmp")
+local asset_blueCircle = assetManager:addImage("blue-circle", "./assets/blue_circle.png")
 asset_blueCircle:setColorKey(255, 255, 255)
 
 local entityManager = kf.EntityManager()

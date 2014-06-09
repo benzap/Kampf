@@ -61,6 +61,11 @@ public:
     void setWindowContext(SDLRenderWindow*);
 
     std::vector<int> getSize();
+    
+    //clones the data from the current SDLDrawable and returns it as
+    //an SDLDrawable
+    //TODO: perform a deep copy with the SDL surface
+    SDLDrawable clone(boolType bDeepReference = false);
 };
 
 #endif //END SDLDRAWABLE__HPP

@@ -43,9 +43,9 @@ LIB_DIR= -L../lib -L../ -L./ -LC:\MinGW\lib
 
 LIBS = 
 ifeq ($(UNAME), Linux)
-LIBS += -lkampf -lSDL2main -lSDL2 -lluajit-5.1
+LIBS += -lkampf -lSDL2main -lSDL2 -lluajit-5.1 -lSDL2_ttf -lSDL2_image
 else
-LIBS += -lkampf -lmingw32 -lSDL2main -lSDL2 -llua51
+LIBS += -lkampf -lmingw32 -lSDL2main -lSDL2 -llua51 -lSDL2_ttf -lSDL2_image
 endif
 
 RUN_SCRIPT = runtests.sh

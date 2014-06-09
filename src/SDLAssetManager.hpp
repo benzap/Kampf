@@ -14,6 +14,7 @@ class SDLAssetManager;
 
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_ttf.h>
+#include <SDL2/SDL_image.h>
 
 #include "KF_globals.hpp"
 #include "KF_utilities.hpp"
@@ -33,35 +34,41 @@ typedef std::map<stringType, SDLDrawable> textureContainerType;
 //BEGIN
 class SDLAssetManager {
 private:
-  SDLAssetManager() {}
-  SDLAssetManager(SDLAssetManager const&);
-  void operator=(SDLAssetManager const&);
+    SDLAssetManager() {}
+    SDLAssetManager(SDLAssetManager const&);
+    void operator=(SDLAssetManager const&);
   
-  textureContainerType textureContainer;
-  SDLRenderWindow* windowContext;
+    textureContainerType textureContainer;
+    SDLRenderWindow* windowContext;
 public:
     static SDLAssetManager* getInstance() {
-    static SDLAssetManager _instance = SDLAssetManager();
-    return &_instance;
-  }
+	static SDLAssetManager _instance = SDLAssetManager();
+	return &_instance;
+    }
 
-  void setWindowContext(SDLRenderWindow*);
+    void setWindowContext(SDLRenderWindow*);
 
-  //add an SDL surface to the asset manager, where only the section
-  //defined by the generated texture is stored in the manager 
-  SDLDrawable* addSurface(stringType, SDL_Surface*, SDL_Rect* = nullptr);
+    //add an SDL surface to the asset manager, where only the section
+    //defined by the generated texture is stored in the manager 
+    SDLDrawable* addSurface(stringType, SDL_Surface*, SDL_Rect* = nullptr);
 
-  //add a BMP to the asset manager, where only the section defined by
-  //the SDL_Rect will be used by the generated texture stored in the
-  //manager
-  SDLDrawable* addBMP(
-      stringType name,
-      const stringType& filename,
-      SDL_Rect* rect = nullptr);
+    //add a BMP to the asset manager, where only the section defined by
+    //the SDL_Rect will be used by the generated texture stored in the
+    //manager
+    SDLDrawable* addBMP(
+			stringType name,
+			const stringType& filename,
+			SDL_Rect* rect = nullptr);
 
-  boolType hasDrawable(const stringType&);
-  SDLDrawable* getDrawable(const stringType&);
-  boolType removeDrawable(const stringType&);
+    SDLDrawable* addImage(
+			  stringType name,
+			  const stringType& filename,
+			  SDL_Rect* rect = nullptr);
+
+    boolType hasDrawable(const stringType&);
+    SDLDrawable* getDrawable(const stringType&);
+    boolType removeDrawable(const stringType&);
+    SDLDrawable* copyDrawable(const stringType&, const stringType&);
 
 };
 
