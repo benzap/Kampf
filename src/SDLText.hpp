@@ -11,12 +11,14 @@ class SDLText;
 
 //INCLUDES
 #include <vector>
+#include <cassert>
 
 #include "KF_globals.hpp"
 #include "KF_utilities.hpp"
 #include "AbstractDrawable.hpp"
 #include "SDLRenderWindow.hpp"
 #include "SDLFont.hpp"
+#include "SDLFontManager.hpp"
 
 //DEFINITIONS
 #define SDL_TEXT "SDL_TEXT"
@@ -72,7 +74,7 @@ public:
     
 
     //the default font
-    void setDefaultFont(const stringType* name);
+    void setDefaultFont(const stringType& name);
 
     //function to generate our texture
     void generateTextSequence();
