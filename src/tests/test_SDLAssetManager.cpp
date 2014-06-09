@@ -78,9 +78,20 @@ int main(int argc, char *argv[]) {
 				   "../fonts/Inconsolata-Regular.ttf",
 				   12);
 
+
+  TEST_BOOL(font != nullptr || font != NULL, "font exists");
+  TEST_BOOL(fontManager->hasFont("Inconsolata-12px"), "hasFont (true)");
+  TEST_BOOL(!fontManager->hasFont("Inconsolpoop"), "hasFont (false)");
+  
+  auto font2 = fontManager->getFont("Inconsolata-12px");
+  TEST_BOOL(font2 != nullptr || font2 != NULL, "font exists 2");
+
   //generate a text drawable for our entity
   auto textDrawable = assetManager->addText("text");
   textDrawable->appendText("Hello World!", "Inconsolata-12px");
+  
+  auto textEntity = create_text("Hello World!");
+  entityManager->addEntity(textEntity);
 
   auto window = kampf.getWindowContext();
   window->setViewport(100, 100, 800, 600);

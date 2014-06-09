@@ -14,6 +14,7 @@ class GraphicsSystem;
 
 #include "AbstractSystem.hpp"
 #include "RenderWindows.hpp"
+#include "SDLAssetManager.hpp"
 
 //ENUMS
 

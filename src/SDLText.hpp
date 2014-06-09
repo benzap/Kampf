@@ -68,7 +68,7 @@ public:
     std::vector<int> getSize();
 
     //text sequence functions
-    SDLText* appendText(stringType text, stringType fontname = "default");
+    void appendText(stringType text, stringType fontname = "default");
     void clearText();
     integerType getTextLength();
     textSequenceContainerType getTextSequence();

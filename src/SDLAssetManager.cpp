@@ -99,6 +99,8 @@ SDLText* SDLAssetManager::addText(stringType name) {
     
     auto textPair = std::pair<stringType, SDLText>(name, sdlText);
     textContainer.insert(textPair);
+
+    return &textContainer[name];
 }
 
 boolType SDLAssetManager::hasText(stringType name) {

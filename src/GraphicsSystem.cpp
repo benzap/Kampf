@@ -41,15 +41,25 @@ void GraphicsSystem::process() {
 	    <PhysicsComponent*> (physicsList.front());
 
 	if (renderType == enumRenderType::SDL) {
-	    //get the graphics component drawable
+	    //we handle assets differently within SDL based on it's type
 	    auto drawable = graphicsComponent->getDrawable();
-	    if (drawable == nullptr) {
+	    auto drawableType = graphicsComponent->getType();
+	    auto drawableKey = graphicsComponent->getDrawableKey();
+
+	    //Handling Graphics Drawables
+	    if (drawableType == SDL_DRAWABLE && drawable == nullptr) {
 		auto sdlAssetManager = SDLAssetManager::getInstance();
-		drawable = sdlAssetManager->getDrawable(
-		    graphicsComponent->getDrawableKey());
+		drawable = sdlAssetManager->getDrawable(drawableKey);
 		graphicsComponent->setDrawable(drawable);
 	    }
 	    
+	    //Handling Text Drawables
+	    if (drawableType == SDL_TEXT && drawable == nullptr) {
+		auto sdlAssetManager = SDLAssetManager::getInstance();
+		drawable = sdlAssetManager->getText(drawableKey);
+		graphicsComponent->setDrawable(drawable);
+	    }
+
 	    //get the physics component position and orientation
 	    auto position = physicsComponent->getPosition();
 	    auto orientation = physicsComponent->getOrientation();

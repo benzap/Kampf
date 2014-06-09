@@ -60,13 +60,15 @@ std::vector<int> SDLText::getSize() {
     return textureSize;
 }
 
-SDLText* SDLText::appendText(stringType text, stringType fontname) {
+void SDLText::appendText(stringType text, stringType fontname) {    
     TextToken textToken;
     textToken.text = text;
-
+    
+    
     if (fontname == "default" && this->defaultFont != nullptr) {
 	textToken.font = this->defaultFont;
     }
+    
     else {
 	auto fontManager = SDLFontManager::getInstance();
 	assert(fontManager->hasFont(fontname));
