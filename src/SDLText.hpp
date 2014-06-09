@@ -49,6 +49,7 @@ private:
     //This stores a sequence of fonts
     textSequenceContainerType textSequence;
     SDLFont* defaultFont = nullptr;
+    SDL_Rect* sourceRectangle = nullptr;
 
     //A boolean that determines if the current text sequence should be
     //re-rendered or not. This is set to false everytime the current

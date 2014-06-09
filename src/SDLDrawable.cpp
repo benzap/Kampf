@@ -59,6 +59,8 @@ int SDLDrawable::draw(Vector3 position,
 		   texture, 
 		   this->sourceRectangle,
 		   &outputRect);
+    
+    return 0;
 }
 
 void SDLDrawable::setRect(SDL_Rect* rect) {
