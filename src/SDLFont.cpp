@@ -1,5 +1,9 @@
 #include "SDLFont.hpp"
 
+SDLFont::SDLFont() {
+
+}
+
 SDLFont::SDLFont(TTF_Font* fontContext, int fontSize) :
     fontContext(fontContext),
     fontSize(fontSize) {
@@ -202,4 +206,9 @@ TextSize SDLFont::calculateTextSize(stringType text) {
     textSize.h = h;
 
     return textSize;
+}
+
+SDLFont SDLFont::clone() {
+    SDLFont font = SDLFont(this->fontContext, this->fontSize);
+    return font;
 }

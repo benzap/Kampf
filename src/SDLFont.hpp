@@ -74,6 +74,7 @@ private:
     enumFontRenderType renderType = enumFontRenderType::SOLID;
     FontColor fontColor;
 public:
+    SDLFont();
     SDLFont(TTF_Font* fontContext, int fontSize);
     virtual ~SDLFont();
     
@@ -117,6 +118,8 @@ public:
     GlyphMetrics getGlyph(Uint16 ch);
 
     TextSize calculateTextSize(stringType text);
+
+    SDLFont clone();
 
 };
 
