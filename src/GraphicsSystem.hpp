@@ -11,10 +11,12 @@ class GraphicsSystem;
 //INCLUDES
 #include <memory>
 #include <iostream>
+#include <set>
 
 #include "AbstractSystem.hpp"
 #include "RenderWindows.hpp"
 #include "SDLAssetManager.hpp"
+#include "GraphicsComponent.hpp"
 
 //ENUMS
 
@@ -26,6 +28,14 @@ class GraphicsSystem;
 
 //FUNCTIONS
 
+//graphics set comparison function
+struct graphicsComp {
+    bool operator() (GraphicsComponent* first,
+		     GraphicsComponent* second) {
+	return (first->getIndex() < second->getIndex());
+    }
+};
+
 //BEGIN
 class GraphicsSystem : public AbstractSystem {
 private:
@@ -36,6 +46,9 @@ public:
     
     void createMessages();
     void process();
+
+    void processGraphicsComponent(GraphicsComponent*);
+
 };
 
 
