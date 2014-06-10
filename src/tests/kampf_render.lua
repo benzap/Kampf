@@ -9,6 +9,7 @@ function createPacman()
 
 	local graphicsComponent = kf.GraphicsComponent("graphical")
 	entity:addComponent(graphicsComponent)
+	graphicsComponent:setPhysicsRelation(physicsComponent)
 	graphicsComponent:setDrawableKey("pacman")
 
 	local collisionComponent = kf.CollisionComponent("collidable")
@@ -30,6 +31,7 @@ function createRedCircle()
 
 	local graphicsComponent = kf.GraphicsComponent("graphical")
 	entity:addComponent(graphicsComponent)
+	graphicsComponent:setPhysicsRelation(physicsComponent)
 	graphicsComponent:setDrawableKey("red-circle")
 
 	local collisionComponent = kf.CollisionComponent("collidable")
@@ -51,6 +53,7 @@ function createBlueCircle()
 
 	local graphicsComponent = kf.GraphicsComponent("graphical")
 	entity:addComponent(graphicsComponent)
+	graphicsComponent:setPhysicsRelation(physicsComponent)
 	graphicsComponent:setDrawableKey("blue-circle")
 
 	local collisionComponent = kf.CollisionComponent("collidable")

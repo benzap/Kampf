@@ -131,6 +131,29 @@ static int l_GraphicsComponent_setIndex(lua_State *L) {
     return 0;
 }
 
+static int l_GraphicsComponent_setPhysicsRelation(lua_State *L) {
+    auto component = lua_tocomponent(L, 1);
+    auto graphicsComponent = static_cast<GraphicsComponent*>
+	(component);
+    
+    //get the physics component
+    auto p_component = lua_tocomponent(L, 2);
+    auto physicsComponent = static_cast<PhysicsComponent*>
+	(p_component);
+    graphicsComponent->setPhysicsRelation(physicsComponent);
+    return 0;
+}
+
+static int l_GraphicsComponent_getPhysicsRelation(lua_State *L) {
+    auto component = lua_tocomponent(L, 1);
+    auto graphicsComponent = static_cast<GraphicsComponent*>
+	(component);
+
+    auto p_component = graphicsComponent->getPhysicsRelation();
+    lua_pushphysicsComponent(L, p_component);
+    return 1;
+}
+
 
 static const struct luaL_Reg l_GraphicsComponent [] = {
     {"__gc", l_GraphicsComponent_gc},
@@ -143,6 +166,8 @@ static const struct luaL_Reg l_GraphicsComponent [] = {
     {"setType", l_GraphicsComponent_setType},
     {"getIndex", l_GraphicsComponent_getIndex},
     {"setIndex", l_GraphicsComponent_setIndex},
+    {"setPhysicsRelation", l_GraphicsComponent_setPhysicsRelation},
+    {"getPhyiscsRelation", l_GraphicsComponent_getPhysicsRelation},
     {NULL, NULL}
 };
 

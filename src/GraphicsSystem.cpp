@@ -22,51 +22,47 @@ void GraphicsSystem::process() {
     for (auto entity : entityManager->getEntities()) {
 	
 	//grab all of the graphics components
-	auto graphicsList = entity->getComponentsByFamily(
-	    enumComponentFamily::GRAPHICS);
+	auto graphicsList = entity->getComponentsByFamily(enumComponentFamily::GRAPHICS);
 
-	//grab all of the physics components
-	auto physicsList = entity->getComponentsByFamily(
-	    enumComponentFamily::PHYSICS);
 	
-	//do nothing if these don't exist
-	if (graphicsList.size() <= 0 || physicsList.size() <= 0) {
-	    continue;
-	}
+	for (auto component : graphicsList) {
 	
-	GraphicsComponent* graphicsComponent = static_cast
-	    <GraphicsComponent*> (graphicsList.front());
-	
-	PhysicsComponent* physicsComponent = static_cast
-	    <PhysicsComponent*> (physicsList.front());
-
-	if (renderType == enumRenderType::SDL) {
-	    //we handle assets differently within SDL based on it's type
-	    auto drawable = graphicsComponent->getDrawable();
-	    auto drawableType = graphicsComponent->getType();
-	    auto drawableKey = graphicsComponent->getDrawableKey();
-
-	    //Handling Graphics Drawables
-	    if (drawableType == SDL_DRAWABLE && drawable == nullptr) {
-		auto sdlAssetManager = SDLAssetManager::getInstance();
-		drawable = sdlAssetManager->getDrawable(drawableKey);
-		graphicsComponent->setDrawable(drawable);
-	    }
+	    GraphicsComponent* graphicsComponent = static_cast<GraphicsComponent*> (component);
+	    PhysicsComponent* physicsComponent = graphicsComponent->getPhysicsRelation();
 	    
-	    //Handling Text Drawables
-	    if (drawableType == SDL_TEXT && drawable == nullptr) {
-		auto sdlAssetManager = SDLAssetManager::getInstance();
-		drawable = sdlAssetManager->getText(drawableKey);
-		graphicsComponent->setDrawable(drawable);
+	    //if we have no physics relation, we can't draw our graphics
+	    if (physicsComponent == nullptr) {
+		//TODO: consider throwing an error?
+		continue;
 	    }
 
-	    //get the physics component position and orientation
-	    auto position = physicsComponent->getPosition();
-	    auto orientation = physicsComponent->getOrientation();
+	    if (renderType == enumRenderType::SDL) {
+		//we handle assets differently within SDL based on it's type
+		auto sdlAssetManager = SDLAssetManager::getInstance();
+		auto drawable = graphicsComponent->getDrawable();
+		auto drawableType = graphicsComponent->getType();
+		auto drawableKey = graphicsComponent->getDrawableKey();
 
-	    //draw the drawable with the given position and orientation
-	    drawable->draw(position, orientation);
+		//Handling Graphics Drawables
+		if (drawableType == SDL_DRAWABLE && drawable == nullptr) {
+		    drawable = sdlAssetManager->getDrawable(drawableKey);
+		    graphicsComponent->setDrawable(drawable);
+		}
+	    
+		//Handling Text Drawables
+		if (drawableType == SDL_TEXT && drawable == nullptr) {
+		    drawable = sdlAssetManager->getText(drawableKey);
+		    graphicsComponent->setDrawable(drawable);
+		}
 
-	} //END if (renderType == enumRenderType::SDL) {
+		//get the physics component position and orientation
+		auto position = physicsComponent->getPosition();
+		auto orientation = physicsComponent->getOrientation();
+
+		//draw the drawable with the given position and orientation
+		drawable->draw(position, orientation);
+
+	    } //END if (renderType == enumRenderType::SDL) {
+	}
     }
 }

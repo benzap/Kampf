@@ -64,8 +64,17 @@ int GraphicsComponent::getIndex() {
     return this->zIndex;
 }
 
+void GraphicsComponent::setPhysicsRelation(PhysicsComponent* physicsRelation) {
+    this->physicsRelation = physicsRelation;
+}
+
+PhysicsComponent* GraphicsComponent::getPhysicsRelation() {
+    return this->physicsRelation;
+}
+
 GraphicsComponent* createGraphicsComponent(
     stringType name, boolType bIsParent) {
     auto graphicsComponent = new GraphicsComponent(name, bIsParent);
     return graphicsComponent;    
 }
+

@@ -19,6 +19,7 @@ Entity* create_pacman() {
 
     //the keyname of the drawable that this component refers to
     graphicsComponent->setDrawableKey("pacman");
+    graphicsComponent->setPhysicsRelation(physicsComponent);
 
     return entity;
 }
@@ -40,6 +41,7 @@ Entity* create_text(stringType text) {
 
     //the keyname of the drawable that this component refers to
     graphicsComponent->setDrawableKey("text");
+    graphicsComponent->setPhysicsRelation(physicsComponent);
 
     return entity;
 }

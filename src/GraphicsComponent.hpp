@@ -15,7 +15,9 @@ class GraphicsComponent;
 #include "KF_utilities.hpp"
 #include "KF_math.hpp"
 #include "AbstractComponent.hpp"
+#include "PhysicsComponent.hpp"
 #include "AbstractDrawable.hpp"
+#include "SDLText.hpp"
 #include "SDLDrawable.hpp"
 #include "SDLAssetManager.hpp"
 //DEFINITIONS
@@ -32,9 +34,6 @@ GraphicsComponent* createGraphicsComponent(
 //BEGIN
 class GraphicsComponent : public AbstractComponent {
 private:
-    //current position
-    Vector3 position;
-  
     //the offset from the position
     Vector3 offset;
 
@@ -55,7 +54,10 @@ private:
     AbstractDrawable* drawableReference = nullptr;
 
     //the depth of the given drawable, to determine when it should be drawn
-    int zIndex = 0;
+    int zIndex = 1;
+
+    //the physics relation used for determining the position of this element
+    PhysicsComponent* physicsRelation = nullptr;
 
 public:
     GraphicsComponent(stringType name, bool bIsParent = true);
@@ -74,6 +76,11 @@ public:
 
     void setIndex(int);
     int getIndex();
+
+    
+
+    void setPhysicsRelation(PhysicsComponent* physicsRelation);
+    PhysicsComponent* getPhysicsRelation();
 
 };
 
