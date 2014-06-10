@@ -25,6 +25,10 @@ LuaScript::LuaScript(Kampf* kf) {
   luaopen_SDL_AM(L);
   luaopen_SDLDrawable(L);
 
+  //SDLFontManager
+  luaopen_SDL_FM(L);
+  luaopen_SDLFont(L);
+
   //Entity-related
   luaopen_entity(L);
   luaopen_entityManager(L);
