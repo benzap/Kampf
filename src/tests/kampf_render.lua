@@ -68,8 +68,32 @@ function createBlueCircle()
 	return entity
 end
 
+local increment = 0
+function createText(text, x, y)
+	local drawableKey = "text-" .. increment
+	increment = increment + 1
+	local sdlAssetManager = kf.SDLAssetManager()
+	local textDrawable = sdlAssetManager:addText(drawableKey)
+	textDrawable:appendText(text, "Inconsolata-normal-12")
 
+	local entity = kf.Entity("text")
+	
+	local physicsComponent = kf.PhysicsComponent("physical")
+	entity:addComponent(physicsComponent)
+	physicsComponent:setPosition(kf.Vector3(x, y, 0))
 
+	local graphicsComponent = kf.GraphicsComponent("graphical")
+	entity:addComponent(graphicsComponent)
+	graphicsComponent:setPhysicsRelation(physicsComponent)
+	graphicsComponent:setDrawableKey(drawableKey)
+
+	return entity
+end
+
+local fontManager = kf.SDLFontManager()
+local font = fontManager:addFont("Inconsolata-normal-12",
+								 "../fonts/Inconsolata-Regular.ttf",
+								 12)
 
 local pacman = createPacman()
 local redCircle = createRedCircle()
@@ -297,5 +321,7 @@ kf.addSystem("CollisionBounds",
 			 end
 )
 
-
+-- performing test with text instances
+local text1 = createText("Hello World!", 100, 100)
+entityManager:addEntity(text1)
 kf.runMainLoop(-1)

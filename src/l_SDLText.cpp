@@ -44,30 +44,52 @@ static int l_isSDLText(lua_State *L) {
 }
 
 static int l_SDLText_draw(lua_State *L) {
+    auto sdlText = lua_to_sdltext(L, 1);
     return 0;
 }
 
 static int l_SDLText_getSize(lua_State *L) {
+    auto sdlText = lua_to_sdltext(L, 1);
+    
+
     return 0;
 }
 
 static int l_SDLText_appendText(lua_State *L) {
+    auto sdlText = lua_to_sdltext(L, 1);
+    stringType text = luaL_checkstring(L, 2);
+    stringType fontname = luaL_checkstring(L, 3);
+    
+    sdlText->appendText(text, fontname);
+
     return 0;
 }
 
 static int l_SDLText_clearText(lua_State *L) {
+    auto sdlText = lua_to_sdltext(L, 1);
+    sdlText->clearText();
     return 0;
 }
 
 static int l_SDLText_getTextLength(lua_State *L) {
-    return 0;
+    auto sdlText = lua_to_sdltext(L, 1);
+    int length = sdlText->getTextLength();
+    lua_pushinteger(L, length);
+    
+    return 1;
 }
 
 static int l_SDLText_getTextSequence(lua_State *L) {
+    auto sdlText = lua_to_sdltext(L, 1);
+    luaL_error(L, "Not Implemented");
     return 0;
 }
 
 static int l_SDLText_setDefaultFont(lua_State *L) {
+    auto sdlText = lua_to_sdltext(L, 1);
+    stringType fontname = luaL_checkstring(L, 2);
+    
+    sdlText->setDefaultFont(fontname);
     return 0;
 }
 

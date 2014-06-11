@@ -142,18 +142,46 @@ static int l_SDL_AM_copyDrawable(lua_State *L) {
 }
 
 static int l_SDL_AM_addText(lua_State *L) {
-    return 0;
+    auto sdlasset = lua_toSDL_AM(L, 1);
+    stringType textName = luaL_checkstring(L, 2);
+    
+    auto sdlText = sdlasset->addText(textName);
+
+    lua_push_sdltext(L, sdlText);
+    return 1;
 }
 
 static int l_SDL_AM_hasText(lua_State *L) {
-    return 0;
+    auto sdlasset = lua_toSDL_AM(L, 1);
+    stringType textName = luaL_checkstring(L, 2);
+
+    boolType exists = sdlasset->hasText(textName);
+    
+    if (exists) {
+	lua_pushboolean(L, 1);
+    }
+    else {
+	lua_pushboolean(L, 0);
+    }
+
+    return 1;
 }
 
 static int l_SDL_AM_getText(lua_State *L) {
-    return 0;
+    auto sdlasset = lua_toSDL_AM(L, 1);
+    stringType textName = luaL_checkstring(L, 2);
+
+    auto sdlText = sdlasset->getText(textName);
+
+    lua_push_sdltext(L, sdlText);
+    return 1;
 }
 
 static int l_SDL_AM_removeText(lua_State *L) {
+    auto sdlasset = lua_toSDL_AM(L, 1);
+    stringType textName = luaL_checkstring(L, 2);
+
+    sdlasset->removeText(textName);
     return 0;
 }
 
