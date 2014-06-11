@@ -86,7 +86,7 @@ function createText(text, x, y)
 	entity:addComponent(graphicsComponent)
 	graphicsComponent:setPhysicsRelation(physicsComponent)
 	graphicsComponent:setDrawableKey(drawableKey)
-
+	graphicsComponent:setType("SDL_TEXT")
 	return entity
 end
 
