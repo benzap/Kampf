@@ -29,5 +29,4 @@ SDLDrawable* lua_to_sdldrawable(lua_State *L, int index);
 boolType lua_is_sdldrawable(lua_State *L, int index);
 
 int luaopen_SDLDrawable(lua_State *L);
-
 #endif //END L_SDLDRAWABLE__HPP

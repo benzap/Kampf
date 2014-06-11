@@ -3,7 +3,6 @@
 SDLFont* SDLFontManager::addFont(stringType name,
 				 const stringType& filename,
 				 int fontSize) {
-    assert(windowContext != nullptr);
 
     TTF_Font* fontContext = TTF_OpenFont(filename.c_str(), fontSize);
 
