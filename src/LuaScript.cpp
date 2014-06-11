@@ -24,6 +24,7 @@ LuaScript::LuaScript(Kampf* kf) {
   //SDLAssetManager
   luaopen_SDL_AM(L);
   luaopen_SDLDrawable(L);
+  luaopen_SDLText(L);
 
   //SDLFontManager
   luaopen_SDL_FM(L);

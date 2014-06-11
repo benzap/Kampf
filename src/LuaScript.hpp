@@ -23,6 +23,7 @@ class LuaScript;
 #include "l_Quaternion.hpp"
 #include "l_SDLAssetManager.hpp"
 #include "l_SDLDrawable.hpp"
+#include "l_SDLText.hpp"
 #include "l_SDLFontManager.hpp"
 #include "l_SDLFont.hpp"
 #include "l_Message.hpp"
