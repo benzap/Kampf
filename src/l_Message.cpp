@@ -193,6 +193,8 @@ int luaopen_message(lua_State *L) {
     lua_setfield(L, -2, "__index");
     luaL_register(L, NULL, l_Message);
 
+    lua_pop(L, 1);
+
     luaL_register(L, KF_LUA_LIBNAME, l_Message_registry);
 
     return 1;

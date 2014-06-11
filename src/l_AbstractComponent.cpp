@@ -261,7 +261,7 @@ int luaopen_abstractComponent(lua_State *L) {
     lua_setfield(L, -2, "__index");
     luaL_register(L, NULL, l_AbstractComponent);
     
-    
+    lua_pop(L, 1);
 
     luaL_register(L, KF_LUA_LIBNAME, l_AbstractComponent_Registry);
     return 1;

@@ -164,6 +164,8 @@ int luaopen_SDL_AM(lua_State *L) {
   lua_setfield(L, -2, "__index");
   luaL_register(L, NULL, l_SDL_AM);
 
+  lua_pop(L, 1);
+
   luaL_register(L, KF_LUA_LIBNAME, l_SDL_AM_Registry);
 
   return 1;

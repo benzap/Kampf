@@ -366,6 +366,8 @@ int luaopen_vector(lua_State *L) {
   lua_pushvalue(L, -1);
   lua_setfield(L, -2, "__index");
   luaL_register(L, NULL, l_Vector3);
+  
+  lua_pop(L, 1);
 
   luaL_register(L, KF_LUA_LIBNAME, l_Vector3_Registry);
   return 1;

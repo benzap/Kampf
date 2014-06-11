@@ -375,6 +375,8 @@ int luaopen_customAttribute(lua_State *L) {
     lua_setfield(L, -2, "__index");
     luaL_register(L, NULL, l_CustomAttribute);
 
+    lua_pop(L, 1);
+
     luaL_register(L, KF_LUA_LIBNAME, l_CustomAttribute_Registry);
     return 1;
 }

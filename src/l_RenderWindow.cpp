@@ -207,6 +207,8 @@ int luaopen_renderwindow(lua_State *L, RenderWindow* renderwindow) {
     lua_setfield(L, -2, "__index");
     luaL_register(L, NULL, l_renderwindow);
 
+    lua_pop(L, 1);
+
     luaL_register(L, KF_LUA_LIBNAME, l_renderwindow_kampf);
     lua_registerRenderWindow(L, renderwindow);
 

@@ -311,6 +311,8 @@ int luaopen_collisionComponent(lua_State *L) {
     lua_setfield(L, -2, "__index");
     luaL_register(L, NULL, l_CollisionComponent);
 
+    lua_pop(L, 1);
+
     luaL_register(L, KF_LUA_LIBNAME, l_CollisionComponent_Registry);
     return 1;
 }

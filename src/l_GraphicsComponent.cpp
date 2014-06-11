@@ -180,6 +180,8 @@ int luaopen_graphicsComponent(lua_State *L) {
     lua_setfield(L, -2, "__index");
     luaL_register(L, NULL, l_GraphicsComponent);
 
+    lua_pop(L, 1);
+
     luaL_register(L, KF_LUA_LIBNAME, l_GraphicsComponent_Registry);
     return 1;
 }

@@ -227,6 +227,7 @@ boolType LuaScript::loadString(stringType theString, stringType name) {
   if (error) {
     auto errorMessage = stringType(lua_tostring(L, -1));
     std::cerr << "LUA_ERROR: " << errorMessage << std::endl;
+    std::cerr << "text-file: " << name << std::endl;
     lua_pop(L, 1);
     return false;
   }

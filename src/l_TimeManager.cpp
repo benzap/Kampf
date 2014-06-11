@@ -133,6 +133,8 @@ int luaopen_timeManager(lua_State *L) {
     lua_setfield(L, -2, "__index");
     luaL_register(L, NULL, l_TimeManager);
 
+    lua_pop(L, 1);
+
     luaL_register(L, KF_LUA_LIBNAME, l_TimeManager_registry);
 
     return 1;

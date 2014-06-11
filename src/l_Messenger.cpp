@@ -114,6 +114,8 @@ int luaopen_messenger(lua_State *L, Messenger* messenger) {
     lua_setfield(L, -2, "__index");
     luaL_register(L, NULL, l_messenger);
 
+    lua_pop(L, 1);
+
     luaL_register(L, KF_LUA_LIBNAME, l_messenger_kampf);
 
     lua_registerMessenger(L, messenger);

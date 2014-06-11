@@ -104,6 +104,8 @@ int luaopen_entityManager(lua_State *L) {
     lua_setfield(L, -2, "__index");
     luaL_register(L, NULL, l_EntityManager);
 
+    lua_pop(L, 1);
+
     luaL_register(L, KF_LUA_LIBNAME, l_EntityManager_registry);
 
     return 1;

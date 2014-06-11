@@ -180,6 +180,8 @@ int luaopen_SDLFont(lua_State *L) {
     lua_setfield(L, -2, "__index");
     luaL_register(L, NULL, l_SDL_Font);
 
+    lua_pop(L, 1);
+
     luaL_register(L, KF_LUA_LIBNAME, l_SDL_Font_Registry);
   
     return 1;
