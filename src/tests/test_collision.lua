@@ -15,7 +15,7 @@ function createBlock(name, position)
 	local graphicsComponent = kf.GraphicsComponent("graphical")
 	entity:addComponent(graphicsComponent)
 	graphicsComponent:setPhysicsRelation(physicsComponent)
-	graphicsComponent:setDrawableKey("block-rock")
+	graphicsComponent:setDrawableKey("block-dirt")
 	graphicsComponent:setIndex(50)
 
 	local collisionComponent = kf.CollisionComponent("collidable")
@@ -30,12 +30,12 @@ end
 
 -- create and add our assets
 local assetManager = kf.SDLAssetManager()
-asset_block_rock = assetManager:addImage("block-rock", "./assets/platformer/png/ground_dirt.png")
+asset_block_rock = assetManager:addImage("block-rock", "./assets/platformer/png/ground_rock.png")
 asset_block_dirt = assetManager:addImage("block-dirt", "./assets/platformer/png/ground_dirt.png")
 
 local entityManager = kf.EntityManager()
 local block0_id = entityManager:addEntity(createBlock("block-0", kf.Vector3(0,0,0)))
-local block1_id = entityManager:addEntity(createBlock("block-1", kf.Vector3(70,0,0)))
+local block1_id = entityManager:addEntity(createBlock("block-1", kf.Vector3(70.01,0,0)))
 local pointer_id = entityManager:addEntity(createBlock("pointer", kf.Vector3(200,200,0)))
 
 local ruleMachine = kf.getRuleMachine()
@@ -62,7 +62,7 @@ end
 ruleMachine.addRule(ruleCond, ruleFunc)
 
 --Testing collision system
---Pacman response to colliding with circles
+--Pointer response to colliding with blocks
 ruleMachine.addRule(
 	function (msg)
 		if msg:getType() == "COLLISION" then
@@ -86,6 +86,34 @@ ruleMachine.addRule(
 			print(pointer:getName() .. " collided with " .. block:getName())
 		else
 			print(pointer:getName() .. " stopped colliding with " .. block:getName())
+		end
+end)
+
+--block response to colliding
+ruleMachine.addRule(
+	function (msg)
+		if msg:getType() == "COLLISION" then
+			--check if it's a block
+			local entity = msg:getFirstEntity()
+			if string.find(entity:getName(), "^block") then
+				print("Block: ", entity:getName())
+				return true
+			end
+		end
+
+		return false
+	end,
+	function (msg)
+		local bRegistered = msg:get("bRegistered"):get()
+		
+		local block = msg:getFirstEntity()
+		print("Collision: ", block:getName())
+
+		local graphicsComponent = block:getComponentsByFamily("GRAPHICS")[1]
+		if bRegistered == 1 then
+			graphicsComponent:setDrawableKey("block-rock")
+		else
+			graphicsComponent:setDrawableKey("block-dirt")
 		end
 end)
 

@@ -155,7 +155,6 @@ boolType CollisionSystem::checkCollisions(Entity* firstEntity,
 	second_rect.max = maxPoint + offset;
     }
 
-
     boolType bCollided = false;
     if (firstType == enumCollisionType::CIRCLE) {
 	//handling circle to circle collisions
