@@ -57,9 +57,10 @@ struct TextSize {
 };
 
 struct FontColor {
-    unsigned short r;
-    unsigned short g;
-    unsigned short b;
+    unsigned char r;
+    unsigned char g;
+    unsigned char b;
+    unsigned char a;
 };
 
 //TYPEDEFS
@@ -69,10 +70,10 @@ struct FontColor {
 //BEGIN
 class SDLFont {
 private:
-    TTF_Font* fontContext = nullptr;
-    int fontSize;
-    enumFontRenderType renderType = enumFontRenderType::SOLID;
-    FontColor fontColor;
+TTF_Font* fontContext = nullptr;
+int fontSize;
+enumFontRenderType renderType = enumFontRenderType::SOLID;
+FontColor fontColor = {255, 255, 255, 255};
 public:
     SDLFont();
     SDLFont(TTF_Font* fontContext, int fontSize);

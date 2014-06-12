@@ -117,18 +117,43 @@ void SDLText::generateTextSequence() {
 	//just draw the first one
 	auto token = this->textSequence[0];
 	
-	SDL_Color color = {255, 255, 255};
-	
-	//TODO: delete old surface
+	auto fontColor = token.font->getFontColor();
 
-	//populate our surface
-	this->surface = TTF_RenderText_Solid(token.font->getFontContext(),
-					     token.text.c_str(),
-					     color);
+	SDL_Color color = {fontColor.r, fontColor.g, fontColor.b, fontColor.a};
+
+	//delete old surface
+	if (this->surface != nullptr) {
+	    SDL_FreeSurface(this->surface);
+	}
+
+	//populate our surface, render it based on the type
+	switch(token.font->getRenderType()) {
+	case enumFontRenderType::SOLID:
+	default:
+	    this->surface = TTF_RenderText_Solid(token.font->getFontContext(),
+						 token.text.c_str(),
+						 color);
+	    break;
+	case enumFontRenderType::BLENDED:
+	    this->surface = TTF_RenderText_Blended(token.font->getFontContext(),
+						   token.text.c_str(),
+						   color);
+	    break;
+	case enumFontRenderType::SHADED:
+	    this->surface = TTF_RenderText_Shaded(token.font->getFontContext(),
+						  token.text.c_str(),
+						  {0,0,0,0},
+						  color);
+	    break;
+	}
+
 
     }
 
-    //TODO: delete old texture
+    //delete old texture
+    if (this->texture != nullptr) {
+	SDL_DestroyTexture(this->texture);
+    }
 
     //generate a new texture
     this->texture = SDL_CreateTextureFromSurface(windowContext->getRenderer(),
@@ -149,3 +174,6 @@ void SDLText::generateTextSequence() {
     this->bRendered = true;
 }
 
+void SDLText::redraw() {
+    this->bRendered = false;
+}

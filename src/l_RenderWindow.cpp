@@ -144,7 +144,7 @@ static int l_RenderWindow_setViewport(lua_State *L) {
 				  width, height);
     }
     else {
-	luaL_error(L, "setViewport function takes a table as it's second argument.");
+	luaL_error(L, "setViewport function takes a table as its second argument.");
     }
     return 0;
 }

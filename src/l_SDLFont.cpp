@@ -64,6 +64,9 @@ static int l_SDLFont_getFontColor(lua_State *L) {
     lua_pushinteger(L, fontColor.b);
     lua_setfield(L, -2, "b");
 
+    lua_pushinteger(L, fontColor.a);
+    lua_setfield(L, -2, "a");
+
     return 1;
 }
 
@@ -72,11 +75,15 @@ static int l_SDLFont_setFontColor(lua_State *L) {
     auto redColor = luaL_checkint(L, 2);
     auto greenColor = luaL_checkint(L, 3);
     auto blueColor = luaL_checkint(L, 4);
-    
+    auto alpha = luaL_optint(L, 5, 255);
+
     FontColor fontColor;
     fontColor.r = redColor;
     fontColor.g = greenColor;
     fontColor.b = blueColor;
+    fontColor.a = alpha;
+
+    font->setFontColor(fontColor);
 
     return 0;
 }
@@ -102,7 +109,7 @@ static int l_SDLFont_getRenderType(lua_State *L) {
 
 static int l_SDLFont_setRenderType(lua_State *L) {
     auto font = lua_to_sdlfont(L, 1);
-    auto renderType = luaL_checkstring(L, 2);
+    stringType renderType = luaL_checkstring(L, 2);
     
     if (renderType == "SOLID") {
 	font->setRenderType(enumFontRenderType::SOLID);
@@ -114,6 +121,7 @@ static int l_SDLFont_setRenderType(lua_State *L) {
 	font->setRenderType(enumFontRenderType::BLENDED);
     }
     else {
+	std::cout << "Provided RenderType: " << renderType << std::cout;
 	luaL_error(L, "Provided renderType is unknown: SOLID, SHADED, BLENDED");
     }
     return 0;
@@ -141,7 +149,36 @@ static int l_SDLFont_getStyle(lua_State *L) {
 
 static int l_SDLFont_setStyle(lua_State *L) {
     auto font = lua_to_sdlfont(L, 1);
-    luaL_error(L, "setStyle not implemented");
+
+    FontStyle fontStyle = font->getStyle();
+
+    if (lua_istable(L, 2)) {
+	//bold
+	lua_getfield(L, -1, "bold");
+	if (!lua_isnil(L, -1)) fontStyle.bBold = lua_toboolean(L, -1);
+	lua_pop(L, 1);
+	
+	//italic
+	lua_getfield(L, -1, "italic");
+	if (!lua_isnil(L, -1)) fontStyle.bItalic = lua_toboolean(L, -1);
+	lua_pop(L, 1);
+
+	//underline
+	lua_getfield(L, -1, "underline");
+	if (!lua_isnil(L, -1)) fontStyle.bUnderline = lua_toboolean(L, -1);
+	lua_pop(L, 1);
+
+	//strikethrough
+	lua_getfield(L, -1, "strikethrough");
+	if (!lua_isnil(L, -1)) fontStyle.bStrikethrough = lua_toboolean(L, -1);
+	lua_pop(L, 1);
+
+	font->setStyle(fontStyle);
+    }
+    else {
+	luaL_error(L, "setStyle function takes a table as its second argument");
+    }
+
     return 0;
 }
 
@@ -183,7 +220,7 @@ static int l_SDLFont_getHinting(lua_State *L) {
 
 static int l_SDLFont_setHinting(lua_State *L) {
     auto font = lua_to_sdlfont(L, 1);
-    auto fontHinting = luaL_checkstring(L, 2);
+    stringType fontHinting = luaL_checkstring(L, 2);
 
     if (fontHinting == "NORMAL") {
 	font->setHinting(enumFontHintingType::NORMAL);

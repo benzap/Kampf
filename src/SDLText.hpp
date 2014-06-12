@@ -80,6 +80,9 @@ public:
     //function to generate our texture
     void generateTextSequence();
 
+    //used to completely redraw the text. Should be used after a font change
+    void redraw();
+
 };
 
 #endif //END SDLTEXT__HPP

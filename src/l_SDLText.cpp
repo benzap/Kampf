@@ -48,6 +48,11 @@ static int l_SDLText_draw(lua_State *L) {
     return 0;
 }
 
+static int l_SDLText_redraw(lua_State *L) {
+    auto sdlText = lua_to_sdltext(L, 1);
+    sdlText->redraw();
+}
+
 static int l_SDLText_getSize(lua_State *L) {
     auto sdlText = lua_to_sdltext(L, 1);
     
@@ -100,6 +105,7 @@ static const struct luaL_Reg l_SDL_Text_Registry [] = {
 
 static const struct luaL_Reg l_SDL_Text [] = {
     {"draw", l_SDLText_draw},
+    {"redraw", l_SDLText_redraw},
     {"getSize", l_SDLText_getSize},
     {"appendText", l_SDLText_appendText},
     {"clearText", l_SDLText_clearText},

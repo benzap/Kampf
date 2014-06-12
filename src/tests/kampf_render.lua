@@ -95,6 +95,21 @@ local font = fontManager:addFont("Inconsolata-normal-12",
 								 "../fonts/Inconsolata-Regular.ttf",
 								 12)
 
+--print(font:getRenderType())
+font:setRenderType("BLENDED")
+font:setFontColor(255, 0, 0, 255)
+font:setStyle({
+				  bold = true,
+				  italic = false,
+				  underline = false,
+				  strikethrough = false,
+})
+
+local color = font:getFontColor()
+for i,v in pairs(color) do
+	print(i, " - ", v)
+end
+
 local pacman = createPacman()
 local redCircle = createRedCircle()
 
