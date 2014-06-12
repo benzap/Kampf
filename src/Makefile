@@ -29,9 +29,13 @@ else
 CXXFLAGS += -mconsole -m32 -DKF_WIN
 endif
 
+
+#directory holding any helpful scripts
+SCRIPTS_DIRECTORY = ../scripts
+#the binary directory for DLL-like libraries
+BIN_DIRECTORY = ../bin
 #directory where the resulting includes should be placed
 INCLUDES_DIRECTORY = ../include
-
 #directory where the output will be placed
 OUTPUT_DIRECTORY = ../lib
 #tests include
@@ -80,6 +84,8 @@ kampf: libkampf.a libkampf.so
 	cp ./physics/*.hpp $(INCLUDES_DIRECTORY)/physics/
 	mkdir -p $(INCLUDES_DIRECTORY)/collision
 	cp ./collision/*.hpp $(INCLUDES_DIRECTORY)/collision/
+	mkdir -p $(SCRIPTS_DIRECTORY)
+	cp ./scripts/*.lua  $(SCRIPTS_DIRECTORY)
 
 all: clean kampf tests
 
@@ -103,6 +109,7 @@ libkampf.so: $(OBJ_FILES)
 	$(CXX) $(CXXFLAGS) $(LDFLAGS) $(LD_SHARED) -o $@ $(OBJ_FILES) $(LIBS_DIR) $(LIBS) 
 	cp $@ $(OUTPUT_DIRECTORY)/
 	cp $@ $(TESTS_DIRECTORY)/
+	cp $@ $(BIN_DIRECTORY)/
 runtests:
 	make runtests -C $(TESTS_DIRECTORY)
 

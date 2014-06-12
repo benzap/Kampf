@@ -13,3 +13,6 @@ runtests.sh
 deletefiles.sh
 TAGS
 .zedstate
+include/*
+bin/*
+scripts/*
