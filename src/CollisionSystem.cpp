@@ -108,17 +108,29 @@ boolType CollisionSystem::checkCollisions(Entity* firstEntity,
     auto firstType = firstColl->getCollisionType();
 
     //generate based on type
+
+    //the circle is radiating out from the origin
     if (firstType == enumCollisionType::CIRCLE) {
 	first_circle.center = firstPhys->getPosition();
 	first_circle.center += firstColl->getOrigin();
+	first_circle.center += firstColl->getOffset();
 	first_circle.radius = firstColl->getRadius();
     }
+
+    //the rectangle is radiating out from the origin
     else if (firstType == enumCollisionType::AABB) {
-	first_rect.min = firstPhys->getPosition();
-	first_rect.min += firstColl->getOrigin();
-	first_rect.max = Vector3(firstColl->getWidth(),
-				 firstColl->getHeight(),
-				 0);
+	Vector3 offset = firstColl->getOffset();
+	Vector3 position = firstPhys->getPosition();
+
+
+	first_rect.min = position;
+	first_rect.min += offset;
+	
+	Vector3 maxPoint = Vector3(position.x + firstColl->getWidth(),
+				   position.y + firstColl->getHeight(),
+				   0);
+
+	first_rect.max = maxPoint + offset;
     }
     
     auto secondType = secondColl->getCollisionType();
@@ -126,14 +138,21 @@ boolType CollisionSystem::checkCollisions(Entity* firstEntity,
     if (secondType == enumCollisionType::CIRCLE) {
 	second_circle.center = secondPhys->getPosition();
 	second_circle.center += secondColl->getOrigin();
+	second_circle.center += secondColl->getOffset();
 	second_circle.radius = secondColl->getRadius();
     }
     else if (secondType == enumCollisionType::AABB) {
-	second_rect.min = secondPhys->getPosition();
-	second_rect.min += secondColl->getOrigin();
-	second_rect.max = Vector3(secondColl->getWidth(),
-				 secondColl->getHeight(),
-				 0);
+	Vector3 offset = secondColl->getOffset();
+	Vector3 position = secondPhys->getPosition();
+
+	second_rect.min = position;
+	second_rect.min += offset;
+	
+	Vector3 maxPoint = Vector3(position.x + secondColl->getWidth(),
+				   position.y + secondColl->getHeight(),
+				   0);
+
+	second_rect.max = maxPoint + offset;
     }
 
 

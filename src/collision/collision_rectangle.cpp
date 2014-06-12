@@ -1,9 +1,9 @@
 #include "collision_rectangle.hpp"
 
 boolType check_rect_rect(const COL_rect& first, const COL_rect& second) {
-    if (first.max.x < second.max.x || first.min.x > second.min.x) return false;
-    if (first.max.y < second.max.y || first.min.y > second.min.y) return false;
-    if (first.max.z < second.max.z || first.min.z > second.min.z) return false;
+    if (first.max.x < second.min.x || first.min.x > second.max.x) return false;
+    if (first.max.y < second.min.y || first.min.y > second.max.y) return false;
+    if (first.max.z < second.min.z || first.min.z > second.max.z) return false;
 
     return true;
 }

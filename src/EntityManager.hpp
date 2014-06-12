@@ -37,7 +37,7 @@ public:
     return &_instance;
   }
 
-  void addEntity(AbstractEntity* entity);
+  incrementType addEntity(AbstractEntity* entity);
   const AbstractEntity* getEntityByID(incrementType ID);
   const entityManagerType& getEntities();
 };

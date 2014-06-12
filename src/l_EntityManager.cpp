@@ -53,7 +53,10 @@ static int l_EntityManager_addEntity(lua_State *L) {
     auto entity = lua_toentity(L, 2);
     entityManager->addEntity(entity);
 
-    return 0;
+    incrementType id = entity->getID();
+    lua_pushinteger(L, id);
+
+    return 1;
 }
 
 static int l_EntityManager_getEntityByID(lua_State *L) {

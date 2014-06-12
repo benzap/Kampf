@@ -2,8 +2,10 @@
 #include <algorithm>
 
 
-void EntityManager::addEntity(AbstractEntity* entity) {
-  this->entityList.push_back(entity);
+incrementType EntityManager::addEntity(AbstractEntity* entity) {
+    incrementType id = entity->getID();
+    this->entityList.push_back(entity);
+    return id;
 }
 
 const AbstractEntity* EntityManager::getEntityByID(incrementType ID) {
