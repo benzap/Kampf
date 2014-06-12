@@ -75,6 +75,11 @@ endif
 
 .PHONY: all clean kampf tests runtests tags
 kampf: libkampf.a libkampf.so
+	cp ./*.hpp $(INCLUDES_DIRECTORY)/
+	mkdir -p $(INCLUDES_DIRECTORY)/physics
+	cp ./physics/*.hpp $(INCLUDES_DIRECTORY)/physics/
+	mkdir -p $(INCLUDES_DIRECTORY)/collision
+	cp ./collision/*.hpp $(INCLUDES_DIRECTORY)/collision/
 
 all: clean kampf tests
 
