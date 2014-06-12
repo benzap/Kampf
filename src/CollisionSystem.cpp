@@ -102,15 +102,23 @@ boolType CollisionSystem::checkCollisions(Entity* firstEntity,
     
     //collision structures
     COL_circle first_circle, second_circle;
-
+    COL_rect first_rect, second_rect;
 
     //get the types for each component
     auto firstType = firstColl->getCollisionType();
 
+    //generate based on type
     if (firstType == enumCollisionType::CIRCLE) {
 	first_circle.center = firstPhys->getPosition();
 	first_circle.center += firstColl->getOrigin();
 	first_circle.radius = firstColl->getRadius();
+    }
+    else if (firstType == enumCollisionType::AABB) {
+	first_rect.min = firstPhys->getPosition();
+	first_rect.min += firstColl->getOrigin();
+	first_rect.max = Vector3(firstColl->getWidth(),
+				 firstColl->getHeight(),
+				 0);
     }
     
     auto secondType = secondColl->getCollisionType();
@@ -120,15 +128,36 @@ boolType CollisionSystem::checkCollisions(Entity* firstEntity,
 	second_circle.center += secondColl->getOrigin();
 	second_circle.radius = secondColl->getRadius();
     }
-    
+    else if (secondType == enumCollisionType::AABB) {
+	second_rect.min = secondPhys->getPosition();
+	second_rect.min += secondColl->getOrigin();
+	second_rect.max = Vector3(secondColl->getWidth(),
+				 secondColl->getHeight(),
+				 0);
+    }
+
+
     boolType bCollided = false;
     if (firstType == enumCollisionType::CIRCLE) {
 	//handling circle to circle collisions
 	if (secondType == enumCollisionType::CIRCLE) {
 	    bCollided = check_circle_circle(first_circle, second_circle);
 	}
+	else if (secondType == enumCollisionType::AABB) {
+	    //do something
+	}
+    }
+    else if (firstType == enumCollisionType::AABB) {
+	if (secondType == enumCollisionType::CIRCLE) {
+	    //do something
+	}
+	else if (secondType == enumCollisionType::AABB) {
+	    bCollided = check_rect_rect(first_rect, second_rect);
+	}
     }
     
+
+
     return bCollided;
 }
 

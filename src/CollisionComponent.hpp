@@ -35,7 +35,6 @@ enum class enumCollisionType {
     NONE,
     PARENT,
     CIRCLE,
-    SQUARE,
     AABB,
     OBB,
     EDOP,

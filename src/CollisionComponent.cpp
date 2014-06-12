@@ -67,9 +67,6 @@ void CollisionComponent::setCollisionTypeString(stringType typeString) {
     else if (typeString == "CIRCLE") {
 	this->collisionType = enumCollisionType::CIRCLE;
     }
-    else if (typeString == "SQUARE") {
-	this->collisionType = enumCollisionType::SQUARE;
-    }
     else if (typeString == "AABB") {
 	this->collisionType = enumCollisionType::AABB;
     }
@@ -97,9 +94,6 @@ stringType CollisionComponent::getCollisionTypeString() {
     }
     else if (this->collisionType == enumCollisionType::CIRCLE) {
 	return "CIRCLE";
-    }
-    else if (this->collisionType == enumCollisionType::SQUARE) {
-	return "SQUARE";
     }
     else if (this->collisionType == enumCollisionType::AABB) {
 	return "AABB";

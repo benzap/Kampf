@@ -10,6 +10,7 @@
 
 //INCLUDES
 #include "collision_circle.hpp"
+#include "collision_rectangle.hpp"
 
 //DEFINITIONS
 
