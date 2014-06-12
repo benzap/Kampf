@@ -70,6 +70,11 @@ void SDLRenderWindow::setTitle(stringType title) {
     this->windowTitle = title;
 }
 
+stringType SDLRenderWindow::getTitle() {
+    stringType title = SDL_GetWindowTitle(this->window);
+    return title;
+}
+
 SDL_Window* SDLRenderWindow::getWindow() {
     return this->window;
 }
@@ -123,4 +128,17 @@ floatType SDLRenderWindow::getScaledHeightFactor() {
     result /= (resolution->h * resolution->h);
 
     return result;
+}
+
+void SDLRenderWindow::setWindowIcon(stringType filename) {
+    SDL_Surface* sdlSurface = IMG_Load(filename.c_str());
+    
+    if (sdlSurface != NULL) {
+	SDL_SetWindowIcon(this->window, sdlSurface);
+	SDL_FreeSurface(sdlSurface);
+    }
+    else {
+	std::cerr << "setWindowIcon - Error: in file - " << filename << std::endl;
+	std::cerr << IMG_GetError() << std::endl;
+    }
 }

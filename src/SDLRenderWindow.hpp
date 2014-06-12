@@ -11,6 +11,7 @@ class SDLRenderWindow;
 
 //INCLUDES
 #include <SDL2/SDL.h>
+#include <SDL2/SDL_image.h>
 
 #include "KF_globals.hpp"
 #include "KF_utilities.hpp"
@@ -77,6 +78,8 @@ public:
     void setPosition(int xPosition, int yPosition);
 
     void setTitle(stringType title);
+    stringType getTitle();
+
 
     SDL_Window* getWindow();
     SDL_Renderer* getRenderer();
@@ -90,7 +93,7 @@ public:
     virtual floatType getScaledWidthFactor();
     virtual floatType getScaledHeightFactor();
 
-
+    void setWindowIcon(stringType filename);
 };
 
 #endif //END SDLRENDERWINDOW__HPP

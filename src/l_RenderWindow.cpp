@@ -181,6 +181,32 @@ static int l_RenderWindow_getScaleFactor(lua_State *L) {
     return 1;
 }
 
+static int l_RenderWindow_getWindowTitle(lua_State *L) {
+    auto renderWindow = lua_torenderwindow(L, 1);
+    stringType title = renderWindow->getTitle();
+
+    lua_pushstring(L, title.c_str());
+    return 1;
+}
+
+static int l_RenderWindow_setWindowTitle(lua_State *L) {
+    auto renderWindow = lua_torenderwindow(L, 1);
+    stringType title = luaL_checkstring(L, 2);
+    
+    renderWindow->setTitle(title);
+
+    return 0;
+}
+
+static int l_RenderWindow_setWindowIcon(lua_State *L) {
+    auto renderWindow = lua_torenderwindow(L, 1);
+    stringType filename = luaL_checkstring(L, 2);
+    
+    renderWindow->setWindowIcon(filename);
+
+    return 0;
+}
+
 //kf module registered functions
 static const struct luaL_Reg l_renderwindow_kampf [] = {
     {"isRenderWindow", l_RenderWindow_isrenderwindow},
@@ -196,6 +222,9 @@ static const struct luaL_Reg l_renderwindow [] = {
     {"getResolution", l_RenderWindow_getResolution},
     {"setResolution", l_RenderWindow_setResolution},
     {"getScaleFactor", l_RenderWindow_getScaleFactor},
+    {"getWindowTitle", l_RenderWindow_getWindowTitle},
+    {"setWindowTitle", l_RenderWindow_setWindowTitle},
+    {"setWindowIcon", l_RenderWindow_setWindowIcon},
     {NULL, NULL}
 };
 

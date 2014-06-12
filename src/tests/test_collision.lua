@@ -1,6 +1,8 @@
 require "utils"
 
 local renderWindow = kf.getRenderWindow()
+renderWindow:setWindowTitle("Test Collision")
+renderWindow:setWindowIcon("./assets/platformer/png/alien_plant.png")
 
 function createBlock(name, position)
 	assert(type(name) == "string", "first argument should be a string")

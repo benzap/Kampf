@@ -149,5 +149,9 @@ public:
     */
     virtual floatType getScaledHeightFactor();
 
+    virtual stringType getTitle() = 0;
+    virtual void setTitle(stringType) = 0;
+
+    virtual void setWindowIcon(stringType filename) = 0;
 };
 #endif //END ABSTRACTRENDERWINDOW__HPP
