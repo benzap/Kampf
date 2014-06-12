@@ -29,6 +29,9 @@ else
 CXXFLAGS += -mconsole -m32 -DKF_WIN
 endif
 
+#directory where the resulting includes should be placed
+INCLUDES_DIRECTORY = ../include
+
 #directory where the output will be placed
 OUTPUT_DIRECTORY = ../lib
 #tests include
