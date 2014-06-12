@@ -1,14 +1,47 @@
 * What is Kampf
-  A game engine developed for 2d/3d Games employing the entity component
+  A game engine developed for 2d Games employing the entity component
   game design pattern. Game scripting is done through the lua
   programming language.
 
+  Currently, the kampf engine is in alpha and in active development
+
 * Compatible Operating Systems
-  - Windows (mingw)
-  - Linux (gcc)
+  - Windows (mingw gcc 4.7+)
+  - Linux (gcc 4.7+)
 
 * Compiling
+
+** Prerequisites
+   Make sure to include all of the dependencies provided by each
+   prerequisite
+
+   All prerequisites must be on your environment path / Library path
+   in order to compile correctly
+
+   For Windows, Mingw should be on your path as well, along with with
+   Msys. ex. /C:\MinGW\bin;C:\MinGW\msys\1.0\bin/ within *PATH*
+   
+   The easiest way to include the prerequisites, is to copy the
+   resulting ./include, ./lib, and ./bin folders over C:/MinGW for
+   the Windows binary folders for each. (Lua being an exception)
+
+   For Windows, the prerequisites must be i686-w64 versions
+*** Lua
+    NOTE: you can also use LuaJit
+
+    - Website :: [[http://www.lua.org/download.html][here]]
+*** SDL2 (Version 2+)
+    - Website :: [[http://www.libsdl.org/download-2.0.php][here]]
+*** SDL_Image (Version 2+)
+    - Website :: [[https://www.libsdl.org/projects/SDL_image/][here]]
+*** SDL_TTF (Version 2+)
+    - Website :: [[https://www.libsdl.org/projects/SDL_ttf/][here]]
 ** Win32
+#+BEGIN_SRC
+  cd src
+  make
+#+END_SRC
+   
    - Make sure that SDL2.0 and Lua5.1 are on your path. The makefile
      might need to be edited to accomodate luajit instead of just
      plain lua. Typically I place all of my libs and includes within
@@ -32,11 +65,8 @@
 * Dependencies
   - Msys
   - SDL2.0
+  - SDL_Image (2.0+)
+  - SDL_ttf (2.0+)
   - Lua5.1 or Luajit2.0
 
 
-* Tasks
-** Collision
-** Physics
-** Timing
-** Misc.
