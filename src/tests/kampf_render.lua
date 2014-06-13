@@ -36,8 +36,12 @@ renderWindow:setViewport{
 	w = 800,
 	h = 600,
 }
-renderWindow:setClearColor(17,17,17)
 
+--having issues with this function in linux
+if KF_OS ~= "LINUX" then
+	renderWindow:setClearColor(17,17,17)
+end
+	
 local pacman = sprite:new{
 	name = "pacman",
 	physics = {
