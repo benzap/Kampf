@@ -48,9 +48,17 @@ typedef struct Resolution {
     integerType h;
 } Resolution;
 
+//RenderClearColor
+struct RenderClearColor {
+    unsigned char r;
+    unsigned char g;
+    unsigned char b;
+    unsigned char a;
+};
+
 //FUNCTIONS
 
-//BEGIN
+//BEGIN 
 class AbstractRenderWindow {
 private:
     //!The area that is being viewed on the screen.
@@ -64,6 +72,10 @@ private:
     Resolution resolution = {
 	DEFAULT_VIRTUAL_SCREEN_WIDTH,
 	DEFAULT_VIRTUAL_SCREEN_HEIGHT
+    };
+
+    RenderClearColor renderClearColor = {
+	0,0,0,255
     };
 
 protected:
@@ -153,5 +165,12 @@ public:
     virtual void setTitle(stringType) = 0;
 
     virtual void setWindowIcon(stringType filename) = 0;
+
+    void setRenderClearColor(unsigned char r,
+			     unsigned char g,
+			     unsigned char b,
+			     unsigned char a = 255);
+    
+    const RenderClearColor& getRenderClearColor();
 };
 #endif //END ABSTRACTRENDERWINDOW__HPP

@@ -56,3 +56,17 @@ floatType AbstractRenderWindow::getScaledHeightFactor() {
     std::cout << "Not Implemented: AbstractRenderWindow::getScaledHeightFactor" << std::endl;
     return 0;
 }
+
+void AbstractRenderWindow::setRenderClearColor(unsigned char r,
+					       unsigned char g,
+					       unsigned char b,
+					       unsigned char a) {
+    RenderClearColor renderClearColor = {
+	r,g,b,a
+    };
+    this->renderClearColor = renderClearColor;
+}
+
+const RenderClearColor& AbstractRenderWindow::getRenderClearColor() {
+    return this->renderClearColor;
+}

@@ -35,7 +35,7 @@ SCRIPTS_DIRECTORY = ../scripts
 #the binary directory for DLL-like libraries
 BIN_DIRECTORY = ../bin
 #directory where the resulting includes should be placed
-INCLUDES_DIRECTORY = ../include
+INCLUDES_DIRECTORY = ../include/kampf/
 #directory where the output will be placed
 OUTPUT_DIRECTORY = ../lib
 #tests include
@@ -79,6 +79,7 @@ endif
 
 .PHONY: all clean kampf tests runtests tags
 kampf: libkampf.a libkampf.so
+	mkdir -p $(INCLUDES_DIRECTORY)
 	cp ./*.hpp $(INCLUDES_DIRECTORY)/
 	mkdir -p $(INCLUDES_DIRECTORY)/physics
 	cp ./physics/*.hpp $(INCLUDES_DIRECTORY)/physics/
@@ -123,6 +124,9 @@ clean:
 	rm -f $(OUTPUT_DIRECTORY)/libkampf.a
 	rm -f $(OUTPUT_DIRECTORY)/libkampf.so
 	rm -f $(TESTS_DIRECTORY)/libkampf.so
+	rm -rf $(BIN_DIRECTORY)/*
+	rm -rf $(SCRIPTS_DIRECTORY)/*
+	rm -rf $(INCLUDES_DIRECTORY)/*
 	make clean -C $(TESTS_DIRECTORY)
 
 #generate TAGS file

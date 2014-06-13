@@ -1,50 +1,55 @@
 #include "SDLRenderWindow.hpp"
 
 SDLRenderWindow::SDLRenderWindow(int windowWidth, int windowHeight) :
-  AbstractRenderWindow(windowWidth, windowHeight) {
+    AbstractRenderWindow(windowWidth, windowHeight) {
   
 }
 
 SDLRenderWindow::~SDLRenderWindow() {
-  SDL_DestroyRenderer(renderer);
-  SDL_DestroyWindow(window);
+    SDL_DestroyRenderer(renderer);
+    SDL_DestroyWindow(window);
 }
 
 void SDLRenderWindow::draw(AbstractDrawable* drawable, 
 			   Vector3 position,
 			   Quaternion orientation) {
-  if (drawable->getType() == "SDL") {
-    SDLDrawable* sdl_drawable = static_cast<SDLDrawable*> (drawable);
-    sdl_drawable->setWindowContext(this);
-    sdl_drawable->draw(position,
-		       orientation);
-  }
+    if (drawable->getType() == "SDL") {
+	SDLDrawable* sdl_drawable = static_cast<SDLDrawable*> (drawable);
+	sdl_drawable->setWindowContext(this);
+	sdl_drawable->draw(position,
+			   orientation);
+    }
 }
 
 boolType SDLRenderWindow::update() {
-  SDL_RenderPresent(renderer);
-  return true;
+    SDL_RenderPresent(renderer);
+    return true;
 }
 
 boolType SDLRenderWindow::clear() {
-  SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
-  SDL_RenderClear(renderer);
-  return true;
+    RenderClearColor renderClearColor = this->getRenderClearColor();
+    SDL_SetRenderDrawColor(renderer,
+			   renderClearColor.r,
+			   renderClearColor.g,
+			   renderClearColor.b,
+			   renderClearColor.a);
+    SDL_RenderClear(renderer);
+    return true;
 }
 
 bool SDLRenderWindow::initialize() {
-  SDL_InitSubSystem(SDL_INIT_VIDEO);
+    SDL_InitSubSystem(SDL_INIT_VIDEO);
 
-  this->window = SDL_CreateWindow(this->windowTitle.c_str(),
-				  this->xPosition,
-				  this->yPosition,
-				  this->windowWidth,
-				  this->windowHeight,
-				  this->windowFlags);
+    this->window = SDL_CreateWindow(this->windowTitle.c_str(),
+				    this->xPosition,
+				    this->yPosition,
+				    this->windowWidth,
+				    this->windowHeight,
+				    this->windowFlags);
   
-  this->renderer = SDL_CreateRenderer(this->window, -1,
-				      this->rendererFlags);
-  return true;
+    this->renderer = SDL_CreateRenderer(this->window, -1,
+					this->rendererFlags);
+    return true;
 }
 
 bool SDLRenderWindow::reinitialize() {
@@ -52,16 +57,16 @@ bool SDLRenderWindow::reinitialize() {
 }
 
 void SDLRenderWindow::setWindowFlags(Uint32 windowFlags) {
-  this->windowFlags = windowFlags;
+    this->windowFlags = windowFlags;
 }
 
 void SDLRenderWindow::setRendererFlags(Uint32 rendererFlags) {
-  this->rendererFlags = rendererFlags;
+    this->rendererFlags = rendererFlags;
 }
 
 void SDLRenderWindow::setPosition(int xPosition, int yPosition) {
-  this->xPosition = xPosition;
-  this->yPosition = yPosition;
+    this->xPosition = xPosition;
+    this->yPosition = yPosition;
 }
 
 void SDLRenderWindow::setTitle(stringType title) {

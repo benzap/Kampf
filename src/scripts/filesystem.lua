@@ -35,3 +35,5 @@ filesystem.join = function(pathTable, bAbsolute)
 
 	return pathString
 end
+
+return filesystem

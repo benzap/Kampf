@@ -11,3 +11,9 @@ function table.eq(firstTable, secondTable)
 	end
 	return true
 end
+
+function table.print(t)
+	for i,v in pairs(t) do
+		print(i,v)
+	end
+end

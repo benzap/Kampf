@@ -1,13 +1,24 @@
 --[[
 
-	This is a module contains a lot of utility functions that resemble
-	undersore.js.
+	This is a module that contains a lot of utility functions that
+	resemble undersore.js.
 
 	The functions are typically used on tables
 
 ]] 
 
 local func = {}
+
+func.range = function(s, e, inc)
+	local t = {}
+	local index = 1;
+	inc = inc or 1
+	for i = s,e,inc do
+		table.insert(t, index, i)
+		index = index + 1
+	end
+	return t
+end
 
 func.map = function(t, f) 
 	local resultTable = {}

@@ -207,6 +207,16 @@ static int l_RenderWindow_setWindowIcon(lua_State *L) {
     return 0;
 }
 
+static int l_RenderWindow_setClearColor(lua_State *L) {
+    auto renderWindow = lua_torenderwindow(L, 1);
+    unsigned char r = luaL_checkint(L, 2);
+    unsigned char g = luaL_checkint(L, 3);
+    unsigned char b = luaL_checkint(L, 4);
+    unsigned char a = luaL_optint(L, 5, 255);
+    
+    renderWindow->setRenderClearColor(r,g,b,a);
+}
+
 //kf module registered functions
 static const struct luaL_Reg l_renderwindow_kampf [] = {
     {"isRenderWindow", l_RenderWindow_isrenderwindow},
@@ -225,6 +235,7 @@ static const struct luaL_Reg l_renderwindow [] = {
     {"getWindowTitle", l_RenderWindow_getWindowTitle},
     {"setWindowTitle", l_RenderWindow_setWindowTitle},
     {"setWindowIcon", l_RenderWindow_setWindowIcon},
+    {"setClearColor", l_RenderWindow_setClearColor},
     {NULL, NULL}
 };
 
