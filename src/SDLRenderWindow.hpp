@@ -94,6 +94,12 @@ public:
     virtual floatType getScaledHeightFactor();
 
     void setWindowIcon(stringType filename);
+
+    void setRenderClearColor(unsigned int r,
+			     unsigned int g,
+			     unsigned int b,
+			     unsigned int a = 255);
+
 };
 
 #endif //END SDLRENDERWINDOW__HPP
