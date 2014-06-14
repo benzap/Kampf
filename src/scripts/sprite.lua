@@ -33,7 +33,7 @@ function sprite:new(args)
 	self.__index = self
 
 	--create a new entity to assign to our object
-	local entity = kf.Entity(args.name or "")
+	local entity = kf.Entity(args.name or "sprite")
 	obj.entity = entity
 
 	--create our physics component
@@ -79,7 +79,7 @@ function sprite:new(args)
 	graphicsComponent:setPhysicsRelation(physicsComponent)
 	
 	--get our drawable key
-	local key = graphicsArgs.key or ""
+	local key = graphicsArgs.key or "default"
 	graphicsComponent:setDrawableKey(key)
 	local index = graphicsArgs.index or 0
 	graphicsComponent:setIndex(index)
@@ -110,8 +110,153 @@ function sprite:new(args)
 	return obj
 end
 
+--[[
+
+	generates a sprite from an existing entity
+
+	this would be used to convert an entity being passed from say, a
+	message, into a sprite object
+	
+	contenders for the sprite wrapper:
+
+	- has one physics component
+	- has one collision component
+	- has one graphcis component
+
+	that's about it
+]]
+function sprite:get(entity)
+	obj = {}
+	setmetatable(obj, self)
+	self.__index = self
+
+	obj.entity = entity
+	
+	--assign our physics component
+	local physicsComponent = entity:getComponentsByFamily("PHYSICS")[1]
+	obj.physics = physicsComponent
+	
+	--assign our graphics component
+	local graphicsComponent = entity:getComponentsByFamily("GRAPHICS")[1]
+	obj.graphics = graphicsComponent
+
+	--assign our collision component
+	local collisionComponent = entity:getComponentsByFamily("COLLISION")[1]
+	obj.collision = collisionComponent
+
+	return obj
+end
+
 function sprite:getName() 
 	return self.entity:getName()
+end
+
+-- physics methods
+
+function sprite:translate(x,y)
+	x = x or 0
+	y = y or 0
+	local z = 0
+	local vec = kf.Vector3(x,y,z)
+
+	local physics = self.physics
+	local position = physics:getPosition()
+	position = position + vec
+	physics:setPosition(position)
+end
+
+function sprite:getPosition()
+	local physics = self.physics
+	local position = physics:getPosition()
+	return {
+		position.x, position.y, 
+	}
+end
+
+function sprite:setPosition(x, y)
+	--other form is x --> table
+	if type(x) == "table" and #x == 2 then
+		y = x[2]
+		x = x[1]
+	end
+
+	x = x or 0
+	y = y or 0
+
+	local physics = self.physics
+	local vec = kf.Vector3(x, y, 0)
+
+	physics:setPosition(vec)
+end
+
+function sprite:getVelocity()
+	local physics = self.physics
+	local velocity = physics:getVelocity()
+	return {
+		velocity.x, velocity.y
+	}
+end
+
+function sprite:setVelocity(x, y)
+	--other form is x --> table
+	if type(x) == "table" and #x == 2 then
+		y = x[2]
+		x = x[1]
+	end
+
+	x = x or 0
+	y = y or 0
+
+	local physics = self.physics
+	local vec = kf.Vector3(x, y, 0)
+
+	physics:setVelocity(vec)
+end
+
+function sprite:getAcceleration()
+	local physics = self.physics
+	local acceleration = physics:getAcceleration()
+	return {
+		acceleration.x, acceleration.y
+	}
+end
+
+function sprite:setAcceleration(x, y)
+	--other form is x --> table
+	if type(x) == "table" and #x == 2 then
+		y = x[2]
+		x = x[1]
+	end
+
+	x = x or 0
+	y = y or 0
+
+	local physics = self.physics
+	local vec = kf.Vector3(x, y, 0)
+
+	physics:setAcceleration(vec)
+end
+
+function sprite:getDamping()
+	local physics = self.physics
+	return physics:getDamping()
+end
+
+function sprite:setDamping(val)
+	local physics = self.physics
+	physics:setDamping(val)
+end
+
+-- graphics methods
+
+function sprite:getDrawableKey()
+	local graphics = self.graphics
+	return graphics:getDrawableKey()
+end
+
+function sprite:setDrawableKey(drawableKey)
+	local graphics = self.graphics
+	graphics:setDrawableKey(drawableKey)
 end
 
 return sprite

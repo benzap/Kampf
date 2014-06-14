@@ -105,5 +105,31 @@ events.createCollisionListener = function(entityName, beginCollisionCallback, en
 	return events.createEventListener("COLLISION", entityName, collisionCallbackWrapper)
 end
 
+--[[
+
+	Listens for key presses. provided keys come from SDL key codes
+	using the string representation
+	
+	keyCallback = function(key, bKeyDown)
+
+]]
+
+events.createKeyListener = function(keyCallback)
+	local msgCondition = function(msg)
+		if msg:getType() == "KEYBOARD" then
+			return true
+		end
+		return false
+	end
+
+	local keyCallbackWrapper = function(msg)
+		local key = msg:get("Key"):get()
+		local bKeyDown = msg:get("bKeyDown"):get()
+		bKeyDown = (bKeyDown == 1) and true or false
+		keyCallback(key:lower(), bKeyDown)
+	end
+
+	return ruleMachine.addRule(msgCondition, keyCallbackWrapper)
+end
 
 return events

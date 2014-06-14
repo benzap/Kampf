@@ -28,6 +28,8 @@ font:setStyle({
 
 -- RENDER WINDOW
 local renderWindow = kf.getRenderWindow()
+renderWindow:setWindowTitle("Kampf Render Testing Grounds")
+renderWindow:setWindowIcon("./assets/platformer/png/grass.png")
 renderWindow:setWindowSize(800, 600)
 renderWindow:setResolution(800, 600)
 renderWindow:setViewport{
@@ -108,6 +110,8 @@ function createText(text, x, y)
 	local sdlAssetManager = kf.SDLAssetManager()
 	local textDrawable = sdlAssetManager:addText(drawableKey)
 	textDrawable:appendText(text, "Inconsolata-normal-12")
+	textDrawable:clearText()
+	textDrawable:appendText("test", "Inconsolata-normal-12")
 
 	local entity = kf.Entity("text")
 	
@@ -123,15 +127,54 @@ function createText(text, x, y)
 	return entity
 end
 
-
+--current text system needs to be fixed
+local text1 = createText("Hello World!", 100, 100)
+kf.EntityManager():addEntity(text1)
 
 events.createMouseMoveListener(
 	function(x,y)
-		local phys = pacman.physics
-		phys:setPosition(kf.Vector3(x-50, y-50, 0))
+		pacman:setPosition(x-50, y-50)
 end)
 
---collision listener for pacman entity
+events.createKeyListener(
+	function(key, bKeyDown)
+		local acceleration = toggleCircle:getAcceleration()
+
+		local accelValue = 1000
+
+		if bKeyDown then
+			if key == "left" then
+				acceleration[1] = -accelValue
+			elseif key == "right" then
+				acceleration[1] = accelValue
+			elseif key == "up" then
+				acceleration[2] = -accelValue
+			elseif key == "down" then
+				acceleration[2] = accelValue
+			end
+		else
+			if key == "left" then
+				acceleration[1] = acceleration[1] + accelValue
+			elseif key == "right" then
+				acceleration[1] = acceleration[1] - accelValue
+			elseif key == "up" then
+				acceleration[2] = acceleration[2] + accelValue
+			elseif key == "down" then
+				acceleration[2] = acceleration[2] - accelValue
+			end
+		end
+				 
+		toggleCircle:setDamping(0.5)
+		toggleCircle:setAcceleration(acceleration)
+
+		if bKeyDown and key == "space" then
+			toggleCircle:setPosition(400,400)
+		end
+
+
+end)
+
+--collision listener for pacman sprite
 events.createCollisionListener(
 	pacman:getName(),
 	function(pacman, second, args)
@@ -145,24 +188,25 @@ end)
 events.createCollisionListener(
 	"red-circle",
 	function(circle, _, _)
-		local graphicsComponent = circle:getComponentsByFamily("GRAPHICS")[1]
-		graphicsComponent:setDrawableKey("blue-circle")
+		--creating a sprite from our entity
+		local circleSprite = sprite:get(circle)
+		circleSprite:setDrawableKey("blue-circle")
 	end,
 	function(circle, _, _)
-		local graphicsComponent = circle:getComponentsByFamily("GRAPHICS")[1]
-		graphicsComponent:setDrawableKey("red-circle")
+		local circleSprite = sprite:get(circle)
+		circleSprite:setDrawableKey("red-circle")
 end)
 
 --collision listener for blue-circle entities
 events.createCollisionListener(
 	"blue-circle",
 	function(circle, _, _)
-		local graphicsComponent = circle:getComponentsByFamily("GRAPHICS")[1]
-		graphicsComponent:setDrawableKey("red-circle")
+		local circleSprite = sprite:get(circle)
+		circleSprite:setDrawableKey("red-circle")
 	end,
 	function(circle, _, _)
-		local graphicsComponent = circle:getComponentsByFamily("GRAPHICS")[1]
-		graphicsComponent:setDrawableKey("blue-circle")
+		local circleSprite = sprite:get(circle)
+		circleSprite:setDrawableKey("blue-circle")
 end)
 
 --test out the time manager
@@ -172,9 +216,9 @@ timers.createEventInterval(
 	toggleDelay,
 	function()
 		if bToggleColor then
-			toggleCircle.graphics:setDrawableKey("red-circle")
+			toggleCircle:setDrawableKey("red-circle")
 		else
-			toggleCircle.graphics:setDrawableKey("blue-circle")
+			toggleCircle:setDrawableKey("blue-circle")
 		end
 		bToggleColor = not bToggleColor
 end)
@@ -228,6 +272,4 @@ kf.addSystem(
 end)
 
 -- performing test with text instances
-local text1 = createText("Hello World!", 100, 100)
-kf.EntityManager():addEntity(text1)
 kf.runMainLoop(-1)
