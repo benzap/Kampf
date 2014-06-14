@@ -3,6 +3,7 @@ local func = require "func"
 local events = require "events"
 local timers = require "timers"
 local sprite = require "sprite"
+local text = require "text"
 
 -- ASSETS
 local assetManager = kf.SDLAssetManager()
@@ -103,36 +104,19 @@ local blueCircle = sprite:new {
 	},
 }
 
-local increment = 0
-function createText(text, x, y)
-	local drawableKey = "text-" .. increment
-	increment = increment + 1
-	local sdlAssetManager = kf.SDLAssetManager()
-	local textDrawable = sdlAssetManager:addText(drawableKey)
-	textDrawable:appendText(text, "Inconsolata-normal-12")
-	textDrawable:clearText()
-	textDrawable:appendText("test", "Inconsolata-normal-12")
-
-	local entity = kf.Entity("text")
-	
-	local physicsComponent = kf.PhysicsComponent("physical")
-	entity:addComponent(physicsComponent)
-	physicsComponent:setPosition(kf.Vector3(x, y, 0))
-
-	local graphicsComponent = kf.GraphicsComponent("graphical")
-	entity:addComponent(graphicsComponent)
-	graphicsComponent:setPhysicsRelation(physicsComponent)
-	graphicsComponent:setDrawableKey(drawableKey)
-	graphicsComponent:setType("SDL_TEXT")
-	return entity
-end
-
---current text system needs to be fixed
-local text1 = createText("Hello World!", 100, 100)
-kf.EntityManager():addEntity(text1)
+local textLabel_1 = text:new{
+	font = "Inconsolata-normal-12",
+	text = "Key: ",
+	physics = {
+		position = {3, 3},
+	},
+	graphics = {
+		index = 49,
+	},
+}
 
 events.createMouseMoveListener(
-	function(x,y)
+	function(x, y)
 		pacman:setPosition(x-50, y-50)
 end)
 
@@ -141,6 +125,15 @@ events.createKeyListener(
 		local acceleration = toggleCircle:getAcceleration()
 
 		local accelValue = 1000
+
+		local textLabel = "Key: " .. key .. " "
+		if bKeyDown then
+			textLabel = textLabel .. "Pressed"
+		else
+			textLabel = textLabel .. "Released"
+		end
+
+		textLabel_1:setText(textLabel)
 
 		if bKeyDown then
 			if key == "left" then

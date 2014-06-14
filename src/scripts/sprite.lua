@@ -48,7 +48,7 @@ function sprite:new(args)
 	local physicsPosition = physicsArgs.position or {0,0,0}
 	local posVector = kf.Vector3(physicsPosition[1],
 								 physicsPosition[2],
-								 physicsPosition[3])
+								 physicsPosition[3] or 0)
 	physicsComponent:setPosition(posVector)
 
 	--physics velocity
@@ -56,14 +56,14 @@ function sprite:new(args)
 	physicsComponent:setVelocity(kf.Vector3(
 									 velocity[1],
 									 velocity[2],
-									 velocity[3]))
+									 velocity[3] or 0))
 
 	--physics acceleration
 	local acceleration = physicsArgs.acceleration or {0, 0, 0}
 	physicsComponent:setAcceleration(kf.Vector3(
 										 acceleration[1],
 										 acceleration[2],
-										 acceleration[3]))
+										 acceleration[3] or 0))
 
 	--physics damping
 	physicsComponent:setDamping(physicsArgs.damping or 1)
@@ -104,7 +104,7 @@ function sprite:new(args)
 	collisionComponent:setOrigin(kf.Vector3(
 									 coll_origin[1],
 									 coll_origin[2],
-									 coll_origin[3]))
+									 coll_origin[3] or 0))
 
 	kf.EntityManager():addEntity(entity)
 	return obj
