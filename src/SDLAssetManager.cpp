@@ -69,6 +69,7 @@ boolType SDLAssetManager::hasDrawable(const stringType& name) {
 }
 
 SDLDrawable* SDLAssetManager::getDrawable(const stringType& name) {
+    assert(this->hasDrawable(name));
     return &drawableContainer[name];
 }
 

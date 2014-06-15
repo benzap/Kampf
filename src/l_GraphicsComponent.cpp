@@ -150,7 +150,13 @@ static int l_GraphicsComponent_getPhysicsRelation(lua_State *L) {
 	(component);
 
     auto p_component = graphicsComponent->getPhysicsRelation();
-    lua_pushphysicsComponent(L, p_component);
+
+    if (p_component != nullptr) {
+	lua_pushphysicsComponent(L, p_component);
+    }
+    else {
+	lua_pushnil(L);
+    }
     return 1;
 }
 

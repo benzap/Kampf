@@ -171,6 +171,20 @@ static int l_PhysicsComponent_tostring(lua_State *L) {
     return 1;
 }
 
+static int l_PhysicsComponent__setInverseMass(lua_State *L) {
+    auto component = lua_tophysicsComponent(L, 1);
+    floatType value = luaL_checknumber(L, 2);
+    component->setInverseMass(value);
+    return 0;
+}
+
+static int l_PhysicsComponent_getInverseMass(lua_State *L) {
+    auto component = lua_tophysicsComponent(L, 1);
+    floatType value = component->getInverseMass();
+    lua_pushnumber(L, value);
+    return 1;
+}
+
 static int l_PhysicsComponent_getFamily(lua_State *L) {
     lua_pushstring(L, "PHYSICS");
     return 1;
@@ -186,7 +200,36 @@ static int l_PhysicsComponent_createChild(lua_State *L) {
     return 1;
 }
 
+static int l_PhysicsComponent_addForce(lua_State *L) {
+    auto component = lua_tophysicsComponent(L, 1);
+    auto vec = lua_tovector(L, 2);
+    
+    component->addForce(*vec);
+    return 0;
+}
 
+static int l_PhysicsComponent_getForce(lua_State *L) {
+    auto component = lua_tophysicsComponent(L, 1);
+    auto force = component->getForceAccumulator();
+
+    lua_pushvector(L, new Vector3(force));
+
+    return 1;
+}
+
+static int l_PhysicsComponent_setForce(lua_State *L) {
+    auto component = lua_tophysicsComponent(L, 1);
+    auto vec = lua_tovector(L, 2);
+    component->setForceAccumulator(*vec);
+    
+    return 0;
+}
+
+static int l_PhysicsComponent_clearForce(lua_State *L) {
+    auto component = lua_tophysicsComponent(L, 1);
+    component->clearForceAccumulator();
+    return 0;
+}
 
 static const struct luaL_Reg l_PhysicsComponent [] = {
     {"__gc", l_PhysicsComponent_gc},
@@ -205,8 +248,14 @@ static const struct luaL_Reg l_PhysicsComponent [] = {
     {"getDamping", l_PhysicsComponent_getDamping},
     {"setMass", l_PhysicsComponent_setMass},
     {"getMass", l_PhysicsComponent_getMass},
+    {"setInverseMass", l_PhysicsComponent__setInverseMass},
+    {"getInverseMass", l_PhysicsComponent_getInverseMass},
     {"getFamily", l_PhysicsComponent_getFamily},
     {"createChild", l_PhysicsComponent_createChild},
+    {"addForce", l_PhysicsComponent_addForce},
+    {"getForce", l_PhysicsComponent_getForce},
+    {"setForce", l_PhysicsComponent_setForce},
+    {"clearForce", l_PhysicsComponent_clearForce},
     {NULL, NULL}
 };
 

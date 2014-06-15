@@ -35,7 +35,7 @@ void PhysicsSystem::process() {
     //TODO:
     auto physicsRegistry = PhysicsRegistry::getInstance();
     for (auto gen : physicsRegistry->getForceGeneratorContainer()) {
-	gen->update(timeDelta_sec);
+	gen->update((floatType) timeDelta_ms);
     }
     
     for (auto entity : entityManager->getEntities()) {

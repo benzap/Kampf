@@ -107,7 +107,12 @@ static int l_CollisionComponent_getPhysicsRelation(lua_State *L) {
 	(component);
 
     auto p_component = collisionComponent->getPhysicsRelation();
-    lua_pushphysicsComponent(L, p_component);
+    if (p_component != nullptr) {
+	lua_pushphysicsComponent(L, p_component);
+    }
+    else {
+	lua_pushnil(L);
+    }
     return 1;
 }
 

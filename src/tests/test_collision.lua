@@ -47,6 +47,15 @@ for i = 0,800,70 do
 end
 
 
+events.createKeyListener(
+	function(key, bKeyDown)
+		
+		if key == "left" then
+			
+			
+		end
+end)
+
 events.createMouseMoveListener(
 	function(x,y)
 		pointer:setPosition(x,y)

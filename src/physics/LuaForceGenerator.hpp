@@ -17,15 +17,19 @@ class LuaWrap_GeneratorUpdateFunction;
 
 #include "../l_Wrapper.hpp"
 #include "../l_Wrapper_Utils.hpp"
+#include "../l_Component.hpp"
 
 #else
 
 #include "l_Wrapper.hpp"
 #include "l_Wrapper_Utils.hpp"
+#include "l_Component.hpp"
 
 #endif
 
 #include "AbstractForceGenerator.hpp"
+
+
 
 //DEFINITIONS
 
@@ -41,7 +45,8 @@ public:
     LuaWrap_GeneratorUpdateFunction(lua_State *L, int index) :
 	Lua_FunctionWrapper(L, index) {}
     
-    void operator () (floatType timeDelta_ms);
+void operator () (generatorContainerType collidables,
+		      floatType timeDelta_ms);
     
 };
 
@@ -53,7 +58,7 @@ public:
 		      LuaWrap_GeneratorUpdateFunction func);
     virtual ~LuaForceGenerator();
 
-    void update(floatType timeDelta_ms);
+void update(floatType timeDelta_ms);
 };
 
 #endif //END LUAFORCEGENERATOR__HPP

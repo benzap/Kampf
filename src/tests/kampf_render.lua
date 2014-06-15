@@ -4,6 +4,7 @@ local events = require "events"
 local timers = require "timers"
 local sprite = require "sprite"
 local text = require "text"
+local physics = require "physics"
 
 -- ASSETS
 local assetManager = kf.SDLAssetManager()
@@ -248,25 +249,46 @@ kf.addSystem(
 		local acceleration = redPhysics:getAcceleration()
 		local redRadius = 50
 		if xPosition + redRadius*2 > width then
-			velocity.x = -velocity.x
+			velocity.x = (velocity.x > 0) and -velocity.x or velocity.x
 			redPhysics:setVelocity(velocity)
 		end
 
 		if xPosition < 0 then
-			velocity.x = -velocity.x
+			velocity.x = (velocity.x < 0) and -velocity.x or velocity.x
 			redPhysics:setVelocity(velocity)
 		end
 		
 		if yPosition + redRadius*2 > height then
-			velocity.y = -velocity.y
+			velocity.y = (velocity.y > 0) and -velocity.y or velocity.y
 			redPhysics:setVelocity(velocity)
 		end
 
 		if yPosition < 0 then
-			velocity.y = -velocity.y
+			velocity.y = (velocity.y < 0) and -velocity.y or velocity.y
 			redPhysics:setVelocity(velocity)
 		end
 end)
+
+--testing the force generator functionality
+local physicsRegistry = kf.PhysicsRegistry()
+local gravityForce = kf.ForceGenerator(
+	"gravity",
+	function(collidables, timeDelta)		
+		for _, collision in ipairs(collidables) do
+			local physics = nil
+			if kf.isCollisionComponent(collision) then
+				local physics = collision and collision:getPhysicsRelation()
+			end
+			if kf.isPhysicsComponent(physics) then
+				local inverseMass = physics:getInverseMass()
+				physics:addForce(kf.Vector3(0, 10000, 0) * inverseMass)
+			end
+		end
+end)
+	
+physicsRegistry:addForceGenerator(gravityForce)
+gravityForce:registerComponent(redCircle.collision)
+
 
 -- performing test with text instances
 kf.runMainLoop(-1)
