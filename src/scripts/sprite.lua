@@ -68,6 +68,9 @@ function sprite:new(args)
 	--physics damping
 	physicsComponent:setDamping(physicsArgs.damping or 1)
 
+	--physics mass
+	physicsComponent:setMass(physicsArgs.mass or 1)
+
 	--graphics component
 	local graphicsComponent = kf.GraphicsComponent("sprite-graphics")
 	obj.graphics = graphicsComponent

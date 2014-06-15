@@ -37,6 +37,7 @@ LuaScript::LuaScript(Kampf* kf) {
   luaopen_abstractComponent(L);
 
   //components inheriting from abstract component
+  luaopen_component(L);
   luaopen_collisionComponent(L);
   luaopen_physicsComponent(L);
   luaopen_graphicsComponent(L);

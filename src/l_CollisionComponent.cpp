@@ -32,7 +32,7 @@ CollisionComponent* lua_tocollisionComponent(lua_State *L, int index) {
 }
 
 boolType lua_iscollisionComponent(lua_State* L, int index) {
-    if (lua_isuserdata(L, 1)) {
+    if (lua_isuserdata(L, index)) {
 	auto chk = lua_isUserdataType(L, index, LUA_USERDATA_COLLISIONCOMPONENT);
 	return chk;
     }
@@ -52,7 +52,13 @@ static int l_CollisionComponent_CollisionComponent(lua_State *L) {
 }
 
 static int l_CollisionComponent_isCollisionComponent(lua_State *L) {
-    return 0;
+    if (lua_iscollisionComponent(L, 1)) {
+	lua_pushboolean(L, 1);
+    }
+    else {
+	lua_pushboolean(L, 0);
+    }
+    return 1;
 }
 
 static const struct luaL_Reg l_CollisionComponent_Registry [] = {
@@ -287,7 +293,7 @@ static const struct luaL_Reg l_CollisionComponent [] = {
     {"getFamily", l_CollisionComponent_getFamily},
     {"createChild", l_CollisionComponent_createChild},
     {"setPhysicsRelation", l_CollisionComponent_setPhysicsRelation},
-    {"getPhyiscsRelation", l_CollisionComponent_getPhysicsRelation},
+    {"getPhysicsRelation", l_CollisionComponent_getPhysicsRelation},
     {"setOffset", l_CollisionComponent_setOffset},
     {"getOffset", l_CollisionComponent_getOffset},
     {"setOrigin", l_CollisionComponent_setOrigin},

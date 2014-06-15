@@ -52,7 +52,13 @@ static int l_PhysicsComponent_PhysicsComponent(lua_State *L) {
 }
 
 static int l_PhysicsComponent_isPhysicsComponent(lua_State *L) {
-    return 0;
+    if (lua_isphysicsComponent(L, 1)) {
+	lua_pushboolean(L, 1);
+    }
+    else {
+	lua_pushboolean(L, 0);
+    }
+    return 1;
 }
 
 static const struct luaL_Reg l_PhysicsComponent_Registry [] = {

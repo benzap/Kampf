@@ -67,7 +67,8 @@ local redCircle = sprite:new{
 	physics = {
 		velocity = {500, 300, 0},
 		acceleration = {0, 300, 0},
-		damping = 0.9,
+		damping = 0.95,
+		mass = 10,
 	},
 	graphics = {
 		key = "red-circle",
@@ -83,6 +84,8 @@ local toggleCircle = sprite:new{
 	name = "toggleCircle",
 	physics = {
 		position = {400, 400, 0},
+		damping = 0.8,
+		mass = 3,
 	},
 	graphics = {
 		key = "red-circle",
@@ -221,8 +224,6 @@ timers.createEventInterval(
 		bToggleColor = not bToggleColor
 end)
 
-local redPhysics = redCircle.physics
-
 --lets add a secondary collision system so that the ball stays within
 --the bounds
 kf.addSystem(
@@ -236,37 +237,43 @@ kf.addSystem(
 	--Process Messages, we're checking the bounds of our
 	--redPhysics ball.
 	function()
-		local ballPosition = redPhysics:getPosition()
-		local xPosition = ballPosition[1]
-		local yPosition = ballPosition[2]
-		
-		local windowSize = kf.getRenderWindow():getResolution()
-		local width = windowSize[1]
-		local height = windowSize[2]
+		func.map(
+			{redCircle, toggleCircle},
+			function(circle)
+				local redPhysics = circle.physics
 
-		
-		local velocity = redPhysics:getVelocity()
-		local acceleration = redPhysics:getAcceleration()
-		local redRadius = 50
-		if xPosition + redRadius*2 > width then
-			velocity.x = (velocity.x > 0) and -velocity.x or velocity.x
-			redPhysics:setVelocity(velocity)
-		end
+				local ballPosition = redPhysics:getPosition()
+				local xPosition = ballPosition[1]
+				local yPosition = ballPosition[2]
+				
+				local windowSize = kf.getRenderWindow():getResolution()
+				local width = windowSize[1]
+				local height = windowSize[2]
 
-		if xPosition < 0 then
-			velocity.x = (velocity.x < 0) and -velocity.x or velocity.x
-			redPhysics:setVelocity(velocity)
-		end
-		
-		if yPosition + redRadius*2 > height then
-			velocity.y = (velocity.y > 0) and -velocity.y or velocity.y
-			redPhysics:setVelocity(velocity)
-		end
+				
+				local velocity = redPhysics:getVelocity()
+				local acceleration = redPhysics:getAcceleration()
+				local redRadius = 50
+				if xPosition + redRadius*2 > width then
+					velocity.x = (velocity.x > 0) and -velocity.x or velocity.x
+					redPhysics:setVelocity(velocity)
+				end
 
-		if yPosition < 0 then
-			velocity.y = (velocity.y < 0) and -velocity.y or velocity.y
-			redPhysics:setVelocity(velocity)
-		end
+				if xPosition < 0 then
+					velocity.x = (velocity.x < 0) and -velocity.x or velocity.x
+					redPhysics:setVelocity(velocity)
+				end
+				
+				if yPosition + redRadius*2 > height then
+					velocity.y = (velocity.y > 0) and -velocity.y or velocity.y
+					redPhysics:setVelocity(velocity)
+				end
+
+				if yPosition < 0 then
+					velocity.y = (velocity.y < 0) and -velocity.y or velocity.y
+					redPhysics:setVelocity(velocity)
+				end
+		end)
 end)
 
 --testing the force generator functionality
@@ -274,20 +281,19 @@ local physicsRegistry = kf.PhysicsRegistry()
 local gravityForce = kf.ForceGenerator(
 	"gravity",
 	function(collidables, timeDelta)		
-		for _, collision in ipairs(collidables) do
-			local physics = nil
-			if kf.isCollisionComponent(collision) then
-				local physics = collision and collision:getPhysicsRelation()
-			end
+		for _, coll in ipairs(collidables) do
+			local physics = coll:getPhysicsRelation()
 			if kf.isPhysicsComponent(physics) then
 				local inverseMass = physics:getInverseMass()
-				physics:addForce(kf.Vector3(0, 10000, 0) * inverseMass)
+				local force = kf.Vector3(0, 20, 0) * inverseMass
+				physics:addForce(force)
 			end
 		end
 end)
-	
+
 physicsRegistry:addForceGenerator(gravityForce)
 gravityForce:registerComponent(redCircle.collision)
+gravityForce:registerComponent(toggleCircle.collision)
 
 
 -- performing test with text instances

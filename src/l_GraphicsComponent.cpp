@@ -32,7 +32,7 @@ GraphicsComponent* lua_tographicsComponent(lua_State *L, int index) {
 }
 
 boolType lua_isgraphicsComponent(lua_State* L, int index) {
-    if (lua_isuserdata(L, 1)) {
+    if (lua_isuserdata(L, index)) {
 	auto chk = lua_isUserdataType(L, index, LUA_USERDATA_GRAPHICSCOMPONENT);
 	return chk;
     }
@@ -52,7 +52,13 @@ static int l_GraphicsComponent_GraphicsComponent(lua_State *L) {
 }
 
 static int l_GraphicsComponent_isGraphicsComponent(lua_State *L) {
-    return 0;
+    if (lua_isgraphicsComponent(L, 1)) {
+	lua_pushboolean(L, 1);
+    }
+    else {
+	lua_pushboolean(L, 0);
+    }
+    return 1;
 }
 
 static const struct luaL_Reg l_GraphicsComponent_Registry [] = {
