@@ -33,17 +33,17 @@ local timeManager = kf.TimeManager()
 
 ]]
 
-events.createEventListener = function(eventName, entityName, eventCallback)
+events.createEventListener = function(eventName, pattern, eventCallback)
 	return ruleMachine.addRule(
 		function(msg)
 			--first, check if it's the event we're looking for
 			if msg:getType():upper() == eventName:upper() then
 				--check if we want all events
-				if entityName:lower() == "*all*" then
+				if pattern:lower() == "*all*" then
 					return true
 				else
 					local theEntity = msg:getFirstEntity()
-					if entityName == theEntity:getName() then
+					if string.find(theEntity:getName(), pattern) then
 						return true
 					end
 				end
