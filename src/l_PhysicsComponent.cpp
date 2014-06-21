@@ -71,6 +71,61 @@ static int l_PhysicsComponent_gc(lua_State *L) {
     return 0;
 }
 
+static int l_PhysicsComponent_setPhysicsType(lua_State *L) {
+    auto component = lua_tophysicsComponent(L, 1);
+    stringType strType = luaL_checkstring(L, 2);
+    enumPhysicsType type;
+
+    if (strType == "NONE") {
+	type = enumPhysicsType::NONE;
+    }
+    else if (strType == "RIGID") {
+	type = enumPhysicsType::RIGID;
+    }
+    else if (strType == "PARTICLE") {
+	type = enumPhysicsType::PARTICLE;
+    }
+    else if (strType == "CUSTOM") {
+	type = enumPhysicsType::CUSTOM;
+    }
+    else {
+	stringType errorMsg = "Unknown Physics Type: " + strType;
+	luaL_error(L, errorMsg.c_str());
+	return 0;
+    }
+    component->setPhysicsType(type);
+    return 0;
+}
+
+static int l_PhysicsComponent_getPhysicsType(lua_State *L) {
+    auto component = lua_tophysicsComponent(L, 1);
+
+    auto type = component->getPhysicsType();
+    stringType strType;
+    switch(type) {
+    case enumPhysicsType::NONE:
+	strType = "NONE";
+	break;
+    case enumPhysicsType::RIGID:
+	strType = "RIGID";
+	break;
+    case enumPhysicsType::PARTICLE:
+	strType = "PARTICLE";
+	break;
+    case enumPhysicsType::CUSTOM:
+	strType = "CUSTOM";
+	break;
+    default:
+	strType = "UNKNOWN";
+	break;
+    }
+
+    lua_pushstring(L, strType.c_str());
+
+    return 1;
+}
+
+
 static int l_PhysicsComponent_setPosition(lua_State *L) {
     auto component = lua_tophysicsComponent(L, 1);
     auto vector = lua_tovector(L, 2);
@@ -240,6 +295,8 @@ static int l_PhysicsComponent_clearForce(lua_State *L) {
 static const struct luaL_Reg l_PhysicsComponent [] = {
     {"__gc", l_PhysicsComponent_gc},
     {"__tostring", l_PhysicsComponent_tostring},
+    {"setPhysicsType", l_PhysicsComponent_setPhysicsType},
+    {"getPhysicsType", l_PhysicsComponent_getPhysicsType},
     {"setPosition", l_PhysicsComponent_setPosition},
     {"getPosition", l_PhysicsComponent_getPosition},
     {"setVelocity", l_PhysicsComponent_setVelocity},
