@@ -49,6 +49,9 @@ private:
 
     floatType damping = 1;
     floatType inverseMass = 1;
+    
+    //related to the coefficient of restitution
+    floatType elasticity = 1;
 
     Vector3 forceAccumulator = Vector3(0,0,0);
 
@@ -86,6 +89,9 @@ public:
 
     void setInverseMass(floatType);
     floatType getInverseMass();
+
+    void setElasticity(floatType);
+    floatType getElasticity();
 
     const Vector3& getForceAccumulator();
     void setForceAccumulator(Vector3);

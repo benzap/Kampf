@@ -88,6 +88,14 @@ floatType PhysicsComponent::getInverseMass() {
     return this->inverseMass;
 }
 
+void PhysicsComponent::setElasticity(floatType value) {
+    this->elasticity = value;
+}
+
+floatType PhysicsComponent::getElasticity() {
+    return this->elasticity;
+}
+
 const Vector3& PhysicsComponent::getForceAccumulator() {
     return forceAccumulator;
 }
