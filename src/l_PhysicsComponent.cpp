@@ -246,6 +246,25 @@ static int l_PhysicsComponent_getInverseMass(lua_State *L) {
     return 1;
 }
 
+static int l_PhysicsComponent_setElasticity(lua_State *L) {
+    auto component = lua_tophysicsComponent(L, 1);
+    floatType value = luaL_checknumber(L, 2);
+
+    component->setElasticity(value);
+
+    return 0;
+}
+
+static int l_PhysicsComponent_getElasticity(lua_State *L) {
+    auto component = lua_tophysicsComponent(L, 1);
+    floatType elasticity = component->getElasticity();
+
+    lua_pushnumber(L, elasticity);
+
+    return 1;
+}
+
+
 static int l_PhysicsComponent_getFamily(lua_State *L) {
     lua_pushstring(L, "PHYSICS");
     return 1;
@@ -313,6 +332,8 @@ static const struct luaL_Reg l_PhysicsComponent [] = {
     {"getMass", l_PhysicsComponent_getMass},
     {"setInverseMass", l_PhysicsComponent__setInverseMass},
     {"getInverseMass", l_PhysicsComponent_getInverseMass},
+    {"setElasticity", l_PhysicsComponent_setElasticity},
+    {"getElasticity", l_PhysicsComponent_getElasticity},
     {"getFamily", l_PhysicsComponent_getFamily},
     {"createChild", l_PhysicsComponent_createChild},
     {"addForce", l_PhysicsComponent_addForce},

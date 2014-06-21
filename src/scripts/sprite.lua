@@ -44,6 +44,9 @@ function sprite:new(args)
 	--set the physics arguments
 	local physicsArgs = args.physics or {}
 
+	--physics type
+	physicsComponent:setPhysicsType(physicsArgs.type or "NONE")
+
 	--physics position
 	local physicsPosition = physicsArgs.position or {0,0,0}
 	local posVector = kf.Vector3(physicsPosition[1],
@@ -70,6 +73,9 @@ function sprite:new(args)
 
 	--physics mass
 	physicsComponent:setMass(physicsArgs.mass or 1)
+
+	--elasticity
+	physicsComponent:setElasticity(physicsArgs.elasticity or 1)
 
 	--graphics component
 	local graphicsComponent = kf.GraphicsComponent("sprite-graphics")

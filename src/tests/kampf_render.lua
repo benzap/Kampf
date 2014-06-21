@@ -50,6 +50,7 @@ local pacman = sprite:new{
 	name = "pacman",
 	physics = {
 		position = {0,0,0},
+		type = "PARTICLE",
 	},
 	graphics = {
 		key = "pacman",
@@ -69,6 +70,8 @@ local redCircle = sprite:new{
 		acceleration = {0, 300, 0},
 		damping = 0.95,
 		mass = 10,
+		elasticity = 1.0,
+		type = "PARTICLE",
 	},
 	graphics = {
 		key = "red-circle",
@@ -86,6 +89,8 @@ local toggleCircle = sprite:new{
 		position = {400, 400, 0},
 		damping = 0.8,
 		mass = 3,
+		elasticity = 1.0,
+		type = "PARTICLE",
 	},
 	graphics = {
 		key = "red-circle",
@@ -101,6 +106,8 @@ local blueCircle = sprite:new {
 	name = "blue-circle",
 	physics = {
 		position = {100, 100, 0},
+		elasticity = 1.0,
+		type = "PARTICLE",
 	},
 	graphics = {
 		key = "blue-circle",
