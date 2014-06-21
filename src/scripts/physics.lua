@@ -25,12 +25,31 @@ local physics = {}
 
 ]]
 
+physics.gravity = {0, 20, 0}
+
 physics.addForceGenerator = function(name, func)
-	physicsRegistry:addForceGenerator(name, func)
+	local forceGenerator = kf.ForceGenerator(
+		name,
+		func)
+	physicsRegistry:addForceGenerator(forceGenerator)
 end
 
-physics.registerComponent = function(name, component)
-	--
+physics.registerComponent = function(generatorName, component)
+	if physicsRegistry:hasForceGenerator(generatorName) then
+		local forceGenerator = physicsRegistry:getForceGenerator(generatorName)
+		if kf.isCollisionComponent(component) then
+			forceGenerator:registerComponent(component)
+		else
+			error("second parameter must be a collision component", 2)
+		end
+	else
+		error("first parameter does not name a generator in the physics registry", 2)
+	end
+end
+
+physics.unregisterComponent = function(generatorName, component)
+	local forceGenerator = physicsRegistry:getForceGenerator(generatorName)
+	forceGenerator:unregisterComponent(component)
 end
 
 

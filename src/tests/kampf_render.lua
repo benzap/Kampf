@@ -285,8 +285,10 @@ local gravityForce = kf.ForceGenerator(
 			local physics = coll:getPhysicsRelation()
 			if kf.isPhysicsComponent(physics) then
 				local inverseMass = physics:getInverseMass()
-				local force = kf.Vector3(0, 20, 0) * inverseMass
-				physics:addForce(force)
+				if inverseMass ~= 0 then
+					local force = kf.Vector3(0, 20, 0) * inverseMass
+					physics:addForce(force)
+				end
 			end
 		end
 end)

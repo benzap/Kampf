@@ -16,6 +16,14 @@ AbstractComponent* PhysicsComponent::createChild(
     return component;
 }
 
+void PhysicsComponent::setPhysicsType(enumPhysicsType value) {
+    this->physicsType = value;
+}
+
+enumPhysicsType PhysicsComponent::getPhysicsType() {
+    return this->physicsType;
+}
+
 void PhysicsComponent::setPosition(Vector3 position) {
     this->position = position;
 }

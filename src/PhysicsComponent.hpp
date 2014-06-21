@@ -13,7 +13,6 @@ class PhysicsComponent;
 #include "KF_utilities.hpp"
 #include "KF_math.hpp"
 
-
 #include "AbstractComponent.hpp"
 
 //DEFINITIONS
@@ -21,6 +20,14 @@ class PhysicsComponent;
 //MACROS
 
 //TYPEDEFS
+
+//ENUM
+enum class enumPhysicsType {
+    NONE,
+	RIGID,
+	PARTICLE,
+	CUSTOM
+	};
 
 //FUNCTIONS
 PhysicsComponent* createPhysicsComponent(
@@ -30,6 +37,8 @@ PhysicsComponent* createPhysicsComponent(
 //BEGIN
 class PhysicsComponent : public AbstractComponent {
 private:
+    enumPhysicsType physicsType = enumPhysicsType::NONE;
+    
     Vector3 position;
     Vector3 velocity;
     Vector3 acceleration;
@@ -50,6 +59,9 @@ public:
     virtual ~PhysicsComponent();
 
     virtual AbstractComponent* createChild(stringType name);
+
+    void setPhysicsType(enumPhysicsType value);
+    enumPhysicsType getPhysicsType();
 
     void setPosition(Vector3);
     const Vector3& getPosition();
