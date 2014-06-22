@@ -50,7 +50,7 @@ CustomAttribute::CustomAttribute(Vector3 vecValue) :
 }
 
 CustomAttribute::~CustomAttribute() {
-    this->freeResource();
+    //this->freeResource();
 }
 
 void CustomAttribute::freeResource() {
