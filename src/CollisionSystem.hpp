@@ -59,6 +59,9 @@ private:
     //Removes an active collision
     void removeCollision(CollisionComponent* firstComponent, CollisionComponent* secondComponent);
 
+    COL_circle gen_circle(CollisionComponent*, PhysicsComponent*);
+    COL_rect gen_rect(CollisionComponent*, PhysicsComponent*);
+
 public:
     CollisionSystem();
     virtual ~CollisionSystem();

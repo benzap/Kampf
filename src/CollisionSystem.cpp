@@ -111,48 +111,21 @@ boolType CollisionSystem::checkCollisions(Entity* firstEntity,
 
     //the circle is radiating out from the origin
     if (firstType == enumCollisionType::CIRCLE) {
-	first_circle.center = firstPhys->getPosition();
-	first_circle.center += firstColl->getOrigin();
-	first_circle.center += firstColl->getOffset();
-	first_circle.radius = firstColl->getRadius();
+	first_circle = gen_circle(firstColl, firstPhys);
     }
 
     //the rectangle is radiating out from the origin
     else if (firstType == enumCollisionType::AABB) {
-	Vector3 offset = firstColl->getOffset();
-	Vector3 position = firstPhys->getPosition();
-
-
-	first_rect.min = position;
-	first_rect.min += offset;
-	
-	Vector3 maxPoint = Vector3(position.x + firstColl->getWidth(),
-				   position.y + firstColl->getHeight(),
-				   0);
-
-	first_rect.max = maxPoint + offset;
+	first_rect = gen_rect(firstColl, firstPhys);
     }
     
     auto secondType = secondColl->getCollisionType();
 
     if (secondType == enumCollisionType::CIRCLE) {
-	second_circle.center = secondPhys->getPosition();
-	second_circle.center += secondColl->getOrigin();
-	second_circle.center += secondColl->getOffset();
-	second_circle.radius = secondColl->getRadius();
+	second_circle = gen_circle(secondColl, secondPhys);
     }
     else if (secondType == enumCollisionType::AABB) {
-	Vector3 offset = secondColl->getOffset();
-	Vector3 position = secondPhys->getPosition();
-
-	second_rect.min = position;
-	second_rect.min += offset;
-	
-	Vector3 maxPoint = Vector3(position.x + secondColl->getWidth(),
-				   position.y + secondColl->getHeight(),
-				   0);
-
-	second_rect.max = maxPoint + offset;
+	second_rect = gen_rect(secondColl, secondPhys);
     }
 
     boolType bCollided = false;
@@ -202,4 +175,32 @@ void CollisionSystem::removeCollision(CollisionComponent* firstComponent,
 				      CollisionComponent* secondComponent) {
     auto collisionTuple = activeCollisionTuple(firstComponent, secondComponent);
     collisionContainer.erase(collisionTuple);
+}
+
+COL_circle CollisionSystem::gen_circle(CollisionComponent* collision, PhysicsComponent* physics) {
+    COL_circle circle;
+    circle.center = physics->getPosition();
+    circle.center += collision->getOrigin();
+    circle.center += collision->getOffset();
+    circle.radius = collision->getRadius();
+
+    return circle;
+}
+
+COL_rect CollisionSystem::gen_rect(CollisionComponent* collision, PhysicsComponent* physics) {
+    COL_rect rectangle;
+    
+    Vector3 offset = collision->getOffset();
+    Vector3 position = physics->getPosition();
+
+    rectangle.min = position;
+    rectangle.min += offset;
+
+    Vector3 maxPoint = Vector3(position.x + collision->getWidth(),
+			       position.y + collision->getHeight(),
+			       0);
+    
+    rectangle.max = maxPoint + offset;
+
+    return rectangle;
 }
