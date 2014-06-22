@@ -129,10 +129,11 @@ static int l_CustomAttribute_get(lua_State *L) {
     
     if (theType == enumAttribute::BOOLEAN) {
 	boolType boolValue = attr->get_bool();
-	lua_pushboolean(L, (int) boolValue);
+	int val = (boolValue) ? 1 : 0;
+	lua_pushboolean(L, val);
     }
 
-    if (theType == enumAttribute::INTEGER) {
+    else if (theType == enumAttribute::INTEGER) {
 	integerType intValue = attr->get_int();
 	lua_pushnumber(L, intValue);
     }
@@ -204,7 +205,7 @@ static int l_CustomAttribute_set(lua_State *L) {
 	attr->set(sValue);
     }
     else if (luaType == LUA_TBOOLEAN) {
-	integerType bValue = lua_toboolean(L, 2);
+	boolType bValue = lua_toboolean(L, 2);
 	attr->set(bValue);
     }
     //TODO: do proper checking, currently assumes a table of floats
@@ -213,12 +214,12 @@ static int l_CustomAttribute_set(lua_State *L) {
 	auto tableSize = lua_objlen(L, 2);
 
 	//create a new float array
-	floatArrayType* floatArray = new floatArrayType();
+	floatArrayType floatArray;
 	floatType fValue;
 	for (int i = 1; i <= tableSize; i++) {
 	    lua_rawgeti(L, 2, i);
 	    fValue = lua_tonumber(L, -1);
-	    floatArray->push_back(fValue);
+	    floatArray.push_back(fValue);
 	    lua_pop(L, 1);
 	}
 	attr->set(floatArray);
@@ -226,6 +227,25 @@ static int l_CustomAttribute_set(lua_State *L) {
     else {
 	luaL_error(L, "Type cannot be converted");
     }
+
+    return 0;
+}
+
+static int l_CustomAttribute_getBool(lua_State *L) {
+    auto attr = lua_tocustomAttribute(L, 1);
+    boolType bValue = attr->get_bool();
+    int val = (bValue) ? 1 : 0;
+
+    lua_pushboolean(L, val);
+    
+    return 1;
+}
+
+static int l_CustomAttribute_setBool(lua_State *L) {
+    auto attr = lua_tocustomAttribute(L, 1);
+    boolType bValue = lua_toboolean(L, 2) == 0 ? false : true;
+    
+    attr->set(bValue);
 
     return 0;
 }
@@ -358,6 +378,24 @@ static int l_CustomAttribute_setString(lua_State *L) {
     return 0;
 }
 
+static int l_CustomAttribute_getVector(lua_State *L) {
+    auto attr = lua_tocustomAttribute(L, 1);
+    
+    auto vs = attr->get_vector();
+    lua_pushvector(L, new Vector3(vs));
+
+    return 1;
+}
+
+static int l_CustomAttribute_setVector(lua_State *L) {
+    auto attr = lua_tocustomAttribute(L, 1);
+    Vector3 vs = *lua_tovector(L, 2);
+    attr->set(vs);
+
+    return 0;
+}
+
+
 static const struct luaL_Reg l_CustomAttribute_Registry [] = {
     {"CustomAttribute", l_CustomAttribute_CustomAttribute},
     {"isCustomAttribute", l_CustomAttribute_isCustomAttribute},
@@ -370,6 +408,8 @@ static const struct luaL_Reg l_CustomAttribute [] = {
     {"type", l_CustomAttribute_type},
     {"get", l_CustomAttribute_get},
     {"set", l_CustomAttribute_set},
+    {"getBool", l_CustomAttribute_getBool},
+    {"setBool", l_CustomAttribute_setBool},
     {"getInteger", l_CustomAttribute_getInteger},
     {"setInteger", l_CustomAttribute_setInteger},
     {"getFloat", l_CustomAttribute_getFloat},
@@ -380,6 +420,8 @@ static const struct luaL_Reg l_CustomAttribute [] = {
     {"setArray", l_CustomAttribute_setArray},
     {"getString", l_CustomAttribute_getString},
     {"setString", l_CustomAttribute_setString},
+    {"getVector", l_CustomAttribute_getVector},
+    {"setVector", l_CustomAttribute_setVector},
     {NULL, NULL}
 };
 

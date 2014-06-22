@@ -48,6 +48,16 @@ test_case(
 		test_assert("getChar", customAttr_char:getChar() == "a")
 		test_assert("get (char)", customAttr_char:get() == "a")
 
+		local customAttr_bool = kf.CustomAttribute()
+		customAttr_bool:setBool(true)
+		print(customAttr_bool)
+		test_assert("getBool", customAttr_bool:getBool() == true)
+		test_assert("get (bool)", customAttr_bool:get() == true)
 
+		local customAttr_vector = kf.CustomAttribute()
+		customAttr_vector:setVector(kf.Vector3(1,2,3))
+		print(customAttr_vector)
+		test_assert("getVector", customAttr_vector:getVector() == kf.Vector3(1,2,3))
+		test_assert("get (vector)", customAttr_vector:get() == kf.Vector3(1,2,3))
 
 end)
