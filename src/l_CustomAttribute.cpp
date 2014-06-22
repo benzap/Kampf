@@ -328,12 +328,12 @@ static int l_CustomAttribute_setArray(lua_State *L) {
     auto tableSize = lua_objlen(L, 2);
 
     //create a new float array
-    floatArrayType* floatArray = new floatArrayType();
+    floatArrayType floatArray;
     floatType fValue;
     for (int i = 1; i <= tableSize; i++) {
 	lua_rawgeti(L, 2, i);
 	fValue = lua_tonumber(L, -1);
-	(*floatArray).push_back(fValue);
+	floatArray.push_back(fValue);
 	lua_pop(L, 1);
     }
     attr->set(floatArray);
@@ -353,8 +353,7 @@ static int l_CustomAttribute_getString(lua_State *L) {
 static int l_CustomAttribute_setString(lua_State *L) {
     auto attr = lua_tocustomAttribute(L, 1);
     stringType sValue = luaL_checkstring(L, 2);
-    stringType* sPtr = new stringType(sValue);
-    attr->set(sPtr);
+    attr->set(sValue);
 
     return 0;
 }

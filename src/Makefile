@@ -4,7 +4,7 @@ UNAME := $(shell uname)
 TAGS_EXEC = etags
 
 CXX = g++
-CXXFLAGS = --std=c++0x
+CXXFLAGS = --std=c++0x -Wall -Wextra
 
 LDFLAGS = #-Wl,--verbose
 

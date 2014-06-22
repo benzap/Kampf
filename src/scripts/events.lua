@@ -95,7 +95,7 @@ events.createCollisionListener = function(entityName, beginCollisionCallback, en
 			secondCollisionComponent = msg:getSecondComponent(),
 		}
 
-		if bRegistered == 1 then
+		if bRegistered then
 			beginCollisionCallback(thisEntity, secondEntity, args)
 		else
 			endCollisionCallback(thisEntity, secondEntity, args)
@@ -125,7 +125,6 @@ events.createKeyListener = function(keyCallback)
 	local keyCallbackWrapper = function(msg)
 		local key = msg:get("Key"):get()
 		local bKeyDown = msg:get("bKeyDown"):get()
-		bKeyDown = (bKeyDown == 1) and true or false
 		keyCallback(key:lower(), bKeyDown)
 	end
 
