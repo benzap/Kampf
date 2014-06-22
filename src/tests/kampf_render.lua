@@ -135,6 +135,7 @@ events.createMouseMoveListener(
 		pacman:setPosition(x-50, y-50)
 end)
 
+--[[
 events.createKeyListener(
 	function(key, bKeyDown)
 		local acceleration = toggleCircle:getAcceleration()
@@ -180,7 +181,8 @@ events.createKeyListener(
 		end
 
 
-end)
+	end)
+]]
 
 --collision listener for pacman sprite
 events.createCollisionListener(

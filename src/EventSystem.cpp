@@ -23,11 +23,13 @@ void EventSystem::createMessages() {
     
     else if (event.type == SDL_APP_TERMINATING) {
 	msg = messenger->appendMessage();
+	std::cout << "App Terminating..." << std::endl;
 	msg->setType(enumMessageType::EVENT_QUIT);
     }
 
     else if (event.type == SDL_APP_LOWMEMORY) {
 	msg = messenger->appendMessage();
+	std::cerr << "Low Memory: Calling Event Quit" << std::endl;
 	msg->setType(enumMessageType::EVENT_QUIT);
     }
 
@@ -62,7 +64,7 @@ void EventSystem::createMessages() {
 
 	//The key code
 	stringType keyCodeString = SDL_GetScancodeName(event.key.keysym.scancode);
-	msg->customData["Key"] = CustomAttribute(stringType(keyCodeString));
+	msg->customData["Key"] = CustomAttribute(keyCodeString);
 	
 	//whether it was key down or key up
 	msg->customData["bKeyDown"] = CustomAttribute(true);
@@ -75,7 +77,7 @@ void EventSystem::createMessages() {
 
 	//The key code
 	stringType keyCodeString = SDL_GetScancodeName(event.key.keysym.scancode);
-	msg->customData["Key"] = CustomAttribute(stringType(keyCodeString));
+	msg->customData["Key"] = CustomAttribute(keyCodeString);
 	
 	//whether it was key down or key up
 	msg->customData["bKeyDown"] = CustomAttribute(false);

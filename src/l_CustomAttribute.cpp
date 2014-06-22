@@ -150,7 +150,7 @@ static int l_CustomAttribute_get(lua_State *L) {
     }
 
     else if (theType == enumAttribute::VOID) {
-	lua_pushnil(L);
+	luaL_error(L, "Attribute contains a void, unable to retrieve");
     }
 
     else if (theType == enumAttribute::INTEGER_VECTOR) {
