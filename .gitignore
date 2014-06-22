@@ -2,7 +2,7 @@
 *~
 *.obj
 *.autosave
-plantuml.jar
+*.jar
 /doc/plant/*.svg
 /doc/plant/*.png
 *.exe
