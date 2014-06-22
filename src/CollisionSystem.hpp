@@ -72,6 +72,10 @@ public:
 			     CollisionComponent* firstColl,
 			     Entity* secondEntity,
 			     CollisionComponent* secondColl);
+
+    floatType getSeparation(CollisionComponent* first, CollisionComponent* second);
+    Vector3 getContactNormal(CollisionComponent* first, CollisionComponent* second);
+
 };
 
 #endif //END COLLISIONSYSTEM__HPP

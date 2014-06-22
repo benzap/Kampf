@@ -194,12 +194,15 @@ end)
 --collision listener for red-circle entities
 events.createCollisionListener(
 	"red.circle",
-	function(circle, _, _)
+	function(circle, _, args)
 		--creating a sprite from our entity
 		local circleSprite = sprite:get(circle)
 		circleSprite:setDrawableKey("blue-circle")
+
+		table.print(args)
+
 	end,
-	function(circle, _, _)
+	function(circle, _, args)
 		local circleSprite = sprite:get(circle)
 		circleSprite:setDrawableKey("red-circle")
 end)

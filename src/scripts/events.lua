@@ -93,6 +93,8 @@ events.createCollisionListener = function(entityName, beginCollisionCallback, en
 		local args = {
 			firstCollisionComponent = msg:getFirstComponent(),
 			secondCollisionComponent = msg:getSecondComponent(),
+			penetration = msg:get("penetration"):get(),
+			contactNormal = msg:get("contactNormal"):get(),
 		}
 
 		if bRegistered == true then
@@ -123,7 +125,6 @@ events.createKeyListener = function(keyCallback)
 	end
 
 	local keyCallbackWrapper = function(msg)
-		print("keyCallbackWrapper")
 
 		local key = msg:get("Key"):get()
 		local bKeyDown = msg:get("bKeyDown"):get()

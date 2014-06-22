@@ -55,6 +55,10 @@ void CollisionSystem::createMessages() {
 			
 			//include boolean that it's a registered collision
 			msg->customData["bRegistered"] = CustomAttribute(true);
+			floatType penetration = -1 * getSeparation(firstColl, secondColl);
+			msg->customData["penetration"] = CustomAttribute(penetration);
+			Vector3 contactNormal = getContactNormal(firstColl, secondColl);
+			msg->customData["contactNormal"] = CustomAttribute(contactNormal);
 
 			//add the new collision to our list of active collisions
 			this->addCollision(firstColl, secondColl);
@@ -74,7 +78,11 @@ void CollisionSystem::createMessages() {
 			
 			//include boolean that it's not registered anymore
 			msg->customData["bRegistered"] = CustomAttribute(false);
-		
+			floatType penetration = -1 * getSeparation(firstColl, secondColl);
+			msg->customData["penetration"] = CustomAttribute(penetration);
+			Vector3 contactNormal = getContactNormal(firstColl, secondColl);
+			msg->customData["contactNormal"] = CustomAttribute(contactNormal);
+
 			//remove the active collision from our container
 			removeCollision(firstColl, secondColl);
 		    }
@@ -100,39 +108,16 @@ boolType CollisionSystem::checkCollisions(Entity* firstEntity,
     auto firstPhys = firstColl->getPhysicsRelation();
     auto secondPhys = secondColl->getPhysicsRelation();
     
-    //collision structures
-    COL_circle first_circle, second_circle;
-    COL_rect first_rect, second_rect;
-
     //get the types for each component
     auto firstType = firstColl->getCollisionType();
-
-    //generate based on type
-
-    //the circle is radiating out from the origin
-    if (firstType == enumCollisionType::CIRCLE) {
-	first_circle = gen_circle(firstColl, firstPhys);
-    }
-
-    //the rectangle is radiating out from the origin
-    else if (firstType == enumCollisionType::AABB) {
-	first_rect = gen_rect(firstColl, firstPhys);
-    }
-    
     auto secondType = secondColl->getCollisionType();
-
-    if (secondType == enumCollisionType::CIRCLE) {
-	second_circle = gen_circle(secondColl, secondPhys);
-    }
-    else if (secondType == enumCollisionType::AABB) {
-	second_rect = gen_rect(secondColl, secondPhys);
-    }
 
     boolType bCollided = false;
     if (firstType == enumCollisionType::CIRCLE) {
 	//handling circle to circle collisions
 	if (secondType == enumCollisionType::CIRCLE) {
-	    bCollided = check_circle_circle(first_circle, second_circle);
+	    bCollided = check_circle_circle(gen_circle(firstColl, firstPhys),
+					    gen_circle(secondColl, secondPhys));
 	}
 	else if (secondType == enumCollisionType::AABB) {
 	    //do something
@@ -143,12 +128,11 @@ boolType CollisionSystem::checkCollisions(Entity* firstEntity,
 	    //do something
 	}
 	else if (secondType == enumCollisionType::AABB) {
-	    bCollided = check_rect_rect(first_rect, second_rect);
+	    bCollided = check_rect_rect(gen_rect(firstColl, firstPhys),
+					gen_rect(secondColl, secondPhys));
 	}
     }
     
-
-
     return bCollided;
 }
 
@@ -203,4 +187,71 @@ COL_rect CollisionSystem::gen_rect(CollisionComponent* collision, PhysicsCompone
     rectangle.max = maxPoint + offset;
 
     return rectangle;
+}
+
+floatType CollisionSystem::getSeparation(CollisionComponent* first,
+					 CollisionComponent* second) {
+    //get the physics relations
+    auto firstPhys = first->getPhysicsRelation();
+    auto secondPhys = second->getPhysicsRelation();
+    
+    //get the types for each component
+    auto firstType = first->getCollisionType();
+    auto secondType = second->getCollisionType();
+
+
+    floatType separation = 0;
+    if (firstType == enumCollisionType::CIRCLE) {
+	//handling circle to circle collisions
+	if (secondType == enumCollisionType::CIRCLE) {
+	    separation = get_circle_circle_separation(gen_circle(first, firstPhys),
+						      gen_circle(second, secondPhys));
+	}
+	else if (secondType == enumCollisionType::AABB) {
+	    //do something
+	}
+    }
+    else if (firstType == enumCollisionType::AABB) {
+	if (secondType == enumCollisionType::CIRCLE) {
+	    //do something
+	}
+	else if (secondType == enumCollisionType::AABB) {
+	    //do something
+	}
+    }
+    
+    return separation;
+}
+
+Vector3 CollisionSystem::getContactNormal(CollisionComponent* first,
+					  CollisionComponent* second) {
+    //get the physics relations
+    auto firstPhys = first->getPhysicsRelation();
+    auto secondPhys = second->getPhysicsRelation();
+    
+    //get the types for each component
+    auto firstType = first->getCollisionType();
+    auto secondType = second->getCollisionType();
+
+    Vector3 contactNormal = Vector3();
+    if (firstType == enumCollisionType::CIRCLE) {
+	//handling circle to circle collisions
+	if (secondType == enumCollisionType::CIRCLE) {
+	    contactNormal = get_circle_circle_contactNormal(gen_circle(first, firstPhys),
+							    gen_circle(second, secondPhys));
+	}
+	else if (secondType == enumCollisionType::AABB) {
+	    //do something
+	}
+    }
+    else if (firstType == enumCollisionType::AABB) {
+	if (secondType == enumCollisionType::CIRCLE) {
+	    //do something
+	}
+	else if (secondType == enumCollisionType::AABB) {
+	    //do something
+	}
+    }
+    
+    return contactNormal;
 }
