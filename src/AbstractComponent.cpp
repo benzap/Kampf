@@ -44,6 +44,23 @@ void AbstractComponent::setInactive() {
 
 
 //value types
+
+boolType AbstractComponent::getCustomAttribute_bool(stringType keyname) {
+    assert(this->hasCustomAttribute(keyname));
+    return this->customAttributeMap[keyname].get_bool();
+}
+
+stringType AbstractComponent::setCustomAttribute(stringType keyname, boolType bValue) {
+    if (this->hasCustomAttribute(keyname)) {
+	customAttributeMap[keyname].set(bValue);
+    }
+    else {
+	auto customAttribute = CustomAttribute(bValue);
+	customAttributeMap[keyname] = customAttribute;
+    }
+    return keyname;
+}
+
 integerType AbstractComponent::getCustomAttribute_int(stringType keyname) {
   assert(this->hasCustomAttribute(keyname));
   //TODO: check type
@@ -100,13 +117,12 @@ stringType AbstractComponent::setCustomAttribute(stringType keyname, charType cV
 
 
 //ptr types
-intArrayType* AbstractComponent::getCustomAttribute_intArray(stringType keyname) {
+const intArrayType& AbstractComponent::getCustomAttribute_intArray(stringType keyname) {
   assert(this->hasCustomAttribute(keyname));
-  //TODO: check type
   return customAttributeMap[keyname].get_intArray();
 }
 
-stringType AbstractComponent::setCustomAttribute(stringType keyname, intArrayType* iaValue) {
+stringType AbstractComponent::setCustomAttribute(stringType keyname, intArrayType iaValue) {
   if (this->hasCustomAttribute(keyname)) {
     customAttributeMap[keyname].set(iaValue);
   }
@@ -117,13 +133,13 @@ stringType AbstractComponent::setCustomAttribute(stringType keyname, intArrayTyp
   return keyname;
 }
 
-floatArrayType* AbstractComponent::getCustomAttribute_floatArray(stringType keyname) {
+const floatArrayType& AbstractComponent::getCustomAttribute_floatArray(stringType keyname) {
   assert(this->hasCustomAttribute(keyname));
   //TODO: check type
   return customAttributeMap[keyname].get_floatArray();
 }
 
-stringType AbstractComponent::setCustomAttribute(stringType keyname, floatArrayType* faValue) {
+stringType AbstractComponent::setCustomAttribute(stringType keyname, floatArrayType faValue) {
   if (this->hasCustomAttribute(keyname)) {
     customAttributeMap[keyname].set(faValue);
   }
@@ -134,10 +150,10 @@ stringType AbstractComponent::setCustomAttribute(stringType keyname, floatArrayT
   return keyname;
 }
 
-stringType& AbstractComponent::getCustomAttribute_string(stringType keyname) {
+const stringType& AbstractComponent::getCustomAttribute_string(stringType keyname) {
   assert(this->hasCustomAttribute(keyname));
   //TODO: check type
-  return *customAttributeMap[keyname].get_string();
+  return customAttributeMap[keyname].get_string();
 }
 
 stringType AbstractComponent::setCustomAttribute(stringType keyname, stringType sValue) {
@@ -169,7 +185,23 @@ stringType AbstractComponent::setCustomAttribute(stringType keyname, void* vValu
   return keyname;
 }
 
-  
+const Vector3& AbstractComponent::getCustomAttribute_vector(stringType keyname) {
+    assert(this->hasCustomAttribute(keyname));
+    return customAttributeMap[keyname].get_vector();
+}
+
+stringType AbstractComponent::setCustomAttribute(stringType keyname, Vector3 vsValue) {
+    if (this->hasCustomAttribute(keyname)) {
+	customAttributeMap[keyname].set(vsValue);
+    }
+    else {
+	auto customAttribute = CustomAttribute(vsValue);
+	customAttributeMap[keyname] = customAttribute;
+    }
+    return keyname;
+}
+
+
 bool AbstractComponent::hasCustomAttribute(stringType keyname) {
   if (this->customAttributeMap.find(keyname) == this->customAttributeMap.end()) {
     return false;

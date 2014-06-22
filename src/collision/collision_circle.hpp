@@ -32,7 +32,8 @@ typedef struct COL_circle_struct {
 
 //FUNCTIONS
 boolType check_circle_circle(const COL_circle&, const COL_circle&);
-Vector3 get_circle_circle_pt(const COL_circle&, const COL_circle&);
+Vector3 get_circle_circle_contactNormal(const COL_circle&, const COL_circle&);
+floatType get_circle_circle_separation(const COL_circle&, const COL_circle&);
 
 //BEGIN
 

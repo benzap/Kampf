@@ -79,7 +79,11 @@ static int l_CustomAttribute_type(lua_State *L) {
 
     enumAttribute theType = attr->getType();
     
-    if (theType == enumAttribute::INTEGER) {
+    if (theType == enumAttribute::BOOLEAN) {
+	lua_pushstring(L, "BOOL");
+    }
+
+    else if (theType == enumAttribute::INTEGER) {
 	lua_pushstring(L, "INTEGER");
     }
 
@@ -107,6 +111,10 @@ static int l_CustomAttribute_type(lua_State *L) {
 	lua_pushstring(L, "STRING");
     }
 
+    else if (theType == enumAttribute::VECTOR3) {
+	lua_pushstring(L, "VECTOR");
+    }
+
     else {
 	lua_pushstring(L, "UNKNOWN");
     }
@@ -119,6 +127,11 @@ static int l_CustomAttribute_get(lua_State *L) {
 
     enumAttribute theType = attr->getType();
     
+    if (theType == enumAttribute::BOOLEAN) {
+	boolType boolValue = attr->get_bool();
+	lua_pushboolean(L, (int) boolValue);
+    }
+
     if (theType == enumAttribute::INTEGER) {
 	integerType intValue = attr->get_int();
 	lua_pushnumber(L, intValue);
@@ -140,7 +153,7 @@ static int l_CustomAttribute_get(lua_State *L) {
     }
 
     else if (theType == enumAttribute::INTEGER_VECTOR) {
-	intArrayType iarray = *(attr->get_intArray());
+	intArrayType iarray = attr->get_intArray();
 	lua_createtable(L, iarray.size(), 0);
 	for (int i = 0; i < iarray.size(); i++) {
 	    lua_pushnumber(L, iarray[i]);
@@ -149,7 +162,7 @@ static int l_CustomAttribute_get(lua_State *L) {
     }
 
     else if (theType == enumAttribute::FLOAT_VECTOR) {
-	floatArrayType farray = *(attr->get_floatArray());
+	floatArrayType farray = attr->get_floatArray();
 	lua_createtable(L, farray.size(), 0);
 	for (int i = 0; i < farray.size(); i++) {
 	    lua_pushnumber(L, farray[i]);
@@ -158,8 +171,13 @@ static int l_CustomAttribute_get(lua_State *L) {
     }
 
     else if (theType == enumAttribute::STRING) {
-	stringType stringValue = *(attr->get_string());
+	stringType stringValue = attr->get_string();
 	lua_pushstring(L, stringValue.c_str());
+    }
+
+    else if (theType == enumAttribute::VECTOR3) {
+	Vector3 vec = attr->get_vector();
+	lua_pushvector(L, new Vector3(vec));
     }
 
     else {
@@ -183,9 +201,7 @@ static int l_CustomAttribute_set(lua_State *L) {
     }
     else if (luaType == LUA_TSTRING) {
 	stringType sValue = lua_tostring(L, 2);
-	stringType* sPtr = new stringType(sValue);
-
-	attr->set(sPtr);
+	attr->set(sValue);
     }
     else if (luaType == LUA_TBOOLEAN) {
 	integerType bValue = lua_toboolean(L, 2);
@@ -283,7 +299,7 @@ static int l_CustomAttribute_getArray(lua_State *L) {
     
     enumAttribute attrType = attr->getType();
     if (attrType == enumAttribute::FLOAT_VECTOR) {
-	auto farray = *(attr->get_floatArray());
+	auto farray = attr->get_floatArray();
 	lua_createtable(L, farray.size(), 0);
 	for (int i = 0; i < farray.size(); i++) {
 	    lua_pushnumber(L, farray[i]);
@@ -291,7 +307,7 @@ static int l_CustomAttribute_getArray(lua_State *L) {
 	}
     }
     else if (attrType == enumAttribute::INTEGER_VECTOR) {
-    	auto iarray = *(attr->get_intArray());
+    	auto iarray = attr->get_intArray();
 	lua_createtable(L, iarray.size(), 0);
 	for (int i = 0; i < iarray.size(); i++) {
 	    lua_pushnumber(L, iarray[i]);
@@ -328,7 +344,7 @@ static int l_CustomAttribute_setArray(lua_State *L) {
 static int l_CustomAttribute_getString(lua_State *L) {
     auto attr = lua_tocustomAttribute(L, 1);
     
-    auto sValue = *(attr->get_string());
+    auto sValue = attr->get_string();
     lua_pushstring(L, sValue.c_str());
 
     return 1;

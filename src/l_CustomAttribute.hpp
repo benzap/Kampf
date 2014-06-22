@@ -14,6 +14,8 @@
 #include "CustomAttribute.hpp"
 #include "l_Utils.hpp"
 
+#include "KF_Vector3.hpp"
+
 //DEFINITIONS
 
 //MACROS

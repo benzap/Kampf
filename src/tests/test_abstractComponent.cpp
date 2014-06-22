@@ -50,28 +50,28 @@ int main(int argc, char *argv[]) {
   auto intArray = intArrayType();
   intArray.push_back(1);
   intArray.push_back(2);
-  component.setCustomAttribute("iArray", &intArray);
+  component.setCustomAttribute("iArray", intArray);
   
-  TEST_EQUAL(&intArray, component.getCustomAttribute_intArray("iArray"),
-	     "checking int array valid ptr");
+  //  TEST_EQUAL(intArray, component.getCustomAttribute_intArray("iArray"),
+  //	     "checking int array valid ptr");
 
   intArray[0] = 10;
   
-  auto intArray2 = *component.getCustomAttribute_intArray("iArray");
+  auto intArray2 = component.getCustomAttribute_intArray("iArray");
   TEST_EQUAL(intArray[0], intArray2[0], "checking int array elements");
   
   //checking float array
   auto floatArray = floatArrayType();
   floatArray.push_back(12.4);
   floatArray.push_back(12.5);
-  component.setCustomAttribute("fArray", &floatArray);
+  component.setCustomAttribute("fArray", floatArray);
 
-  TEST_EQUAL(&floatArray, component.getCustomAttribute_floatArray("fArray"),
-	     "checking float array valid ptr");
+  //  TEST_EQUAL(floatArray, component.getCustomAttribute_floatArray("fArray"),
+  //	     "checking float array valid ptr");
   
   floatArray[0] = 65;
 
-  auto floatArray2 = *component.getCustomAttribute_floatArray("fArray");
+  auto floatArray2 = component.getCustomAttribute_floatArray("fArray");
   TEST_EQUAL(floatArray[0], floatArray2[0],
 	     "checking float array elements");
 
@@ -95,7 +95,8 @@ int main(int argc, char *argv[]) {
   TEST_EQUAL(someMap[0], someMap2[0],
 	    "checking valid void dereference");
 
-  TEST_EQUAL(component.getCustomAttributeType("void"), enumAttribute::VOID,
+  TEST_EQUAL(component.getCustomAttributeType("void"),
+	     enumAttribute::VOID,
 	     "test attribute types");
 
   TEST_BOOL(!component.hasChildren(), "doesn't have children");

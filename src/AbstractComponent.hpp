@@ -29,6 +29,8 @@
 #include "KF_globals.hpp"
 #include "CustomAttribute.hpp"
 
+#include "KF_Vector3.hpp"
+
 //CLASSES
 class AbstractComponent;
 
@@ -137,6 +139,9 @@ public:
 
     //value types
 
+    boolType getCustomAttribute_bool(stringType keyname);
+    stringType setCustomAttribute(stringType keyname, boolType bValue);
+
     //! grabs the integer value for the given component key
     integerType getCustomAttribute_int(stringType keyname);
 
@@ -158,21 +163,21 @@ public:
     //ptr types
 
     //! grabs the integer array for the given component key
-    intArrayType* getCustomAttribute_intArray(stringType keyname);
+    const intArrayType& getCustomAttribute_intArray(stringType keyname);
 
     //! sets the integer array for the given component key
     stringType setCustomAttribute(stringType keyname,
-				  intArrayType* iaValue);
+				  intArrayType iaValue);
 
     //! grabs the float array for the given component key
-    floatArrayType* getCustomAttribute_floatArray(stringType keyname);
+    const floatArrayType& getCustomAttribute_floatArray(stringType keyname);
 
     //! sets the float array for the given component key
     stringType setCustomAttribute(stringType keyname,
-				  floatArrayType* faValue);
+				  floatArrayType faValue);
 
     //! gets the string value for the given component key
-    stringType& getCustomAttribute_string(stringType keyname);
+    const stringType& getCustomAttribute_string(stringType keyname);
 
     //! sets the string value for the given component key
     stringType setCustomAttribute(stringType keyname, stringType sValue);
@@ -182,6 +187,9 @@ public:
 
     //! sets the void pointer for the given component key
     stringType setCustomAttribute(stringType keyname, void* vValue);
+
+    const Vector3& getCustomAttribute_vector(stringType keyname);
+    stringType setCustomAttribute(stringType keyname, Vector3);
 
     //! returns true, if the given key exists within the component
     bool hasCustomAttribute(stringType keyname);
@@ -201,8 +209,7 @@ public:
     //! creates a new child, and pushes the child component into the
     //! child container. Each inherited type creates and pushes to the
     //! container the same type of component as itself.
-    virtual AbstractComponent* createChild(
-	stringType name);
+    virtual AbstractComponent* createChild(stringType name);
     
     //! adds the given component to the component
     void addChild(AbstractComponent* component);

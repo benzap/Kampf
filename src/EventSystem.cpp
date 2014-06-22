@@ -62,7 +62,7 @@ void EventSystem::createMessages() {
 
 	//The key code
 	stringType keyCodeString = SDL_GetScancodeName(event.key.keysym.scancode);
-	msg->customData["Key"] = CustomAttribute(new stringType(keyCodeString));
+	msg->customData["Key"] = CustomAttribute(stringType(keyCodeString));
 	
 	//whether it was key down or key up
 	msg->customData["bKeyDown"] = CustomAttribute(true);
@@ -75,7 +75,7 @@ void EventSystem::createMessages() {
 
 	//The key code
 	stringType keyCodeString = SDL_GetScancodeName(event.key.keysym.scancode);
-	msg->customData["Key"] = CustomAttribute(new stringType(keyCodeString));
+	msg->customData["Key"] = CustomAttribute(stringType(keyCodeString));
 	
 	//whether it was key down or key up
 	msg->customData["bKeyDown"] = CustomAttribute(false);

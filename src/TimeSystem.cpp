@@ -16,7 +16,7 @@ void TimeSystem::createMessages() {
     for (auto& timeTuple : timeManager->getNewInactives()) {
 	auto message = messenger->appendMessage();
 	message->setType(enumMessageType::TIMER);
-	auto timeGuidAttribute = CustomAttribute(new stringType(timeTuple.second));
+	auto timeGuidAttribute = CustomAttribute(stringType(timeTuple.second));
 	message->customData["timeGuid"] = timeGuidAttribute;
     }
     timeManager->cleanActiveContainer();
