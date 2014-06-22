@@ -205,7 +205,7 @@ static int l_PhysicsComponent_setDamping(lua_State *L) {
 
 static int l_PhysicsComponent_getDamping(lua_State *L) {
     auto component = lua_tophysicsComponent(L, 1);
-    floatType damping = component->getDamping();
+    const floatType damping = component->getDamping();
     lua_pushnumber(L, damping);
     return 1;
 }
@@ -219,7 +219,7 @@ static int l_PhysicsComponent_setMass(lua_State *L) {
 
 static int l_PhysicsComponent_getMass(lua_State *L) {
     auto component = lua_tophysicsComponent(L, 1);
-    floatType mass = component->getMass();
+    const floatType mass = component->getMass();
     lua_pushnumber(L, mass);
     return 1;
 }

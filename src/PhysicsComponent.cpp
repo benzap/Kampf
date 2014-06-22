@@ -20,7 +20,7 @@ void PhysicsComponent::setPhysicsType(enumPhysicsType value) {
     this->physicsType = value;
 }
 
-enumPhysicsType PhysicsComponent::getPhysicsType() {
+enumPhysicsType PhysicsComponent::getPhysicsType() const {
     return this->physicsType;
 }
 
@@ -68,7 +68,7 @@ void PhysicsComponent::setDamping(floatType damping) {
     this->damping = damping;
 }
 
-floatType PhysicsComponent::getDamping() {
+floatType PhysicsComponent::getDamping() const {
     return this->damping;
 }
 
@@ -76,7 +76,7 @@ void PhysicsComponent::setMass(floatType mass) {
     this->inverseMass =  1 / mass;
 }
 
-floatType PhysicsComponent::getMass() {
+floatType PhysicsComponent::getMass() const {
     return 1 / this->inverseMass;
 }
 
@@ -84,7 +84,7 @@ void PhysicsComponent::setInverseMass(floatType inverseMass) {
     this->inverseMass = inverseMass;
 }
 
-floatType PhysicsComponent::getInverseMass() {
+floatType PhysicsComponent::getInverseMass() const {
     return this->inverseMass;
 }
 
@@ -92,7 +92,7 @@ void PhysicsComponent::setElasticity(floatType value) {
     this->elasticity = value;
 }
 
-floatType PhysicsComponent::getElasticity() {
+floatType PhysicsComponent::getElasticity() const {
     return this->elasticity;
 }
 

@@ -13,6 +13,9 @@
 #include "GravityForceGenerator.hpp"
 #include "PhysicsRegistry.hpp"
 
+#include "ParticleContactResolver.hpp"
+#include "ParticleContact.hpp"
+
 //DEFINITIONS
 
 //MACROS

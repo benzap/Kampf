@@ -16,6 +16,8 @@
 #include "KF_math.hpp"
 #include "AbstractSystem.hpp"
 #include "EntityManager.hpp"
+#include "Messenger.hpp"
+#include "Message.hpp"
 #include "physics/KF_physics.hpp"
 
 //CLASSES

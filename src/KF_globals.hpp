@@ -10,6 +10,7 @@
 #include <string>
 #include <vector>
 #include <cassert>
+#include <cfloat>
 #include <map>
 
 //CLASSES
@@ -27,6 +28,7 @@
 #undef vector
 #endif
 
+#define KF_MAX_FLOAT FLT_MAX
 
 //MACROS
 

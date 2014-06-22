@@ -24,7 +24,7 @@ void GravityForceGenerator::update(floatType timeDelta_ms) {
 	}
 
 	//don't calculate if it doesn't have a finite mass
-	auto inverseMass = physicsComponent->getInverseMass();
+	const floatType inverseMass = physicsComponent->getInverseMass();
 	if (inverseMass <= 0) {
 	    continue;
 	}

@@ -14,7 +14,7 @@ Vector3 get_circle_circle_contactNormal(const COL_circle& first,
 					const COL_circle& second) {
     Vector3 s = second.center;
     s -= first.center;
-    return s.unit();
+    return -s.unit();
 }
 
 floatType get_circle_circle_separation(const COL_circle& first,

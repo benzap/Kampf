@@ -233,7 +233,7 @@ Vector3 CollisionSystem::getContactNormal(CollisionComponent* first,
     auto firstType = first->getCollisionType();
     auto secondType = second->getCollisionType();
 
-    Vector3 contactNormal = Vector3();
+    Vector3 contactNormal = Vector3(0,0,0);
     if (firstType == enumCollisionType::CIRCLE) {
 	//handling circle to circle collisions
 	if (secondType == enumCollisionType::CIRCLE) {

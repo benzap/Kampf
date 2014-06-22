@@ -31,12 +31,31 @@ void PhysicsSystem::process() {
     //the timeDelta should be expressed in seconds
     floatType timeDelta_sec = static_cast<floatType>(timeDelta_ms) / 1000.;
 
-    //need to add the forces to our physics components
-    //TODO:
     auto physicsRegistry = PhysicsRegistry::getInstance();
     for (auto gen : physicsRegistry->getForceGeneratorContainer()) {
 	gen->update((floatType) timeDelta_ms);
     }
+
+    //Hard Constraint Collision Contacts (Particle Contact)
+    //generate list of collided particles
+    std::list<Message> collidedParticle;
+    for (auto msg : Messenger::getInstance()->retrieveMessages()) {
+	if (msg.getType() == enumMessageType::COLLISION) {
+	    auto coll = static_cast<CollisionComponent*>(msg.firstComponent);
+	    auto firstPhys = coll->getPhysicsRelation();
+	    if (firstPhys->getPhysicsType() == enumPhysicsType::PARTICLE) {
+		collidedParticle.push_back(msg);
+	    }
+	}
+    }
+    
+    //pass into the ParticleContact Resolver
+    auto particleContactResolver = ParticleContactResolver(100);
+    for (auto msg : collidedParticle) {
+	particleContactResolver.addParticleContact(ParticleContact(msg));
+    }
+    //particleContactResolver.resolveContacts(timeDelta_ms);
+    //particleContactResolver.clearContacts();
     
     for (auto entity : entityManager->getEntities()) {
 	auto physicsComponentList = entity->getComponentsByFamily(enumComponentFamily::PHYSICS);

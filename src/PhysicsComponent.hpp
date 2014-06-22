@@ -64,7 +64,7 @@ public:
     virtual AbstractComponent* createChild(stringType name);
 
     void setPhysicsType(enumPhysicsType value);
-    enumPhysicsType getPhysicsType();
+    enumPhysicsType getPhysicsType() const;
 
     void setPosition(Vector3);
     const Vector3& getPosition();
@@ -82,16 +82,16 @@ public:
     const Quaternion& getOrientation();
 
     void setDamping(floatType);
-    floatType getDamping();
+    floatType getDamping() const;
 
     void setMass(floatType);
-    floatType getMass();
+    floatType getMass() const;
 
     void setInverseMass(floatType);
-    floatType getInverseMass();
+    floatType getInverseMass() const;
 
     void setElasticity(floatType);
-    floatType getElasticity();
+    floatType getElasticity() const;
 
     const Vector3& getForceAccumulator();
     void setForceAccumulator(Vector3);
