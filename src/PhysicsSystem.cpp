@@ -41,6 +41,12 @@ void PhysicsSystem::process() {
     std::list<Message> collidedParticle;
     for (auto msg : Messenger::getInstance()->retrieveMessages()) {
 	if (msg.getType() == enumMessageType::COLLISION) {
+	    //only grab messages that are bRegistered == true
+	    auto bRegistered = msg.customData["bRegistered"].get_bool();
+	    if (!bRegistered) {
+		continue;
+	    }
+	    
 	    auto coll = static_cast<CollisionComponent*>(msg.firstComponent);
 	    auto firstPhys = coll->getPhysicsRelation();
 	    if (firstPhys->getPhysicsType() == enumPhysicsType::PARTICLE) {
@@ -54,8 +60,8 @@ void PhysicsSystem::process() {
     for (auto msg : collidedParticle) {
 	particleContactResolver.addParticleContact(ParticleContact(msg));
     }
-    //particleContactResolver.resolveContacts(timeDelta_ms);
-    //particleContactResolver.clearContacts();
+    particleContactResolver.resolveContacts(timeDelta_ms);
+    particleContactResolver.clearContacts();
     
     for (auto entity : entityManager->getEntities()) {
 	auto physicsComponentList = entity->getComponentsByFamily(enumComponentFamily::PHYSICS);

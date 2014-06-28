@@ -17,17 +17,25 @@ ParticleContact::ParticleContact(Message msg) {
     floatType elasticityTwo = (secondPhysics != nullptr) ? secondPhysics->getElasticity() : 1.0;
 
     restitution = elasticityOne * elasticityTwo;
+
+    std::cout << "Collision Time: " << SDL_GetTicks() << std::endl;
+    std::cout << "Restitution: " << restitution << std::endl;
     
     //get the penetration from the msg custom data
     auto customDataIter = msg.customData.find("penetration");
     if (customDataIter != msg.customData.end()) {
 	penetration = customDataIter->second.get_float();
+	if (penetration < 0) {
+	    penetration = 0;
+	}
     }
     else {
 	std::cerr << "No provided penetration in collision message" << std::endl;
 	penetration = 0;
     }
 
+    std::cout << "Penetration: " << penetration << std::endl;
+    
     //get the contact normal from the msg custom data
     customDataIter = msg.customData.find("contactNormal");
     if (customDataIter != msg.customData.end()) {

@@ -82,8 +82,8 @@ local redCircle = sprite:new{
 		velocity = {0, 0, 0},
 		acceleration = {0, 0, 0},
 		damping = 0.95,
-		mass = 1,
-		elasticity = 1.0,
+		mass = 1000,
+		elasticity = 0.0,
 		type = "PARTICLE",
 	},
 	graphics = {
@@ -101,8 +101,8 @@ local blueCircle = sprite:new {
 	physics = {
 		position = {400, 200, 0},
 		damping = 0.95,
-		mass = 1,
-		elasticity = 1.0,
+		mass = 1000,
+		elasticity = 0.0,
 		type = "PARTICLE",
 	},
 	graphics = {
