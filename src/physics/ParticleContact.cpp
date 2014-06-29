@@ -17,9 +17,6 @@ ParticleContact::ParticleContact(Message msg) {
     floatType elasticityTwo = (secondPhysics != nullptr) ? secondPhysics->getElasticity() : 1.0;
 
     restitution = elasticityOne * elasticityTwo;
-
-    std::cout << "Collision Time: " << SDL_GetTicks() << std::endl;
-    std::cout << "Restitution: " << restitution << std::endl;
     
     //get the penetration from the msg custom data
     auto customDataIter = msg.customData.find("penetration");
@@ -33,8 +30,6 @@ ParticleContact::ParticleContact(Message msg) {
 	std::cerr << "No provided penetration in collision message" << std::endl;
 	penetration = 0;
     }
-
-    std::cout << "Penetration: " << penetration << std::endl;
     
     //get the contact normal from the msg custom data
     customDataIter = msg.customData.find("contactNormal");
@@ -58,9 +53,27 @@ void ParticleContact::resolveVelocity(timeType delta_ms) {
 	return;
     }
     
-    floatType newSeperationVelocity = -separationVelocity * restitution;
-    floatType deltaVelocity = newSeperationVelocity - separationVelocity;
+    floatType newSeparationVelocity = -separationVelocity * restitution;
 
+    //take into account a corner case, where we want our particle to sit
+    //flat on the surface
+    Vector3 accelerationCausedVelocity = firstPhysics->getAcceleration();
+    if (secondPhysics != nullptr) {
+	accelerationCausedVelocity -= secondPhysics->getAcceleration();
+    }
+
+    floatType accelCausedSepVelocity = accelerationCausedVelocity *
+	contactNormal * delta_ms;
+    
+    if (accelCausedSepVelocity < 0) {
+	newSeparationVelocity += restitution * accelCausedSepVelocity;
+
+	if (newSeparationVelocity < 0) newSeparationVelocity = 0;
+    }
+
+    //floatType deltaVelocity = newSeparationVelocity - separationVelocity;
+    floatType deltaVelocity = -separationVelocity * restitution;
+    
     //the impulse is affected by the mass of each particle
     floatType totalInverseMass = firstPhysics->getInverseMass();
     if (secondPhysics != nullptr) {
@@ -75,8 +88,7 @@ void ParticleContact::resolveVelocity(timeType delta_ms) {
     floatType impulse = deltaVelocity / totalInverseMass;
     const Vector3 impulsePerInverseMass = contactNormal * impulse;
 
-    
-    auto firstVelocity = firstPhysics->getVelocity();
+    auto firstVelocity = firstPhysics->getVelocity();    
     firstVelocity += impulsePerInverseMass;
     firstVelocity *= firstPhysics->getInverseMass();
     firstPhysics->setVelocity(firstVelocity);
@@ -115,6 +127,10 @@ void ParticleContact::resolveInterpenetration(timeType delta_ms) {
     else {
 	particleMovement[1] = Vector3(0,0,0);
     }
+
+    //subtract the penetration from our particle contact
+    penetration -= particleMovement[0].magnitude_real();
+    penetration -= particleMovement[1].magnitude_real();
     
     //penetration resolution
     auto firstPosition = firstPhysics->getPosition();

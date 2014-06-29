@@ -6,7 +6,7 @@ boolType check_circle_circle(const COL_circle& first,
     d -= second.center;
     floatType dist2 = d * d;
     floatType radiusSum = first.radius + second.radius;
-    boolType chk = (dist2 <= radiusSum * radiusSum);
+    boolType chk = (dist2 < radiusSum * radiusSum);
     return chk;
 }
 

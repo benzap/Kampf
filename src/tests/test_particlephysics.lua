@@ -80,10 +80,10 @@ local redCircle = sprite:new{
 	physics = {
 		position = {200, 200, 0},
 		velocity = {0, 0, 0},
-		acceleration = {0, 0, 0},
+		acceleration = {1000, 0, 0},
 		damping = 0.95,
-		mass = 1000,
-		elasticity = 0.0,
+		mass = 100,
+		elasticity = 0.5,
 		type = "PARTICLE",
 	},
 	graphics = {
@@ -101,8 +101,8 @@ local blueCircle = sprite:new {
 	physics = {
 		position = {400, 200, 0},
 		damping = 0.95,
-		mass = 1000,
-		elasticity = 0.0,
+		mass = 100000,
+		elasticity = 0.5,
 		type = "PARTICLE",
 	},
 	graphics = {
@@ -123,6 +123,10 @@ events.createKeyListener(
 				redCircle:setAcceleration(-accelerationValue, 0)
 			elseif key == "right" then
 				redCircle:setAcceleration(accelerationValue, 0)
+			elseif key == "up" then
+				redCircle:setAcceleration(0, -accelerationValue)
+			elseif key == "down" then
+				redCircle:setAcceleration(0, accelerationValue)
 			elseif key == "space" then
 				redCircle:setPosition(200, 200)
 			end
@@ -133,7 +137,7 @@ end)
 
 events.createCollisionListener(
 	"red.circle",
-	function(circle, _, args)
+	function(circle, second, args)
 		label_penetration:setText("Penetration: " .. args.penetration)
 		label_normal:setText("Contact Normal: " .. tostring(args.contactNormal))
 		label_time_collision:setText("Time Collision: " .. kf.getTick())

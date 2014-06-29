@@ -38,12 +38,7 @@ void CollisionSystem::createMessages() {
 		    //already known to be colliding
 		    boolType bActiveCollision = this->hasCollision(firstColl, secondColl);
 
-		    //If we collided, but it was already known
-		    if (chk && bActiveCollision) {
-			//do nothing...
-		    }
-		    //If we collided, but it wasn't known
-		    else if (chk && !bActiveCollision) {
+		    if (chk) {
 			//create a message with a collision designation
 			auto messenger = Messenger::getInstance();
 			auto msg = messenger->appendMessage();

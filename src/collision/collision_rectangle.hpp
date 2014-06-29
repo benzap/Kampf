@@ -31,7 +31,10 @@ typedef struct COL_rect_struct {
 
 //FUNCTIONS
 boolType check_rect_rect(const COL_rect&, const COL_rect&);
-Vector3 get_rect_rect_pt(const COL_rect&, const COL_rect&);
+Vector3 get_rect_rect_contactNormal(const COL_rect&, const COL_rect&);
+floatType get_rect_rect_separation(const COL_rect&, const COL_rect&);
+const COL_rect get_penetration_rectangle(const COL_rect&, const COL_rect&);
+
 
 
 //BEGIN

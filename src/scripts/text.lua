@@ -41,6 +41,9 @@ function text:new(args)
 
 	obj.textDrawable:appendText(obj.textString, obj.font)
 
+	local collision = obj.collision
+	collision:setType("NONE")
+	
 	return obj
 end
 
