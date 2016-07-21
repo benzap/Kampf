@@ -3,7 +3,7 @@
   game design pattern. Game scripting is done through the lua
   programming language.
 
-  Currently, the kampf engine is in alpha and in active development
+  Currently, the kampf engine is in alpha and has been *discontinued*,
 
 * Compatible Operating Systems
   - Windows (mingw gcc 4.7+)
